@@ -1,0 +1,1 @@
+<div class="text-center margin-top-10">© Copyright 2017. All rights reserved,  Tekdi Web Solutions.</div>
