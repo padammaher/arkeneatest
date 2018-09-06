@@ -1,1 +1,4 @@
-<div class="text-center margin-top-10">© Copyright 2017. All rights reserved,  Tekdi Web Solutions.</div>
+          <div class="pull-right">
+            Copyright 2018 - ePhytionSee  |  All Rights Reserved
+          </div>
+          <div class="clearfix"></div>

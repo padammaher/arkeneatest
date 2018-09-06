@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-        <meta charset="utf-8" />
-        <title>Mindworx</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <!--<link rel="icon" href="images/favicon.ico" type="image/ico" />-->
+	 
+
+    <title>ePhytionSee - Home </title>
       
-		<link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.png') ?>" type="image/x-icon" />    <!-- Favicon -->
+		<link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
 
         <!-- CORE CSS Bootstrap FRAMEWORK - START -->
+        <link href="<?php echo base_url('assets/css/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"/>
+         <link href="<?php echo base_url('assets/css/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="<?php echo base_url('assets/css/nprogress/nprogress.css'); ?>" rel="stylesheet" type="text/css"/>
+    <!-- iCheck -->
+    <link href="<?php echo base_url('assets/css/iCheck/skins/flat/green.css'); ?>" rel="stylesheet" type="text/css"/>
+	
+    <!-- bootstrap-progressbar -->
+    <link href="<?php echo base_url('assets/css/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'); ?>" rel="stylesheet" type="text/css"/>
+    <!-- JQVMap -->
+    <link href="<?php echo base_url('assets/css/jqvmap/dist/jqvmap.min.css'); ?>" rel="stylesheet" type="text/css"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="<?php echo base_url('assets/css/bootstrap-daterangepicker/daterangepicker.css'); ?>" rel="stylesheet" type="text/css"/>
 
-        <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url('assets/bootstrap/css/bootstrap-theme.min.css'); ?>" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url('assets/fonts/font-awesome/css/font-awesome.css'); ?>" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url('assets/css/custom.css'); ?>" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo base_url('assets/css/sb-admin.css'); ?>" rel="stylesheet" type="text/css"/>
-
-        <!-- DataTables -->
-        <link href="<?php echo base_url() ?>assets/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url() ?>assets/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url() ?>assets/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="<?php echo base_url() ?>assets/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" media="screen"/>
-
-
-        <!-- CORE JS Jquery FRAMEWORK - START -->        
-        <script src="<?php echo base_url('assets/jquery/jquery-3.0.0.js'); ?>" type="text/javascript"></script> 
-        <script src="<?php echo base_url('assets/jquery/jquery-ui-1.12.js'); ?>" type="text/javascript"></script>
-        <!--<script src="<?php // echo base_url('assets/js/jquery-ui.js');                  ?>" type="text/javascript"></script>--> 
-        <script src="<?php echo base_url('assets/jquery/jquery.form.js'); ?>"></script>
-
-        <link href="<?php echo base_url('assets/datepicker/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" media="screen"/>
-
-
-
-        <!-- CORE JS Bootstrap FRAMEWORK - START -->        
-        <script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js'); ?>" type="text/javascript"></script> 
+    <!-- Custom Theme Style -->
+    <link href="<?php echo base_url('assets/css/build/css/custom.css'); ?>" rel="stylesheet" type="text/css"/>
+         
+      
 
 
     </head>
@@ -44,48 +39,76 @@
 
     <!-- BEGIN BODY -->
     <!-- <body class="sidebar-collapse"> -->
-    <body>
+    <body class="nav-sm">
 
-        <div id="wrapper">
-            <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+           <div class="container body">
+                <div class="main_container">
                 {header}
                 {sidebar}
-
-            </nav>
-            <div id="page-wrapper">
-
-                <div class="container-fluid">
+             
+            <div class="right_col" role="main">
+                <!--<div class="container-fluid">-->
                     {content}
-                </div>
+                <!--</div>-->
             </div>
-            <div class="col-md-12 footer"> 
-                {footer}
-            </div>
-        </div>
-
-        <script src="<?php echo base_url() ?>assets/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url() ?>assets/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url() ?>assets/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-        <script src="<?php echo base_url() ?>assets/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+             <footer>                
+                {footer}            
+             </footer>             
+                
+            </div>  
+           </div>       
+         <script src="<?php echo base_url('assets/css/jquery/dist/jquery.min.js'); ?>" type="text/javascript"></script>
+         
+         
+       <script src="<?php echo base_url('assets/css/bootstrap/dist/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src="<?php echo base_url('assets/css/fastclick/lib/fastclick.js'); ?>" type="text/javascript"></script>
+    <!-- NProgress -->
+    <script src="<?php echo base_url('assets/css/nprogress/nprogress.js'); ?>" type="text/javascript"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="<?php echo base_url('assets/css/bootstrap-progressbar/bootstrap-progressbar.min.js'); ?>" type="text/javascript"></script>
+    <!-- iCheck -->
+    <script src="<?php echo base_url('assets/css/iCheck/icheck.min.js'); ?>" type="text/javascript"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="<?php echo base_url('assets/css/moment/min/moment.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?php echo base_url('assets/css/bootstrap-daterangepicker/daterangepicker.js'); ?>" type="text/javascript"></script>
+    <!-- bootstrap-wysiwyg -->
+    <script src="<?php echo base_url('assets/css/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?php echo base_url('assets/css/jquery.hotkeys/jquery.hotkeys.js'); ?>" type="text/javascript"></script>
+    <script src="<?php echo base_url('assets/css/google-code-prettify/src/prettify.js'); ?>" type="text/javascript"></script>
+    <!-- jQuery Tags Input -->
+    <script src="<?php echo base_url('assets/css/jquery.tagsinput/src/jquery.tagsinput.js'); ?>" type="text/javascript"></script>
+    <!-- Switchery -->
+    <script src="<?php echo base_url('assets/css/switchery/dist/switchery.min.js'); ?>" type="text/javascript"></script>
+    <!-- Select2 -->
+    <script src="<?php echo base_url('assets/css/select2/dist/js/select2.full.min.js'); ?>" type="text/javascript"></script>
+    <!-- Parsley -->
+    <script src="<?php echo base_url('assets/css/parsleyjs/dist/parsley.min.js'); ?>" type="text/javascript"></script>
+    <!-- Autosize -->
+    <script src="<?php echo base_url('assets/css/autosize/dist/autosize.min.js'); ?>" type="text/javascript"></script>
+    <!-- jQuery autocomplete -->
+    <script src="<?php echo base_url('assets/css/devbridge-autocomplete/dist/jquery.autocomplete.min.js'); ?>" type="text/javascript"></script>
+    <!-- starrr -->
+    <script src="<?php echo base_url('assets/css/starrr/dist/starrr.js'); ?>" type="text/javascript"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="<?php echo base_url('assets/css/build/js/custom.js'); ?>" type="text/javascript"></script>
+	    <!-- validator -->
+    <script src="<?php echo base_url('assets/css/validator/validator.js'); ?>" type="text/javascript"></script>
+	    <!-- FastClick -->
+    <script src="<?php echo base_url('assets/css/fastclick/lib/fastclick.js'); ?>" type="text/javascript"></script>
+    <!-- NProgress -->
+    <script src="<?php echo base_url('assets/css/nprogress/nprogress.js'); ?>" type="text/javascript"></script>
 
 
         <!-- CORE JS Jquery Validation - START -->
-        <script src="<?php echo base_url('assets/validation/jquery.validate.min.js'); ?>" type="text/javascript"></script> 
-        <script type="text/javascript" src="<?php echo base_url('assets/validation/additional-methods.min.js'); ?>"></script>
-        <script src="<?php echo base_url('assets/validation/jquery.custom_validate.js'); ?>"></script>
-
-        <!--time picker --> 
-        <script src="<?php // echo base_url('assets/timepicker/js/timepicker.min.js');  ?>" type="text/javascript"></script>
-        <script src="<?php echo base_url('assets/datepicker/js/datepicker.js') ?>" type="text/javascript"></script>
-        <!--time picker --> 
+      
         <script>
-            $(document).ready(function () {
-                $('.datepicker').datepicker({
-                    format: 'mm/dd/yyyy',
-                    //startDate: '-3d'
-                });
-            });
+//            $(document).ready(function () {
+//                $('.datepicker').datepicker({
+//                    format: 'mm/dd/yyyy',
+//                    //startDate: '-3d'
+//                });
+//            });
         </script>
     </body>
 </html>
