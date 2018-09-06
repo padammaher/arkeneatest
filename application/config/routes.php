@@ -53,6 +53,7 @@ $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+
 //Assets Management--------------------
 $route['Assets_list'] = 'AssetsManagement/Asset_List';
 $route['Assets_add'] = 'AssetsManagement/Assets_add';
@@ -68,4 +69,9 @@ $route['User_asset_add'] = 'AssetsManagement/User_asset_add';
 $route['User_asset_edit'] = 'AssetsManagement/User_asset_edit';
 
 
+
+
+
+//-- Customer 
+$route['AddCustomer'] = 'Customer/AddCustomer';
 
