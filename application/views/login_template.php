@@ -8,19 +8,16 @@
         <meta content="" name="description" />
         <meta content="" name="author" />
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.png') ?>" type="image/x-icon" />    <!-- Favicon -->
-
-        <!-- CORE CSS Bootstrap FRAMEWORK - START -->
-        <link href="<?php echo base_url()?>assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo base_url()?>assets/css/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
-        <link href="<?php echo base_url()?>assets/css/font-awesome.min.css" rel="stylesheet">
+        <link href="<?php echo base_url()?>assets/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <!-- NProgress -->
-        <link href="<?php echo base_url()?>assets/css/nprogress.css" rel="stylesheet">
+        <link href="<?php echo base_url()?>assets/css/nprogress/nprogress.css" rel="stylesheet">
         <!-- Animate.css -->
-        <link href="<?php echo base_url()?>assets/css/animate.min.css" rel="stylesheet">
+        <link href="<?php echo base_url()?>assets/css/animate.css/animate.min.css" rel="stylesheet">
 
         <!-- Custom Theme Style -->
-        <link href="<?php echo base_url()?>assets/css/custom.css" rel="stylesheet">
-
+        <link href="<?php echo base_url()?>assets/css/build/css/custom.css" rel="stylesheet">
     </head>
     <!-- END HEAD -->
 
