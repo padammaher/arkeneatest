@@ -36,7 +36,7 @@
                 <ul class="nav side-menu">                  
                   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="customer-info.html">Customer Provisioning</a></li>
+                      <li><a href="<?php echo base_url();?>Customer/AddCustomer">Customer Provisioning</a></li>
             
             <li><a href="assets-list.html">Asset Management</a></li>
             
