@@ -38,7 +38,10 @@
                     <ul class="nav child_menu">
                       <li><a href="customer-info.html">Customer Provisioning</a></li>
             
-            <li><a href="assets-list.html">Asset Management</a></li>
+            <li> <a class="" href="<?php echo base_url(); ?>Assets_list">Asset Management</a>
+                <!--<a href="assets-list.html">Asset Management</a>-->
+            </li>
+            
             
             <li><a href="device-inventory-list.html">Device Inventory</a></li>
             <li><a href="sensor-inventory-list.html">Sensor Inventory</a></li>
