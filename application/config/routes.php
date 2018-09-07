@@ -54,5 +54,24 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
+//Assets Management--------------------
+$route['Assets_list'] = 'AssetsManagement/Asset_List';
+$route['Assets_add'] = 'AssetsManagement/Assets_add';
+$route['Assets_location_list'] = 'AssetsManagement/Assets_location_list';
+
+$route['Assets_edit'] = 'AssetsManagement/Asset_edit';
+$route['manage_assets_location'] = 'AssetsManagement/manage_assets_location';
+$route['user_asset_edit'] = 'AssetsManagement/user_asset_edit';
+
+$route['Assets_location_add'] = 'AssetsManagement/Assets_location_add';
+$route['User_assets_list'] = 'AssetsManagement/User_assets_list';
+$route['User_asset_add'] = 'AssetsManagement/User_asset_add';
+$route['User_asset_edit'] = 'AssetsManagement/User_asset_edit';
+
+
+
+
+
 //-- Customer 
 $route['AddCustomer'] = 'Customer/AddCustomer';
+
