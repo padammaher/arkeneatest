@@ -1,0 +1,90 @@
+<?php //print_r($user_detail[0]->customer_name); exit(); ?> 
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h4>Customer Provisioning
+        </h4>
+      </div>
+      <div class="title_right">
+        <div class="pull-right">
+          <a href="<?php echo base_url()?>Customer/edit_customer_detail" class="btn btn-sm btn-primary">Edit Customer Information
+          </a>
+          <!--- <a href="assets-location-list.html" class="btn btn-sm btn-primary">Asset Location</a>
+<a href="user-assets-list.html" class="btn btn-sm btn-primary">Asset User</a>--->
+        </div>
+      </div>
+      <!--  <div class="title_right">
+<div class="pull-right">
+<a href="customer_info_add.html" class="btn btn-sm btn-primary">Add New</a>
+</div>
+</div> -->
+    </div>
+    <div class="clearfix">
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_content">
+            <div class="col-md-3 col-sm-3 col-xs-12">
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <table class="table table-bordered">                      
+                <tbody>
+                  <tr>
+                    <td width="15%" class="lft-td">Customer Name
+                    </td>
+                    <td><?php echo $user_detail[0]->customer_name; ?> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="15%" class="lft-td">Address
+                    </td>
+                    <td><?php echo $user_detail[0]->customer_address; ?> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="lft-td">Contact Person
+                    </td>
+                    <td><?php echo $user_detail[0]->contact_per_name; ?> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="lft-td">Telephone
+                    </td>
+                    <td><?php echo $user_detail[0]->Telephone; ?> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="lft-td">Mobile No.
+                    </td>
+                    <td><?php echo $user_detail[0]->Mobile; ?> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="lft-td">Email ID
+                    </td>
+                    <td><?php echo $user_detail[0]->Email; ?> 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center mtop20 col-md-12 col-sm-12">
+                <div class="col-md-6 col-sm-6">
+                  <a href="<?php echo base_url()?>Customer/customer_business_location_list" class="btn btn-sm btn-primary btn-block">Manage Business Location
+                  </a>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <a href="<?php echo base_url()?>Customer/client_user_list" class="btn btn-sm btn-success btn-block">Manage Users
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

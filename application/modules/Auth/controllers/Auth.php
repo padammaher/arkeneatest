@@ -82,7 +82,7 @@ class Auth extends MY_Controller {
             );
             $data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-
+            
 
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
@@ -96,7 +96,14 @@ class Auth extends MY_Controller {
             $this->template->render();
         }
     }
-
+    public function dashboard(){
+        $this->template->set_master_template('template.php');
+        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+        $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
+        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+        $this->template->render();
+    }
     public function restricted() {
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);

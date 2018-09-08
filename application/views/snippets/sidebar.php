@@ -26,7 +26,7 @@
               <div class="menu_section">
                 <h3>Home</h3>
                 <ul class="nav side-menu">
-                  <li><a href="index.html"><i class="fa fa-home"></i> Dashboard </a></li>
+                  <li><a href="<?php echo base_url();?>Auth/dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
                 </ul>
               </div>
 
@@ -36,7 +36,7 @@
                 <ul class="nav side-menu">                  
                   <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url();?>Customer/AddCustomer">Customer Provisioning</a></li>
+                      <li><a href="<?php echo base_url();?>Customer/customer_info">Customer Provisioning</a></li>
             
             <li> <a class="" href="<?php echo base_url(); ?>Assets_list">Asset Management</a>
                 <!--<a href="assets-list.html">Asset Management</a>-->
