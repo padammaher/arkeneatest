@@ -43,13 +43,14 @@
             </li>
             
             
-            <li><a href="device-inventory-list.html">Device Inventory</a></li>
-            <li><a href="sensor-inventory-list.html">Sensor Inventory</a></li>
+            <li><a href="<?php echo base_url('Device_inventory_list');?>">Device Inventory</a></li>
+            <li><a href="<?php echo base_url('Sensor_inventory_list');?>">Sensor Inventory</a></li>
             
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Masters <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                        
                       <li><a href="assets-category-list.html">Asset Category</a></li>
                       <li><a href="asset-type-list.html">Asset Type</a></li>
                       <li><a href="sensor-type-list.html">Sensor Type</a></li>

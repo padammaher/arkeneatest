@@ -2,7 +2,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                    <div class="x_title">
-						<h4>Add Asset Location</h4>						
+						<h4>Edit Asset Location</h4>						
 						<div class="clearfix"></div>
 					</div>
                   <div class="x_content">
@@ -70,7 +70,8 @@
               <div class="ln_solid"></div>
               <div class="item form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button type="submit" name="asset_loc_add_button" class="btn btn-primary">Save</button>
+                  
+                <button type="submit" name="asset_loc_edit_button" class="btn btn-primary">Save</button>
                 <a href="<?php echo base_url('Assets_location_list');?>" type="button" class="btn btn-default">Cancel</a>
                 
                 

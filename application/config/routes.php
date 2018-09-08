@@ -75,3 +75,23 @@ $route['User_asset_edit'] = 'AssetsManagement/User_asset_edit';
 //-- Customer 
 $route['AddCustomer'] = 'Customer/AddCustomer';
 
+
+//-- Inventory
+//------ * Device Inventory * --------
+//Edit_deviceinventory,--Device_inventory_list,--Device_inventory_add
+$route['Device_inventory_list'] = 'Inventory/Device_inventory_list';        
+$route['Device_inventory_add'] = 'Inventory/Add_deviceinventory';        
+$route['Device_inventory_edit'] = 'Inventory/Edit_deviceinventory';  
+
+//------ * device asset list * --------
+//Device_assets_add(),Device_assets_edit
+$route['Device_assets_list'] = 'Inventory/Device_assets_list';  
+$route['Device_assets_add'] = 'Inventory/Device_assets_add';  
+$route['Device_assets_edit'] = 'Inventory/Device_assets_edit';  
+//------ * Sensor Inventory * --------
+//Add_device_sensors,Edit_device_sensors,Sensor_inventory_list
+        
+$route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';        
+$route['Add_device_sensors'] = 'Inventory/Add_device_sensors';        
+$route['Edit_device_sensors'] = 'Inventory/Edit_device_sensors';          
+

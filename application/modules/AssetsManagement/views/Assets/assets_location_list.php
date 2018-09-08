@@ -42,26 +42,33 @@
 								</ul>
                         </div>
                         </div>
+<?php foreach ($asset_location_list as $asset_loc_list) { ?>
 						
 						<div class="row clearfix">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<ul class="flex-container nowrap">
 								  <li class="flex-item">1</li>
 								  <li class="flex-item">DG001</li>
-                  <li class="flex-item">Sandton</li>
+                  <li class="flex-item"><?php echo $asset_loc_list['location'];?></li>
                  
-								  <li class="flex-item">-26.107567</li>
-								  <li class="flex-item">28.056702</li>
-                  <li class="flex-item">Joy</li>
-									<li class="flex-item">27 11 326 5900</li>
-									<li class="flex-item">joy@bdv.co.za</li>
-									<li class="flex-item">										
-										<a href="asset-location-edit.html" title="Edit">  
+                    <li class="flex-item"><?php echo $asset_loc_list['address'];?></li>
+                    <li class="flex-item"><?php echo $asset_loc_list['latitude'];?></li>
+                    <li class="flex-item"><?php echo $asset_loc_list['longitude'];?></li>
+                    <li class="flex-item"><?php echo $asset_loc_list['contact_no'];?></li>
+                    <li class="flex-item"><?php echo $asset_loc_list['contact_email'];?></li>
+                    <li class="flex-item">				
+<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_list">                        
+    <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="edit <?php echo $asset_loc_list['id'];?>">
+    <button type="submit" name="edit_asset_location_button">         
                       <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                    </a>
-                    <a href="#" title="Delete">
-                      <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                    </a> 
+    </button>                  
+</form>  
+<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_list">                        
+    <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="delete <?php echo $asset_loc_list['id'];?>">
+    <button type="submit" name="delete_asset_location_button"> 
+                       <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+    </button>                  
+</form>             
                      
                     <a href="user-asset-edit.html" title="Manage Users">
                       
@@ -71,7 +78,7 @@
 								</ul>
 							</div>
             </div>
-
+<?php } ?>
                         <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
