@@ -62,7 +62,7 @@ class AssetMaster extends CI_Controller {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $this->form_validation->set_rules('assetcat_name', 'assetcat_name', 'required|text');
+            $this->form_validation->set_rules('assetcat_name', 'assetcat_name', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('assetcat_name'),
