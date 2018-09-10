@@ -26,11 +26,7 @@
             <div class="menu_section">
                 <h3>Home</h3>
                 <ul class="nav side-menu">
-
-                    <!--<li><a href="index.html"><i class="fa fa-home"></i> Dashboard </a></li>-->
-
                     <li><a href="<?php echo base_url(); ?>Auth/dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
-
                 </ul>
             </div>
 
@@ -38,16 +34,12 @@
             <div class="menu_section">
                 <h3>Main Pages</h3>
                 <ul class="nav side-menu">                  
-
                     <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="customer-info.html">Customer Provisioning</a></li>
-
-                            <li><a href="assets-list.html">Asset Management</a></li>
-
-                            <li><a href="device-inventory-list.html">Device Inventory</a></li>
-                            <li><a href="sensor-inventory-list.html">Sensor Inventory</a></li>
-
+                            <li><a href="<?php echo base_url(); ?>Customer/customer_info">Customer Provisioning</a></li>
+                            <li> <a class="" href="<?php echo base_url(); ?>Assets_list">Asset Management</a></li>
+                            <li><a href="<?php echo base_url('Device_inventory_list'); ?>">Device Inventory</a></li>
+                            <li><a href="<?php echo base_url('Sensor_inventory_list'); ?>">Sensor Inventory</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-desktop"></i> Masters <span class="fa fa-chevron-down"></span></a>
@@ -63,36 +55,6 @@
             </div>
 
             <div class="menu_section">
-
-                <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url(); ?>Customer/customer_info">Customer Provisioning</a></li>
-
-                        <li> <a class="" href="<?php echo base_url(); ?>Assets_list">Asset Management</a>
-                            <!--<a href="assets-list.html">Asset Management</a>-->
-                        </li>
-
-
-                        <li><a href="<?php echo base_url('Device_inventory_list'); ?>">Device Inventory</a></li>
-                        <li><a href="<?php echo base_url('Sensor_inventory_list'); ?>">Sensor Inventory</a></li>
-
-                    </ul>
-                </li>
-                <li><a><i class="fa fa-desktop"></i> Masters <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-
-                        <li><a href="assets-category-list.html">Asset Category</a></li>
-                        <li><a href="asset-type-list.html">Asset Type</a></li>
-                        <li><a href="sensor-type-list.html">Sensor Type</a></li>
-                        <li><a href="parameter-list.html">Parameter</a></li>
-                        <li><a href="uom-type-list.html">UOM Type-UOM</a></li>
-                    </ul>
-                </li>
-                </ul>
-            </div>
-
-            <div class="menu_section">
-
                 <h3>General</h3>
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-bell"></i> Notification </a></li>
