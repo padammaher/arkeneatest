@@ -17,13 +17,13 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @post['uom_type']; ?>" pattern="[a-zA-Z]*">
+                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z]*">
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="UOM" required="required" name="uom_name" value="<?php echo @post['uom_name']; ?>">
+                                    <input type="text" class="form-control" placeholder="UOM" required="required" name="uom_name" value="<?php echo @$post['uom_name']; ?>">
                                     <?php // if (isset($uom_list) && count($uom_list) > 0) { ?>
 <!--                                        <select class="form-control" name="uom_id">
                                            <option value="">Select UOM</option>

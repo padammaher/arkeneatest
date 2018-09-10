@@ -47,6 +47,72 @@
                 {sidebar}
 
                 <div class="right_col" role="main">
+                    <div class="alert alert-success fade in" id="success_msg" style="display: none;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Success!</strong> <?php
+                        if ($this->session->flashdata('success_msg')) {
+                            echo $this->session->flashdata('success_msg');
+                        }
+                        ?>
+                    </div>
+                    <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Error !</strong> <?php
+                        if ($this->session->flashdata('error_msg')) {
+                            echo $this->session->flashdata('error_msg');
+                        }
+                        ?>
+                    </div>
+                    <div class="alert alert-warning" id="warning_msg" style="display:none;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Warning!</strong> There was a problem with your network connection.
+                    </div>  
+                    <div class="alert alert-info fade in" id="note_msg" style="display: none;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Note!</strong> <?php
+                        if ($this->session->flashdata('note_msg')) {
+                            echo $this->session->flashdata('note_msg');
+                        }
+                        ?>
+                    </div>
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#error_msg").css("display", "none");
+
+<?php if ($this->session->flashdata('error_msg')) { ?>
+                                $("#error_msg").css("display", "block");
+                                setTimeout(function () {
+                                    $('#error_msg').fadeOut('fast');
+
+                                }, 3000);
+<?php } ?>
+
+                            $("#success_msg").css("display", "none");
+
+<?php if ($this->session->flashdata('success_msg')) { ?>
+                                $("#success_msg").css("display", "block");
+                                setTimeout(function () {
+                                    $('#success_msg').fadeOut('fast');
+
+                                }, 3000);
+<?php } ?>
+
+                            $("#note_msg").css("display", "none");
+
+<?php if ($this->session->flashdata('note_msg')) { ?>
+                                $("#note_msg").css("display", "block");
+                                setTimeout(function () {
+                                    $('#note_msg').fadeOut('fast');
+
+                                }, 3000);
+<?php } ?>
+
+
+
+
+                        });
+                    </script>
                     <!--<div class="container-fluid">-->
                     {content}
                     <!--</div>-->
