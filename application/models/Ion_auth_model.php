@@ -957,6 +957,14 @@ class Ion_auth_model extends CI_Model {
         return FALSE;
     }
 
+    public function update_login_flag($user_id){
+        $data['login_flag']=1; 
+      
+        $this->db->where('id',$user_id); 
+        $this->db->update('users', $data);  
+       // print_r($user_id); exit();
+        return true; 
+    }
     /**
      * recheck_session verifies if the session should be rechecked according to
      * the configuration item recheck_timer. If it does, then it will check if the user is still active

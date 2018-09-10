@@ -34,7 +34,7 @@
                   <tr>
                     <td width="15%" class="lft-td">Customer Name
                     </td>
-                    <td><?php echo $user_detail[0]->customer_name; ?> 
+                    <td><?php echo $user_detail[0]->first_name.' '.$user_detail[0]->last_name; ?> 
                     </td>
                   </tr>
                   <tr>
@@ -46,25 +46,25 @@
                   <tr>
                     <td class="lft-td">Contact Person
                     </td>
-                    <td><?php echo $user_detail[0]->contact_per_name; ?> 
+                    <td><?php echo $user_detail[0]->contact_person; ?> 
                     </td>
                   </tr>
                   <tr>
                     <td class="lft-td">Telephone
                     </td>
-                    <td><?php echo $user_detail[0]->Telephone; ?> 
+                    <td><?php echo $user_detail[0]->phone; ?> 
                     </td>
                   </tr>
                   <tr>
                     <td class="lft-td">Mobile No.
                     </td>
-                    <td><?php echo $user_detail[0]->Mobile; ?> 
+                    <td><?php echo $user_detail[0]->mobile; ?> 
                     </td>
                   </tr>
                   <tr>
                     <td class="lft-td">Email ID
                     </td>
-                    <td><?php echo $user_detail[0]->Email; ?> 
+                    <td><?php echo $user_detail[0]->email; ?> 
                     </td>
                   </tr>
                 </tbody>

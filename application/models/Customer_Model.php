@@ -22,44 +22,44 @@ class Customer_Model extends CI_Model {
         return true; 
     }
     public function get_customer_detail($user_id){
-        $this->db->select('id,customer_name,customer_address,contact_per_name,Telephone,Mobile,Email,user_id');
-        $this->db->from('user_details'); 
-        $this->db->where('user_id',$user_id); 
+        //$this->db->select('id,customer_name,customer_address,contact_per_name,Telephone,Mobile,Email,user_id');
+        $this->db->from('users'); 
+        $this->db->where('id',$user_id); 
         $query= $this->db->get();
         $resultdata= $query->result(); 
        return $resultdata; 
     }
     public function update_customer_detail($data,$user_id){
-        $this->db->where('user_id',$user_id); 
-        $this->db->update('user_details', $data);  
+        $this->db->where('id',$user_id); 
+        $this->db->update('users', $data);  
         return true; 
     }
 
     public function add_client_detail($data){
-        $this->db->insert('client_user',$data); 
+        $this->db->insert('branch_user',$data); 
         return true; 
 
     }
     public function get_client_list(){
-        $client_data=$this->db->from('client_user')->get()->result();
+        $client_data=$this->db->from('branch_user')->get()->result();
         return $client_data; 
     }
     
 
     public function get_client_detail($user_id){
-        $client_data=$this->db->from('client_user')->where('id',$user_id)->get()->result();
+        $client_data=$this->db->from('branch_user')->where('id',$user_id)->get()->result();
         return $client_data; 
     }
 
     public function update_client_detail($data,$id){
         //print_r($id); exit();
         $this->db->where('id',$id); 
-        $this->db->update('client_user', $data);  
+        $this->db->update('branch_user', $data);  
         return true; 
     }
     public function delete_client_detail($client_id){
         $this->db->where('id', $client_id);
-        $this->db->delete('client_user'); 
+        $this->db->delete('branch_user'); 
         return true;
 
     }
