@@ -47,7 +47,8 @@
                         </div>
                     </div>
                     <div class="row clearfix">
-<?php
+<?php // echo "<pre>";
+//print_r($Device_inventory_list_data);
 $srno = 1;
 foreach ($Device_inventory_list_data as $InventoryListRowData) {
     ?>
@@ -58,7 +59,7 @@ foreach ($Device_inventory_list_data as $InventoryListRowData) {
 
                                                 <li class="flex-item"><?php echo $srno++; ?></li>
                                                 <li class="flex-item"><?php echo $InventoryListRowData['number']; ?></li>
-                                                <li class="flex-item"><?php echo $InventoryListRowData['serial_no']; ?></li>
+                                                <li class="flex-item"><?php echo $InventoryListRowData['code']; ?></li>
 
                                                 <li class="flex-item"><?php echo $InventoryListRowData['serial_no']; ?></li>
 
@@ -81,14 +82,23 @@ foreach ($Device_inventory_list_data as $InventoryListRowData) {
 <input type="hidden" name="dev_inv_id" id="dev_inv_id" value="delete <?php echo $InventoryListRowData['id']; ?>" >    
      <button type="submit" class="btn btn-primary" name="delete_inventory_button" id="edit_inventory_button" >
          <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-     </button>                                                    
-
-                                                    <a href="device-sensors-edit.html" >
-                                                        <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                                                </a> 
-                                                <a href="device-assets-edit.html" title="Manage Users">
-                                                    <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="" data-orignal-title="Manage Device Assets"></i> 
-                                            </a>
+     </button> </form>
+<?php if(!empty($InventoryListRowData['dev_sen_id'])) { ?>    
+<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Edit_device_sensors">   
+     <input type="hidden" name="sensor_form_action" id="sensor_form_action" value="edit <?php echo $InventoryListRowData['dev_sen_id']; ?>" >    
+     <button type="submit" class="btn btn-primary" name="edit_dev_sen_button" id="edit_inventory_button" >
+     <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+     </button> </form>                                                    
+<?php } ?> 
+                                                    
+<?php if(!empty($InventoryListRowData['asset_tbl_id'])) { ?>    
+<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Device_assets_edit">   
+<input type="hidden" name="asset_form_action" id="sensor_form_action" value="edit <?php echo $InventoryListRowData['asset_tbl_id']; ?>" >    
+<button type="submit" class="btn btn-primary" name="edit_dev_asset_button" id="edit_inventory_button" >
+<i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="" data-orignal-title="Manage Device Assets"></i> 
+</button> </form>                                                      
+<?php } ?>                                                     
+                                             
  </form>                                                    
                                         </li>
 </ul>
@@ -100,3 +110,4 @@ foreach ($Device_inventory_list_data as $InventoryListRowData) {
 
 
     </div>
+</div>

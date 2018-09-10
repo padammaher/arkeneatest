@@ -44,22 +44,27 @@ class Inventory_model extends MY_Model {
     }
 
     public function Device_inventory_list() {
-        $this->db->select('id,
-                            user_id,
-                            number,
-                            serial_no,
-                            make,
-                            model,
-                            description,
-                            communication_type,
-                            gsm_number,
-                            communication_status,
-                            communication_history,
-                            communication_protocol,
-                            createdat,
-                            createdby,
-                            isactive');
+        $this->db->select('device_inventory.id,
+                            device_inventory.user_id,
+                            device_inventory.number,
+                            device_inventory.serial_no,
+                            device_inventory.make,
+                            device_inventory.model,
+                            device_inventory.description,
+                            device_inventory.communication_type,
+                            device_inventory.gsm_number,
+                            device_inventory.communication_status,
+                            device_inventory.communication_history,
+                            device_inventory.communication_protocol,
+                            device_inventory.createdat,
+                            device_inventory.createdby,
+                            device_inventory.isactive,
+                            device_sensor_mapping.id as `dev_sen_id`,asset.id as `asset_tbl_id`, asset.code' );
         $this->db->from('device_inventory');
+        $this->db->join('device_sensor_mapping','device_sensor_mapping.device_id=device_inventory.id','left');
+        $this->db->join('device_asset','device_asset.device_id=device_inventory.id','left');
+        $this->db->join('asset','asset.id=device_asset.asset_id','left');
+        $this->db->group_by('device_inventory.id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -121,17 +126,28 @@ class Inventory_model extends MY_Model {
         return $objData;
     }
     
-    
+    public function assetcode_list() {
+       $this->db->select('id,code');
+        $this->db->from('asset');
+        $this->db->where('isactive',1);
+        $this->db->group_by('id');
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }    
     public function device_list() {
                $this->db->select('id,                            
                             number,
                             serial_no');
         $this->db->from('device_inventory');
         $this->db->where('isactive',1);
+        $this->db->group_by('id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
     }
+    
+    
     
        public function add_devicesensor($insert_data) {
          $table = 'device_sensor_mapping'; 
@@ -180,9 +196,10 @@ class Inventory_model extends MY_Model {
                            device_asset.asset_id,
                            device_asset.createdate,
                            device_asset.createdby,
-                           device_inventory.id as `device_inventory_id`,device_inventory.number');
-        $this->db->from('device_asset');
-        $this->db->join('device_inventory','device_asset.device_id=device_inventory.id');
+                           device_inventory.id as `device_inventory_id`,device_inventory.number,asset.code');
+        $this->db->from('device_inventory');
+        $this->db->join('device_asset','device_asset.device_id=device_inventory.id');
+        $this->db->join('asset','asset.id=device_asset.asset_id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -194,9 +211,10 @@ class Inventory_model extends MY_Model {
                            device_asset.asset_id,
                            device_asset.createdate,
                            device_asset.createdby,
-                           device_inventory.id as `device_inventory_id`,device_inventory.number');
-        $this->db->from('device_asset');
-        $this->db->join('device_inventory','device_asset.device_id=device_inventory.id');
+                           device_inventory.id as `device_inventory_id`,device_inventory.number,asset.code');
+        $this->db->from('device_inventory');
+        $this->db->join('device_asset','device_asset.device_id=device_inventory.id');
+        $this->db->join('asset','asset.id=device_asset.asset_id');
         $this->db->where('device_asset.id',$dev_asset_id);        
         $query = $this->db->get();        
 //        echo $this->db->last_query();

@@ -11,38 +11,33 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
+                        <?php echo validation_errors(); ?>
                         <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>addUomList" method="POST">
-
-                            <!--                            <div class="item form-group">
-                                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.</label>
-                                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                <input type="text" class="form-control" placeholder="1">
-                                                            </div>
-                                                        </div>-->
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required">
+                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z\s]*">
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <?php if (isset($uom_list) && count($uom_list) > 0) { ?>
-                                        <select class="form-control" name="uom_id">
-                                            <option value="">Select UOM</option>
-                                            <?php
-                                            foreach ($uom_list as $ul) {
-                                                ?>
-                                                <option value="<?php echo $ul['id'] ?>"><?php echo $ul['name']; ?></option>
-                                            <?php }
-                                            ?>
-                                        </select>
-                                    <?php } else {
-                                        ?>
-                                        <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "> Please add an UOM, before adding UOM Type</span>
-                                    <?php }
+                                    <input type="text" class="form-control" placeholder="UOM" required="required" name="uom_name" value="<?php echo @$post['uom_name']; ?>">
+                                    <?php // if (isset($uom_list) && count($uom_list) > 0) { ?>
+<!--                                        <select class="form-control" name="uom_id">
+                                           <option value="">Select UOM</option>
+                                    <?php
+//                                    foreach ($uom_list as $ul) {
+                                    ?>
+                                                   <option value="<?php echo $ul['id'] ?>"><?php echo $ul['name']; ?></option>
+                                    <?php // }
+                                    ?>
+                                       </select>-->
+                                    <?php // } else {
+                                    ?>
+                                       <!--<span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "> Please add an UOM, before adding UOM Type</span>-->
+                                    <?php // }
                                     ?>
                                 </div>
                                 <!--                                    <div class="col-md-6 col-sm-6 col-xs-12" id="divdrpdwn">

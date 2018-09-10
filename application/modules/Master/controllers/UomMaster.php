@@ -42,28 +42,44 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
-            $this->form_validation->set_rules('uom_id', 'uom_id', 'required|numeric');
+            $this->form_validation->set_rules('uom_name', 'uom_name', 'required');
             if ($this->form_validation->run() == TRUE) {
+
+                $uom_data = array(
+                    'name' => $this->input->post('uom_name'),
+                    'createdat' => date('Y-m-d H:i:s'),
+                    'createdby' => $user_id,
+                    'isactive' => 1
+                );
+                $inserted_id = $this->uommodel->insert_uom($uom_data);
                 $data = array(
                     'name' => $this->input->post('uom_type'),
-                    'uom_id' => $this->input->post('uom_id'),
+                    'uom_id' => $inserted_id,
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
                     'isactive' => 1
                 );
 
-                $count = $this->uommodel->insert_uom($data);
+                $count = $this->uommodel->insert_uom_type($data);
 //                echo $count;
 //                exit;
                 if (is_numeric($count) && $count > 0) {
                     $this->session->set_flashdata('success_msg', 'UOM Type added successfully');
+                    redirect('uomlist');
                 } elseif ($count == "duplicate") {
                     $this->session->set_flashdata('error_msg', 'UOM Type already added');
+                    $data['post'] = $this->input->post();
+                    redirect('addUomList');
                 } else {
                     $this->session->set_flashdata('error_msg', 'Failed to add UOM Type');
+                    $data['post'] = $this->input->post();
+                    redirect('addUomList');
                 }
-                redirect('uomlist');
+            } else {
+                $data['post'] = $this->input->post();
+                redirect('addUomList');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -87,22 +103,33 @@ class UomMaster extends CI_Controller {
 
         if ($this->input->post('editsubmit')) {
             $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
-            $this->form_validation->set_rules('uom_id', 'uom_id', 'required|numeric');
+            $this->form_validation->set_rules('uom_name', 'uom_name', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $id = $this->input->post('edit_id');
+
+                $uom_data = array(
+                    'name' => $this->input->post('uom_name'),
+                );
+                $um_count = $this->uommodel->update_uom($id, $uom_data);
+
                 $data = array(
                     'name' => $this->input->post('uom_type'),
-                    'uom_id' => $this->input->post('uom_id'),
                 );
-
                 $count = $this->uommodel->uomtype_update($id, $data);
 
-                if (is_numeric($count) && $count > 0) {
+                if ((is_numeric($count) && $count > 0) || (is_numeric($um_count) && $um_count > 0)) {
                     $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
+                    redirect('uomlist');
                 } else {
                     $this->session->set_flashdata('error_msg', 'Failed to update UOM Type');
+                    $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
+                    $data['post'] = $this->input->post();
+                    redirect('updateUomList');
                 }
-                redirect('uomlist');
+            } else {
+                $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
+                $data['post'] = $this->input->post();
+                redirect('updateUomList');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -116,13 +143,20 @@ class UomMaster extends CI_Controller {
             }
             redirect('uomlist');
         }
-        if ($this->input->post('post') == 'edit') {
-            $id = $this->input->post('id');
-            $data['uom_type_id'] = $id;
-            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+        if ($this->input->post('post') == 'edit' || $this->session->userdata('edit_uom_type')) {
+            if ($this->input->post('id')) {
+                $id = $this->input->post('id');
+                $data['uom_type_id'] = $id;
+            } elseif ($this->session->userdata('edit_uom_type')) {
+                $id = $this->session->userdata('edit_uom_type');
+                $data['uom_type_id'] = $id;
+            }
+
+//            $data['uom_list'] = $this->uommodel->get_uom($user_id);
             $data['result'] = $this->uommodel->get_uom_type($id);
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->session->unset_userdata('edit_uom_type');
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -140,6 +174,17 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         $data['uom_list'] = $this->uommodel->get_uom($user_id, 'json');
+    }
+
+    public function getuom_autocomplete_c() {
+        if (!$this->ion_auth->logged_in()) {
+            redirect('auth', 'refresh');
+        }
+        if ($this->session->userdata('user_id'))
+            $user_id = $this->session->userdata('user_id');
+
+        $keyword = $this->input->post('term');
+//        $this->TaskModel->getTask_autocomplete($keyword);
     }
 
 }

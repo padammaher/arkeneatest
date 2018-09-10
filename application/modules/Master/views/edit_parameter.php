@@ -25,19 +25,19 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter Name *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" name="param_name" value="<?php echo $result[0]['name']; ?>" required="required">
+                                <input type="text" class="form-control" name="param_name" value="<?php echo $result[0]['name']; ?>" required="required" pattern="[A-Za-z\s]*">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="uom_type">
+                                <select class="form-control" name="uom_type" required="required">
                                     <option value="10">Pressure</option>
                                     <?php
                                     if (isset($uom_types) && !empty($uom_types)) {
                                         foreach ($uom_types as $ut) {
                                             ?>
-                                            <option value="<?php echo $ut['id'] ?>" <?php echo $ut['id'] == $result[0]['id'] ? "selected" : '' ?>><?php echo $ut['name']; ?></option>
+                                            <option value="<?php echo $ut['id'] ?>" <?php echo $ut['id'] == $result[0]['uom_type_id'] ? "selected" : '' ?>><?php echo $ut['name']; ?></option>
                                             <?php
                                         }
                                     }

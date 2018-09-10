@@ -93,10 +93,9 @@ class SensorMaster extends CI_Controller {
                 $id = $this->input->post('edit_id');
                 $data = array(
                     'name' => $this->input->post('sensor_type'),
+                    'description' => $this->input->post('sensor_description')
                 );
-                if ($this->input->post('sensor_description')) {
-                    $data['description'] = $this->input->post('sensor_description');
-                }
+
                 $response = $this->sensormodel->sensortype_update($id, $data);
 
                 if ($response > 0) {

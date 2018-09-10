@@ -8,12 +8,12 @@ class AssetMaster extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
-        $this->load->helper(array('url', 'language', 'form'));
+        $this->load->helper(array('url', 'language', 'form', 'assets_helper'));
         $this->load->model(array('users', 'group_model', 'country', 'assetmodel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
-        $CI = & get_instance();
+//        $CI = & get_instance();
     }
 
     public function assetcategory() {
@@ -62,13 +62,15 @@ class AssetMaster extends CI_Controller {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $this->form_validation->set_rules('assetcat_name', 'assetcat_name', 'required');
+            $this->form_validation->set_rules('assetcat_name', 'Asset Category', 'required');
+            $this->form_validation->set_rules('assetcat_description', 'Asset Description', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('assetcat_name'),
                     'description' => $this->input->post('assetcat_description'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
+                    'isactive' => 1
                 );
                 if ($this->input->post('status')) {
                     $data['isactive'] = $this->input->post('status') ? 1 : 0;
@@ -76,13 +78,23 @@ class AssetMaster extends CI_Controller {
                 $count = $this->assetmodel->insert_asset_category($data);
 
                 if (is_numeric($count) && $count > 0) {
+//                    $this->session->unset_userdata('assetcat_post');
                     $this->session->set_flashdata('success_msg', 'Asset Category added successfully');
                 } elseif ($count == "duplicate") {
+//                    $this->session->set_userdata('assetcat_post', $this->input->post());
                     $this->session->set_flashdata('error_msg', 'Asset Category already added');
+                    redirect('addAssetCategory');
                 } else {
+//                    $this->session->set_userdata('assetcat_post', $this->input->post());
                     $this->session->set_flashdata('error_msg', 'Failed to add Asset Category');
+//                    $data['post'] = $this->input->post();
+                    redirect('addAssetCategory');
                 }
                 redirect('assetcategory');
+            } else {
+
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/add_asset_category');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -103,7 +115,7 @@ class AssetMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         if ($this->input->post('editsubmit')) {
-            $this->form_validation->set_rules('asset_category', 'asset_category', 'required');
+            $this->form_validation->set_rules('asset_category', 'Asset Category', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $id = $this->input->post('edit_id');
                 $data = array(
@@ -119,6 +131,9 @@ class AssetMaster extends CI_Controller {
                 }
 
                 redirect('assetcategory');
+            } else {
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/edit_asset_category');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -155,7 +170,7 @@ class AssetMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->form_validation->set_rules('asset_type', 'asset_type', 'required');
+            $this->form_validation->set_rules('asset_type', 'Asset Type', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('asset_type'),
@@ -178,6 +193,9 @@ class AssetMaster extends CI_Controller {
                     $this->session->set_flashdata('error_msg', 'Failed to add Asset Type');
                 }
                 redirect('assettype');
+            } else {
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/add_asset_type');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -198,15 +216,14 @@ class AssetMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         if ($this->input->post('editsubmit')) {
-            $this->form_validation->set_rules('asset_type', 'asset_type', 'required');
+            $this->form_validation->set_rules('asset_type', 'Asset Type', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $id = $this->input->post('edit_id');
                 $data = array(
                     'name' => $this->input->post('asset_type'),
+                    'description' => $this->input->post('type_description')
                 );
-                if ($this->input->post('type_description')) {
-                    $data['description'] = $this->input->post('type_description');
-                }
+
                 $response = $this->assetmodel->assettype_update($id, $data);
 
                 if ($response > 0) {
@@ -216,6 +233,9 @@ class AssetMaster extends CI_Controller {
                 }
 
                 redirect('assettype');
+            } else {
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/edit_asset_type');
             }
         }
         if ($this->input->post('post') == 'delete') {

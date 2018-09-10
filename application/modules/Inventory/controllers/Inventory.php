@@ -78,6 +78,9 @@ class Inventory extends MY_Controller {
                 {
                     $form_action_type[1];
                      $data =$this->Inventory_model->Delete_Device_inventory($form_action_type[1]);
+                    if($data) {
+                        $this->session->set_flashdata('success_msg', 'Device inventory successfully added');                         
+                }
                     return redirect('Device_inventory_list','refresh');
                 }   
            }         
@@ -429,7 +432,9 @@ class Inventory extends MY_Controller {
             $data['groups1'] = $this->group_model->get_allGroupData();
 
             $user_id = $this->session->userdata('user_id');
-             $data['device_list']=$this->Inventory_model->device_list();    
+             $data['device_list']=$this->Inventory_model->device_list(); 
+             $data['assetcode_list']=$this->Inventory_model->assetcode_list(); 
+             
             $todaysdate=date('Y-m-d'); 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -483,7 +488,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
-
+            $data['assetcode_list']=$this->Inventory_model->assetcode_list(); 
 //            asset_form_action
              if($_SERVER['REQUEST_METHOD'] == 'POST')
             { 
