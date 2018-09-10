@@ -76,3 +76,45 @@ $route['addUomList'] = "Master/uommaster/add_uom_list";
 $route['updateUomList'] = "Master/uommaster/uomlist_update";
 
 
+//Assets Management--------------------
+$route['Assets_list'] = 'AssetsManagement/Asset_List';
+$route['Assets_add'] = 'AssetsManagement/Assets_add';
+$route['Assets_location_list'] = 'AssetsManagement/Assets_location_list';
+
+$route['Assets_edit'] = 'AssetsManagement/Asset_edit';
+$route['manage_assets_location'] = 'AssetsManagement/manage_assets_location';
+$route['user_asset_edit'] = 'AssetsManagement/user_asset_edit';
+
+$route['Assets_location_add'] = 'AssetsManagement/Assets_location_add';
+$route['User_assets_list'] = 'AssetsManagement/User_assets_list';
+$route['User_asset_add'] = 'AssetsManagement/User_asset_add';
+$route['User_asset_edit'] = 'AssetsManagement/User_asset_edit';
+
+
+
+
+
+//-- Customer 
+$route['AddCustomer'] = 'Customer/AddCustomer';
+
+
+//-- Inventory
+//------ * Device Inventory * --------
+//Edit_deviceinventory,--Device_inventory_list,--Device_inventory_add
+$route['Device_inventory_list'] = 'Inventory/Device_inventory_list';
+$route['Device_inventory_add'] = 'Inventory/Add_deviceinventory';
+$route['Device_inventory_edit'] = 'Inventory/Edit_deviceinventory';
+
+//------ * device asset list * --------
+//Device_assets_add(),Device_assets_edit
+$route['Device_assets_list'] = 'Inventory/Device_assets_list';
+$route['Device_assets_add'] = 'Inventory/Device_assets_add';
+$route['Device_assets_edit'] = 'Inventory/Device_assets_edit';
+//------ * Sensor Inventory * --------
+//Add_device_sensors,Edit_device_sensors,Sensor_inventory_list
+
+$route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';
+$route['Add_device_sensors'] = 'Inventory/Add_device_sensors';
+$route['Edit_device_sensors'] = 'Inventory/Edit_device_sensors';
+
+

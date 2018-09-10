@@ -73,7 +73,7 @@ class UomMaster extends CI_Controller {
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
-        if ($this->input->post('submit')) {
+        if ($this->input->post('editsubmit')) {
             $data = array(
                 'asset_category' => $this->input->post('asset_category'),
                 'description' => $this->input->post('asset_description'),
@@ -81,16 +81,16 @@ class UomMaster extends CI_Controller {
             $this->uommodel->update($id, $data);
             // echo $this->db->last_query();die;
             $this->session->set_flashdata('msg', 'Asset category details updated successfully');
-            redirect('parametermaster/uomlist');
+            redirect('uomlist');
         }
-        if ($this->input->post('delete')) {
+        if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('edit_id');
             $data = array('status' => 0);
             $this->uommodel->company_edit($id, $data);
             $this->session->set_flashdata('msg', 'Sucessfully deleted an asset category');
-            redirect('parametermaster/uomlist');
+            redirect('uomlist');
         }
-        if ($this->input->post('edit') || $id) {
+        if ($this->input->post('post') == 'edit') {
             $data['result'] = $this->uommodel->asset_category_update($id);
             $data['ast_cat_id'] = $id;
 

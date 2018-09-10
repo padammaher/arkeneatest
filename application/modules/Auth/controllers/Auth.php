@@ -11,9 +11,7 @@ class Auth extends MY_Controller {
         $this->load->model(array('users', 'group_model', 'country'));
         // $this->load->helper(array('url', 'language'));
         $this->load->helper(array('url', 'language', 'form'));
-
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
         $this->lang->load('auth');
     }
 
@@ -84,18 +82,28 @@ class Auth extends MY_Controller {
             );
             $data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-
+            
 
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+            if($user->login_attempt==2){
             $this->template->write_view('content', 'index1', (isset($this->data) ? $this->data : NULL), TRUE);
-
+            }else{
+                $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
+            }
             $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             $this->template->render();
         }
     }
-
+    public function dashboard(){
+        $this->template->set_master_template('template.php');
+        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+        $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
+        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+        $this->template->render();
+    }
     public function restricted() {
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
