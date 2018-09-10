@@ -13,18 +13,19 @@
           </div>
           <div class="x_content">
           <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>Customer/add_client_detail">
-              <div class="item form-group">
+              <!-- <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name="srno" type="text"  class="form-control" value="1" >
                 </div>
-              </div>
+              </div> -->
+              <input type="hidden" name="admin_user_id" id="admin_user_id" value="<?php echo $user_id; ?>"> 
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="client_name" type="text" class="form-control" placeholder="Saschin Naidoo" required="required">
+                  <input name="client_name" type="text" class="form-control" placeholder="Enter Name" required="required">
                 </div>
               </div>
               <div class="item form-group">
@@ -34,16 +35,11 @@
                   <select class="form-control" required="required" name="client_location">
                     <option>Select Customer Location
                     </option>
-                    <option>Manson
-                    </option>
-                    <option>QQQQ one
-                    </option>
-                    <option>AAAA two
-                    </option>
-                    <option>SSSS three
-                    </option>
-                    <option>ZZZZ four
-                    </option>
+                    <option value="1">pune </option>
+                    <option value="2">Mumbai</option> 
+                    <option value="3">Ahmendnagar</option>
+                    <option value="4">Beed </option>
+                    <option value="5">Latur</option>
                   </select>
                 </div>
               </div>
@@ -51,14 +47,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Username
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="client_username" type="text" class="form-control" placeholder="SN@bdv.co.za etc" required="required">
+                  <input name="client_username" type="text" class="form-control" placeholder="Enter Email id" required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Password
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="password" type="password" class="form-control" value="Password@123" required="required">
+                  <input name="password" type="password" class="form-control" value="Enter Password" required="required">
                 </div>
               </div>						  
               <div class="item form-group">
