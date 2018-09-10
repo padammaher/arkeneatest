@@ -25,11 +25,11 @@
             <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container flex-container-head nowrap">
-                  <li class="flex-item">Sr. No.
+                  <li>Sr. No.
                   </li>
-                  <li class="flex-item">Location
+                  <li class="">Location
                   </li>
-                  <li class="flex-item">Address
+                  <li class="">Address
                   </li>
                   <li class="flex-item">Contact Person
                   </li>
@@ -56,11 +56,11 @@
             <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
-                  <li class="flex-item"><?php echo $location->id; ?>
+                  <li class=""><?php echo $location->id; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->address; ?>
+                  <li class="wrap-word"><?php echo $location->location_name; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->location_name; ?>
+                  <li class="wrap-word"><?php echo $location->address; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->contact_person_name; ?>
                   </li>

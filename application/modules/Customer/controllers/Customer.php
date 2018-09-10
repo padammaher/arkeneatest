@@ -127,9 +127,9 @@ class Customer extends MY_Controller {
          if($this->input->post('user_id'))
          $update_user_id =$this->input->post('user_id');
          $this->Customer_Model->update_customer_detail($additional_data, $update_user_id);
-
+         $this->session->set_flashdata('message','customer information update sucessfully');
          $this->data['user_detail'] =$this->Customer_Model->get_customer_detail($update_user_id); 
-        // print_r( $this->data['user_detail']); exit
+      
          $this->template->set_master_template('template.php');
          $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
          $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -166,6 +166,8 @@ class Customer extends MY_Controller {
     {
         $user_id = $this->session->userdata('user_id');
         $this->data['user_id']= $user_id; 
+       // $this->data['country']=$country=$this->Customer_Model->get_country();
+        $this->data['country']=$country=$this->Customer_Model->get_customer_location();
         $this->template->set_master_template('template.php');
         $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
         $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -190,15 +192,28 @@ class Customer extends MY_Controller {
          $additional_data['password']=$this->input->post('password'); 
          if($this->input->post('status'))
          $additional_data['status']=$this->input->post('status');
-        // print_r($additional_data); exit(); 
-      $this->Customer_Model->add_client_detail($additional_data); 
-       $this->data['client_details']= $this->Customer_Model->get_client_list();
-       $this->template->set_master_template('template.php');
-       $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-       $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-       $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
-       $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-       $this->template->render();
+        
+       $alreadyexist= $this->Customer_Model->add_client_detail($additional_data); 
+        if($alreadyexist==2){
+            $this->session->set_flashdata('message','This user name already Exist');
+            $user_id = $this->session->userdata('user_id');
+            $this->data['user_id']= $user_id; 
+            $this->template->set_master_template('template.php');
+            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+            $this->template->write_view('content', 'client_user_add', (isset($this->data) ? $this->data : NULL), TRUE);
+            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+            $this->template->render();
+        }else{
+            $this->session->set_flashdata('message','Client added sucessfully');
+            $this->data['client_details']= $this->Customer_Model->get_client_list();
+            $this->template->set_master_template('template.php');
+            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+            $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
+            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+            $this->template->render();
+        }
         }
          // 
 

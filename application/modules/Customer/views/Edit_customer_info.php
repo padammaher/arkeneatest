@@ -106,8 +106,9 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                   <button type="submit" class="btn btn-primary">Save
                   </button>
+                  <a href="<?php echo base_url()?>Customer/customer_info">
                   <button type="button" class="btn btn-default">Cancel
-                  </button>
+                  </button></a>
                 </div>
               </div>
               

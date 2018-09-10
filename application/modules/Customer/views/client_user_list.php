@@ -35,6 +35,12 @@
         <h4>Client User List
         </h4>
       </div>
+      <?php if($this->session->flashdata('message')){?> 
+        <div class="alert alert-success fade in" id="infoMessage">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>Success!</strong> Client has been added successfully.
+        </div>
+          <?php } ?>
       <div class="title_right">
         <div class="pull-right">
           <a href="<?php echo base_url()?>Customer/client_user_add" class="btn btn-sm btn-primary">Add New
@@ -215,4 +221,10 @@
 		$(document).ready(function() {
 			$("#aftersavemessage").delay(500).fadeOut("slow");
 		});
+    
 	</script>
+  <script> 
+setTimeout(function() {
+    $('#infoMessage').fadeOut('fast');
+}, 3000);
+</script> 

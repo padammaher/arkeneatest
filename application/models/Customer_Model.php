@@ -36,8 +36,17 @@ class Customer_Model extends CI_Model {
     }
 
     public function add_client_detail($data){
-        $this->db->insert('branch_user',$data); 
-        return true; 
+      //  print_r($data['client_username']); exit() ;
+        $alreadyexit=$this->db->select('id')->from('branch_user')->where('client_username',$data['client_username'])->get()->result();
+       if(count($alreadyexit)>0)
+       {
+           
+        return 2; 
+
+       }else{
+            $this->db->insert('branch_user',$data); 
+            return 1; 
+        }
 
     }
     public function get_client_list(){
@@ -97,11 +106,15 @@ class Customer_Model extends CI_Model {
        return $state_data;
     }
     public function get_city_list($id){
-       
+
         $city_data=$this->db->select('id,name')->from('city')->where('state_id',$id)->get()->result();
         
         return $city_data;
     }
-    
+    public function get_customer_location(){
+        
+        $location_data=$this->db->select('DISTINCT(location_name)')->from('customer_business_location')->get()->result();
+        return $location_data;
+    }
     
 }

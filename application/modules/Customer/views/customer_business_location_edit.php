@@ -110,8 +110,10 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                   <button type="submit" class="btn btn-primary">Save
                   </button>
+                  <a href="<?php echo base_url()?>Customer/customer_business_location_list">
                   <button type="button" class="btn btn-default">Cancel
                   </button>
+                  </a>
                 </div>
               </div>
             </form>					
