@@ -78,7 +78,7 @@
     </div>
 </div>
 <!--</div>-->
-<?php echo $this->load->view('master/modal/assetcategory'); ?>
+<?php // echo $this->load->view('master/modal/assetcategory'); ?>
 <style type="text/css">
     .flex-item:first-child {
         width: 8%;
@@ -119,12 +119,12 @@
                 $("#updateasset" + id).submit();
             }
         });
-        $(".flex-item").click(function (e) {
-            if (!$(e.target).hasClass('fa')) {
-//                $('#sr_name_modal').html()
-                $('#detailsModal').modal('show');
-            }
-        });
+//        $(".flex-item").click(function (e) {
+//            if (!$(e.target).hasClass('fa')) {
+////                $('#sr_name_modal').html()
+//                $('#detailsModal').modal('show');
+//            }
+//        });
     });
 </script>
 <!-- /page content -->
