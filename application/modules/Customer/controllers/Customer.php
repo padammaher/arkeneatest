@@ -177,6 +177,7 @@ class Customer extends MY_Controller {
     }
     public function add_client_detail()
     {
+            echo "stop"; exit(); 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
         }else{     
@@ -193,7 +194,7 @@ class Customer extends MY_Controller {
          if($this->input->post('status'))
          $additional_data['status']=$this->input->post('status');
         
-       $alreadyexist= $this->Customer_Model->add_client_detail($additional_data); 
+         $alreadyexist= $this->Customer_Model->add_client_detail($additional_data); 
         if($alreadyexist==2){
             $this->session->set_flashdata('message','This user name already Exist');
             $user_id = $this->session->userdata('user_id');
