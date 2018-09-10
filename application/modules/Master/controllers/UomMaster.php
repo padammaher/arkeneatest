@@ -41,21 +41,33 @@ class UomMaster extends CI_Controller {
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
-        if ($this->input->post('submit')) {
-            $data = array(
-                'asset_category' => $this->input->post('asset_category'),
-                'description' => $this->input->post('asset_description'),
-                'createdby' => $user_id,
-                'createdat' => date('Y-m-d H:i:s'),
-            );
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
+            $this->form_validation->set_rules('uom_id', 'uom_id', 'required|numeric');
+            if ($this->form_validation->run() == TRUE) {
+                $data = array(
+                    'name' => $this->input->post('uom_type'),
+                    'uom_id' => $this->input->post('uom_id'),
+                    'createdat' => date('Y-m-d H:i:s'),
+                    'createdby' => $user_id,
+                    'isactive' => 1
+                );
 
-            $this->uommodel->insert($data);
-            // echo $this->db->last_query();die;
-            $this->session->set_flashdata('msg', 'Asset Category details added successfully');
-            redirect('master/add_project');
+                $count = $this->uommodel->insert_uom($data);
+//                echo $count;
+//                exit;
+                if (is_numeric($count) && $count > 0) {
+                    $this->session->set_flashdata('success_msg', 'UOM Type added successfully');
+                } elseif ($count == "duplicate") {
+                    $this->session->set_flashdata('error_msg', 'UOM Type already added');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Failed to add UOM Type');
+                }
+                redirect('uomlist');
+            }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
-//            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+            $data['uom_list'] = $this->uommodel->get_uom($user_id);
 
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
@@ -74,25 +86,41 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         if ($this->input->post('editsubmit')) {
-            $data = array(
-                'asset_category' => $this->input->post('asset_category'),
-                'description' => $this->input->post('asset_description'),
-            );
-            $this->uommodel->update($id, $data);
-            // echo $this->db->last_query();die;
-            $this->session->set_flashdata('msg', 'Asset category details updated successfully');
-            redirect('uomlist');
+            $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
+            $this->form_validation->set_rules('uom_id', 'uom_id', 'required|numeric');
+            if ($this->form_validation->run() == TRUE) {
+                $id = $this->input->post('edit_id');
+                $data = array(
+                    'name' => $this->input->post('uom_type'),
+                    'uom_id' => $this->input->post('uom_id'),
+                );
+
+                $count = $this->uommodel->uomtype_update($id, $data);
+
+                if (is_numeric($count) && $count > 0) {
+                    $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Failed to update UOM Type');
+                }
+                redirect('uomlist');
+            }
         }
         if ($this->input->post('post') == 'delete') {
-            $id = $this->input->post('edit_id');
-            $data = array('status' => 0);
-            $this->uommodel->company_edit($id, $data);
-            $this->session->set_flashdata('msg', 'Sucessfully deleted an asset category');
+            $id = $this->input->post('id');
+            $data = array('isactive' => 0);
+            $response = $this->uommodel->uomtype_update($id, $data);
+            if ($response > 0) {
+                $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');
+            } else {
+                $this->session->set_flashdata('error_msg', 'Failed to delete an UOM type');
+            }
             redirect('uomlist');
         }
         if ($this->input->post('post') == 'edit') {
-            $data['result'] = $this->uommodel->asset_category_update($id);
-            $data['ast_cat_id'] = $id;
+            $id = $this->input->post('id');
+            $data['uom_type_id'] = $id;
+            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+            $data['result'] = $this->uommodel->get_uom_type($id);
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $this->template->set_master_template('template.php');
@@ -111,7 +139,7 @@ class UomMaster extends CI_Controller {
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
-        $data['uom_list'] = $this->uommodel->get_uom($user_id);
+        $data['uom_list'] = $this->uommodel->get_uom($user_id, 'json');
     }
 
 }

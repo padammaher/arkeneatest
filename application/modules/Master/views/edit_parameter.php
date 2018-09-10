@@ -23,13 +23,13 @@
 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter Name</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter Name *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" class="form-control" name="param_name" value="<?php echo $result[0]['name']; ?>" required="required">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="uom_type">
                                     <option value="10">Pressure</option>

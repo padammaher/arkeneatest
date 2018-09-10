@@ -15,31 +15,35 @@ class UomModel extends MY_Model {
         $this->db->select('uom_type.id,uom_type.name,uom.name as uomname');
         $this->db->from('uom_type');
         $this->db->join('uom', 'uom_type.uom_id=uom.id');
-        $this->db->where('uom_type.createdby', $user_id);
+        $this->db->where(array('uom_type.createdby' => $user_id, 'uom_type.isactive' => 1));
         $query = $this->db->get();
         $result = $query->result_array();
 
         return $result;
     }
 
-    public function get_uom($id) {
+    public function get_uom($id, $type = "normal") {
         $this->db->select('uom.id,uom.name');
         $this->db->from('uom');
         $this->db->where(array('createdby' => $id, 'isactive' => 1));
         $query = $this->db->get();
 
-        foreach ($query->result_array() as $k => $row) {
-            $row_set[$k]['id'] = htmlentities(stripslashes($row['id']));
-            $row_set[$k]['name'] = htmlentities(stripslashes($row['name']));
+        if ($type == "json") {
+            foreach ($query->result_array() as $k => $row) {
+                $row_set[$k]['id'] = htmlentities(stripslashes($row['id']));
+                $row_set[$k]['name'] = htmlentities(stripslashes($row['name']));
+            }
+            echo json_encode($row_set);
+        } else {
+            $result = $query->result_array();
+            return $result;
         }
-
-        echo json_encode($row_set);
     }
 
     function insert_uom($data) {
-        $alreadyexit = $this->db->from('asset_type')->where('name', $data['name'])->get()->result();
+        $alreadyexit = $this->db->from('uom_type')->where('name', $data['name'])->get()->result();
         if (!$alreadyexit) {
-            $this->db->insert('asset_type', $data);
+            $this->db->insert('uom_type', $data);
             return $this->db->affected_rows();
         } else {
             return 'duplicate';
@@ -47,12 +51,22 @@ class UomModel extends MY_Model {
     }
 
     function uomtype_update($id, $data) {
-        $alreadyexit = $this->db->from('asset_type')->where('id', $id)->get()->result();
+        $alreadyexit = $this->db->from('uom_type')->where('id', $id)->get()->result();
         if ($alreadyexit) {
             $this->db->where('id', $id);
-            $this->db->update('asset_type', $data);
+            $this->db->update('uom_type', $data);
         }
         return $this->db->affected_rows();
+    }
+
+    function get_uom_type($id) {
+        $this->db->select('uom_type.id,uom_type.name,uom_type.uom_id');
+        $this->db->from('uom_type');
+        $this->db->where('uom_type.id', $id);
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        return $result;
     }
 
 }
