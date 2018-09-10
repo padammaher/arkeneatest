@@ -36,6 +36,8 @@ class Auth extends MY_Controller {
             $groups = $this->ion_auth->groups()->result_array();
             $currentGroups = $this->ion_auth->get_users_groups($user_id)->result();
             // display the edit user form
+            $this->ion_auth->update_login_flag($user_id); 
+            
             $this->data['csrf'] = $this->_get_csrf_nonce();
 
             // set the flash data error message if there is one
@@ -87,7 +89,7 @@ class Auth extends MY_Controller {
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            if($user->login_attempt==2){
+            if($user->login_flag==0){
             $this->template->write_view('content', 'index1', (isset($this->data) ? $this->data : NULL), TRUE);
             }else{
                 $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);

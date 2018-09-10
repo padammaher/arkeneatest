@@ -18,7 +18,7 @@ class AssetModel extends MY_Model {
     function get_AssetCategoryList() {
         $this->db->select('asset_category.id,asset_category.name,asset_category.description,asset_category.isactive');
         $this->db->from('asset_category');
-//        $this->db->where('isactive', 1);
+        $this->db->where('isactive', 1);
         $query = $this->db->get();
         $result = $query->result_array();
 

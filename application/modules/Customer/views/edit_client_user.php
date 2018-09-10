@@ -13,14 +13,15 @@
           </div>
           <div class="x_content">
           <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>Customer/update_client_detail">
-              <div class="item form-group">
+              <!-- <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="srno" type="text"  class="form-control" value="<?php echo $client_details[0]->srno; ?>" >
-                <input name="id" type="hidden"  class="form-control"  value="<?php echo $client_details[0]->id; ?>" >
+                
                 </div>
-              </div>
+              </div> -->
+              <input name="id" type="hidden"  class="form-control"  value="<?php echo $client_details[0]->id; ?>" >
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Name
                 </label>
@@ -32,19 +33,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control" required="required" name="client_location"  >
+                <select class="form-control" required="required" name="client_location">
                     <option>Select Customer Location
                     </option>
-                    <option>Manson
-                    </option>
-                    <option>QQQQ one
-                    </option>
-                    <option>AAAA two
-                    </option>
-                    <option>SSSS three
-                    </option>
-                    <option>ZZZZ four
-                    </option>
+                    <option value="1" <?php echo ($client_details[0]->client_location==1)?'selected':''; ?>>pune </option>
+                    <option value="2"  <?php echo ($client_details[0]->client_location==2)?'selected':''; ?>>Mumbai</option> 
+                    <option value="3"  <?php echo ($client_details[0]->client_location==2)?'selected':''; ?>>Ahmendnagar</option>
+                    <option value="4"  <?php echo ($client_details[0]->client_location==3)?'selected':''; ?>>Beed </option>
+                    <option value="5"  <?php echo ($client_details[0]->client_location==4)?'selected':''; ?>>Latur</option>
                   </select>
                 </div>
               </div>

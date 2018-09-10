@@ -16,7 +16,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Type *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" placeholder="Sensor Type" name="sensor_type" required="required">
+                                <input type="text" class="form-control" placeholder="Sensor Type" name="sensor_type" required="required" pattern="[A-Za-z\s]*">
                             </div>
                         </div>
                         <div class="item form-group">
