@@ -7,7 +7,7 @@ class Auth extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->database();
-        $this->load->library(array('ion_auth', 'form_validation'));
+        $this->load->library(array('ion_auth', 'form_validation',));
         $this->load->model(array('users', 'group_model', 'country'));
         // $this->load->helper(array('url', 'language'));
         $this->load->helper(array('url', 'language', 'form'));
