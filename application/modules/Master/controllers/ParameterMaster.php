@@ -51,13 +51,14 @@ class ParameterMaster extends CI_Controller {
                     'uom_type_id' => $this->input->post('uom_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
+                    'isactive' => 1
                 );
                 if ($this->input->post('param_description')) {
                     $data['description'] = $this->input->post('param_description');
                 }
-                if ($this->input->post('status')) {
-                    $data['isactive'] = $this->input->post('status') ? 1 : 0;
-                }
+//                if ($this->input->post('status')) {
+//                    $data['isactive'] = $this->input->post('status') ? 1 : 0;
+//                }
 
                 $count = $this->parametermodel->insert_parameter($data);
 

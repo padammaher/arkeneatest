@@ -17,7 +17,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z]*">
+                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z\s]*">
                                 </div>
                             </div>
                             <div class="item form-group">

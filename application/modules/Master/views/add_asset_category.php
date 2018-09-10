@@ -2,8 +2,16 @@
 -->    <div class="">
 
     <div class="clearfix"></div>
-
+    <?php
+    if ($this->session->userdata('assetcat_post')) {
+        $post = $this->session->userdata('assetcat_post');
+//        echo "<pre>";
+//        echo print_r(validation_errors());
+//        exit();
+    }
+    ?>
     <div class="row">
+        <?php echo validation_errors(); ?>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -16,15 +24,17 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Category *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" placeholder="Asset Category Name" name="assetcat_name" required="required" pattern="[A-Za-z]*">
+                                <input type="text" class="form-control" placeholder="Asset Category Name" name="assetcat_name" value="<?php echo set_value('assetcat_name'); ?>" required="required" pattern="[A-Za-z\s]*">
                             </div>
+                            <?php echo form_error('assetcat_name'); ?>
                         </div>
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea class="form-control" rows="2" placeholder="Description.." style="resize: vertical;" name="assetcat_description"></textarea>
+                                <textarea class="form-control" rows="2" placeholder="Description.." style="resize: vertical;" name="assetcat_description" ><?php echo set_value('assetcat_description'); ?></textarea>
                             </div>
+                            <?php echo form_error('assetcat_description'); ?>
                         </div>
 
                         <!--                        <div class="item form-group">

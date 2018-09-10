@@ -2,12 +2,12 @@
 <!--<div class="right_col" role="main">-->
 <div class="">
     <?php
-    if ($this->session->flashdata('success_msg')) {
-        echo $this->session->flashdata('success_msg');
-    }
-    if ($this->session->flashdata('error_msg')) {
-        echo $this->session->flashdata('error_msg');
-    }
+//    if ($this->session->flashdata('success_msg')) {
+//        echo $this->session->flashdata('success_msg');
+//    }
+//    if ($this->session->flashdata('error_msg')) {
+//        echo $this->session->flashdata('error_msg');
+//    }
     ?>
     <div class="page-title">
         <div class="title_left">
