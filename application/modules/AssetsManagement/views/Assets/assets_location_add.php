@@ -15,13 +15,20 @@
               </div>
               </div>
 
-              <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="assetcode" class="form-control" placeholder="DG0001" required="required">
+                 <div class="item form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">             
+                  <select class="form-control" name="assetcode" required="required">
+                    <option value="">Select Asset Code</option>
+<?php foreach ($asset_code_list as $asset_id_list) { ?>
+                                <option value="<?php echo $asset_id_list['id'];?>"><?php echo $asset_id_list['code'];?></option>
+
+                       
+<?php } ?>
+                </select>             
                 </div>
-                </div>
-              
+              </div>  
+                        
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Location <span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6 col-xs-12">

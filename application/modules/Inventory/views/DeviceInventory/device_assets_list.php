@@ -36,7 +36,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <ul class="flex-container nowrap">
 <li class="flex-item"><?php echo $device_asset_list_data['number'];?></li>
-<li class="flex-item"><?php echo $device_asset_list_data['asset_id'];?></li>
+<li class="flex-item"><?php echo $device_asset_list_data['code'];?></li>
 <li class="flex-item">
 <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Device_assets_edit">   
 <input type="hidden" name="asset_form_action" id="sensor_form_action" value="edit <?php echo $device_asset_list_data['id']; ?>" >    
