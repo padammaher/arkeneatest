@@ -100,10 +100,8 @@ class ParameterMaster extends CI_Controller {
                 $data = array(
                     'name' => $this->input->post('param_name'),
                     'uom_type_id' => $this->input->post('uom_type'),
+                    'description' => $this->input->post('param_description')
                 );
-                if ($this->input->post('param_description')) {
-                    $data['description'] = $this->input->post('param_description');
-                }
 
                 $count = $this->parametermodel->parameter_update($id, $data);
 

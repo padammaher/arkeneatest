@@ -23,13 +23,13 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter Name *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" placeholder="Parameter Name" name="param_name" required="required">
+                                <input type="text" class="form-control" placeholder="Parameter Name" name="param_name" required="required" pattern="[A-Za-z]*">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="uom_type">
+                                <select class="form-control" name="uom_type" required="required">
                                     <option value="">Select UOM Type</option>
                                     <?php
                                     if (isset($uom_types) && !empty($uom_types)) {
@@ -49,7 +49,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea class="form-control" rows="2" placeholder="Description.." style="resize: vertical;" name="param_description" required="required"></textarea>
+                                <textarea class="form-control" rows="2" placeholder="Description.." style="resize: vertical;" name="param_description" ></textarea>
                             </div>
                         </div>
 

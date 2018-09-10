@@ -16,7 +16,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Category *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" placeholder="Asset Category Name" name="assetcat_name" required="required">
+                                <input type="text" class="form-control" placeholder="Asset Category Name" name="assetcat_name" required="required" pattern="[A-Za-z]*">
                             </div>
                         </div>
 
@@ -27,20 +27,18 @@
                             </div>
                         </div>
 
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                                <label>
-                                    <input type="checkbox" name="status" class="flat" checked="checked"> Active
-                                </label>
-                            </div>
-                        </div>		
+                        <!--                        <div class="item form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                                        <label>
+                                                            <input type="checkbox" name="status" class="flat" checked="checked"> Active
+                                                        </label>
+                                                    </div>
+                                                </div>		-->
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <!--<input type="submit" name="addsubmit" class="btn btn-primary" value="Save">-->
-                                <!--<input type="hidden" name="add" value="add">-->
                                 <button type="submit" class="btn btn-md btn-primary">Save</button>
                                 <a href="<?php echo base_url() ?>assetcategory" class="btn btn-default">Cancel</a>
                             </div>

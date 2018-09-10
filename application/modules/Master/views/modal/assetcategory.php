@@ -13,15 +13,15 @@
                     <tbody>
                         <tr>
                             <td width="" class="lft-td">Sr. no.</td>
-                            <td>1</td>
+                            <td id="sr_name_modal">1</td>
                         </tr>
                         <tr>
                             <td width="" class="lft-td">Asset Category</td>
-                            <td>Pneumatic</td>
+                            <td id="asset_cat_modal"></td>
                         </tr>
                         <tr>
                             <td class="lft-td">Description</td>
-                            <td>Assets which use air pressure as a medium to power them</td>
+                            <td id="asset_cat_descmodal"></td>
                         </tr>
 
                     </tbody>

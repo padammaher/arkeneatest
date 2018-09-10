@@ -62,13 +62,14 @@ class AssetMaster extends CI_Controller {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $this->form_validation->set_rules('assetcat_name', 'assetcat_name', 'required');
+            $this->form_validation->set_rules('assetcat_name', 'assetcat_name', 'required|text');
             if ($this->form_validation->run() == TRUE) {
                 $data = array(
                     'name' => $this->input->post('assetcat_name'),
                     'description' => $this->input->post('assetcat_description'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
+                    'isactive' => 1
                 );
                 if ($this->input->post('status')) {
                     $data['isactive'] = $this->input->post('status') ? 1 : 0;
@@ -203,10 +204,9 @@ class AssetMaster extends CI_Controller {
                 $id = $this->input->post('edit_id');
                 $data = array(
                     'name' => $this->input->post('asset_type'),
+                    'description' => $this->input->post('type_description')
                 );
-                if ($this->input->post('type_description')) {
-                    $data['description'] = $this->input->post('type_description');
-                }
+
                 $response = $this->assetmodel->assettype_update($id, $data);
 
                 if ($response > 0) {
