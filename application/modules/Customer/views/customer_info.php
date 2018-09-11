@@ -1,8 +1,13 @@
 <?php //print_r($user_detail[0]->customer_name); exit(); ?> 
 <div class="right_col" role="main">
   <div class="">
+  <?php if($this->session->flashdata('message')){ ?> 
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div  class="alert alert-success fade in" role="alert" id="infoMessage" ><?php echo ($this->session->flashdata('message'))?$this->session->flashdata('message'):'';?></div>
+           <?php } ?>
     <div class="page-title">
       <div class="title_left">
+      
         <h4>Customer Provisioning
         </h4>
       </div>
@@ -88,3 +93,8 @@
     </div>
   </div>
 </div>
+<script> 
+setTimeout(function() {
+    $('#infoMessage').fadeOut('fast');
+}, 7000);
+</script> 

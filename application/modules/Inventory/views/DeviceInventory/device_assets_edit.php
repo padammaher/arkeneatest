@@ -27,12 +27,22 @@
                                               </div>
                                           </div> 
 
-                 <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="assetid" class="form-control" value="<?php echo $dev_asset_data['asset_id'];?>">
+                <div class="item form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset ID</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">             
+                  <select class="form-control" name="assetid" required="required">
+                    <option value="">Select device</option>
+                    <option value="<?php echo $dev_asset_data['asset_id']; ?>" selected><?php echo $dev_asset_data['code']; ?></option>
+<?php foreach ($assetcode_list as $assetcode_list_data) { 
+                    if($assetcode_list_data['id'] != $dev_asset_data['asset_id']){ ?>
+                                <option value="<?php echo $assetcode_list_data['id'];?>"><?php echo $assetcode_list_data['code'];?></option>
+
+                       
+<?php } } ?>
+                </select>             
                 </div>
-                </div>
+              </div> 
+
 							  					  
 						  
 						  <div class="ln_solid"></div>

@@ -17,21 +17,21 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Location Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='location_name' type="text" class="form-control" placeholder="Sandton" required="required">
+                  <input name='location_name' type="text" class="form-control" placeholder="Enter location name" required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='address' type="text" class="form-control" placeholder="West Road North Morningside, Sandton" required="required">
+                  <input name='address' type="text" class="form-control" placeholder="Add address" required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='contact_person_name' type="text" class="form-control" placeholder="Mark Tayler" required="required">
+                  <input name='contact_person_name' type="text" class="form-control" placeholder="Enter Contact person name" required="required">
                 </div>
               </div>
               <div class="item form-group">
@@ -51,7 +51,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" name="state">State / Province
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <select class="form-control"  id="State_id" onChange="getCity(this.value);">
+                  <select class="form-control" name="state" id="State_id" onChange="getCity(this.value);">
                     <option value="">Select
                     </option>
                    
@@ -74,14 +74,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='pincode' type="text" class="form-control" placeholder="10001" required="required">
+                  <input name='pincode' type="number" class="form-control" placeholder="Enter Pincode Number" required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='telephone' type="text" class="form-control" placeholder="27 11 326 5900" required="required">
+                  <input name='telephone' type="number" class="form-control" placeholder="Enter Land line Number " required="required">
                 </div>
               </div>
               <div class="item form-group">
@@ -90,7 +90,7 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='mobile' type="number" class="form-control"  placeholder="27 82 480 7309" required="required">
+                  <input name='mobile' type="number" class="form-control"  placeholder="Enter Mobile Number " required="required">
                 </div>
               </div>
               <div class="item form-group">
@@ -99,7 +99,8 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='email' type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required">
+                  <input name='email' id="customer_email" type="email" class="form-control"  placeholder="Enter Email id" required="required">
+                 <div id="email_error" style="color:red"></div>      
                 </div>
               </div>
               <div class="ln_solid">
@@ -108,8 +109,9 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                   <button type="submit" class="btn btn-primary">Save
                   </button>
+                  <a href="<?php echo base_url()?>Customer/customer_business_location_list">
                   <button type="button" class="btn btn-default">Cancel
-                  </button>
+                  </button></a>
                 </div>
               </div>
             </form>					
@@ -141,4 +143,21 @@ function getCity(val) {
 	}
 	});
 }
+
+$(document).ready(function() {
+
+$('#customer_email').focusout(function(){
+                $('#customer_email').filter(function(){
+                   var emil=$('#customer_email').val();
+              var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if( !emailReg.test( emil ) ) {
+                   $("#email_error").html('Please enter valid email'); 
+                } else {
+                  $("#email_error").html("");
+                 
+               // alert('Thank you for your valid email');
+                }
+                })
+            });
+});
 </script>

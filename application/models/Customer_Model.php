@@ -36,8 +36,17 @@ class Customer_Model extends CI_Model {
     }
 
     public function add_client_detail($data){
-        $this->db->insert('branch_user',$data); 
-        return true; 
+      //  print_r($data['client_username']); exit() ;
+        $alreadyexit=$this->db->select('id')->from('branch_user')->where('client_username',$data['client_username'])->get()->result();
+       if(count($alreadyexit)>0)
+       {
+           
+        return 2; 
+
+       }else{
+            $this->db->insert('branch_user',$data); 
+            return 1; 
+        }
 
     }
     public function get_client_list(){
@@ -55,7 +64,11 @@ class Customer_Model extends CI_Model {
         //print_r($id); exit();
         $this->db->where('id',$id); 
         $this->db->update('branch_user', $data);  
-        return true; 
+        if ($this->db->affected_rows() == '1') {
+            return TRUE;
+        } else {
+        return false; 
+        }
     }
     public function delete_client_detail($client_id){
         $this->db->where('id', $client_id);
@@ -68,10 +81,18 @@ class Customer_Model extends CI_Model {
         return true; 
     }
     public function get_business_list(){
-        $client_data=$this->db->from('customer_business_location')->get()->result();
+       
+        $this->db->select('customer_business_location.*,city.name as city_name,country.name as country_name,state.name as state_name'); 
+        $this->db->from('customer_business_location'); 
+        $this->db->join('city', 'customer_business_location.city = city.id', 'left');
+        $this->db->join('country', 'customer_business_location.country = country.id', 'left');
+        $this->db->join('state', 'customer_business_location.state = state.id', 'left');
+        $this->db->order_by("customer_business_location.id", "desc");
+        $query= $this->db->get();
+        $business_data=  $query->result();
         //$client_data=$this->db->from('customer_business_location')->where('id',$user_id)->get()->result();
-        
-        return $client_data; 
+      //var_dump($business_data); exit(); 
+        return $business_data; 
     }
     public function get_business_detail($id){
         $busineess_data=$this->db->from('customer_business_location')->where('id',$id)->get()->result();
@@ -97,11 +118,15 @@ class Customer_Model extends CI_Model {
        return $state_data;
     }
     public function get_city_list($id){
-       
+
         $city_data=$this->db->select('id,name')->from('city')->where('state_id',$id)->get()->result();
         
         return $city_data;
     }
-    
+    public function get_customer_location(){
+        
+        $location_data=$this->db->select('DISTINCT(location_name)')->from('customer_business_location')->get()->result();
+        return $location_data;
+    }
     
 }

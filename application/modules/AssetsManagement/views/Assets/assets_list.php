@@ -83,18 +83,24 @@
                                     </form> 
                                     <form class="form-horizontal form-label-left"  action="<?php echo base_url(); ?>Assets_edit"  method="POST" >
                                        <input type="hidden" name="edit_asset_list_id" value="delete <?php echo $list['id'] ?>" >
-                                         
-                                    <button type="submit" class="fa fa-primary" name="delete_asset_list_button">
+                                        
+                                    
+                                       <button type="submit" class="fa fa-primary" name="delete_asset_list_button">
                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                     </button>
-                                         
-                                    <a href="<?php echo base_url('manage_assets_location'); ?>" title="Manage Location" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Location">
+                                    </form>     
+                                <?php if(!empty($list['locid'])) { ?>    
+                                <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_list">                        
+                                <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="edit <?php echo $list['locid'];?>">
+                                <button type="submit" name="edit_asset_location_button"> 
                                         <i class="fa fa-map-marker text-success"></i> 
-                                    </a> 
-                                    <a href="<?php echo base_url('user_asset_edit'); ?>" title="Manage Users" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                </button>                  
+                                    </form>
+                                <?php } ?>    
+                                    <a href="<?php echo base_url('User_assets_list'); ?>" title="Manage Users" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                         <i class="fa fa-group text-warning"></i> 
                                     </a>
-                                  </form>       
+                                       
                                 </li>
 
                             </ul>

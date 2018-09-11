@@ -58,19 +58,19 @@
                 <ul class="flex-container nowrap">
                   <li class="flex-item"><?php echo $location->id; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->address; ?>
-                  </li>
                   <li class="flex-item"><?php echo $location->location_name; ?>
+                  </li>
+                  <li class="flex-item"><?php echo $location->address; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->contact_person_name; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->city; ?>
+                  <li class="flex-item"><?php echo $location->city_name; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->state; ?>
+                  <li class="flex-item"><?php echo $location->state_name; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->pincode; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->country; ?>
+                  <li class="flex-item"><?php echo $location->country_name; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->telephone; ?>
                   </li>
@@ -84,7 +84,7 @@
                       <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                       </i>
                     </a>
-                    <a href="<?php echo base_url()?>Customer/delete_business_location?business_id=<?php echo $location->id; ?>" title="Delete">
+                    <a href="<?php echo base_url()?>Customer/delete_business_location?business_id=<?php echo $location->id; ?>"  title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">
                       <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                       </i> 
                     </a> 
