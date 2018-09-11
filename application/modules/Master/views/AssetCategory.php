@@ -70,7 +70,16 @@
                             <?php
                             $i++;
                         }
-                    }
+                    } else {
+                        ?>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="flex-container nowrap">
+                                    <li class="flex-item" style="text-align: center;">No data found..!</li>                    
+                                </ul>
+                            </div>
+                        </div>
+                    <?php }
                     ?>
                 </div>
             </div>
@@ -78,7 +87,7 @@
     </div>
 </div>
 <!--</div>-->
-<?php // echo $this->load->view('master/modal/assetcategory'); ?>
+<?php // echo $this->load->view('master/modal/assetcategory');  ?>
 <style type="text/css">
     .flex-item:first-child {
         width: 8%;

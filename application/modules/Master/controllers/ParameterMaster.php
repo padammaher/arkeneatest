@@ -23,7 +23,7 @@ class ParameterMaster extends CI_Controller {
         } else {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['parameter_list'] = $this->parametermodel->get_parameterlist();
+            $data['parameter_list'] = $this->parametermodel->get_parameterlist($user_id);
             $this->session->unset_userdata('param_post');
             $this->session->unset_userdata('parame_post');
             load_view_template($data, 'master/ParameterList');

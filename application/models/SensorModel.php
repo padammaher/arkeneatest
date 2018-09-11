@@ -10,10 +10,10 @@ class SensorModel extends MY_Model {
 //    protected $soft_delete = true;
 //    protected $soft_delete_key = 'isactive';
 
-    function get_sensortypeList() {
+    function get_sensortypeList($user_id) {
         $this->db->select('sensor_type.id,sensor_type.name,sensor_type.description');
         $this->db->from('sensor_type');
-        $this->db->where('isactive', 1);
+        $this->db->where(array('createdby' => $user_id, 'isactive' => 1));
         $query = $this->db->get();
         $result = $query->result_array();
 

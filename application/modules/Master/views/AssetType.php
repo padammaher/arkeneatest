@@ -74,7 +74,17 @@
                             <?php
                             $i++;
                         }
-                    }
+                    } else {
+                        ?>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="flex-container nowrap">
+                                    <li class="flex-item">No data found..!</li>                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    <?php }
                     ?>
                 </div>
             </div>
@@ -110,7 +120,7 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+    $(".edit").click(function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
             $("#updateassettype" + id).submit();

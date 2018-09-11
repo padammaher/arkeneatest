@@ -24,7 +24,7 @@ class AssetMaster extends CI_Controller {
             $this->session->unset_userdata('assetcate_post');
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['asset_categories'] = $this->assetmodel->get_AssetCategoryList();
+            $data['asset_categories'] = $this->assetmodel->get_AssetCategoryList($user_id);
 
             load_view_template($data, 'master/AssetCategory');
         }
@@ -37,7 +37,7 @@ class AssetMaster extends CI_Controller {
         } else {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['asset_type'] = $this->assetmodel->get_assettypeList();
+            $data['asset_type'] = $this->assetmodel->get_assettypeList($user_id);
             $this->session->unset_userdata('assettype_post');
             $this->session->unset_userdata('assettypee_post');
 

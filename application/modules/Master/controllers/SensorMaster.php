@@ -23,7 +23,7 @@ class SensorMaster extends CI_Controller {
         } else {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['sensor_type_details'] = $this->sensormodel->get_sensortypeList();
+            $data['sensor_type_details'] = $this->sensormodel->get_sensortypeList($user_id);
             $this->session->unset_userdata('sensor_post');
             $this->session->unset_userdata('sensore_post');
 
