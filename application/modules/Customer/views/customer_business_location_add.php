@@ -51,7 +51,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" name="state">State / Province
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <select class="form-control"  id="State_id" onChange="getCity(this.value);">
+                  <select class="form-control" name="state" id="State_id" onChange="getCity(this.value);">
                     <option value="">Select
                     </option>
                    

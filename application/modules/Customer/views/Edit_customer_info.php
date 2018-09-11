@@ -42,6 +42,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" name="country_id" onChange="getState(this.value);">
                   <?php foreach($country as $contries){ ?> 
+                  <option>select country</option> 
                    <option value="<?php echo $contries->id;?>"<?php echo ($contries->id==$user->country_id)?'selected':'' ;?> ><?php echo $contries->name;?> </option>
                    <?php } ?> 
                    </select>

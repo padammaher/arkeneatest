@@ -93,7 +93,7 @@
                       <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                       </i>
                     </a>
-                    <a href="<?php echo base_url()?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete">
+                    <a href="<?php echo base_url()?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">
                       <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                       </i> 
                     </a> 
