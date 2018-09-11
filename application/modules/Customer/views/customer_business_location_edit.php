@@ -76,14 +76,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input name='pincode' type="text" class="form-control" placeholder="10001" required="required" value="<?php echo $business_detail[0]->pincode;?>">
+                    <input name='pincode' type="number" class="form-control" placeholder="10001" required="required" value="<?php echo $business_detail[0]->pincode;?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='telephone' type="text" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo $business_detail[0]->telephone;?>">
+                <input name='telephone' type="number" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo $business_detail[0]->telephone;?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -101,7 +101,8 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='email' type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo $business_detail[0]->email;?>">
+                <input name='email' id="customer_email" type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo $business_detail[0]->email;?>">
+                <div id="email_error" style="color:red"></div>  
                 </div>
               </div>
               <div class="ln_solid">
@@ -145,4 +146,21 @@ function getCity(val) {
 	}
 	});
 }
+
+$(document).ready(function() {
+
+$('#customer_email').focusout(function(){
+                $('#customer_email').filter(function(){
+                   var emil=$('#customer_email').val();
+              var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if( !emailReg.test( emil ) ) {
+                   $("#email_error").html('Please enter valid email'); 
+                } else {
+                  $("#email_error").html("");
+                 
+               // alert('Thank you for your valid email');
+                }
+                })
+            });
+});
 </script>

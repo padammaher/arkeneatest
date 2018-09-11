@@ -75,28 +75,29 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="pincode" type="text" class="form-control" placeholder="Enter pincode" required="required" value="<?php echo $user->pincode; ?>">
+                  <input name="pincode" type="number" class="form-control" placeholder="Enter pincode" required="required" value="<?php echo $user->pincode; ?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="phone" type="text" class="form-control" placeholder="Telephone No." required="required" value="<?php echo $user->phone; ?>">
+                <input name="phone" type="number" class="form-control" placeholder="Telephone No." required="required" value="<?php echo $user->phone; ?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="mobile" type="text" class="form-control" placeholder="Mobile No." required="required" value="<?php echo $user->mobile; ?>">
+                <input name="mobile" type="number" class="form-control" placeholder="Mobile No." required="required" value="<?php echo $user->mobile; ?>">
                </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="email" type="Email" class="form-control" placeholder="Email ID" required="required" value="<?php echo $user->email; ?>">
+                <input name="email" id="customer_email" type="Email" class="form-control" placeholder="Email ID" required="required" value="<?php echo $user->email; ?>">
+                <div id="email_error" style="color:red;"></div>
                 </div>
               </div>
               <div class="ln_solid">
@@ -142,5 +143,21 @@ function getCity(val) {
 	}
 	});
 }
+$(document).ready(function() {
+
+$('#customer_email').focusout(function(){
+                $('#customer_email').filter(function(){
+                   var emil=$('#customer_email').val();
+              var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if( !emailReg.test( emil ) ) {
+                   $("#email_error").html('Please enter valid email'); 
+                } else {
+                  $("#email_error").html("");
+                 
+               // alert('Thank you for your valid email');
+                }
+                })
+            });
+});
 </script>
 

@@ -1,4 +1,3 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <div class="right_col" role="main">
   <div class="">
     <div class="clearfix">
