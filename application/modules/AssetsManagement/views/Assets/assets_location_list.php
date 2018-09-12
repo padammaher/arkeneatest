@@ -42,13 +42,13 @@
 								</ul>
                         </div>
                         </div>
-<?php foreach ($asset_location_list as $asset_loc_list) { ?>
+<?php if(!empty($asset_location_list)) { foreach ($asset_location_list as $asset_loc_list) { ?>
 						
 						<div class="row clearfix">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<ul class="flex-container nowrap">
 								  <li class="flex-item">1</li>
-								  <li class="flex-item">DG001</li>
+								  <li class="flex-item"><?php echo $asset_loc_list['code'];?></li>
                   <li class="flex-item"><?php echo $asset_loc_list['location'];?></li>
                  
                     <li class="flex-item"><?php echo $asset_loc_list['address'];?></li>
@@ -70,73 +70,25 @@
     </button>                  
 </form>             
                      
-                    <a href="user-asset-edit.html" title="Manage Users">
-                      
-                      <i class="fa fa-group text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users"></i> 
-                    </a> 
+                          <a href="<?php echo base_url('User_assets_list'); ?>" title="Manage Users" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                        <i class="fa fa-group text-warning"></i> 
+                                    </a>
 									</li>
 								</ul>
 							</div>
             </div>
-<?php } ?>
+<?php } } else { ?>
                         <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
-                  <li class="flex-item">2</li>
-                  <li class="flex-item">DG002</li>
-                  <li class="flex-item">Durban_Central</li>
+                  <li class="flex-item">No data found..!</li>
                  
-                  <li class="flex-item">-33.832500</li>
-                  <li class="flex-item">18.647499</li>
-                  <li class="flex-item">Mark</li>
-                  <li class="flex-item">27 11 326 5900</li>
-                  <li class="flex-item">mark@bdv.co.za</li>
-                  <li class="flex-item">                    
-                    <a href="asset-location-edit.html" title="Edit">  
-                      <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                    </a>
-                    <a href="#" title="Delete">
-                      <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                    </a> 
-                     
-                    <a href="user-asset-edit.html" title="Manage Users">
-                      
-                      <i class="fa fa-group text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users"></i> 
-                    </a> 
-                  </li>
                 </ul>
               </div>
             </div>
+<?php } ?>
 
 
-            <div class="row clearfix">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <ul class="flex-container nowrap">
-                  <li class="flex-item">3</li>
-                  <li class="flex-item">DG003</li>
-                  <li class="flex-item">Cape Town</li>
-                 
-                  <li class="flex-item">-33.918861</li>
-                  <li class="flex-item">18.4233</li>
-                  <li class="flex-item">Chris</li>
-                  <li class="flex-item">27 82 480 7309</li>
-                  <li class="flex-item">chris@bdv.co.za</li>
-                  <li class="flex-item">                    
-                    <a href="asset-location-edit.html" title="Edit">  
-                      <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                    </a>
-                    <a href="#" title="Delete">
-                      <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                    </a> 
-                     
-                    <a href="user-asset-edit.html" title="Manage Users">
-                      
-                      <i class="fa fa-group text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users"></i> 
-                    </a> 
-                  </li>
-                </ul>
-              </div>
-            </div>
 					
 					
                   </div>

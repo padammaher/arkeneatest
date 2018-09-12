@@ -31,66 +31,43 @@
 								</ul>
                         </div>
                         </div>
-						
-						<div class="row clearfix">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<ul class="flex-container nowrap">
-								   <li class="flex-item">DG0001</li>
-                              <li class="flex-item">Saschin Naidoo</li>
-                              
-                         
-									<li class="flex-item">
-										
-										<a href="<?php echo base_url('User_asset_edit'); ?>" title="Edit">
-											 <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                    </a>
-                    <a href="#" title="Delete">
-                      <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                    </a> 
-									</li>
-								</ul>
-							</div>
-                        </div>
+				
+<?php if(!empty($asset_user_list)) { foreach ($asset_user_list as $asset_user_list_data) { ?>
+<div class="row clearfix">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <ul class="flex-container nowrap">
+           <li class="flex-item"><?php echo $asset_user_list_data['code']; ?></li>
+<li class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></li>
 
-                        <div class="row clearfix">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<ul class="flex-container nowrap">
-								  <li class="flex-item">DG0002</li>
-                              <li class="flex-item">Pankaj Shelke</li>
-                              
-                          
-								   <li class="flex-item">
-										<a href="<?php echo base_url('User_asset_edit'); ?>" title="Edit">  
-										 <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                    </a>
-                    <a href="#" title="Delete">
-                      <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                    </a> 
-									</li>
-								</ul>
-							</div>
-                        </div>	
+
+                <li class="flex-item">
+ <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>User_asset_edit">   
+     <input type="hidden" name="asset_user_form_action" id="dev_inv_id" value="edit <?php echo $asset_user_list_data['id']; ?>" >    
+     <button type="submit" class="btn btn-primary" name="edit_asset_user_button" id="edit_inventory_button" >
+         <i class="fa fa-pencil success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+     </button> </form> 
+ <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>User_asset_edit">   
+     <input type="hidden" name="asset_user_form_action" id="dev_inv_id" value="delete <?php echo $asset_user_list_data['id']; ?>" >    
+     <button type="submit" class="btn btn-primary" name="edit_asset_user_button" id="edit_inventory_button" >
+<i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+     </button> </form>  
+
+                </li>
+        </ul>
+</div>
+</div>
+<?php } } else { ?>
 
 
                         <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
-                  <li class="flex-item">DG0003</li>
-                              <li class="flex-item">Paresh Kamat</li>
-                              
-                          
-                   <li class="flex-item">
-                    <a href="<?php echo base_url('User_asset_edit'); ?>" title="Edit">  
-                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                    </a>
-                    <a href="#" title="Delete">
-                      <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                    </a> 
-                  </li>
+                  <li class="flex-item">No data found..!</li>
+                 
                 </ul>
               </div>
                         </div>  
-					
+<?php } ?>					
 					
                   </div>
                 </div>

@@ -15,10 +15,10 @@ class AssetModel extends MY_Model {
 //    protected $soft_delete = true;
 //    protected $soft_delete_key = 'isactive';
 
-    function get_AssetCategoryList() {
+    function get_AssetCategoryList($user_id) {
         $this->db->select('asset_category.id,asset_category.name,asset_category.description,asset_category.isactive');
         $this->db->from('asset_category');
-//        $this->db->where('isactive', 1);
+        $this->db->where(array('createdby' => $user_id, 'isactive' => 1));
         $query = $this->db->get();
         $result = $query->result_array();
 
@@ -54,10 +54,10 @@ class AssetModel extends MY_Model {
         return $this->db->affected_rows();
     }
 
-    function get_assettypeList() {
+    function get_assettypeList($user_id) {
         $this->db->select('asset_type.id,asset_type.name,asset_type.description');
         $this->db->from('asset_type');
-        $this->db->where('isactive', 1);
+        $this->db->where(array('createdby' => $user_id, 'isactive' => 1));
         $query = $this->db->get();
         $result = $query->result_array();
 

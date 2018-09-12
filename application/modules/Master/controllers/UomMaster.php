@@ -8,12 +8,12 @@ class UomMaster extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
-        $this->load->helper(array('url', 'language', 'form'));
+        $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->load->model(array('users', 'group_model', 'country', 'uommodel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
-        $CI = & get_instance();
+//        $CI = & get_instance();
     }
 
     public function uomlist() {
@@ -25,12 +25,7 @@ class UomMaster extends CI_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/UomList', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/UomList');
         }
     }
 
@@ -41,28 +36,51 @@ class UomMaster extends CI_Controller {
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
-        if ($this->input->post('submit')) {
-            $data = array(
-                'asset_category' => $this->input->post('asset_category'),
-                'description' => $this->input->post('asset_description'),
-                'createdby' => $user_id,
-                'createdat' => date('Y-m-d H:i:s'),
-            );
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $this->uommodel->insert($data);
-            // echo $this->db->last_query();die;
-            $this->session->set_flashdata('msg', 'Asset Category details added successfully');
-            redirect('master/add_project');
+            $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
+            $this->form_validation->set_rules('uom_name', 'uom_name', 'required');
+            if ($this->form_validation->run() == TRUE) {
+
+                $uom_data = array(
+                    'name' => $this->input->post('uom_name'),
+                    'createdat' => date('Y-m-d H:i:s'),
+                    'createdby' => $user_id,
+                    'isactive' => 1
+                );
+                $inserted_id = $this->uommodel->insert_uom($uom_data);
+                $data = array(
+                    'name' => $this->input->post('uom_type'),
+                    'uom_id' => $inserted_id,
+                    'createdat' => date('Y-m-d H:i:s'),
+                    'createdby' => $user_id,
+                    'isactive' => 1
+                );
+
+                $count = $this->uommodel->insert_uom_type($data);
+//                echo $count;
+//                exit;
+                if (is_numeric($count) && $count > 0) {
+                    $this->session->set_flashdata('success_msg', 'UOM Type added successfully');
+                    redirect('uomlist');
+                } elseif ($count == "duplicate") {
+                    $this->session->set_flashdata('error_msg', 'UOM Type already added');
+                    $data['post'] = $this->input->post();
+                    redirect('addUomList');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Failed to add UOM Type');
+                    $data['post'] = $this->input->post();
+                    redirect('addUomList');
+                }
+            } else {
+                $data['post'] = $this->input->post();
+                redirect('addUomList');
+            }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
-//            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+            $data['uom_list'] = $this->uommodel->get_uom($user_id);
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/add_uom', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/add_uom');
         }
     }
 
@@ -74,33 +92,62 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         if ($this->input->post('editsubmit')) {
-            $data = array(
-                'asset_category' => $this->input->post('asset_category'),
-                'description' => $this->input->post('asset_description'),
-            );
-            $this->uommodel->update($id, $data);
-            // echo $this->db->last_query();die;
-            $this->session->set_flashdata('msg', 'Asset category details updated successfully');
-            redirect('uomlist');
+            $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
+            $this->form_validation->set_rules('uom_name', 'uom_name', 'required');
+            if ($this->form_validation->run() == TRUE) {
+                $id = $this->input->post('edit_id');
+
+                $uom_data = array(
+                    'name' => $this->input->post('uom_name'),
+                );
+                $um_count = $this->uommodel->update_uom($id, $uom_data);
+
+                $data = array(
+                    'name' => $this->input->post('uom_type'),
+                );
+                $count = $this->uommodel->uomtype_update($id, $data);
+
+                if ((is_numeric($count) && $count > 0) || (is_numeric($um_count) && $um_count > 0)) {
+                    $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
+                    redirect('uomlist');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Failed to update UOM Type');
+                    $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
+                    $data['post'] = $this->input->post();
+                    redirect('updateUomList');
+                }
+            } else {
+                $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
+                $data['post'] = $this->input->post();
+                redirect('updateUomList');
+            }
         }
         if ($this->input->post('post') == 'delete') {
-            $id = $this->input->post('edit_id');
-            $data = array('status' => 0);
-            $this->uommodel->company_edit($id, $data);
-            $this->session->set_flashdata('msg', 'Sucessfully deleted an asset category');
+            $id = $this->input->post('id');
+            $data = array('isactive' => 0);
+            $response = $this->uommodel->uomtype_update($id, $data);
+            if ($response > 0) {
+                $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');
+            } else {
+                $this->session->set_flashdata('error_msg', 'Failed to delete an UOM type');
+            }
             redirect('uomlist');
         }
-        if ($this->input->post('post') == 'edit') {
-            $data['result'] = $this->uommodel->asset_category_update($id);
-            $data['ast_cat_id'] = $id;
+        if ($this->input->post('post') == 'edit' || $this->session->userdata('edit_uom_type')) {
+            if ($this->input->post('id')) {
+                $id = $this->input->post('id');
+                $data['uom_type_id'] = $id;
+            } elseif ($this->session->userdata('edit_uom_type')) {
+                $id = $this->session->userdata('edit_uom_type');
+                $data['uom_type_id'] = $id;
+            }
+
+//            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+            $data['result'] = $this->uommodel->get_uom_type($id);
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/edit_uom', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            $this->session->unset_userdata('edit_uom_type');
+            load_view_template($data, 'master/edit_uom');
         }
     }
 
@@ -111,7 +158,18 @@ class UomMaster extends CI_Controller {
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
-        $data['uom_list'] = $this->uommodel->get_uom($user_id);
+        $data['uom_list'] = $this->uommodel->get_uom($user_id, 'json');
+    }
+
+    public function getuom_autocomplete_c() {
+        if (!$this->ion_auth->logged_in()) {
+            redirect('auth', 'refresh');
+        }
+        if ($this->session->userdata('user_id'))
+            $user_id = $this->session->userdata('user_id');
+
+        $keyword = $this->input->post('term');
+//        $this->TaskModel->getTask_autocomplete($keyword);
     }
 
 }

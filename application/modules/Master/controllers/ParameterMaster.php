@@ -8,7 +8,7 @@ class ParameterMaster extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
-        $this->load->helper(array('url', 'language', 'form'));
+        $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->load->model(array('users', 'group_model', 'country', 'parametermodel', 'uommodel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
@@ -21,17 +21,12 @@ class ParameterMaster extends CI_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['parameter_list'] = $this->parametermodel->get_parameterlist();
-
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/ParameterList', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            $data['parameter_list'] = $this->parametermodel->get_parameterlist($user_id);
+            $this->session->unset_userdata('param_post');
+            $this->session->unset_userdata('parame_post');
+            load_view_template($data, 'master/ParameterList');
         }
     }
 
@@ -51,35 +46,37 @@ class ParameterMaster extends CI_Controller {
                     'uom_type_id' => $this->input->post('uom_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
+                    'isactive' => 1
                 );
                 if ($this->input->post('param_description')) {
                     $data['description'] = $this->input->post('param_description');
-                }
-                if ($this->input->post('status')) {
-                    $data['isactive'] = $this->input->post('status') ? 1 : 0;
                 }
 
                 $count = $this->parametermodel->insert_parameter($data);
 
                 if (is_numeric($count) && $count > 0) {
+                    $this->session->unset_userdata('param_post');
                     $this->session->set_flashdata('success_msg', 'Parameter added successfully');
+                    redirect('parameterlist');
                 } elseif ($count == "duplicate") {
+                    $this->session->set_userdata('param_post', $this->input->post());
                     $this->session->set_flashdata('error_msg', 'Parameter already added');
+                    redirect('addParameter');
                 } else {
+                    $this->session->set_userdata('param_post', $this->input->post());
                     $this->session->set_flashdata('error_msg', 'Failed to add Parameter');
+                    redirect('addParameter');
                 }
-                redirect('parameterlist');
+            } else {
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+                load_view_template($data, 'master/add_parameter');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/add_parameter', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/add_parameter');
         }
     }
 
@@ -100,19 +97,24 @@ class ParameterMaster extends CI_Controller {
                 $data = array(
                     'name' => $this->input->post('param_name'),
                     'uom_type_id' => $this->input->post('uom_type'),
+                    'description' => $this->input->post('param_description')
                 );
-                if ($this->input->post('param_description')) {
-                    $data['description'] = $this->input->post('param_description');
-                }
 
-                $count = $this->parametermodel->parameter_update($id, $data);
+                $response = $this->parametermodel->parameter_update($id, $data);
 
-                if (is_numeric($count) && $count > 0) {
+                if (is_numeric($response) && $response > 0) {
+                    $this->session->unset_userdata('parame_post');
                     $this->session->set_flashdata('success_msg', 'Parameter updated successfully');
+                    redirect('parameterlist');
                 } else {
+                    $this->session->set_userdata('parame_post', $this->input->post());
                     $this->session->set_flashdata('error_msg', 'Failed to update Parameter');
+                    redirect('updateParameter');
                 }
-                redirect('parameterlist');
+            } else {
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+                load_view_template($data, 'master/edit_parameter');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -126,19 +128,24 @@ class ParameterMaster extends CI_Controller {
             }
             redirect('parameterlist');
         }
-        if ($this->input->post('post') == 'edit') {
-            $id = $this->input->post('id');
-            $data['result'] = $this->parametermodel->get_parameter($id);
-            $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
-            $data['param_id'] = $id;
+        if ($this->input->post('post') == 'edit' || $this->session->userdata('parame_post')) {
+            if ($this->input->post('id')) {
+                $id = $this->input->post('id');
+            } elseif ($this->session->userdata('parame_post')) {
+                $post_data = $this->session->userdata('parame_post');
+                $id = $post_data['edit_id'];
+            }
 
-            $data['dataHeader'] = $this->users->get_allData($user_id);
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/edit_parameter', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            if (isset($id)) {
+                $data['result'] = $this->parametermodel->get_parameter($id);
+                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+                $data['param_id'] = $id;
+
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/edit_parameter');
+            } else {
+                echo "Something Went wrong";
+            }
         }
     }
 

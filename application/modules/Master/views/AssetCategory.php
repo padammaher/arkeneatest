@@ -2,12 +2,12 @@
 <!--<div class="right_col" role="main">-->
 <div class="">
     <?php
-    if ($this->session->flashdata('success_msg')) {
-        echo $this->session->flashdata('success_msg');
-    }
-    if ($this->session->flashdata('error_msg')) {
-        echo $this->session->flashdata('error_msg');
-    }
+//    if ($this->session->flashdata('success_msg')) {
+//        echo $this->session->flashdata('success_msg');
+//    }
+//    if ($this->session->flashdata('error_msg')) {
+//        echo $this->session->flashdata('error_msg');
+//    }
     ?>
     <div class="page-title">
         <div class="title_left">
@@ -34,7 +34,7 @@
                                 <li class="flex-item">Sr. No.</li>
                                 <li class="flex-item">Asset Category</li>
                                 <li class="flex-item">Description</li>
-                                <li class="flex-item">Status</li>
+                                <!--<li class="flex-item">Status</li>-->
                                 <li class="flex-item">Actions</li>
                             </ul>
                         </div>
@@ -50,7 +50,7 @@
                                         <li class="flex-item"><?php echo $i; ?></li>
                                         <li class="flex-item"><?php echo $r['name']; ?></li>
                                         <li class="flex-item"><?php echo $r['description'] ? $r['description'] : ""; ?></li>
-                                        <li class="flex-item"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></li>
+                                        <!--<li class="flex-item"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></li>-->
                                         <li class="flex-item">
                                             <form action="<?php echo base_url(); ?>updateAssetCategory" method="post" id="updateasset<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
@@ -70,7 +70,16 @@
                             <?php
                             $i++;
                         }
-                    }
+                    } else {
+                        ?>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="flex-container nowrap">
+                                    <li class="flex-item" style="text-align: center;">No data found..!</li>                    
+                                </ul>
+                            </div>
+                        </div>
+                    <?php }
                     ?>
                 </div>
             </div>
@@ -78,6 +87,7 @@
     </div>
 </div>
 <!--</div>-->
+<?php // echo $this->load->view('master/modal/assetcategory');  ?>
 <style type="text/css">
     .flex-item:first-child {
         width: 8%;
@@ -118,6 +128,12 @@
                 $("#updateasset" + id).submit();
             }
         });
+//        $(".flex-item").click(function (e) {
+//            if (!$(e.target).hasClass('fa')) {
+////                $('#sr_name_modal').html()
+//                $('#detailsModal').modal('show');
+//            }
+//        });
     });
 </script>
 <!-- /page content -->

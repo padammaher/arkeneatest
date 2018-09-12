@@ -1,8 +1,13 @@
 <?php //print_r($user_detail[0]->customer_name); exit(); ?> 
 <div class="right_col" role="main">
   <div class="">
+  <?php if($this->session->flashdata('message')){ ?> 
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <div  class="alert alert-success fade in" role="alert" id="infoMessage" ><?php echo ($this->session->flashdata('message'))?$this->session->flashdata('message'):'';?></div>
+           <?php } ?>
     <div class="page-title">
       <div class="title_left">
+      
         <h4>Customer Provisioning
         </h4>
       </div>
@@ -34,7 +39,7 @@
                   <tr>
                     <td width="15%" class="lft-td">Customer Name
                     </td>
-                    <td><?php echo $user_detail[0]->customer_name; ?> 
+                    <td><?php echo $user_detail[0]->first_name.' '.$user_detail[0]->last_name; ?> 
                     </td>
                   </tr>
                   <tr>
@@ -46,25 +51,25 @@
                   <tr>
                     <td class="lft-td">Contact Person
                     </td>
-                    <td><?php echo $user_detail[0]->contact_per_name; ?> 
+                    <td><?php echo $user_detail[0]->contact_person; ?> 
                     </td>
                   </tr>
                   <tr>
                     <td class="lft-td">Telephone
                     </td>
-                    <td><?php echo $user_detail[0]->Telephone; ?> 
+                    <td><?php echo $user_detail[0]->phone; ?> 
                     </td>
                   </tr>
                   <tr>
                     <td class="lft-td">Mobile No.
                     </td>
-                    <td><?php echo $user_detail[0]->Mobile; ?> 
+                    <td><?php echo $user_detail[0]->mobile; ?> 
                     </td>
                   </tr>
                   <tr>
                     <td class="lft-td">Email ID
                     </td>
-                    <td><?php echo $user_detail[0]->Email; ?> 
+                    <td><?php echo $user_detail[0]->email; ?> 
                     </td>
                   </tr>
                 </tbody>
@@ -88,3 +93,8 @@
     </div>
   </div>
 </div>
+<script> 
+setTimeout(function() {
+    $('#infoMessage').fadeOut('fast');
+}, 7000);
+</script> 

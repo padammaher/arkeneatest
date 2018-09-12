@@ -70,21 +70,21 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="Pincode" type="text" class="form-control" placeholder="Pincode" required="required">
+                  <input name="Pincode" type="number" class="form-control" placeholder="Pincode" required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="Telephone" type="text" class="form-control" placeholder="Telephone No." required="required">
+                  <input name="Telephone" type="number" class="form-control" placeholder="Telephone No." required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="Mobile" type="text" class="form-control" placeholder="Mobile No." required="required">
+                  <input name="Mobile" type="number" class="form-control" placeholder="Mobile No." required="required">
                 </div>
               </div>
               <div class="item form-group">

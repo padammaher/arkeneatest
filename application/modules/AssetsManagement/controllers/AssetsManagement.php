@@ -313,35 +313,7 @@ class AssetsManagement extends MY_Controller {
         }
     }
 
-    public function User_asset_edit() {
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('auth/login', 'refresh');
-        } elseif (!$this->ion_auth->is_admin()) {
-            $this->restricted();
-            // redirect them to the home page because they must be an administrator to view this
-            // return show_error('You must be an administrator to view this page.');
-        } else {
-            // set the flash data error message if there is one
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-            //list the users
-            $data['groups1'] = $this->group_model->get_allGroupData();
-
-            $user_id = $this->session->userdata('user_id');
-
-            $data['dataHeader'] = $this->users->get_allData($user_id);
-
-
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-
-            $this->template->write_view('content', 'Assets/user_assets_edit', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
-        }
-    }
+ 
 
     public function Assets_location_list() {
         $this->load->helper('form');
@@ -364,11 +336,14 @@ class AssetsManagement extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
               if($_SERVER['REQUEST_METHOD'] == 'POST')
                 {
+                  $todaysdate=date('Y-m-d'); 
                  $asset_loc_form_action=explode(" ",$this->input->post('asset_loc_form_action'));
-//                  print_r($sensor_form_action);
+//                  print_r($sensor_form_action); asset_loc_form_action
                   if($asset_loc_form_action[0] == 'edit')
                   {
-            $data['asset_location_list']=$this->Assets->assets_location_list();
+                                        
+            $data['asset_code_list']=$this->Assets->assetcode_list();          
+            $data['asset_location_list']=$this->Assets->edit_assets_location($asset_loc_form_action[1]);
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -377,9 +352,39 @@ class AssetsManagement extends MY_Controller {
             $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             $this->template->render();
                   }
+                   if($asset_loc_form_action[0] == 'update')
+                  {
+//                       print_r($this->input->post());
+                        $update_data=array('location' =>$this->input->post('asset_location'),
+                                       'address' =>$this->input->post('asset_address'),
+                                       'latitude' =>$this->input->post('asset_lat'),
+                                       'contact_no' =>$this->input->post('asset_long'),
+                                       'longitude' =>$this->input->post('asset_contactperson'),
+                                       'contact_person' =>$this->input->post('asset_contactno'),
+                                       'contact_email' =>$this->input->post('asset_contactemail'),
+                                       'createdat'=>$todaysdate,
+                                       'createdby'=>$user_id,
+                                       'isactive'=>'1',
+                                       'asset_id'=>$this->input->post('assetcode')
+                                     );
+ 
+//                $inserteddata=$this->Assets->add_assets_location($insert_data);
+//                        print_r($insert_data);
+//                  exit;
+                  $update_asset_location=$this->Assets->Update_asset_location($update_data,$asset_loc_form_action[1]);
+                     if($update_asset_location){
+                     $this->session->set_flashdata('success_msg', 'Asset location successfully updated');
+                    return redirect('Assets_location_list','refresh');
+                     }
+                   }
                   elseif($asset_loc_form_action[0] == 'delete')
                   {
-                      echo "delete".$asset_loc_form_action[1]; exit;
+//                      echo "delete".$asset_loc_form_action[1]; exit;
+                      $delete_asset_location=$this->Assets->Delete_asset_location($asset_loc_form_action[1]);
+                     if($delete_asset_location){
+                     $this->session->set_flashdata('success_msg', 'Asset location successfully deleted');
+                    return redirect('Assets_location_list','refresh');
+                     }
                   }
               }
               else{
@@ -415,10 +420,12 @@ class AssetsManagement extends MY_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
 //             $data['device_list']=$this->Inventory_model->device_list();    
+            
             $todaysdate=date('Y-m-d'); 
             $user_id = $this->session->userdata('user_id');
               if($_SERVER['REQUEST_METHOD'] == 'POST')
            { 
+//                 if() 
 //                  'code' =>$this->input->post('assetcode'),
                 $insert_data=array(    'location' =>$this->input->post('asset_location'),
                                        'address' =>$this->input->post('asset_address'),
@@ -429,7 +436,9 @@ class AssetsManagement extends MY_Controller {
                                        'contact_email' =>$this->input->post('asset_contactemail'),
                                        'createdat'=>$todaysdate,
                                        'createdby'=>$user_id,
-                                       'isactive'=>'1');
+                                       'isactive'=>'1',
+                                       'asset_id'=>$this->input->post('assetcode')
+                                    );
  
                 $inserteddata=$this->Assets->add_assets_location($insert_data);
                 
@@ -443,7 +452,7 @@ class AssetsManagement extends MY_Controller {
             }
             }
             else{
-               
+             $data['asset_code_list']=$this->Assets->assetcode_list();      
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -474,17 +483,10 @@ class AssetsManagement extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
-
-
-
-
-//            $data['save_btn'] = array(
-//                'name' => 'assets_edit',
-//                'id'   => 'assets_edit',
-//                'value' => 'assets_edit',
-//                'class' => 'btn btn-info'
-//            );
-
+            $data['assetuser_list']=$this->Assets->asset_user_list();
+            
+             $data['asset_user_list']=$this->Assets->asset_user_list();
+            
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -514,19 +516,127 @@ class AssetsManagement extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
-
-//            $data['save_btn'] = array(
-//                'name' => 'assets_edit',
-//                'id'   => 'assets_edit',
-//                'value' => 'assets_edit',
-//                'class' => 'btn btn-info'
-//            );
-
+            
+            
+            $data['asset_code_list']=$this->Assets->assetcode_list();    
+            $data['asset_userid_list']=$this->Assets->asset_userid_list();
+//                asset_user_form_action
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+              if($_SERVER['REQUEST_METHOD'] == 'POST')
+                {
+                  $todaysdate=date('Y-m-d'); 
+                 $asset_user_form_action=explode(" ",$this->input->post('asset_user_form_action'));
+//                  print_r($sensor_form_action); asset_loc_form_action
+                  if($asset_user_form_action[0] == 'add')
+                  {
+                      $insert_data=array('asset_id'=>$this->input->post('assetcode'),
+                                         'assetuser_id'=>$this->input->post('assetuserid'),
+                                         'createdate'=>$todaysdate,
+                                         'createdby'=>$user_id);
+//                      print_r($insert_data);
+//                      exit;
+                       $inserteddata=$this->Assets->add_asset_user($insert_data);
+                
+                        if($inserteddata)
+                      {
+                          $this->session->set_flashdata('success_msg', 'Asset user successfully added');
+                          return redirect('User_assets_list','refresh');
+                      }
+                   else {
+                          return redirect('User_assets_list','refresh');
+                   }
+                  }
+                }
+                else
+                {
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
 
             $this->template->write_view('content', 'Assets/user_asset_add', (isset($this->data) ? $this->data : NULL), TRUE);
+            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+            $this->template->render();
+                }
+        }
+    }
+    
+       public function User_asset_edit() {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } elseif (!$this->ion_auth->is_admin()) {
+            $this->restricted();
+            // redirect them to the home page because they must be an administrator to view this
+            // return show_error('You must be an administrator to view this page.');
+        } else {
+            // set the flash data error message if there is one
+            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+            //list the users
+            $data['groups1'] = $this->group_model->get_allGroupData();
+
+            $user_id = $this->session->userdata('user_id');
+
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+             
+             $data['asset_code_list']=$this->Assets->assetcode_list();    
+            $data['asset_userid_list']=$this->Assets->asset_userid_list();
+            
+
+             $this->template->set_master_template('template.php');
+            if($_SERVER['REQUEST_METHOD'] == 'POST')
+                {
+                  $todaysdate=date('Y-m-d'); 
+                 $asset_user_form_action=explode(" ",$this->input->post('asset_user_form_action'));
+//                  print_r($sensor_form_action); asset_loc_form_action
+                  if($asset_user_form_action[0] == 'edit')
+                  {
+                     $data['asset_user_list_data']=$this->Assets->edit_assets_user($asset_user_form_action[1]); 
+//                     print_r($data['asset_user_list_data']);
+//                      exit;
+                    
+                    $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+                    $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+            
+                     $this->template->write_view('content', 'Assets/user_assets_edit', (isset($this->data) ? $this->data : NULL), TRUE);
+//                    
+//                        $insert_data=array('asset_id'=>$this->input->post('assetcode'),
+//                                         'assetuser_id'=>$this->input->post('assetuserid'),
+//                                         'createdate'=>$todaysdate,
+//                                         'createdby'=>$user_id);
+                      
+                  }
+                  else if($asset_user_form_action[0] == 'update')
+                  {
+                     $todaysdate=date('Y-m-d'); 
+                    $update_data=array('asset_id'=>$this->input->post('assetcode'),
+                                         'assetuser_id'=>$this->input->post('assetuserid'),
+                                         'createdate'=>$todaysdate,
+                                         'createdby'=>$user_id);  
+                  $asset_user_list_data=$this->Assets->update_asset_user($update_data,$asset_user_form_action[1]); 
+                  if($asset_user_list_data)
+                  {
+                      $this->session->set_flashdata('success_msg', 'Asset user successfully updated');
+                      return redirect('User_assets_list','refresh');  
+                  }
+                  
+                }else if($asset_user_form_action[0] == 'delete')
+                {
+                   $delete_user_list_data=$this->Assets->delete_asset_user($asset_user_form_action[1]); 
+                   if($delete_user_list_data)
+                  {
+                      $this->session->set_flashdata('success_msg', 'Asset user successfully deleted');
+                      return redirect('User_assets_list','refresh');  
+                  }
+                }
+                else {
+                     return redirect('User_assets_list','refresh');
+                }
+                
+                }
+           
+
+            
             $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             $this->template->render();
         }

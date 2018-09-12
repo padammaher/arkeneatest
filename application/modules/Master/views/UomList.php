@@ -1,12 +1,12 @@
 <!--<div class="right_col" role="main">-->
 <div class="">
     <?php
-    if ($this->session->flashdata('success_msg')) {
-        echo $this->session->flashdata('success_msg');
-    }
-    if ($this->session->flashdata('error_msg')) {
-        echo $this->session->flashdata('error_msg');
-    }
+//    if ($this->session->flashdata('success_msg')) {
+//        echo $this->session->flashdata('success_msg');
+//    }
+//    if ($this->session->flashdata('error_msg')) {
+//        echo $this->session->flashdata('error_msg');
+//    }
     ?>
     <div class="page-title">
         <div class="title_left">
@@ -67,7 +67,16 @@
                             <?php
                             $i++;
                         }
-                    }
+                    } else {
+                        ?>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="flex-container nowrap">
+                                    <li class="flex-item">No data found..!</li>                    
+                                </ul>
+                            </div>
+                        </div>
+                    <?php }
                     ?>
 
                 </div>

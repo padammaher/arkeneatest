@@ -6,8 +6,13 @@
 						<div class="clearfix"></div>
 					</div>
                   <div class="x_content">
-                    <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_add">
-				
+                    <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_list">
+<?php foreach ($asset_location_list as $asset_location_data) { ?>
+<!--//print_r($asset_location_data);-->
+
+ 
+                        <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="update <?php echo $asset_location_data['id'];?>">				
+                         
            <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -15,54 +20,63 @@
               </div>
               </div>
 
-              <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="assetcode" class="form-control" placeholder="DG0001" required="required">
+                 <div class="item form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">             
+                  <select class="form-control" name="assetcode" required="required">
+                    <option value="">Select Asset Code</option>
+                    <option value="<?php echo $asset_location_data['asset_tbl_id'];?>" selected><?php echo $asset_location_data['code'];?></option>
+<?php foreach ($asset_code_list as $asset_id_list) { 
+    if($asset_location_data['asset_tbl_id'] != $asset_id_list['id'])  {  ?>
+                                <option value="<?php echo $asset_id_list['id'];?>"><?php echo $asset_id_list['code'];?></option>
+
+                       
+<?php } } ?>
+                </select>             
                 </div>
-                </div>
+              </div>  
               
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Location <span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="asset_location" class="form-control" placeholder="Sandton" required="required">
+                  <input type="text" name="asset_location" class="form-control" value="<?php echo $asset_location_data['location'];?>" placeholder="Sandton" required="required">
                 </div>
                 </div>
 
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <textarea name="asset_address" class="form-control" rows="2" style="resize: vertical;" placeholder="Far East Bank, Sandton, 2014" required="required"></textarea>
+                  <textarea name="asset_address" class="form-control" rows="2" style="resize: vertical;" placeholder="Far East Bank, Sandton, 2014" required="required"><?php echo $asset_location_data['address'];?></textarea>
                 </div>
                 </div>
                 <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Latitude</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="asset_lat" class="form-control" placeholder="-26.107567" required="required">
+                  <input type="text" name="asset_lat" class="form-control" value="<?php echo $asset_location_data['latitude'];?>" placeholder="-26.107567" required="required">
                 </div>
                 </div>
                 <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Longitude</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="asset_long" class="form-control" placeholder="28.056702" required="required">
+                  <input type="text" name="asset_long" class="form-control" value="<?php echo $asset_location_data['longitude'];?>" placeholder="28.056702" required="required">
                 </div>
                 </div>
                 <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="asset_contactperson" class="form-control" placeholder="Joy" required="required">
+                  <input type="text" name="asset_contactperson" class="form-control" value="<?php echo $asset_location_data['contact_person'];?>" placeholder="Joy" required="required">
                 </div>
                 </div>
                 <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact No. <span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="asset_contactno" class="form-control" placeholder="27 11 326 5900" required="required">
+                  <input type="text" name="asset_contactno" class="form-control" value="<?php echo $asset_location_data['contact_no'];?>" placeholder="27 11 326 5900" required="required">
                 </div>
                 </div>
                 <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Email <span class="required">*</span></label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="asset_contactemail" class="form-control" placeholder="joy@bdv.co.za" data-validate-length-range="6" data-validate-words="2" required="required" >
+                  <input type="text" name="asset_contactemail" class="form-control" value="<?php echo $asset_location_data['contact_email'];?>" placeholder="joy@bdv.co.za" data-validate-length-range="6" data-validate-words="2" required="required" >
                 </div>
 
                 </div>              
@@ -78,6 +92,7 @@
                 
               </div>
               </div>
+<?php } ?>
 
 						</form>					
 					
