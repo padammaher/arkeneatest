@@ -119,16 +119,12 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" id="Movable" name="Movable">
 
-                                    <option value="">Select </option>
-                                      <!--ismovable-->
-                                    <?php if($list['ismovable'] == "1") { ?> 
-                                    <option value="1" selected>Movable</option>                                    
+                                    <option value="<?php echo $list['ismovable'] ?>"></option>
+
+                                    <option value="1">Movable</option>
                                     <option value="2">Immovable</option>
-                                    <?php }else if($list['ismovable'] == "2") { ?> 
-                                    <option value="1">Movable</option>                                    
-                                    <option value="2" selected>Immovable</option>
-                                    <?php } ?>
                                 </select>
+
                             </div>
                         </div> 
 

@@ -32,10 +32,45 @@ class AssetsManagement extends MY_Controller {
         // redirect them to the home page because they must be an administrator to view this
         // return show_error('You must be an administrator to view this page.');
 
-        $data['location_list'] = $this->Assets->CustomerLocation_list();
-        $data['category_list'] = $this->Assets->AssetCategory_list();
-        $data['type_list'] = $this->Assets->AssetType_list();
+
+
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } elseif (!$this->ion_auth->is_admin()) {
+            $this->restricted();
+        } else {
+            // set the flash data error message if there is one
+            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+            //list the users
+            $data['groups1'] = $this->group_model->get_allGroupData();
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+            
+           
+            
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $unique_Data = array(
+                'code' => $this->input->post('Assetcode'),
+            );
+             $data['location_list'] = $this->Assets->CustomerLocation_list();
+            $data['category_list'] = $this->Assets->AssetCategory_list();
+            $data['type_list'] = $this->Assets->AssetType_list();
+            
+            $isUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
+            // var_dump($isUnique);die;
+            if ($isUnique) {
+                //echo '<script>alert("Asset Code is already existed!");</script>';
+                // $this->session->set_flashdata('item', array('msg' => 'Asset Code is already existed!','class' => 'success'));
+                $this->session->set_flashdata('error_msg', 'assets already existed!');
+                $this->template->set_master_template('template.php');
+                $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+                $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+
+                $this->template->write_view('content', 'Assets/assets_add', (isset($this->data) ? $this->data : NULL), TRUE);
+                $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+                $this->template->render();
+//                redirect('Assets_list', 'refresh');
+            } else {
             $assets_data = array(
                 'code' => $this->input->post('Assetcode'),
                 'customer_locationid' => $this->input->post('Customerlocation'),
@@ -53,41 +88,18 @@ class AssetsManagement extends MY_Controller {
                 'isactive' => 1
             );
             //  echo "<pre>";
-//            print_r($this->input->post());
-//              var_dump($assets_data);
-//              exit;
-
-            $this->Assets->add_assets($assets_data);
-
-            $this->session->set_flashdata('msg', 'Assets Added Successfully');
-        }
-
-//        $this->template->set_master_template('template.php');
-//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-//
-//        $this->template->write_view('content', 'Assets/assets_list', (isset($this->data) ? $this->data : NULL), TRUE);
-//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-//        $this->template->render();
-
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('auth/login', 'refresh');
-        } elseif (!$this->ion_auth->is_admin()) {
-            $this->restricted();
+                $insetreddata = $this->Assets->add_assets($assets_data);
+                if ($insetreddata ) {
+                    $this->session->set_flashdata('success_msg', 'Assets Successfully added');
+                    redirect('Assets_list', 'refresh');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Assets failed to Added');
+                    redirect('Assets_list', 'refresh');
+                }
+            }
         } else {
-            // set the flash data error message if there is one
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            //list the users
-            $data['groups1'] = $this->group_model->get_allGroupData();
-            $data['dataHeader'] = $this->users->get_allData($user_id);
             clearstatcache();
-//            $data['save_btn'] = array(
-//                'name' => 'assets_edit',
-//                'id'   => 'assets_edit',
-//                'value' => 'assets_edit',
-//                'class' => 'btn btn-info'
-//           $user_id = $this->session->userdata('user_id');
+
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -96,6 +108,7 @@ class AssetsManagement extends MY_Controller {
             $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             $this->template->render();
         }
+    }
     }
 
     public function Asset_List() {
@@ -181,10 +194,10 @@ class AssetsManagement extends MY_Controller {
                 $id = $edit_asset_list_id[1];
                 //  var_dump($id);die;
                 $data = $this->Assets->update_assets($assets_data, $id);
-                if ($data == 1) {
-                    $this->session->set_flashdata('msg', 'Assets Update Successfully');
+                if ($data) {
+                    $this->session->set_flashdata('success_msg', 'Assets Successfully updated');
                 } else {
-                    $this->session->set_flashdata('msg', 'Assets Not Updated');
+                    $this->session->set_flashdata('error_msg', 'Assets failed to Updat');
                 }
                 redirect(base_url('Assets_list'));
 //              Assets_list
@@ -232,8 +245,7 @@ class AssetsManagement extends MY_Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $id = $this->input->post('edit_asset_list_id');
-            var_dump($id);
-            die;
+            
             // $edit_asset_list_id=explode(" ",$this->input->post('edit_asset_list_id'));
             if ($edit_asset_list_id != NULL) {
                 $assets_data = array(
@@ -241,13 +253,12 @@ class AssetsManagement extends MY_Controller {
                 );
 
                 $id = $edit_asset_list_id[1];
-                var_dump($id);
-                die;
+               
                 $data = $this->Assets->delete_assets($assets_data, $id);
                 if ($data == 1) {
-                    $this->session->set_flashdata('msg', 'Assets Update Successfully');
+                    $this->session->set_flashdata('success_msg', 'Assets Deleted Successfully');
                 } else {
-                    $this->session->set_flashdata('msg', 'Assets Not Updated');
+                    $this->session->set_flashdata('error_msg', 'Assets failed to delete');
                 }
                 redirect(base_url('Assets_list'));
 //              Assets_list
@@ -339,6 +350,18 @@ class AssetsManagement extends MY_Controller {
                   $todaysdate=date('Y-m-d'); 
                  $asset_loc_form_action=explode(" ",$this->input->post('asset_loc_form_action'));
 //                  print_r($sensor_form_action); asset_loc_form_action
+                $unique_Data = array(
+                    'address' => $this->input->post('asset_address'),
+                    'latitude' => $this->input->post('asset_lat'),
+                    'contact_no' => $this->input->post('asset_long'),
+                    'longitude' => $this->input->post('asset_contactperson'),
+                    'contact_person' => $this->input->post('asset_contactno'),
+                    'contact_email' => $this->input->post('asset_contactemail'),
+                );
+                $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
+//            print_r($isUnique);
+//              var_dump($isUnique);
+//            die;
                   if($asset_loc_form_action[0] == 'edit')
                   {
                                         
@@ -355,6 +378,18 @@ class AssetsManagement extends MY_Controller {
                    if($asset_loc_form_action[0] == 'update')
                   {
 //                       print_r($this->input->post());
+                    if ($isUnique) {
+//                        echo '<script>alert("Asset Code is already existed!");</script>';
+//                         $this->session->set_flashdata('item', array('msg' => 'Asset Code is already existed!','class' => 'success'));
+                            $this->session->set_flashdata('error_msg', 'Asset location is already existed');
+                        $this->template->set_master_template('template.php');
+                        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+                        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+
+                        $this->template->write_view('content', 'Assets/assets_location_list', (isset($this->data) ? $this->data : NULL), TRUE);
+                        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+                        $this->template->render();
+                    } else {
                         $update_data=array('location' =>$this->input->post('asset_location'),
                                        'address' =>$this->input->post('asset_address'),
                                        'latitude' =>$this->input->post('asset_lat'),
@@ -377,7 +412,8 @@ class AssetsManagement extends MY_Controller {
                     return redirect('Assets_location_list','refresh');
                      }
                    }
-                  elseif($asset_loc_form_action[0] == 'delete')
+                  }
+                  else if($asset_loc_form_action[0] == 'delete')
                   {
 //                      echo "delete".$asset_loc_form_action[1]; exit;
                       $delete_asset_location=$this->Assets->Delete_asset_location($asset_loc_form_action[1]);
@@ -402,55 +438,61 @@ class AssetsManagement extends MY_Controller {
 
     public function Assets_location_add() {
         $this->load->helper('form');
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('auth/login', 'refresh');
-        } elseif (!$this->ion_auth->is_admin()) {
-            $this->restricted();
-            // redirect them to the home page because they must be an administrator to view this
-            // return show_error('You must be an administrator to view this page.');
-        } else {
-            // set the flash data error message if there is one
-            $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+        $user_id = $this->session->userdata('user_id');
 
-            //list the users
-            $data['groups1'] = $this->group_model->get_allGroupData();
 
-            $user_id = $this->session->userdata('user_id');
+        $todaysdate = date('Y-m-d');
+        $user_id = $this->session->userdata('user_id');
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//            exit;
+            $unique_Data = array(
+                'address' => $this->input->post('asset_address'),
+                'latitude' => $this->input->post('asset_lat'),
+                'contact_no' => $this->input->post('asset_long'),
+                'longitude' => $this->input->post('asset_contactperson'),
+                'contact_person' => $this->input->post('asset_contactno'),
+                'contact_email' => $this->input->post('asset_contactemail'),
+            );
+            $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
+//            print_r($isUnique);
+//              var_dump($isUnique);
+//            die;
+            if ($isUnique) {
+//                echo '<script>alert("Asset Code is already existed!");</script>';
+                // $this->session->set_flashdata('item', array('msg' => 'Asset Code is already existed!','class' => 'success'));
+                    $this->session->set_flashdata('error_msg', 'Asset location is already existed');
+                $this->template->set_master_template('template.php');
+                $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+                $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
 
-            $data['dataHeader'] = $this->users->get_allData($user_id);
-//             $data['device_list']=$this->Inventory_model->device_list();    
-            
-            $todaysdate=date('Y-m-d'); 
-            $user_id = $this->session->userdata('user_id');
-              if($_SERVER['REQUEST_METHOD'] == 'POST')
-           { 
-//                 if() 
-//                  'code' =>$this->input->post('assetcode'),
-                $insert_data=array(    'location' =>$this->input->post('asset_location'),
-                                       'address' =>$this->input->post('asset_address'),
-                                       'latitude' =>$this->input->post('asset_lat'),
-                                       'contact_no' =>$this->input->post('asset_long'),
-                                       'longitude' =>$this->input->post('asset_contactperson'),
-                                       'contact_person' =>$this->input->post('asset_contactno'),
-                                       'contact_email' =>$this->input->post('asset_contactemail'),
-                                       'createdat'=>$todaysdate,
-                                       'createdby'=>$user_id,
-                                       'isactive'=>'1',
-                                       'asset_id'=>$this->input->post('assetcode')
-                                    );
- 
-                $inserteddata=$this->Assets->add_assets_location($insert_data);
-                
-                 if($inserteddata)
-               {
-                   $this->session->set_flashdata('success_msg', 'Asset location successfully added');
-                   return redirect('Assets_location_list','refresh');
-               }
-            else {
-                   return redirect('Assets_location_list','refresh');
+                $this->template->write_view('content', 'Assets/assets_location_add', (isset($this->data) ? $this->data : NULL), TRUE);
+                $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+                $this->template->render();
+//                redirect('Assets_list', 'refresh');
+            } else {
+                $insert_data = array('location' => $this->input->post('asset_location'),
+                    'address' => $this->input->post('asset_address'),
+                    'latitude' => $this->input->post('asset_lat'),
+                    'contact_no' => $this->input->post('asset_long'),
+                    'longitude' => $this->input->post('asset_contactperson'),
+                    'contact_person' => $this->input->post('asset_contactno'),
+                    'contact_email' => $this->input->post('asset_contactemail'),
+                    'createdat' => $todaysdate,
+                    'createdby' => $user_id,
+                    'isactive' => '1',
+                    'asset_id' => $this->input->post('assetcode')
+                );
+
+                $inserteddata = $this->Assets->add_assets_location($insert_data);
+
+                if ($inserteddata) {
+                    $this->session->set_flashdata('success_msg', 'Asset location successfully added');
+                    return redirect('Assets_location_list', 'refresh');
+                } else {
+                    return redirect('Assets_location_list', 'refresh');
+                }
             }
-            }
+        }
             else{
              $data['asset_code_list']=$this->Assets->assetcode_list();      
             $this->template->set_master_template('template.php');
@@ -462,7 +504,7 @@ class AssetsManagement extends MY_Controller {
             $this->template->render();
             }
         }
-    }
+    
 
     public function User_assets_list() {
         $this->load->helper('form');

@@ -14,6 +14,7 @@
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
 
         <!-- CORE CSS Bootstrap FRAMEWORK - START -->
+        
         <link href="<?php echo base_url('assets/css/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"/>
         <link href="<?php echo base_url('assets/css/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
         <!-- NProgress -->
@@ -30,7 +31,7 @@
 
         <!-- Custom Theme Style -->
         <link href="<?php echo base_url('assets/css/build/css/custom.css'); ?>" rel="stylesheet" type="text/css"/>
-
+        <link href="<?php echo base_url('assets/css/build/css/column.css'); ?>" rel="stylesheet" type="text/css"/>
 
 
 
@@ -179,6 +180,45 @@
 
 
             });
+            
+
+    $("#Parameter").change(function()
+    {
+//       alert(this.value);
+    var objdata=''; 
+    var i=0;
+       var options;
+        $("#UOM").empty();
+           var options='<option value="">Select Type</option>';
+       $.ajax({
+           url: '<?php echo base_url();?>Inventory/load_uomtype_by_parameter',
+            type: 'post',
+            dataType: 'text',
+            data: {parameterid: this.value},
+            success: function (res) {           
+                var obj = $.parseJSON(res);              
+             for(i=0 ; i < obj.length ; i++){                 
+             options+='<option value="'+obj[i]['id']+'">'+obj[i]['name']+'</option>';                
+             }
+               $("#UOM").html(options);        
+        }
+    });
+    });
+
+$("#UOM").change(function()
+    {
+//        alert(this.value);
+   if(this.value != "") {
+        var e = document.getElementById("UOM");
+        var strUser = e.options[e.selectedIndex].text;
+        $("#selectuom").val(strUser);
+    }
+    else
+    {
+         $("#selectuom").val('');
+    }
+    });
+
         </script>
     </body>
 </html>

@@ -32,26 +32,27 @@
                         </div>
                         </div>
 						
-<?php if(!empty($device_asset_list)){ foreach ($device_asset_list as $device_asset_list_data) { ?>						
+<?php $i=1; if(!empty($device_asset_list)){ foreach ($device_asset_list as $device_asset_list_data) { ?>						
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <ul class="flex-container nowrap">
 <li class="flex-item"><?php echo $device_asset_list_data['number'];?></li>
 <li class="flex-item"><?php echo $device_asset_list_data['code'];?></li>
 <li class="flex-item">
-<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Device_assets_edit">   
-<input type="hidden" name="asset_form_action" id="sensor_form_action" value="edit <?php echo $device_asset_list_data['id']; ?>" >    
-<button type="submit" class="btn btn-primary" name="edit_dev_asset_button" id="edit_inventory_button" >
-<i class="fa fa-pencil success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-</button> </form>                           
-<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Device_assets_list">   
-<input type="hidden" name="asset_form_action" id="asset_form_action" value="delete <?php echo $device_asset_list_data['id']; ?>" >    
-<button type="submit" class="btn btn-primary" name="edit_dev_asset_button" id="edit_inventory_button" >
-<i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-</button> </form>                                                                      
+
+ <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="updateasset<?php echo $i; ?>">
+                <input type="hidden" value="<?php echo $device_asset_list_data['id']; ?>" name="id"/>
+                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                </a>
+                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                </a>                
+            </form>                                                                        
 </li>
 </ul>
 </div>
-<?php } } else { ?>
+<?php $i++; } } else { ?>
  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <ul class="flex-container nowrap">
 <li class="flex-item">No data found..!</li>
@@ -72,3 +73,23 @@
 
           </div>
 
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".edit").click(function () {
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+//            alert(id);
+            $("#updateasset" + id).submit();
+        });
+        
+                $(".delete").click(function () {
+            var flag = confirm('Are you sure you want to delete this item?');
+            if (flag == true) {
+                var id = $(this).attr('id');
+                $("#post" + id).val('delete');
+                $("#updateasset" + id).submit();
+            }
+        });
+    });
+</script>

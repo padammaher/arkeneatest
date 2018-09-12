@@ -39,9 +39,11 @@ class Assets extends MY_Model {
     }
 
     public function assets_list() {
-        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
-        $this->db->from('asset');
-        $this->db->join('asset_location', 'asset_location.asset_id= asset.id','left');
+    
+            $this->db->select('asset.id,asset.code,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+    //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
+      $this->db->from('asset');
+       $this->db->join('asset_location', 'asset_location.asset_id= asset.id','left');
         $this->db->join('asset_user', 'asset_user.asset_id= asset.id','left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
         $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
@@ -223,5 +225,25 @@ class Assets extends MY_Model {
             $this->db->where(array('id'=>$asset_user_id));
              return  $this->db->delete('asset_user');
     }
+    public function checkassetcodeIfExists($table = NULL, $unique_Data = array()) {
+        //var_dump($table,$unique_Data);die;
+        $query = $this->db->get_where($table, $unique_Data);
+        //echo $this->db->last_query();
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
+    public function checkasset_locationIfExists($table = NULL, $unique_Data = array()) {
+        //var_dump($table,$unique_Data);die;
+        $query = $this->db->get_where($table, $unique_Data);
+        //echo $this->db->last_query();
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
