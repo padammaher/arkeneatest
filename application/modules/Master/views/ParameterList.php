@@ -25,7 +25,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
 
-                <div class="x_content">
+                <div class="x_content" id="parameter-list">
 
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -70,7 +70,17 @@
                             <?php
                             $i++;
                         }
-                    }
+                    } else {
+                        ?>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="flex-container nowrap">
+                                    <li class="flex-item">No data found..!</li>                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    <?php }
                     ?>
                 </div>
             </div>
@@ -78,30 +88,7 @@
     </div>
 </div>
 <!--</div>-->
-<style type="text/css">
-    .flex-item:first-child {
-        width: 8%;
-    }
-    .flex-item:nth-child(2) {
-        width: 16%;
-    }
-    .flex-item:nth-child(3) {
-        width: 36%;
-    }
-    .flex-item:nth-child(4) {
-        width: 16%;
-    }
-    .flex-item:nth-child(5) {
-        width: 14%;
-    }
-    .flex-item:nth-child(6) {
-        width: 14%;
-    }
-    .flex-item:nth-child(7) {
-        width: 10%;
-    }
 
-</style>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

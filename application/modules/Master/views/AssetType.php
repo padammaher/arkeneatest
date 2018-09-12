@@ -1,26 +1,14 @@
 <!-- page content -->
 <!--<div class="right_col" role="main">-->
 <div class="">
-    <?php
-//    if ($this->session->flashdata('success_msg')) {
-//        echo $this->session->flashdata('success_msg');
-//    }
-//    if ($this->session->flashdata('error_msg')) {
-//        echo $this->session->flashdata('error_msg');
-//    }
-    ?>
     <div class="page-title">
         <div class="title_left">
             <h4>Asset Type</h4>
         </div>
 
-
-
         <div class="title_right">
             <div class="pull-right">
                 <a href="<?php echo base_url() ?>addAssetType" class="btn btn-sm btn-primary">Add New</a>
-                <!--- <a href="assets-location-list.html" class="btn btn-sm btn-primary">Asset Location</a>
-                 <a href="user-assets-list.html" class="btn btn-sm btn-primary">Asset User</a>--->
             </div>
         </div>
     </div>
@@ -30,7 +18,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
 
-                <div class="x_content">
+                <div class="x_content" id="asset-type-list">
 
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -39,7 +27,6 @@
                                 <li class="flex-item">Sr. No.</li>
                                 <li class="flex-item">Asset Type</li>
                                 <li class="flex-item">Description</li>
-
                                 <li class="flex-item">Actions</li>
                             </ul>
                         </div>
@@ -74,7 +61,17 @@
                             <?php
                             $i++;
                         }
-                    }
+                    } else {
+                        ?>
+                        <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul class="flex-container nowrap">
+                                    <li class="flex-item">No data found..!</li>                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    <?php }
                     ?>
                 </div>
             </div>
@@ -83,30 +80,7 @@
 </div>
 <!--</div>-->
 <!-- /page content -->
-<style type="text/css">
-    .flex-item:first-child {
-        width: 8%;
-    }
-    .flex-item:nth-child(2) {
-        width: 16%;
-    }
-    .flex-item:nth-child(3) {
-        width: 36%;
-    }
-    .flex-item:nth-child(4) {
-        width: 16%;
-    }
-    .flex-item:nth-child(5) {
-        width: 14%;
-    }
-    .flex-item:nth-child(6) {
-        width: 14%;
-    }
-    .flex-item:nth-child(7) {
-        width: 10%;
-    }
 
-</style>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

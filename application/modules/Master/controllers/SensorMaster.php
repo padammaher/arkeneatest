@@ -8,7 +8,7 @@ class SensorMaster extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
-        $this->load->helper(array('url', 'language', 'form'));
+        $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->load->model(array('users', 'group_model', 'country', 'sensormodel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
@@ -23,14 +23,11 @@ class SensorMaster extends CI_Controller {
         } else {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $this->data['sensor_type_details'] = $this->sensormodel->get_sensortypeList();
+            $data['sensor_type_details'] = $this->sensormodel->get_sensortypeList($user_id);
+            $this->session->unset_userdata('sensor_post');
+            $this->session->unset_userdata('sensore_post');
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/SensorTypeList', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/SensorTypeList');
         }
     }
 
@@ -60,22 +57,26 @@ class SensorMaster extends CI_Controller {
 
                 $count = $this->sensormodel->insert_sensor_type($data);
                 if (is_numeric($count) && $count > 0) {
+                    $this->session->unset_userdata('sensor_post');
                     $this->session->set_flashdata('success_msg', 'Sensor Type added successfully');
+                    redirect('sensortype');
                 } elseif ($count == "duplicate") {
-                    $this->session->set_flashdata('success_msg', 'Sensor Type already added');
+                    $this->session->set_userdata('sensor_post', $this->input->post());
+                    $this->session->set_flashdata('error_msg', 'Sensor Type already added');
+                    redirect('addSensorType');
                 } else {
+                    $this->session->set_userdata('sensor_post', $this->input->post());
                     $this->session->set_flashdata('error_msg', 'Failed to add Sensor Type');
+                    redirect('addSensorType');
                 }
                 redirect('sensortype');
+            } else {
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/add_sensor_type');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/add_sensor_type', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/add_sensor_type');
         }
     }
 
@@ -99,12 +100,17 @@ class SensorMaster extends CI_Controller {
                 $response = $this->sensormodel->sensortype_update($id, $data);
 
                 if ($response > 0) {
+                    $this->session->unset_userdata('sensore_post');
                     $this->session->set_flashdata('success_msg', 'Sensor type updated successfully');
+                    redirect('sensortype');
                 } else {
+                    $this->session->set_userdata('sensore_post', $this->input->post());
                     $this->session->set_flashdata('error_msg', 'Failed to update sensor type');
+                    redirect('updateSensorType');
                 }
-
-                redirect('sensortype');
+            } else {
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/edit_sensor_type');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -117,19 +123,22 @@ class SensorMaster extends CI_Controller {
                 $this->session->set_flashdata('error_msg', 'Failed to delete asset type');
             }
             redirect('sensortype');
-        } elseif ($this->input->post('post') == 'edit') {
+        } elseif ($this->input->post('post') == 'edit' || $this->session->userdata('sensore_post')) {
+            if ($this->input->post('id')) {
+                $id = $this->input->post('id');
+            } elseif ($this->session->userdata('sensore_post')) {
+                $post_data = $this->session->userdata('sensore_post');
+                $id = $post_data['edit_id'];
+            }
+            if (isset($id)) {
+                $data['result'] = $this->sensormodel->get_sensor_type($id);
+                $data['sensortype_id'] = $id;
 
-            $id = $this->input->post('id');
-            $data['result'] = $this->sensormodel->get_sensor_type($id);
-            $this->data['sensortype_id'] = $id;
-
-            $data['dataHeader'] = $this->users->get_allData($user_id);
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/edit_sensor_type', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                load_view_template($data, 'master/edit_sensor_type');
+            } else {
+                echo "Something Went wrong";
+            }
         }
     }
 

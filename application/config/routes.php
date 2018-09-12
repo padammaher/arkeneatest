@@ -90,8 +90,15 @@ $route['User_assets_list'] = 'AssetsManagement/User_assets_list';
 $route['User_asset_add'] = 'AssetsManagement/User_asset_add';
 $route['User_asset_edit'] = 'AssetsManagement/User_asset_edit';
 
+//Asset Parameter
+$route['asset_parameter_range_list'] = 'AssetsManagement/asset_parameter_range_list';
+$route['asset_parameter_add'] = 'AssetsManagement/asset_parameter_add';
+$route['asset_parameter_update'] = 'AssetsManagement/asset_parameter_add';
 
-
+//Asset Trigger
+$route['trigger_list'] = 'AssetsManagement/trigger_list';
+$route['trigger_add'] = 'AssetsManagement/trigger_add';
+$route['trigger_update'] = 'AssetsManagement/trigger_add';
 
 
 //-- Customer 

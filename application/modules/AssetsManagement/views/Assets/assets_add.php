@@ -16,17 +16,17 @@
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" required="required" required="required" placeholder="DG0001" id="Assetcode" name="Assetcode">
+                            <input type="text" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" required="required" placeholder="DG0001" id="Assetcode" name="Assetcode" pattern="[a-zA-Z0-9]+">
                         </div>
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" id="Customerlocation" name="Customerlocation">
-                                <option value="">Select Customer Location</option>
+                            <select class="form-control" id="Customerlocation" name="Customerlocation" required>
+                                <option value="">Select Location</option>
                                 <?php foreach ($location_list as $loc_list) { ?>
                                     <option value="<?php echo $loc_list['id']; ?>"><?php echo $loc_list['location']; ?></option>
                                 <?php } ?>
@@ -36,24 +36,20 @@
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Category</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Category *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-
-
-                            <select class="form-control" id="Assetcategory" name="Assetcategory">
+                            <select class="form-control" id="Assetcategory" name="Assetcategory" required>
                                 <option value="">Select Category</option>
                                 <?php foreach ($category_list as $category_list) { ?>
                                     <option value="<?php echo $category_list['id']; ?>"><?php echo $category_list['name']; ?></option>
                                 <?php } ?>
-
-
                             </select>
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Type</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Type *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control"  id="Assettype" name="Assettype">
+                            <select class="form-control"  id="Assettype" name="Assettype" required>
                                 <option value="">Select Type</option>
                                 <?php foreach ($type_list as $typelistdata) { ?>
                                     <option value="<?php echo $typelistdata['id']; ?>"><?php echo $typelistdata['name']; ?></option>
@@ -65,28 +61,27 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Specification</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Fuel: diesel HSD, O/p Voltage 220V AC" required="required" id="assetspecification" name="assetspecification">
-                        </div>
-                    </div>
-
-
-                    <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Serial No.</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="CLR0021212A" required="required" id="Assetserialno" name="Assetserialno">
+                            <input type="text" class="form-control" placeholder="Fuel: diesel HSD, O/p Voltage 220V AC"  id="assetspecification" name="assetspecification">
                         </div>
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Make</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Serial No. *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Cummins" required="required" id="Make" name="Make">
+                            <input type="text" class="form-control" placeholder="CLR0021212A" required="required" id="Assetserialno" name="Assetserialno" pattern="[a-zA-Z0-9]+">
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="text" class="form-control" placeholder="Cummins" required="required" id="Make" name="Make" pattern="[a-zA-Z0-9]+">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Model No.</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Model No. *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="CU001A" required="required" id="Modelno" name="Modelno">
+                            <input type="text" class="form-control" placeholder="CU001A" required="required" id="Modelno" name="Modelno" pattern="[a-zA-Z0-9]+">
                         </div>
                     </div>
 
@@ -100,16 +95,12 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Movable / Immovable</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" id="Movable" name="Movable">
+                            <select class="form-control" id="Movable" name="Movable" required>
                                 <option value="1">Movable</option>
                                 <option value="2">Immovable</option>
                             </select>
                         </div>
                     </div> 
-
-
-
-
 
                     <div class="ln_solid"></div>
                     <div class="item form-group">

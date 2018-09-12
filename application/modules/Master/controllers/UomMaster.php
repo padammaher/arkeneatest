@@ -8,12 +8,12 @@ class UomMaster extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
-        $this->load->helper(array('url', 'language', 'form'));
+        $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->load->model(array('users', 'group_model', 'country', 'uommodel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
-        $CI = & get_instance();
+//        $CI = & get_instance();
     }
 
     public function uomlist() {
@@ -25,12 +25,7 @@ class UomMaster extends CI_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/UomList', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/UomList');
         }
     }
 
@@ -85,12 +80,7 @@ class UomMaster extends CI_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_list'] = $this->uommodel->get_uom($user_id);
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/add_uom', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/add_uom');
         }
     }
 
@@ -157,12 +147,7 @@ class UomMaster extends CI_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $this->session->unset_userdata('edit_uom_type');
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'master/edit_uom', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($data, 'master/edit_uom');
         }
     }
 

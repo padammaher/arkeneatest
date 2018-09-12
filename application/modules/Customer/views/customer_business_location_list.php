@@ -9,7 +9,7 @@
         <div class="pull-right">
           <a href="<?php echo base_url()?>Customer/add_customer_business_location" class="btn btn-sm btn-primary">Add New
           </a>
-          <a href="<?php echo base_url()?>Customer/AddCustomer" class="btn btn-sm btn-primary">Customer Provisioning
+          <a href="<?php echo base_url()?>Customer/edit_customer_detail" class="btn btn-sm btn-primary">Customer Provisioning
           </a>
           <a href="<?php echo base_url()?>Customer/client_user_list" class="btn btn-sm btn-primary">User Management
           </a>
@@ -58,19 +58,19 @@
                 <ul class="flex-container nowrap">
                   <li class="flex-item"><?php echo $location->id; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->address; ?>
-                  </li>
                   <li class="flex-item"><?php echo $location->location_name; ?>
+                  </li>
+                  <li class="flex-item"><?php echo $location->address; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->contact_person_name; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->city; ?>
+                  <li class="flex-item"><?php echo $location->city_name; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->state; ?>
+                  <li class="flex-item"><?php echo $location->state_name; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->pincode; ?>
                   </li>
-                  <li class="flex-item"><?php echo $location->country; ?>
+                  <li class="flex-item"><?php echo $location->country_name; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->telephone; ?>
                   </li>
@@ -84,7 +84,7 @@
                       <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                       </i>
                     </a>
-                    <a href="<?php echo base_url()?>Customer/delete_business_location?business_id=<?php echo $location->id; ?>" title="Delete">
+                    <a href="<?php echo base_url()?>Customer/delete_business_location?business_id=<?php echo $location->id; ?>"  title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">
                       <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                       </i> 
                     </a> 

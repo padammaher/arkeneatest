@@ -53,7 +53,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">State / Province
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control"  id="State_id" onChange="getCity(this.value);">
+                <select class="form-control" name="state" id="State_id" onChange="getCity(this.value);">
                     <option value="">Select
                     </option>
                    
@@ -76,14 +76,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input name='pincode' type="text" class="form-control" placeholder="10001" required="required" value="<?php echo $business_detail[0]->pincode;?>">
+                    <input name='pincode' type="number" class="form-control" placeholder="10001" required="required" value="<?php echo $business_detail[0]->pincode;?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='telephone' type="text" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo $business_detail[0]->telephone;?>">
+                <input name='telephone' type="number" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo $business_detail[0]->telephone;?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -101,7 +101,8 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='email' type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo $business_detail[0]->email;?>">
+                <input name='email' id="customer_email" type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo $business_detail[0]->email;?>">
+                <div id="email_error" style="color:red"></div>  
                 </div>
               </div>
               <div class="ln_solid">
@@ -110,8 +111,10 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                   <button type="submit" class="btn btn-primary">Save
                   </button>
+                  <a href="<?php echo base_url()?>Customer/customer_business_location_list">
                   <button type="button" class="btn btn-default">Cancel
                   </button>
+                  </a>
                 </div>
               </div>
             </form>					
@@ -143,4 +146,21 @@ function getCity(val) {
 	}
 	});
 }
+
+$(document).ready(function() {
+
+$('#customer_email').focusout(function(){
+                $('#customer_email').filter(function(){
+                   var emil=$('#customer_email').val();
+              var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if( !emailReg.test( emil ) ) {
+                   $("#email_error").html('Please enter valid email'); 
+                } else {
+                  $("#email_error").html("");
+                 
+               // alert('Thank you for your valid email');
+                }
+                })
+            });
+});
 </script>
