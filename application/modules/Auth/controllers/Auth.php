@@ -99,6 +99,8 @@ class Auth extends MY_Controller {
         }
     }
     public function dashboard(){
+        $user_id = $this->session->userdata('user_id');
+        $data['dataHeader'] = $this->users->get_allData($user_id);
         $this->template->set_master_template('template.php');
         $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
         $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));

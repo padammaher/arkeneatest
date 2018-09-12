@@ -9,7 +9,7 @@
         <div class="pull-right">
           <a href="<?php echo base_url()?>Customer/add_customer_business_location" class="btn btn-sm btn-primary">Add New
           </a>
-          <a href="<?php echo base_url()?>Customer/AddCustomer" class="btn btn-sm btn-primary">Customer Provisioning
+          <a href="<?php echo base_url()?>Customer/edit_customer_detail" class="btn btn-sm btn-primary">Customer Provisioning
           </a>
           <a href="<?php echo base_url()?>Customer/client_user_list" class="btn btn-sm btn-primary">User Management
           </a>
