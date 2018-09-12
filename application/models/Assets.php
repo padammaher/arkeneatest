@@ -223,5 +223,13 @@ class Assets extends MY_Model {
             $this->db->where(array('id'=>$asset_user_id));
              return  $this->db->delete('asset_user');
     }
+
+    public function add_asset_rule_detail($data){
+        $this->db->insert('asset_rules', $data); 
+        return false; 
+
+    }
+
+    
     
 }
