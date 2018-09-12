@@ -515,6 +515,18 @@ body .container.body .right_col {
 .page-title .title_left h3 {
     margin: 9px 0
 }
+
+.page-title .title_left span {
+	margin-left: 2%;
+}
+
+.page-title .title_left span span {
+    font-weight: 600;
+    color: #226484;
+	margin-left: 0%;
+	border-bottom:2px solid #226484;
+	
+}
 .page-title .title_right {
     width: 55%;
     float: left;
@@ -2210,7 +2222,7 @@ legend {
     right: 13px
 }
 .form-control.has-feedback-left {
-    padding-left: 45px
+    padding-left: 6.5%;
 }
 .form-control.has-feedback-right {
     padding-right: 45px
@@ -4205,9 +4217,6 @@ ul.notifications {
    .dataTables_length { float:none; }
 }
 
-
-
-
 /* CSS3 Checkbox */
 /*
 .checkbox-input { display:block;position:relative; }
@@ -4270,40 +4279,91 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 /** /bootstrap-datetimepicker **/
 
+.flex-container[contenteditable="true"] .flex-item {
+	border:1px solid #fff;
+	background-color: #b9deff;
+	cursor: auto;
+}
 
+button a, button a:hover {
+	color:#fff;
+}
 
+.flex-container[contenteditable="true"] .flex-item:first-child,
+.flex-container[contenteditable="true"] .flex-item:last-child {
+		border:none;
+	    background: transparent;
+	    cursor: pointer;
+}
 
-/* ###### Css Aadded by Rahul G. ######### */
+.readonlyinfo {
+	margin-bottom:20px;
+	background:#ececec;
+	padding:10px;
+}
 
+.rdinfo {
+    /* border: 1px solid #ddd; */
+    padding: 6px 15px;
+    color: #2a3f54;
+    font-weight: 500;
+}
+
+.rdinfo span {
+	font-weight:700;
+}
+
+.pagination {
+    float: right;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, 
+.pagination>.active>a:hover, .pagination>.active>span, 
+.pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #2a3f54;
+    border-color: #2a3f54;
+}
+
+.fa-sort {
+	font-size:10px !important;
+}
+
+.form-horizontal .has-feedback .form-control-feedback {
+    left: 0;
+	    width: 28px;
+}
+
+.icheckbox_flat-green, .iradio_flat-green {
+	    height: 22px;	
+}
 
 body {
     color: #73879C;
     background: #2A3F54;
-    
     font-size: 14px;
-    font-weight: 400;
-    line-height: 1.471
-}
 
+    line-height: 1.471;
+	font-family: 'Open Sans', sans-serif;
+}
 
 .pd0 {
   padding:0px;
 }
-  .minhgt34 {
-    min-height: 34px;
-  }
 
-  .form-float .btn-default {
+.minhgt34 {
+    min-height: 34px;
+}
+
+.form-float .btn-default {
     color: #AAA;
     font-size: 14px !important;
-  }
+}
 
-  .form-line .btn {
+.form-line .btn {
     padding-left:0px;
-  }
+}
 
-
-  .navbar-brand {
+.navbar-brand {
     min-height: 30px;
     padding: 8px 15px;
 }
@@ -4321,8 +4381,8 @@ body {
     display: -webkit-flex;
     display: flex;
     background: #ececec;
-    box-shadow: 0px 5px 13px #ccccccbd;
-    margin-bottom: 15px;
+    box-shadow: 0px 3px 6px #b7b5b585;
+    margin-bottom: 10px;
     align-items: center;
     /* align-content: center; */
     -ms-flex-align: center;
@@ -4334,6 +4394,7 @@ body {
     width: 100%;
     cursor: pointer;
 }
+
 .nowrap  { 
   -webkit-flex-wrap: nowrap;
   flex-wrap: nowrap;
@@ -4343,6 +4404,7 @@ body {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }  
+
 .wrap li {
   background: gold;
 }
@@ -4357,7 +4419,7 @@ body {
 
 .flex-item {
     /* background: tomato; */
-       padding: 15px 8px 10px 15px;
+       padding: 8px;
     /* width: 100px; */
     /* min-height: 50px; */
     margin: 0;
@@ -4435,6 +4497,7 @@ body {
 
 .flex-container-head .flex-item {
       color: #fff;
+	  cursor:default;
 }
 
 .js-right-sidebar {
@@ -4523,6 +4586,15 @@ input[type="text"].static-text{
     margin: 0 auto;
 } 
 
+
+.mt-10 {
+		margin-top:10px;
+}
+
+.logout a:hover, .logout a i:hover {
+	background:transparent !important;
+	color:red !important;
+}
 
 #box {
     display: block;

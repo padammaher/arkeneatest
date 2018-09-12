@@ -30,6 +30,7 @@
 
         <!-- Custom Theme Style -->
         <link href="<?php echo base_url('assets/css/build/css/custom.css'); ?>" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo base_url('assets/css/build/css/column.css'); ?>" rel="stylesheet" type="text/css"/>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
