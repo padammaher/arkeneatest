@@ -67,7 +67,7 @@
                 <i class="fa fa-arrow-left">
                 </i> Asset Parameter Range List
               </a>
-              <a href="<?php echo base_url();?>AssetsManagement/add_asset_rule" class="btn btn-sm btn-primary"> 
+              <a href="<?php echo base_url();?>Asset_Rule" class="btn btn-sm btn-primary"> 
                 <i class="fa fa-plus">
                 </i> Add Rule
               </a>
@@ -136,18 +136,22 @@
                 <li class="flex-item">2
                 </li>
                 <li class="flex-item">
-                  <a href="<?php echo base_url();?>AssetsManagement/add_asset_rule?asset_rule_id=<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>" title="Edit">
-                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                    </i>
-                  </a>
-                  <a href="<?php echo base_url();?>trigger_list" title="Edit">
-                    <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger">
-                    </i>
-                  </a>
-                  <a href="<?php echo base_url();?>AssetsManagement/delete_asset_rule?asset_rule_id=<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>" title="Delete">
-                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                    </i>
-                  </a>
+                <form name="edit_asset" method="post" action="<?php echo base_url();?>Asset_Rule">
+                  <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>">
+                  <button type="submit" style="background-color: Transparent;" class="btn"><i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
+                    </button>
+                </form> 
+                  <form name="triggerlist" method="post" action="<?php echo base_url();?>trigger_list">
+                  <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>">
+                  <button type="submit" class="btn"><i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
+                    </button>
+                  </form> 
+
+                  <form name="edit_asset" method="post" action="<?php echo base_url();?>Delete_Rule">
+                    <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>">
+                    <button type="submit" style="background-color: Transparent;" class="btn"><i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i> 
+                  </button>
+                </form> 
                 </li>
               </ul>
             </div>

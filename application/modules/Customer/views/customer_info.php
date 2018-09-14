@@ -1,10 +1,6 @@
 <?php //print_r($user_detail[0]->customer_name); exit(); ?> 
 <div class="right_col" role="main">
   <div class="">
-  <?php if($this->session->flashdata('message')){ ?> 
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <div  class="alert alert-success fade in" role="alert" id="infoMessage" ><?php echo ($this->session->flashdata('message'))?$this->session->flashdata('message'):'';?></div>
-           <?php } ?>
     <div class="page-title">
       <div class="title_left">
       
@@ -13,7 +9,7 @@
       </div>
       <div class="title_right">
         <div class="pull-right">
-          <a href="<?php echo base_url()?>Customer/edit_customer_detail" class="btn btn-sm btn-primary">Edit Customer Information
+          <a href="<?php echo base_url()?>Editcustomerinfo" class="btn btn-sm btn-primary">Edit Customer Information
           </a>
           <!--- <a href="assets-location-list.html" class="btn btn-sm btn-primary">Asset Location</a>
 <a href="user-assets-list.html" class="btn btn-sm btn-primary">Asset User</a>--->
@@ -76,11 +72,11 @@
               </table>
               <div class="text-center mtop20 col-md-12 col-sm-12">
                 <div class="col-md-6 col-sm-6">
-                  <a href="<?php echo base_url()?>Customer/customer_business_location_list" class="btn btn-sm btn-primary btn-block">Manage Business Location
+                  <a href="<?php echo base_url()?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary btn-block">Manage Business Location
                   </a>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                  <a href="<?php echo base_url()?>Customer/client_user_list" class="btn btn-sm btn-success btn-block">Manage Users
+                  <a href="<?php echo base_url()?>ManageUsers" class="btn btn-sm btn-success btn-block">Manage Users
                   </a>
                 </div>
               </div>

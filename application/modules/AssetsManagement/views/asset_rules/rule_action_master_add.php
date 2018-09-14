@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="x_content">
-          <form class="form-horizontal form-label-left" name="add_asset" id="add_asset" method="post" action="<?php echo base_url();?>AssetsManagement/add_asset_rule_detail">
+          <form class="form-horizontal form-label-left" name="add_asset" id="add_asset" method="post" action="<?php echo base_url();?>Add_Asset_Rule">
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Rule No.
               </label>
@@ -40,7 +40,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="parameter" id="parameter" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($param_id))?$param_id:''; ?>">
+                <input name="parameter_range_id" id="parameter_range_id" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($param_id))?$param_id:''; ?>">
                 <input name="" id="parameter" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($parameter_name))?$parameter_name:''; ?>" readonly>
            
               </div>
