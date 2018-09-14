@@ -24,11 +24,13 @@ foreach ($asset_user_list_data as $asset_user_data) { ?>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="assetcode" required="required">
                     <option value="">Select Asset Code</option>
-                    <option value="<?php echo $asset_user_data['asset_tbl_id'];?>" selected><?php echo $asset_user_data['code'];?></option>
+                    
 <?php foreach ($asset_code_list as $asset_id_list) { 
-                if($asset_id_list['id'] != $asset_user_data['asset_tbl_id']) {    ?>
+                if($asset_id_list['id'] == $asset_user_data['asset_tbl_id']) {    ?>
+                <option value="<?php echo $asset_id_list['id'];?>"  <?php echo (set_value('assetcode')==$asset_id_list['id']) ? 'selected':'selected';?> ><?php echo $asset_id_list['code'];?></option>
+                <?php } else { ?> 
                 <option value="<?php echo $asset_id_list['id'];?>"><?php echo $asset_id_list['code'];?></option>
-                <?php } ?>
+                  <?php } ?>
                        
 <?php } ?>
                 </select>             
@@ -41,10 +43,13 @@ foreach ($asset_user_list_data as $asset_user_data) { ?>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="assetuserid" required="required">
                     <option value="">Select User Name</option>
-                    <option value="<?php echo $asset_user_data['branch_user_tbl_id'];?>" selected><?php echo $asset_user_data['client_name'];?></option>
+                    
 <?php foreach ($asset_userid_list as $asset_user_id_list) { 
-                    if($asset_user_id_list['id'] != $asset_user_data['branch_user_tbl_id']) { ?>
-                                <option value="<?php echo $asset_user_id_list['id'];?>"><?php echo $asset_user_id_list['client_name'];?></option>
+            if($asset_user_id_list['id'] == $asset_user_data['branch_user_tbl_id']) { ?>
+              <option value="<?php echo $asset_user_id_list['id'];?>" <?php echo (set_value('assetuserid')==$asset_user_id_list['id']) ? 'selected':'selected';?> ><?php echo $asset_user_id_list['client_name'];?></option>
+            <?php } else { ?> 
+            <option value="<?php echo $asset_user_id_list['id'];?>"><?php echo $asset_user_id_list['client_name'];?></option>
+                             
 
                        
 <?php } } ?>
@@ -56,6 +61,8 @@ foreach ($asset_user_list_data as $asset_user_data) { ?>
 						  <div class="ln_solid"></div>
 						  <div class="item form-group">
 							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+              <input type="hidden" value="<?php echo $asset_user_data['id']; ?>" name="asset_user_post_id"/>
+                <input type="hidden" name="asset_user_post" id="" value="update" />
 								<button type="submit" name="add_asset_user" class="btn btn-primary">Save</button>
 							  <a href="<?php echo base_url('User_assets_list');?>" type="button" class="btn btn-default">Cancel</a>
 							  

@@ -90,8 +90,15 @@ $route['User_assets_list'] = 'AssetsManagement/User_assets_list';
 $route['User_asset_add'] = 'AssetsManagement/User_asset_add';
 $route['User_asset_edit'] = 'AssetsManagement/User_asset_edit';
 
+//Asset Parameter
+$route['asset_parameter_range_list'] = 'AssetsManagement/asset_parameter_range_list';
+$route['asset_parameter_add'] = 'AssetsManagement/asset_parameter_add';
+$route['asset_parameter_update'] = 'AssetsManagement/asset_parameter_add';
 
-
+//Asset Trigger
+$route['trigger_list'] = 'AssetsManagement/trigger_list';
+$route['trigger_add'] = 'AssetsManagement/trigger_add';
+$route['trigger_update'] = 'AssetsManagement/trigger_add';
 
 
 //-- Customer 
@@ -112,9 +119,15 @@ $route['Device_assets_add'] = 'Inventory/Device_assets_add';
 $route['Device_assets_edit'] = 'Inventory/Device_assets_edit';
 //------ * Sensor Inventory * --------
 //Add_device_sensors,Edit_device_sensors,Sensor_inventory_list
-
-$route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';
+$route['Device_sensor_list'] = 'Inventory/Device_sensor_list';
 $route['Add_device_sensors'] = 'Inventory/Add_device_sensors';
 $route['Edit_device_sensors'] = 'Inventory/Edit_device_sensors';
+
+
+$route['Add_sensor_inventory'] = 'Inventory/add_sensor_inventory';
+$route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';
+
+
+
 
 

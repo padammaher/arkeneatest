@@ -43,7 +43,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
 
-            <div class="x_content">
+            <div class="x_content" id="assets-list">
 
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -63,7 +63,7 @@
                 <div class="row clearfix">
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <?php foreach ($assetlist as $list) { //var_dump($list); ?>
+                        <?php $i=1; foreach ($assetlist as $list) {// var_dump($list); ?>
                           
                             <ul class="flex-container nowrap">
 
@@ -71,40 +71,47 @@
                                 <li class="flex-item"><?php echo $list['id'] ?></li>
                                 <li class="flex-item"><?php echo $list['code'] ?></li>
                                 <li class="flex-item"><?php echo $list['location'] ?></li>
-                                <li class="flex-item"><?php echo $list['first_name'] ?></li>
+                                <li class="flex-item"><?php echo $list['client_username'] ?></li>
                               
                         
                                 <li class="flex-item">
-                                    <form class="form-horizontal form-label-left"  action="<?php echo base_url(); ?>Assets_edit"  method="POST" >
-                                    <input type="hidden" name="edit_asset_list_id" value="edit <?php echo $list['id'] ?>" >
-                                    <button type="submit" class="fa fa-primary" name="edit_asset_list_button">
-                                        <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                    </button>
-                                    </form> 
-                                    <form class="form-horizontal form-label-left"  action="<?php echo base_url(); ?>Assets_edit"  method="POST" >
-                                       <input type="hidden" name="edit_asset_list_id" value="delete <?php echo $list['id'] ?>" >
-                                        
                                     
-                                       <button type="submit" class="fa fa-primary" name="delete_asset_list_button">
-                                       <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                    </button>
-                                    </form>     
-                                <?php if(!empty($list['locid'])) { ?>    
-                                <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_list">                        
-                                <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="edit <?php echo $list['locid'];?>">
-                                <button type="submit" name="edit_asset_location_button"> 
-                                        <i class="fa fa-map-marker text-success"></i> 
-                                </button>                  
-                                    </form>
-                                <?php } ?>    
-                                    <a href="<?php echo base_url('User_assets_list'); ?>" title="Manage Users" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
+                <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
+                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                </a>
+                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                </a> 
+            </form>
+              <?php if(!empty($list['locid'])){ ?>  
+             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
+                <input type="hidden" value="<?php echo $list['locid']; ?>" name="asset_location_post_id"/>
+                <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                      
+
+                   <a title="Manage Users" class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
+                      <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                    </a>   
+                </form> <?php } ?>
+                 <?php if(!empty($list['asset_user_tbl_id'])){ ?>  
+                <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
+                <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                      
+
+                                    <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                         <i class="fa fa-group text-warning"></i> 
                                     </a>
-                                       
+                </form> <?php } ?>
+                
+                                                     
                                 </li>
 
                             </ul>
-                        <?php } ?>
+                        <?php $i++; } ?>
                     </div>
 
                 </div>
@@ -113,3 +120,40 @@
         </div>
     </div>
 </div>
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".edit").click(function () {
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+//            alert(id);
+            $("#Assets_edit" + id).submit();
+        });
+        
+                $(".delete").click(function () {
+            var flag = confirm('Are you sure you want to delete this item?');
+            if (flag == true) {
+                var id = $(this).attr('id');
+                $("#post" + id).val('delete');
+                $("#Assets_edit" + id).submit();
+            }
+        });
+                $(".manage_user").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+                var id = $(this).attr('id');
+                // $("#post" + id).val('delete');
+                $("#asset_user" + id).submit();
+            // }
+        });
+                 $(".manage_location").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+                var id = $(this).attr('id');
+                // $("#post" + id).val('delete');
+                $("#asset_location" + id).submit();
+            // }
+        }); 
+
+    });
+</script>

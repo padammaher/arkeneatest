@@ -22,7 +22,7 @@
                   <select class="form-control" name="assetcode" required="required">
                     <option value="">Select Asset Code</option>
 <?php foreach ($asset_code_list as $asset_id_list) { ?>
-                                <option value="<?php echo $asset_id_list['id'];?>"><?php echo $asset_id_list['code'];?></option>
+                                <option value="<?php echo $asset_id_list['id'];?>" <?php echo set_value('assetcode')==$asset_id_list['id']? 'selected':$asset_id_list['id']; ?> ><?php echo $asset_id_list['code'];?></option>
 
                        
 <?php } ?>
@@ -37,7 +37,7 @@
                   <select class="form-control" name="assetuserid" required="required">
                     <option value="">Select User Name</option>
 <?php foreach ($asset_userid_list as $asset_user_id_list) { ?>
-                                <option value="<?php echo $asset_user_id_list['id'];?>"><?php echo $asset_user_id_list['client_name'];?></option>
+                                <option value="<?php echo $asset_user_id_list['id'];?>" <?php echo set_value('assetuserid')==$asset_user_id_list['id']? 'selected':$asset_user_id_list['id']; ?>><?php echo $asset_user_id_list['client_name'];?></option>
 
                        
 <?php } ?>
