@@ -224,10 +224,66 @@ class Assets extends MY_Model {
              return  $this->db->delete('asset_user');
     }
 
-    public function add_asset_rule_detail($data){
-        $this->db->insert('asset_rules', $data); 
-        return false; 
+    public function add_asset_rule_detail($data,$parameter_range_id){
+        
+        $alreadyexist=$this->db->from('asset_parameter_rule')->where('parameter_range_id',$parameter_range_id)->get()->result();
+        if(!$alreadyexist){
+            $this->db->insert('asset_parameter_rule', $data); 
+            $insert_id= $this->db->insert_id();
+            return $insert_id; 
+        }else{
+            return false;
+        }
+       
 
+    }
+    public function update_asset_rule_detail($data,$asset_rule_id){
+        
+        $this->db->where('id',$asset_rule_id); 
+        $this->db->update('asset_parameter_rule', $data);  
+        if ($this->db->affected_rows() == '1') {
+            return TRUE;
+        } else {
+        return false; 
+        }
+
+        // $alreadyexist=$this->db->from('asset_parameter_rule')->where('parameter_range_id',$parameter_range_id)->get()->result();
+        // if(!$alreadyexist){
+        //     $this->db->insert('asset_parameter_rule', $data); 
+        //     $insert_id= $this->db->insert_id();
+        //     return $insert_id; 
+        // }else{
+        //     return false;
+        // }
+       
+
+    }
+
+    public function get_asset_rule_list()
+    {
+        $asset_data=$this->db->from('asset_parameter_rule')->get()->result();
+        if($asset_data)
+        return $asset_data; 
+        else 
+        return false; 
+    }
+
+
+    public function get_asset_details($asset_rule_id)
+    {
+        $asset_rule_data=$this->db->from('asset_parameter_rule')->where('id',$asset_rule_id)->get()->result();
+      if($asset_rule_data){
+          return $asset_rule_data; 
+      }else{
+          return false; 
+      }
+    }
+
+    public function delete_asset_rule($asset_rule_id)
+    {
+        $this->db->where('id', $asset_rule_id);
+        $this->db->delete('asset_parameter_rule'); 
+        return true;
     }
 
     

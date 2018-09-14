@@ -115,27 +115,28 @@
               </ul>
             </div>
           </div>
+          <?php if($asset_list){ foreach($asset_list as $key=>$asset_rule){ ?> 
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <ul class="flex-container flex-item_row nowrap">
-                <li class="flex-item">01
+                <li class="flex-item"><?php echo ($asset_rule->id)?$asset_rule->id:''; ?> 
                 </li>
-                <li class="flex-item">Oil Pressure
+                <li class="flex-item"><?php echo ($asset_rule->rule_name)?$asset_rule->rule_name:''; ?> 
                 </li>
-                <li class="flex-item">Pressure
+                <li class="flex-item"><?php echo ($asset_rule->parameter)?$asset_rule->parameter:''; ?> 
                 </li>
-                <li class="flex-item">11 Pa
+                <li class="flex-item"><?php echo ($asset_rule->green_value)?$asset_rule->green_value:''; ?>
                 </li>
-                <li class="flex-item">20 Pa
+                <li class="flex-item"><?php echo ($asset_rule->orange_value)?$asset_rule->orange_value:''; ?>
                 </li>
-                <li class="flex-item">19 Pa
+                <li class="flex-item"><?php echo ($asset_rule->red_value)?$asset_rule->red_value:''; ?>
                 </li>
-                <li class="flex-item">09/07/2018
+                <li class="flex-item"><?php echo ($asset_rule->wef_date)?$asset_rule->wef_date:''; ?>
                 </li>
                 <li class="flex-item">2
                 </li>
                 <li class="flex-item">
-                  <a href="rule-action-master-edit.html" title="Edit">
+                  <a href="<?php echo base_url();?>AssetsManagement/add_asset_rule?asset_rule_id=<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>" title="Edit">
                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                     </i>
                   </a>
@@ -143,7 +144,7 @@
                     <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger">
                     </i>
                   </a>
-                  <a href="#" title="Delete">
+                  <a href="<?php echo base_url();?>AssetsManagement/delete_asset_rule?asset_rule_id=<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>" title="Delete">
                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                     </i>
                   </a>
@@ -151,7 +152,8 @@
               </ul>
             </div>
           </div>
-          <div class="row clearfix">
+          <?php } }else{ ?><h3>No Record Found </h3> <?php } ?>
+          <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <ul class="flex-container flex-item_row nowrap">
                 <li class="flex-item">02
@@ -186,7 +188,7 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </div> -->
           <ul class="pagination">
             <li>
               <a href="#">1
