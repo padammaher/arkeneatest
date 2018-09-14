@@ -1118,12 +1118,18 @@ class AssetsManagement extends MY_Controller {
             // return show_error('You must be an administrator to view this page.');
         } else {
             $user_id = $this->session->userdata('user_id');
+            $asset_id=$this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            
+            $data['dataHeader'] = $this->users->get_allData($user_id); 
+            $data['trigger_list']= $this->Assets->trigger_list($user_id,$asset_id);
+             
             load_view_template($data, 'trigger/trigger_list');
         }
     }
 
     public function trigger_add() {
+        $trigger_post_id='';
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
@@ -1131,10 +1137,133 @@ class AssetsManagement extends MY_Controller {
             $this->restricted();
             // redirect them to the home page because they must be an administrator to view this page
             // return show_error('You must be an administrator to view this page.');
-        } else {
+        } else {  
+            if($this->input->post('rule_id')){
+                $rule_id=$this->input->post('rule_id');
+            }else{
+                $rule_id=2;
+            }
             $user_id = $this->session->userdata('user_id');
+             $asset_id=$this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            load_view_template($data, 'trigger/trigger_add');
+            
+//            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $todaysdate = date('Y-m-d');
+            $data['trigger_edit_list']=array();
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+             
+             $trigger_form_action=$this->input->post('trigger_form_action');
+             $trigger_post_id=$this->input->post('trigger_post_id');
+             
+                      $unique_Data=array('rule_id'=>$rule_id,
+                                         'asset_id'=>$this->session->userdata('asset_id'),                                         
+                                         'trigger_name' => $this->input->post('trigger_name'),
+                                         'trigger_threshold_id'=> $this->input->post('trigger_threshold'),
+                                         'email'=> $this->input->post('email'),
+                                         'sms_contact_no'=>$this->input->post('contactno'),                                         
+                                         'createby'=>$user_id                                         
+                                        );               
+//             if(!empty($trigger_post_id)) 
+//                 {
+                 $data['trigger_edit_list']= $this->Assets->edit_trigger_list($user_id,$asset_id,$trigger_post_id);                 
+//                 }
+                 
+              $trigger_input_data=array('rule_id'=>$rule_id,
+                                         'asset_id'=>$this->session->userdata('asset_id'),                                         
+                                         'trigger_name' => $this->input->post('trigger_name'),
+                                         'trigger_threshold_id'=> $this->input->post('trigger_threshold'),
+                                         'email'=> $this->input->post('email'),
+                                         'sms_contact_no'=>$this->input->post('contactno'), 
+                                         'createdate'=>$todaysdate,
+                                         'createby'=>$user_id,
+                                         'isactive'=>1
+                                        );
+//              echo $trigger_form_action;
+//               $data['trigger_threshold_option']= $this->Assets->Trigger_threshold($asset_id);
+              $data['result']=$this->Assets->Trigger_threshold($asset_id,$rule_id);
+//              print_r($data['result']);
+                 if(isset($data['result']) && !empty($data['result'])){
+                     foreach($data['result'] as $r){
+                         $data['threshold_array'][]=$r->trigger_threshold_id;
+                     }
+                 }
+             if($trigger_form_action =='addNew') 
+             { 
+//                 $data['result']=$this->Assets->Trigger_threshold($asset_id,$rule_id);
+//                 if(isset($data['result']) && !empty($data['result'])){
+//                     foreach($data['result'] as $r){
+//                         $data['threshold_array'][]=$r->trigger_threshold_id;
+//                     }
+//                 }
+                 load_view_template($data, 'trigger/trigger_add');
+             }
+             else if($trigger_form_action == "add")
+             {
+//                 print_r($this->input->post());exit;
+              
+
+
+                     $isUnique = $this->Assets->checkUnique('trigger', $unique_Data);
+  
+            if ($isUnique) {
+                $this->session->set_flashdata('error_msg', 'Alarm trigger alredy existed'); 
+                load_view_template($data, 'trigger/trigger_add');
+                
+             }else {
+                 $insert_data=$this->Assets->add_trigger($trigger_input_data);
+                 if($insert_data)
+                 {
+                     $this->session->set_flashdata('success_msg', 'Alarm trigger successfully added');                     
+                 }
+                 else{
+                     $this->session->set_flashdata('note_msg', 'Oops ! something wrong..!');                     
+                 }
+                 return redirect('trigger_list','refresh');
+                 
+             }
+             }
+             else if($trigger_form_action=='edit')
+             {
+//                 echo $trigger_form_action.'--'.$trigger_post_id;exit;
+                  load_view_template($data, 'trigger/trigger_add');
+             }
+             else if($trigger_form_action =='update')
+             {
+//              echo $trigger_form_action.'--'.$trigger_post_id;exit;
+                $isUnique = $this->Assets->checkUnique('trigger', $unique_Data);
+//             echo $isUnique;exit; 
+//                 print_r($trigger_input_data);exit;
+            if ($isUnique) {
+                $this->session->set_flashdata('error_msg', 'Alarm trigger alredy existed'); 
+                load_view_template($data, 'trigger/trigger_add');                
+             }
+             else
+                {
+                
+                    $update_data=$this->Assets->update_trigger($trigger_input_data,$trigger_post_id);
+                   if($update_data)
+                   {
+                       $this->session->set_flashdata('success_msg', 'Alarm trigger successfully updated');                     
+                   }
+                   else{
+                       $this->session->set_flashdata('note_msg', 'Oops ! something wrong..!');                     
+                   }
+                   return redirect('trigger_list','refresh');
+                }
+             }
+             else if($trigger_form_action=='delete')
+             {
+//                 echo "delete";exit;
+                 $delete_data=$this->Assets->delete_trigger($trigger_post_id);
+                   if($delete_data)
+                   {
+                       $this->session->set_flashdata('success_msg', 'Alarm trigger successfully deleted');                     
+                   }
+                   return redirect('trigger_list','refresh');
+             }
+            }else {
+            return redirect('trigger_list','refresh');
+            }
         }
     }
 

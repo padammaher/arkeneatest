@@ -106,7 +106,13 @@
                                         <i class="fa fa-group text-warning"></i> 
                                     </a>
                 </form> <?php } ?>
-                
+                 <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
+                <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
+                <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
+                <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
+                      <i class="fa fa-list-ul text-info"></i> 
+                    </a>
+                 </form>
                                                      
                                 </li>
 
@@ -152,6 +158,14 @@
                 var id = $(this).attr('id');
                 // $("#post" + id).val('delete');
                 $("#asset_location" + id).submit();
+            // }
+        }); 
+        $(".asset_para_range").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+                var id = $(this).attr('id');
+                // $("#post" + id).val('delete');
+                $("#asset_parameter_range" + id).submit();
             // }
         }); 
 

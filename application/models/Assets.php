@@ -29,7 +29,15 @@ class Assets extends MY_Model {
             return $this->db->update('asset', $assets_data);
         }
     }
-
+ public function checkUnique($table = NULL, $data = array()) {
+        $query = $this->db->get_where($table, $data);
+//        echo $this->db->last_query();
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function delete_assets($id1) {
         // var_dump($id);die;
 
@@ -401,6 +409,89 @@ class Assets extends MY_Model {
         $result = $query->result_array();
         return $result;
     }
+//    ****----- add trigger data --**************
+       public function add_trigger($trigger_input_data) {
+        $table = 'trigger';
+        $check = $this->db->insert($table, $trigger_input_data);
+        return $this->db->insert_id();
+    }
+    
+     public function trigger_list($user_id,$asset_id) {
+ 
+    $this->db->select( 'trigger.id,
+                        trigger.rule_id,
+                        trigger.asset_id,
+                        trigger.trigger_name,
+                        trigger.trigger_threshold_id,
+                        trigger.email,
+                        trigger.sms_contact_no,
+                        trigger.createdate,
+                        trigger.createby');
+        $this->db->from('trigger');        
+        $this->db->where(array('trigger.asset_id'=>$asset_id,'trigger.createby'=>$user_id));
+//        $this->db->where('trigger.isactive', 1);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+     }
+     
+     
+    public function edit_trigger_list($user_id,$asset_id,$trigger_post_id) {
+ 
+                $this->db->select( 'trigger.id,
+                                    trigger.rule_id,
+                                    trigger.asset_id,
+                                    trigger.trigger_name,
+                                    trigger.trigger_threshold_id,
+                                    trigger.email,
+                                    trigger.sms_contact_no,
+                                    trigger.createdate,
+                                    trigger.createby');
+                    $this->db->from('trigger');        
+                    $this->db->where(array('trigger.asset_id'=>$asset_id,'trigger.createby'=>$user_id,'trigger.id'=>$trigger_post_id));
+            //        $this->db->where('trigger.isactive', 1);
+                    $query = $this->db->get();
+                    $result = $query->result_array();
+                    return $result;
+     }
+     
+     
+        public function update_trigger($trigger_input_data,$trigger_post_id) {
+        
+        $this->db->where('id', $trigger_post_id);
+        return $this->db->update('trigger', $trigger_input_data);
+
+    }
+        public function delete_trigger($trigger_post_id) {
+        $this->db->where(array('id' => $trigger_post_id));
+        return $this->db->delete('trigger');
+    }
+  
+
+     
+     public function Trigger_threshold($asset_id,$rule_id) {
+         $this->db->select('trigger.id,trigger.trigger_threshold_id');
+         $this->db->from('trigger');
+         $this->db->where(array('trigger.asset_id'=>$asset_id,'trigger.rule_id'=>$rule_id,'isactive'=>1));
+         $result=$this->db->get()->result();
+//         $result=$query->resut_array();
+         return $result;
+//         $this->db->query('')
+//         $query="SELECT asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,
+//                        asset_parameter_rule.green_value,
+//                        asset_parameter_rule.orange_value,
+//                        asset_parameter_rule.red_value,
+//                        parameter_range.id as parameter_range_tbl_id
+//                FROM asset_parameter_rule
+//                    inner join parameter_range on parameter_range.id=asset_parameter_rule.parameter_range_id
+//                    where asset_parameter_rule.rule_status='1' and parameter_range.isactive='1' and parameter_range.asset_id=".$asset_id." 
+//                    and asset_parameter_rule.id not in(select  `trigger`.`rule_id` from `trigger` where `trigger`.`asset_id` = '63' and `trigger`.`rule_id`= asset_parameter_rule.id)";
+//        $res = $this->db->query($query);
+//        return $obj = $res->result_array();         
+     }
+    
+    
+
 
     public function asset_parameter_add($data) {
         $alreadyexit = $this->db->from('parameter_range')->where(array('parameter_id' => $data['parameter_id'], 'uom_id' => $data['uom_id'], 'isactive' => 1))->get()->result();
