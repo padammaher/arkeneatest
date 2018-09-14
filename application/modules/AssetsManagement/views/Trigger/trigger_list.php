@@ -6,26 +6,27 @@
                 <div class="clearfix"></div>
                 <div class="x_content" id="trigger-list">
                     <div class="col-md-12 readonlyinfo">
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Code : <span>DG0001</span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Customer Location : <span>Sandton</span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Specification : <span>Fuel: diesel HSD</span></div>
+                        
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Code : <span><?php echo isset($header_desc[0]['code']) ? $header_desc[0]['code'] : ''; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Customer Location : <span><?php echo isset($header_desc[0]['location']) ? $header_desc[0]['location'] : ''; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Specification : <span><?php echo isset($header_desc[0]['specification']) ? $header_desc[0]['specification'] : ''; ?></span></div>
 
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Rule Name : <span>Oil pressure</span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Rule Description : <span>Extreame Oil Pressure</span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Parameter : <span>Pressure</span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Rule Name : <span><?php echo isset($header_desc[0]['rule_name']) ? $header_desc[0]['rule_name'] : ''; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Rule Description : <span><?php echo isset($header_desc[0]['rule_des']) ? $header_desc[0]['rule_des'] : ''; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Parameter : <span><?php echo isset($header_desc[0]['parameter_name']) ? $header_desc[0]['parameter_name'] : ''; ?></span></div>
 
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Green Value : <span>11 bar</span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Orange Value : <span>20 kPa</span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Red Value : <span>19 Pa</span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Wef Date : <span>09/07/2018</span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Green Value : <span><?php echo isset($header_desc[0]['green_value']) ? $header_desc[0]['green_value'] : ''; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Orange Value : <span><?php echo isset($header_desc[0]['orange_value']) ? $header_desc[0]['orange_value'] : ''; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Red Value : <span><?php echo isset($header_desc[0]['red_value']) ? $header_desc[0]['red_value'] : ''; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Wef Date : <span><?php echo isset($header_desc[0]['wef_date']) ? $header_desc[0]['wef_date'] : ''; ?></span></div>
 
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Trigger Count : <span>2</span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Trigger Count : <span><?php echo isset($header_desc[0]['trigger_threshold_id_count']) ? $header_desc[0]['trigger_threshold_id_count'] : ''; ?></span></div>
                     </div>				 
                 </div>
 
                 <div class="page-title">
                     <div class="title_left">
-                        <h4>Trigger List -<span>Rule Name : <span>Oil Pressure</span></span> <span>Parameter : <span>Pressure</span></span> </h4>
+                        <h4>Trigger List -<span>Rule Name : <span><?php echo isset($header_desc[0]['rule_name']) ? $header_desc[0]['rule_name'] : ''; ?></span></span> <span>Parameter : <span><?php echo isset($header_desc[0]['parameter_name']) ? $header_desc[0]['parameter_name'] : ''; ?></span></span> </h4>
                     </div>
 
                     <div class="title_right">
@@ -106,6 +107,7 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
 
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
+    var update_url = "<?php echo base_url() . 'trigger_form'; ?>";
     $(document).ready(function () {
         $(".edit").click(function () {
             var id = $(this).attr('id');
@@ -114,13 +116,23 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
             $("#trigger_form" + id).submit();
         });
         
-                $(".delete").click(function () {
-            var flag = confirm('Are you sure you want to delete this item?');
-            if (flag == true) {
-                var id = $(this).attr('id');
+//                $(".delete").click(function () {
+//            var flag = confirm('Are you sure you want to delete this item?');
+//            if (flag == true) {
+//                var id = $(this).attr('id');
+//                $("#trigger_form_action" + id).val('delete');
+//                $("#trigger_form" + id).submit();
+//            }
+//        });
+        
+         $(".delete").click(function () {
+            var id = $(this).attr('id');
+            $(".modal").modal();
+            $(".ok").click(function () {
                 $("#trigger_form_action" + id).val('delete');
+//                $("#update_param_range" + id).attr('action', update_url);
                 $("#trigger_form" + id).submit();
-            }
+            });
         });
         
         

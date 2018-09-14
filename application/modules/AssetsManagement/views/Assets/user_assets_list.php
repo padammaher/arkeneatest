@@ -89,14 +89,25 @@
             $("#Assets_edit" + id).submit();
         });
         
-                $(".delete").click(function () {
-            var flag = confirm('Are you sure you want to delete this item?');
-            if (flag == true) {
-                var id = $(this).attr('id');
+//                $(".delete").click(function () {
+//            var flag = confirm('Are you sure you want to delete this item?');
+//            if (flag == true) {
+//                var id = $(this).attr('id');
+//                $("#post" + id).val('delete');
+//                $("#Assets_edit" + id).submit();
+//            }
+//        });
+        
+        $(".delete").click(function () {
+            var id = $(this).attr('id');
+            $(".modal").modal();
+            $(".ok").click(function () {
                 $("#post" + id).val('delete');
+//                $("#update_param_range" + id).attr('action', update_url);
                 $("#Assets_edit" + id).submit();
-            }
-        });
+            });
+        }); 
+        
                 $(".manage_user").click(function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {

@@ -519,5 +519,28 @@ class Assets extends MY_Model {
             return $this->db->affected_rows();
         }
     }
+    
+    public function showdescription($rule_id,$asset_id)
+    {
+       
+       
+       $query="SELECT 
+                asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,asset_parameter_rule.rule_name,asset_parameter_rule.rule_des,
+                asset_parameter_rule.green_value,
+                asset_parameter_rule.orange_value,
+                asset_parameter_rule.red_value,asset_parameter_rule.wef_date,asset.code,asset.specification,branch_user.client_name,branch_user.client_username,parameter.name as `parameter_name`,
+                parameter_range.id as parameter_range_tbl_id,(select count(`trigger`.trigger_threshold_id) from `trigger` where `trigger`.`rule_id`=".$rule_id.") as `trigger_threshold_id_count`
+             FROM asset_parameter_rule
+             inner join parameter_range on parameter_range.id=asset_parameter_rule.parameter_range_id
+             inner join parameter on parameter.id=parameter_range.parameter_id
+             inner join asset on asset.id=parameter_range.asset_id
+             inner join asset_user on asset_user.asset_id= asset.id
+             inner join branch_user on branch_user.id= asset_user.assetuser_id
+             left join `trigger` on `trigger`.`rule_id`=asset_parameter_rule.id
+             where asset_parameter_rule.rule_status='1' and parameter_range.isactive='1' and parameter_range.asset_id=".$asset_id." 
+             and asset_parameter_rule.id =".$rule_id."";
+        $res = $this->db->query($query);
+        return $obj = $res->result_array(); 
+    }
 
 }

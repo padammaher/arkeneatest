@@ -753,20 +753,10 @@ class Inventory extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
              if($_SERVER['REQUEST_METHOD'] == 'POST')
             { 
-                  // $asset_form_action=explode(" ",$this->input->post('asset_form_action'));
+                   $form_action=($this->input->post('post')) == ''? $this->input->post('dev_asset_post') : $this->input->post('post');
+                  $sen_inv_id=($this->input->post('id')) == ''? $this->input->post('dev_asset_id') : $this->input->post('id'); 
+//echo $sen_inv_id;
 
-                  if($asset_form_action[0] == 'delete')
-                  {
-//                      $form_action_type[1];
-                     $delete_dev_asset_data =$this->Inventory_model->Delete_device_asset($asset_form_action[1]);
-                     if($delete_dev_asset_data){
-                     $this->session->set_flashdata('success_msg', 'Device asset successfully deleted');
-                    return redirect('Device_assets_list','refresh');
-                     }else{
-                          $this->session->set_flashdata('error_msg', 'Device asset failed delete');
-                         return redirect('Device_assets_list','refresh');
-                     }
-                  }
             } else{
             $data['device_asset_list']=$this->Inventory_model->device_asset_list($user_id);
             
@@ -934,6 +924,18 @@ class Inventory extends MY_Controller {
                          }
                         }  
                      }
+                       else if($form_action == 'delete')
+                  {
+//                      $form_action_type[1];
+                     $delete_dev_asset_data =$this->Inventory_model->Delete_device_asset($sen_inv_id);
+                     if($delete_dev_asset_data){
+                     $this->session->set_flashdata('success_msg', 'Device asset successfully deleted');
+                    return redirect('Device_assets_list','refresh');
+                     }else{
+                          $this->session->set_flashdata('error_msg', 'Device asset failed delete');
+                         return redirect('Device_assets_list','refresh');
+                     }
+                  }
                   else
                   {
                       return redirect('Device_assets_list');
