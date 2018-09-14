@@ -26,7 +26,7 @@
             <div class="menu_section">
                 <h3>Home</h3>
                 <ul class="nav side-menu">
-                    <li><a href="<?php echo base_url(); ?>Auth/dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
+                    <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
                 </ul>
             </div>
 
@@ -36,7 +36,7 @@
                 <ul class="nav side-menu">                  
                     <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="<?php echo base_url(); ?>Customer/customer_info">Customer Provisioning</a></li>
+                            <li><a href="<?php echo base_url(); ?>Customerinfo">Customer Provisioning</a></li>
                             <li> <a class="" href="<?php echo base_url(); ?>Assets_list">Asset Management</a></li>
                             <li><a href="<?php echo base_url('Device_inventory_list'); ?>">Device Inventory</a></li>
                             <li><a href="<?php echo base_url('Sensor_inventory_list'); ?>">Sensor Inventory</a></li>

@@ -273,16 +273,16 @@ class Assets extends MY_Model {
         }
     }
 
-    public function add_asset_rule_detail($data, $parameter_range_id) {
+    public function add_asset_rule_detail($data, $parameter_range_id='') {
 
-        $alreadyexist = $this->db->from('asset_parameter_rule')->where('parameter_range_id', $parameter_range_id)->get()->result();
-        if (!$alreadyexist) {
+       // $alreadyexist = $this->db->from('asset_parameter_rule')->where('parameter_range_id', $parameter_range_id)->get()->result();
+       // if (!$alreadyexist) {
             $this->db->insert('asset_parameter_rule', $data);
             $insert_id = $this->db->insert_id();
             return $insert_id;
-        } else {
-            return false;
-        }
+        //} else {
+        //    return false;
+        //}
     }
 
     public function update_asset_rule_detail($data, $asset_rule_id) {

@@ -35,19 +35,13 @@
         <h4>Client User List
         </h4>
       </div>
-      <?php if($this->session->flashdata('message')){?> 
-        <div class="alert alert-success fade in" id="infoMessage">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <strong>Success!</strong> Client has been added successfully.
-        </div>
-          <?php } ?>
       <div class="title_right">
         <div class="pull-right">
-          <a href="<?php echo base_url()?>Customer/client_user_add" class="btn btn-sm btn-primary">Add New
+          <a href="<?php echo base_url()?>AddClient" class="btn btn-sm btn-primary">Add New
           </a>
-          <a href="<?php echo base_url()?>Customer/edit_customer_detail" class="btn btn-sm btn-primary">Customer Provisioning
+          <a href="<?php echo base_url()?>Editcustomerinfo" class="btn btn-sm btn-primary">Customer Provisioning
           </a>
-          <a href="<?php echo base_url()?>Customer/customer_business_location_list" class="btn btn-sm btn-primary">Customer Business Location
+          <a href="<?php echo base_url()?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary">Customer Business Location
           </a>
         </div>
       </div>

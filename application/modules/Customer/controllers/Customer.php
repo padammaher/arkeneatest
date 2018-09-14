@@ -131,10 +131,10 @@ class Customer extends MY_Controller {
          $this->Customer_Model->update_customer_detail($additional_data, $update_user_id);
 
          $this->session->set_flashdata('success_msg','customer information update sucessfully');
-
-         $this->data['user_detail'] =$this->Customer_Model->get_customer_detail($update_user_id); 
-         $this->data['dataHeader'] = $this->users->get_allData($user_id);
-         load_view_template($this->data, 'customer_info');
+          redirect('Customerinfo', 'refresh');
+        //  $this->data['user_detail'] =$this->Customer_Model->get_customer_detail($update_user_id); 
+        //  $this->data['dataHeader'] = $this->users->get_allData($user_id);
+        //  load_view_template($this->data, 'customer_info');
          
         //  $this->template->set_master_template('template.php');
         //  $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));

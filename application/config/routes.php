@@ -129,5 +129,26 @@ $route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';
 
 
 
+///////////////////////////////Asset Rules 
+
+$route['Asset_Rule']='AssetsManagement/add_asset_rule'; 
+$route['Add_Asset_Rule']='AssetsManagement/add_asset_rule_detail'; 
+$route['Delete_Rule']='AssetsManagement/delete_asset_rule'; 
+$route['Asset_Rule_list']='assetsManagement/asset_rule_list';
+
+
+///////////////////// customer information /////////
+$route['Customerinfo']= 'Customer/customer_info'; 
+$route['Dashboard']='Auth/dashboard';
+$route['Editcustomerinfo']='Customer/edit_customer_detail'; 
+$route['UpdateInfo']='Customer/update_cutomer_info';
+$route['ManageUsers']='Customer/client_user_list'; 
+$route['ManageBusinessLoacaiton']='Customer/customer_business_location_list';
+$route['AddClient']='Customer/client_user_add'; 
+
+
+
+
+
 
 
