@@ -59,7 +59,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
                                         <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $r['name']; ?></li>
+                                        <li class="flex-item"><?php echo $r['parameter']; ?></li>
                                         <li class="flex-item"><?php echo $r['min_value'] ? $r['min_value'] : ""; ?></li>
                                         <li class="flex-item"><?php echo $r['max_value'] ? $r['max_value'] : ''; ?></li>
                                         <li class="flex-item"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ''; ?></li>
@@ -72,10 +72,10 @@
                                                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                 </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>" >
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                 </a> 
-                                                <a href="" title="Edit">
+                                                <a title="Edit" class="manage" id="<?php echo $i; ?>">
                                                     <i class="fa fa-dedent" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Rule"></i>
                                                 </a>
                                             </form>
@@ -111,6 +111,7 @@
         </div>
     </div>
 </div>
+
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -122,13 +123,21 @@
             $("#update_param_range" + id).submit();
         });
         $(".delete").click(function () {
-            var flag = confirm('Are you sure you want to delete this item?');
-            if (flag == true) {
-                var id = $(this).attr('id');
+            var id = $(this).attr('id');
+            $(".modal").modal();
+            $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#update_param_range" + id).attr('action', update_url);
-                $("#updateasset" + id).submit();
-            }
+                $("#update_param_range" + id).submit();
+            });
+        });
+
+        $(".manage").click(function () {
+            var id = $(this).attr('id');
+            var url = "<?php echo base_url() . 'AssetsManagement/asset_rule_list'; ?>";
+            $("#post" + id).val('edit');
+            $("#update_param_range" + id).attr('action', url);
+            $("#update_param_range" + id).submit();
         });
     });
 </script>

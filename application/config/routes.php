@@ -93,7 +93,7 @@ $route['User_asset_edit'] = 'AssetsManagement/User_asset_edit';
 //Asset Parameter
 $route['asset_parameter_range_list'] = 'AssetsManagement/asset_parameter_range_list';
 $route['asset_parameter_add'] = 'AssetsManagement/asset_parameter_add';
-$route['asset_parameter_update'] = 'AssetsManagement/asset_parameter_add';
+$route['asset_parameter_update'] = 'AssetsManagement/asset_parameter_update';
 
 //Asset Trigger
 $route['trigger_list'] = 'AssetsManagement/trigger_list';
