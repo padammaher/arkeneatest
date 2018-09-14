@@ -38,7 +38,7 @@
                     <option value="">Select device</option>                    
 <?php foreach ($sensorid_list as $sensorid_list_data) { 
      if ( $sensorid_list_data['id'] == $Edit_device_sensors_data['sensor_id']) { ?>
-<option value="<?php echo $sensorid_list_data['id'];?>" <?php echo (set_value('sensorid')== $sensorid_list_data['id'])? 'selected':'';?> ><?php echo $sensorid_list_data['sensor_no'];?></option>
+<option value="<?php echo $sensorid_list_data['id'];?>" <?php echo (set_value('sensorid')== $sensorid_list_data['id'])? 'selected':'selected';?> ><?php echo $sensorid_list_data['sensor_no'];?></option>
      <?php }else { ?>              
 <option value="<?php echo $sensorid_list_data['id'];?>" ><?php echo $sensorid_list_data['sensor_no'];?></option>
 <?php } } ?>

@@ -62,13 +62,25 @@
                 </a>
                 <a title="Delete" class="delete" id="<?php echo $i; ?>">
                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                </a></form>
+                <?php if(!empty($inventory_list['device_sensor_mapping_id'])) { ?>
+                 <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
+                
+                <input type="hidden" value="<?php echo $inventory_list['device_sensor_mapping_id']; ?>" name="dev_sen_post_id"/>
+                <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
+                <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $inventory_list['device_sensor_mapping_id'];?>">
+                         <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+                </a></form><?php } ?>
+             <?php if(!empty($inventory_list['device_asset_tbl_id'])){ ?>
+               <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
+                <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id"/>
+                <input type="hidden" name="dev_asset_post" id="dev_asset_post<?php echo $i; ?>" value='edit'/>
+                <a title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
+                    <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
                 </a>
-                <a href="<?php echo base_url(); ?>Device_sensor_list" >
-                      <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                    </a> 
-                    <a href="<?php echo base_url(); ?>Device_assets_list" title="Manage Users">
-                      <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Assets"></i> 
-                    </a> 
+            </form>                                                    
+            <?php } ?>
+         
             </form>   
                     
                   </li>
@@ -103,4 +115,17 @@
             }
         });
     });
+    $(".dev_sensor").click(function () {
+            var id = $(this).attr('id');
+          //  $("#post" + id).val('edit');
+//            alert(id);
+            $("#device_sen" + id).submit();
+        });
+
+    $(".dev_assets").click(function () {
+            var id = $(this).attr('id');
+          //  $("#post" + id).val('edit');
+//            alert(id);
+            $("#dev_asset" + id).submit();
+        });
 </script>        

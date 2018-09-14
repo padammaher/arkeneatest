@@ -99,7 +99,8 @@ foreach ($sensor_inventory_list_data as $sensor_inventory_data) { ?>
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                    <input type="hidden" name="add_sen_inv_form_action" value="update <?php echo $sensor_inventory_data['id'];?>">
                   <button type="submit" name="updatte_sen_int_button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-default">Cancel</button>
+                
+                <a href="<?php echo base_url('Sensor_inventory_list'); ?>" type="button" class="btn btn-default">Cancel</a>
 
               </div>
         </div>

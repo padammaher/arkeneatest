@@ -80,7 +80,8 @@
                         <div class="ln_solid"></div>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-
+                            <input type="hidden" value="<?php echo $asset_location_data['id']; ?>" name="asset_location_post_id"/>
+                            <input type="hidden" name="asset_location_post" id="asset_user_post" value="update"/>       
                                 <button type="submit" name="asset_loc_edit_button" class="btn btn-primary">Save</button>
                                 <a href="<?php echo base_url('Assets_location_list'); ?>" type="button" class="btn btn-default">Cancel</a>
 

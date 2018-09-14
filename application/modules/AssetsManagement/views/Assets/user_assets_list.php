@@ -32,7 +32,7 @@
                         </div>
                         </div>
 				
-<?php if(!empty($asset_user_list)) { foreach ($asset_user_list as $asset_user_list_data) { ?>
+<?php $i=1; if(!empty($asset_user_list)) { foreach ($asset_user_list as $asset_user_list_data) { ?>
 <div class="row clearfix">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <ul class="flex-container nowrap">
@@ -41,22 +41,25 @@
 
 
                 <li class="flex-item">
- <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>User_asset_edit">   
-     <input type="hidden" name="asset_user_form_action" id="dev_inv_id" value="edit <?php echo $asset_user_list_data['id']; ?>" >    
-     <button type="submit" class="btn btn-primary" name="edit_asset_user_button" id="edit_inventory_button" >
-         <i class="fa fa-pencil success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-     </button> </form> 
- <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>User_asset_edit">   
-     <input type="hidden" name="asset_user_form_action" id="dev_inv_id" value="delete <?php echo $asset_user_list_data['id']; ?>" >    
-     <button type="submit" class="btn btn-primary" name="edit_asset_user_button" id="edit_inventory_button" >
-<i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-     </button> </form>  
 
+
+
+                <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="Assets_edit<?php echo $i; ?>">
+                <input type="hidden" value="<?php echo $asset_user_list_data['id']; ?>" name="asset_user_post_id"/>
+                <input type="hidden" name="asset_user_post" id="post<?php echo $i; ?>"/>
+                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                </a>
+                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                </a> 
+            </form>   
+                
                 </li>
         </ul>
 </div>
 </div>
-<?php } } else { ?>
+<?php $i++;} } else { ?>
 
 
                         <div class="row clearfix">
@@ -76,3 +79,32 @@
 			
 
           </div>
+  <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".edit").click(function () {
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+//            alert(id);
+            $("#Assets_edit" + id).submit();
+        });
+        
+                $(".delete").click(function () {
+            var flag = confirm('Are you sure you want to delete this item?');
+            if (flag == true) {
+                var id = $(this).attr('id');
+                $("#post" + id).val('delete');
+                $("#Assets_edit" + id).submit();
+            }
+        });
+                $(".manage_user").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+                var id = $(this).attr('id');
+                // $("#post" + id).val('delete');
+                $("#asset_user" + id).submit();
+            // }
+        });
+
+    });
+</script>

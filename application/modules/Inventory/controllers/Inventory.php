@@ -383,15 +383,16 @@ class Inventory extends MY_Controller {
             { 
                 
 //                exit;
-                 $form_action=($this->input->post('post')) == ''? $this->input->post('dev_sen_post') : $this->input->post('dev_sen_post');
-                  $sen_inv_id=($this->input->post('id')) == ''? $this->input->post('dev_sen_id') : $this->input->post('id'); 
-//                  echo  $sen_inv_id; 
-//                  exit;
+                 $form_action=($this->input->post('post')) == ''? $this->input->post('dev_sen_post') : $this->input->post('post');
+                  $sen_inv_id=($this->input->post('id')) == ''? $this->input->post('dev_sen_post_id') : $this->input->post('id'); 
+                 // echo  $sen_inv_id; 
+                  // print_r($this->input->post());
+                 // exit;
                     $data['device_list']=$this->Inventory_model->device_list($user_id); 
                     $data['sensorid_list']=$this->Inventory_model->sensorid_list($user_id); 
                    $data['Edit_device_sensors_data']=$this->Inventory_model->Edit_device_sensors_model($sen_inv_id);
 
-               
+               // print_r( $data['Edit_device_sensors_data']);exit;
                   if($form_action == 'edit')
                   {
 //             $data['device_list']=$this->Inventory_model->device_list(); 
@@ -752,8 +753,8 @@ class Inventory extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
              if($_SERVER['REQUEST_METHOD'] == 'POST')
             { 
-                  $asset_form_action=explode(" ",$this->input->post('asset_form_action'));
-//                  print_r($sensor_form_action);
+                  // $asset_form_action=explode(" ",$this->input->post('asset_form_action'));
+
                   if($asset_form_action[0] == 'delete')
                   {
 //                      $form_action_type[1];
@@ -877,13 +878,13 @@ class Inventory extends MY_Controller {
             { 
 //                   $form_action=$this->input->post('post');
 //                  $sen_inv_id=$this->input->post('id');
-                  $form_action=($this->input->post('post')) == ''? $this->input->post('dev_asset_post') : $this->input->post('dev_sen_post');
+                  $form_action=($this->input->post('post')) == ''? $this->input->post('dev_asset_post') : $this->input->post('post');
                   $sen_inv_id=($this->input->post('id')) == ''? $this->input->post('dev_asset_id') : $this->input->post('id'); 
                    $data['Edit_device_asset_data']=$this->Inventory_model->Edit_device_asset_model($sen_inv_id);
                   if($form_action == 'edit')
                   {
-            
-//            print_r($data['Edit_device_sensors_data']);exit;
+            // echo $form_action;
+           // print_r($this->input->post());exit;
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));

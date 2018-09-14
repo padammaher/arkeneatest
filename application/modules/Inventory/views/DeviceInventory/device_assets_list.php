@@ -39,7 +39,7 @@
 <li class="flex-item"><?php echo $device_asset_list_data['code'];?></li>
 <li class="flex-item">
 
- <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="updateasset<?php echo $i; ?>">
+ <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dervice_asset<?php echo $i; ?>">
                 <input type="hidden" value="<?php echo $device_asset_list_data['id']; ?>" name="id"/>
                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  
@@ -80,7 +80,7 @@
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
 //            alert(id);
-            $("#updateasset" + id).submit();
+            $("#dervice_asset" + id).submit();
         });
         
                 $(".delete").click(function () {
@@ -88,7 +88,7 @@
             if (flag == true) {
                 var id = $(this).attr('id');
                 $("#post" + id).val('delete');
-                $("#updateasset" + id).submit();
+                $("#dervice_asset" + id).submit();
             }
         });
     });

@@ -26,7 +26,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">  
-                                <input type="text" class="form-control" value="<?php echo $list['code'] ?>" required="required"  id="Assetcode" name="Assetcode" readonly>
+                                <input type="text" class="form-control" value="<?php echo set_value('Assetcode',$list['code']); ?>" required="required"  id="Assetcode" name="Assetcode" readonly>
                             </div>
                         </div>
 
@@ -127,11 +127,21 @@
 
                             </div>
                         </div> 
+                    <div class="item form-group">
+           <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+           <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                <label><?php $isactive=set_value('isactive'); ?>                          
 
+              <input type="checkbox" name="isactive" class="flat" <?php if(!empty($isactive)) { echo ($isactive)== "on"? 'checked': ''; } else {echo ($list['isactive'])=="1"?'checked':''; }?>> Active
+            </label>
+           </div>
+     </div>
                         <div class="ln_solid"></div>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <input type="hidden" name="edit_asset_list_id"  value="update <?php echo $list['id']; ?>">
+                                <input type="hidden" name="post"  value="update">
+                                <input type="hidden" name="id"  value="<?php echo $list['id']; ?>">
+                                
                                 <button type="submit" name="assets_edit_button" class="btn btn-primary">Save</button>
                                 <a href="<?php echo base_url('Assets_list'); ?>" type="button" class="btn btn-default">Cancel</a>
 

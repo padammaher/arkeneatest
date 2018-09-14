@@ -41,7 +41,7 @@
                     <li class="flex-item"><?php echo $device_sen_list['sensor_no'];?></li>
                     <li class="flex-item">
                         
-             <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="updateasset<?php echo $i; ?>">
+             <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="dev_sen<?php echo $i; ?>">
                 <input type="hidden" value="<?php echo $device_sen_list['id']; ?>" name="id"/>
                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  
@@ -92,7 +92,7 @@
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
 //            alert(id);
-            $("#updateasset" + id).submit();
+            $("#dev_sen" + id).submit();
         });
         
                 $(".delete").click(function () {

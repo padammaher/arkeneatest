@@ -18,7 +18,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" required="required" placeholder="DG0001" id="Assetcode" name="Assetcode" pattern="[a-zA-Z0-9]+">
+                            <input type="text" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" required="required" placeholder="DG0001" id="Assetcode" name="Assetcode" value="<?php echo set_value('Assetcode');?>" pattern="[a-zA-Z0-9]+">
                         </div>
                     </div>
 
@@ -28,7 +28,7 @@
                             <select class="form-control" id="Customerlocation" name="Customerlocation" required>
                                 <option value="">Select Location</option>
                                 <?php foreach ($location_list as $loc_list) { ?>
-                                    <option value="<?php echo $loc_list['id']; ?>"><?php echo $loc_list['location']; ?></option>
+                                    <option value="<?php echo $loc_list['id']; ?>" <?php echo (set_value('Customerlocation'))== $loc_list['id'] ? 'selected':''; ?>><?php echo $loc_list['location']; ?></option>
                                 <?php } ?>
 
                             </select>
@@ -41,7 +41,7 @@
                             <select class="form-control" id="Assetcategory" name="Assetcategory" required>
                                 <option value="">Select Category</option>
                                 <?php foreach ($category_list as $category_list) { ?>
-                                    <option value="<?php echo $category_list['id']; ?>"><?php echo $category_list['name']; ?></option>
+                                    <option value="<?php echo $category_list['id']; ?>"  <?php echo (set_value('Assetcategory'))== $category_list['id'] ? 'selected':''; ?>><?php echo $category_list['name']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -52,7 +52,7 @@
                             <select class="form-control"  id="Assettype" name="Assettype" required>
                                 <option value="">Select Type</option>
                                 <?php foreach ($type_list as $typelistdata) { ?>
-                                    <option value="<?php echo $typelistdata['id']; ?>"><?php echo $typelistdata['name']; ?></option>
+                                    <option value="<?php echo $typelistdata['id']; ?>" <?php echo (set_value('Assettype'))== $typelistdata['id'] ? 'selected':''; ?>><?php echo $typelistdata['name']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -61,34 +61,34 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Specification</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Fuel: diesel HSD, O/p Voltage 220V AC"  id="assetspecification" name="assetspecification">
+                            <input type="text" class="form-control" placeholder="Fuel: diesel HSD, O/p Voltage 220V AC"  id="assetspecification" name="assetspecification" value="<?php echo set_value('assetspecification');?>">
                         </div>
                     </div>
 
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Serial No. *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="CLR0021212A" required="required" id="Assetserialno" name="Assetserialno" pattern="[a-zA-Z0-9]+">
+                            <input type="text" class="form-control" placeholder="CLR0021212A" required="required" id="Assetserialno" name="Assetserialno" pattern="[a-zA-Z0-9]+" value="<?php echo set_value('Assetserialno');?>">
                         </div>
                     </div>
 
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Cummins" required="required" id="Make" name="Make" pattern="[a-zA-Z0-9]+">
+                            <input type="text" class="form-control" placeholder="Cummins" required="required" id="Make" name="Make" pattern="[a-zA-Z0-9]+"  value="<?php echo set_value('Make');?>">
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Model No. *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="CU001A" required="required" id="Modelno" name="Modelno" pattern="[a-zA-Z0-9]+">
+                            <input type="text" class="form-control" placeholder="CU001A" required="required" id="Modelno" name="Modelno" pattern="[a-zA-Z0-9]+"  value="<?php echo set_value('Modelno');?>">
                         </div>
                     </div>
 
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <textarea class="form-control" rows="2" style="resize: vertical;" placeholder="Diesel Gen Sets" id="Description" name="Description"></textarea>
+                            <textarea class="form-control" rows="2" style="resize: vertical;" placeholder="Diesel Gen Sets" id="Description" name="Description"><?php echo set_value('Description');?></textarea>
                         </div>
                     </div>  
 
@@ -101,7 +101,15 @@
                             </select>
                         </div>
                     </div> 
-
+                <div class="item form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                                  <label><?php $isactive=set_value('isactive'); ?>                          
+                          
+                                                    <input type="checkbox" name="isactive" class="flat" <?php if(!empty($isactive)) { echo ($isactive)== "on"? 'checked': 'checked'; } else { }?>> Active
+                                                        </label>
+                                                </div>
+                                          </div>            
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -122,9 +130,5 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-<?php if (($this->session->flashdata())) { ?>
-            showSuccess("<?php echo $this->session->flashdata('msg'); ?>");
-<?php } ?>
-    });
+   
 </script>
