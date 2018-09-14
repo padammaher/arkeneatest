@@ -14,7 +14,7 @@
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
 
         <!-- CORE CSS Bootstrap FRAMEWORK - START -->
-        
+
         <link href="<?php echo base_url('assets/css/bootstrap/dist/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css"/>
         <link href="<?php echo base_url('assets/css/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet">
         <!-- NProgress -->
@@ -88,6 +88,25 @@
                     {content}
                     <!--</div>-->
                 </div>
+                <!--- Confirmation Modal --->
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Confirmation<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4></h4>
+                                <p>Are you sure you want to delete this item ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary ok">Ok</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal -->
                 <footer>      
                     {footer}            
                 </footer>             
@@ -182,44 +201,44 @@
 
 
             });
-            
 
-    $("#Parameter").change(function()
-    {
+
+            $("#Parameter").change(function ()
+            {
 //       alert(this.value);
-    var objdata=''; 
-    var i=0;
-       var options;
-        $("#UOM").empty();
-           var options='<option value="">Select Type</option>';
-       $.ajax({
-           url: '<?php echo base_url();?>Inventory/load_uomtype_by_parameter',
-            type: 'post',
-            dataType: 'text',
-            data: {parameterid: this.value},
-            success: function (res) {           
-                var obj = $.parseJSON(res);              
-             for(i=0 ; i < obj.length ; i++){                 
-             options+='<option value="'+obj[i]['id']+'">'+obj[i]['name']+'</option>';                
-             }
-               $("#UOM").html(options);        
-        }
-    });
-    });
+                var objdata = '';
+                var i = 0;
+                var options;
+                $("#UOM").empty();
+                var options = '<option value="">Select Type</option>';
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Inventory/load_uomtype_by_parameter',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {parameterid: this.value},
+                    success: function (res) {
+                        var obj = $.parseJSON(res);
+                        for (i = 0; i < obj.length; i++) {
+                            options += '<option value="' + obj[i]['id'] + '">' + obj[i]['name'] + '</option>';
+                        }
+                        $("#UOM").html(options);
+                    }
+                });
+            });
 
-$("#UOM").change(function()
-    {
+            $("#UOM").change(function ()
+            {
 //        alert(this.value);
-   if(this.value != "") {
-        var e = document.getElementById("UOM");
-        var strUser = e.options[e.selectedIndex].text;
-        $("#selectuom").val(strUser);
-    }
-    else
-    {
-         $("#selectuom").val('');
-    }
-    });
+                if (this.value != "") {
+                    var e = document.getElementById("UOM");
+                    var strUser = e.options[e.selectedIndex].text;
+                    $("#selectuom").val(strUser);
+                }
+                else
+                {
+                    $("#selectuom").val('');
+                }
+            });
 
         </script>
     </body>

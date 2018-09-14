@@ -79,6 +79,10 @@
                                     ?>
                                 </select>
                             </div>
+                            <?php if (form_error('uom_type')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('uom_type'); ?></span>
+                            <?php }
+                            ?>
                         </div>	
                         <?php
                         if (isset($result[0]['description'])) {
