@@ -9,39 +9,39 @@
         <div class="x_content">
           <div class="col-md-12 readonlyinfo">
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Code : 
-              <span>DG0001
+              <span><?php echo (isset($parameter_detail[0]['code']))?$parameter_detail[0]['code']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Customer Location : 
-              <span>Sandton
+              <span><?php echo (isset($parameter_detail[0]['location']))?$parameter_detail[0]['location']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Specification : 
-              <span>Fuel: diesel HSD
+              <span>Fuel:<?php echo (isset($parameter_detail[0]['specification']))?$parameter_detail[0]['specification']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Parameter : 
-              <span>Oil pressure
+              <span><?php echo (isset($parameter_detail[0]['param_name']))?$parameter_detail[0]['param_name']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Minimum value : 
-              <span>0
+              <span><?php echo (isset($parameter_detail[0]['min_value']))?$parameter_detail[0]['min_value']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Maximum value : 
-              <span>15
+              <span><?php echo (isset($parameter_detail[0]['max_value']))?$parameter_detail[0]['max_value']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Scaling factor : 
-              <span>1
+              <span><?php echo (isset($parameter_detail[0]['scaling_factor']))?$parameter_detail[0]['scaling_factor']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">UOM : 
-              <span>Bar
+              <span><?php echo (isset($parameter_detail[0]['uom_name']))?$parameter_detail[0]['uom_name']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Bits/ sign : 
-              <span>16
+              <span><?php echo (isset($parameter_detail[0]['bits_per_sign']))?$parameter_detail[0]['bits_per_sign']:''; ?> 
               </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">
@@ -118,20 +118,20 @@
           <?php if($asset_list){ foreach($asset_list as $key=>$asset_rule){ ?> 
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <ul class="flex-container flex-item_row nowrap">
+              <ul class="flex-container flex-item_row nowrap opendialog<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>">
                 <li class="flex-item"><?php echo ($asset_rule->id)?$asset_rule->id:''; ?> 
                 </li>
-                <li class="flex-item"><?php echo ($asset_rule->rule_name)?$asset_rule->rule_name:''; ?> 
+                <li class="flex-item"><?php echo (isset($asset_rule->rule_name))?$asset_rule->rule_name:''; ?> 
                 </li>
-                <li class="flex-item"><?php echo ($asset_rule->parameter)?$asset_rule->parameter:''; ?> 
+                <li class="flex-item"><?php echo (isset($asset_rule->parameter))?$asset_rule->parameter:''; ?> 
                 </li>
-                <li class="flex-item"><?php echo ($asset_rule->green_value)?$asset_rule->green_value:''; ?>
+                <li class="flex-item"><?php echo (isset($asset_rule->green_value))?$asset_rule->green_value:''; ?>
                 </li>
-                <li class="flex-item"><?php echo ($asset_rule->orange_value)?$asset_rule->orange_value:''; ?>
+                <li class="flex-item"><?php echo (isset($asset_rule->orange_value))?$asset_rule->orange_value:''; ?>
                 </li>
-                <li class="flex-item"><?php echo ($asset_rule->red_value)?$asset_rule->red_value:''; ?>
+                <li class="flex-item"><?php echo (isset($asset_rule->red_value))?$asset_rule->red_value:''; ?>
                 </li>
-                <li class="flex-item"><?php echo ($asset_rule->wef_date)?$asset_rule->wef_date:''; ?>
+                <li class="flex-item"><?php echo (isset($asset_rule->wef_date))?$asset_rule->wef_date:''; ?>
                 </li>
                 <li class="flex-item">2
                 </li>
@@ -140,7 +140,7 @@
                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                     </i>
                   </a>
-                  <a href="trigger-list.html" title="Edit">
+                  <a href="<?php echo base_url();?>trigger_list" title="Edit">
                     <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger">
                     </i>
                   </a>
@@ -152,6 +152,85 @@
               </ul>
             </div>
           </div>
+
+
+            <!-- -----------------------modal //////////////////////////////-->
+            <div id="detailsModal<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Details</h4>
+                    </div>
+                    <div class="modal-body">
+
+                      <table class="table table-bordered">                      
+                      <tbody>
+                        <tr>
+                          <td width="" class="lft-td">Rule No.</td>
+                          <td><?php echo ($asset_rule->id)?$asset_rule->id:''; ?> </td>
+                        </tr>
+                        <tr>
+                          <td width="" class="lft-td">Rule Name</td>
+                          <td><?php echo (isset($asset_rule->rule_name))?$asset_rule->rule_name:''; ?> </td>
+                        </tr>
+                       <tr>
+                          <td width="" class="lft-td">Rule Description</td>
+                          <td><?php echo (isset($asset_rule->rule_des))?$asset_rule->rule_des:''; ?> .</td>
+                        </tr>
+                        <tr>
+                          <td width="" class="lft-td">Parameter</td>
+                          <td><?php echo (isset($asset_rule->parameter))?$asset_rule->parameter:''; ?> </td>
+                        </tr>
+						
+					              	<tr>
+                          <td width="" class="lft-td">Green Value</td>
+                          <td><?php echo (isset($asset_rule->green_value))?$asset_rule->green_value:''; ?></td>
+                        </tr>
+                        <tr>
+                          <td width="" class="lft-td">Orange Value</td>
+                          <td><?php echo (isset($asset_rule->orange_value))?$asset_rule->orange_value:''; ?></td>
+                        </tr>
+						            <tr>
+                          <td width="" class="lft-td">Red Value</td>
+                          <td><?php echo (isset($asset_rule->red_value))?$asset_rule->red_value:''; ?></td>
+                        </tr>
+                        <tr>
+                          <td width="" class="lft-td">Wef Date</td>
+                          <td><?php echo (isset($asset_rule->wef_date))?$asset_rule->wef_date:''; ?></td>
+                        </tr>
+						
+						            <tr>
+                          <td width="" class="lft-td">Trigger Count</td>
+                          <td>2</td>
+                        </tr>
+                                   
+                      </tbody>
+                    </table>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+
+               <script>
+        $(".opendialog<?php echo ($asset_rule->id)?$asset_rule->id:''; ?> .flex-item").click(function(e) {
+        if (!$(e.target).hasClass('fa')) {
+          $('#detailsModal<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>').modal('show'); 
+        }
+        });
+		
+		$(".flex-container-head .flex-item").click(function() {
+          $('#detailsModal<?php echo ($asset_rule->id)?$asset_rule->id:''; ?>').modal('hide'); 
+        });
+	</script>
+            <!-- ///////////////////End Modal //////////////////////////////-->
+
           <?php } }else{ ?><h3>No Record Found </h3> <?php } ?>
           <!-- <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

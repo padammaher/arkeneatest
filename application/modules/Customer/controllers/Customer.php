@@ -215,9 +215,10 @@ class Customer extends MY_Controller {
             // $this->template->render();
         }else{
             $this->session->set_flashdata('success_msg','Client added sucessfully');
-            $this->data['client_details']= $this->Customer_Model->get_client_list();
-            $this->data['dataHeader'] = $this->users->get_allData($user_id);
-            load_view_template($this->data, 'client_user_list');
+            redirect('Customer/client_user_list', 'refresh');
+            // $this->data['client_details']= $this->Customer_Model->get_client_list();
+            // $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            // load_view_template($this->data, 'client_user_list');
             // $this->template->set_master_template('template.php');
             // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -272,9 +273,10 @@ class Customer extends MY_Controller {
     }else{
         $this->session->set_flashdata('error_msg','This user record update failed');
     }
-    $this->data['client_details']= $this->Customer_Model->get_client_list();
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'client_user_list');
+    redirect('Customer/client_user_list', 'refresh');
+    //    $this->data['client_details']= $this->Customer_Model->get_client_list();
+    //     $this->data['dataHeader'] = $this->users->get_allData($user_id);
+    //     load_view_template($this->data, 'client_user_list');
     // $this->template->set_master_template('template.php');
     // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
     // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -355,12 +357,13 @@ class Customer extends MY_Controller {
         if($this->input->post('email'))
         $additional_data['email']=$this->input->post('email');
         $this->Customer_Model->add_business_location($additional_data); 
-       $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
+       // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
 
        $this->session->set_flashdata('success_msg','Business location added sucessfully');
-       $user_id = $this->session->userdata('user_id');
-       $this->data['dataHeader'] = $this->users->get_allData($user_id);
-       load_view_template($this->data, 'customer_business_location_list');
+       redirect('Customer/customer_business_location_list', 'refresh');
+    //    $user_id = $this->session->userdata('user_id');
+    //    $this->data['dataHeader'] = $this->users->get_allData($user_id);
+    //    load_view_template($this->data, 'customer_business_location_list');
     //   $this->template->set_master_template('template.php');
     //   $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
     //   $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -414,11 +417,12 @@ class Customer extends MY_Controller {
         if($this->input->post('email'))
         $additional_data['email']=$this->input->post('email');
         $this->Customer_Model->update_busineess_location($additional_data,$id); 
-        $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
+       // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
         $this->session->set_flashdata('success_msg','Business location update sucessfully');
-        $user_id = $this->session->userdata('user_id');
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'customer_business_location_list');
+        redirect('Customer/customer_business_location_list', 'refresh');
+        // $user_id = $this->session->userdata('user_id');
+        // $this->data['dataHeader'] = $this->users->get_allData($user_id);
+        // load_view_template($this->data, 'customer_business_location_list');
 
         // $this->template->set_master_template('template.php');
         // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));

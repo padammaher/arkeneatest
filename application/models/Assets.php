@@ -327,6 +327,57 @@ class Assets extends MY_Model {
         $this->db->delete('asset_parameter_rule');
         return true;
     }
+    public function get_parameter_range($asset_id){
+        $asset_id=63; 
+
+
+        $this->db->select('asset.id,asset.code,asset.specification,parameter_range.uom_id,parameter_range.parameter_id,parameter_range.min_value,parameter_range.max_value,parameter_range.scaling_factor,parameter_range.bits_per_sign,asset_location.location,asset_location.address'); 
+        $this->db->from('asset');
+        $this->db->join('parameter_range', 'parameter_range.asset_id = asset.id', 'left');
+        $this->db->join('asset_location', 'asset_location.id = asset.customer_locationid', 'left');
+        $this->db->where('asset.id',$asset_id);
+        $query= $this->db->get();
+        $asset_data= $query->result_array();
+        if($query->num_rows()>0){
+            foreach($asset_data as $key=> $value){
+           $param_name=  $this->get_paramiter_name($value['parameter_id']); 
+           $uom_name=$this->get_uom_name($value['uom_id']);
+           if($param_name)
+           {
+            $asset_data[$key]['param_name']=$param_name[0]['name'];
+           }
+            
+
+           if($uom_name)
+           $asset_data[$key]['uom_name']= $uom_name[0]['name']; 
+          
+        }
+        if($asset_data){
+            return $asset_data; 
+        }else{
+            return false; 
+        }
+    }
+}
+    public function get_paramiter_name($id){
+        $asset_param_data=$this->db->select('id,name')->from('parameter')->where('id', $id)->get()->result_array();
+        if($asset_param_data){
+            return $asset_param_data; 
+        }
+       
+    }
+    public function get_uom_name($uom_type_id)
+    {
+        $this->db->select('id,name');
+        $this->db->from('uom');
+        //$this->db->join('uom', 'uom.id = uom_type.uom_id', 'left');
+        $this->db->where('id',$uom_type_id);
+        $query= $this->db->get();
+        $uom_type_data= $query->result_array();
+        if($uom_type_data)
+        return $uom_type_data; 
+
+    }
 
     public function checkasset_locationIfExists($table = NULL, $unique_Data = array()) {
         //var_dump($table,$unique_Data);die;

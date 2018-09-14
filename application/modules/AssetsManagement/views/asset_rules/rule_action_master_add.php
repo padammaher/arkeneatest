@@ -40,27 +40,18 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="parameter" id="parameter" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($asset_detail[0]->parameter))?$asset_detail[0]->parameter:''; ?>">
+                <input name="parameter" id="parameter" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($param_id))?$param_id:''; ?>">
+                <input name="" id="parameter" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($parameter_name))?$parameter_name:''; ?>" readonly>
+           
               </div>
             </div>
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control" name="uom" id="uom">
-                  <option value="20">Pa
-                  </option>
-                  <option value="10">bar
-                  </option>
-                  <option value="10">Pa
-                  </option>
-                  <option value="20">kPa
-                  </option>
-                  <option value="20">psi
-                  </option>
-                  <option value="20">MPa
-                  </option>
-                </select>
+              <input name="uom" id="uom" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($uom_id))?$uom_id:''; ?>">
+              <input name="" id="uom" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($uom_name))?$uom_name:''; ?>" readonly>
+            
               </div>
             </div>
             <div class="item form-group">
