@@ -98,9 +98,9 @@
             $("#updateparam" + id).submit();
         });
         $(".delete").click(function () {
-            var flag = confirm('Are you sure you want to delete this item?');
-            if (flag == true) {
-                var id = $(this).attr('id');
+            var id = $(this).attr('id');
+            $(".modal").modal();
+            $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateparam" + id).submit();
             }

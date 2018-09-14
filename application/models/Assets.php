@@ -26,7 +26,7 @@ class Assets extends MY_Model {
         //  var_dump($assets_data,$edit_asset_list_id);die;
         if ($assets_data != null) {
             $this->db->where('asset.id', $id);
-          return   $this->db->update('asset', $assets_data);
+            return $this->db->update('asset', $assets_data);
         }
     }
  public function checkUnique($table = NULL, $data = array()) {
@@ -42,17 +42,17 @@ class Assets extends MY_Model {
         // var_dump($id);die;
 
         $this->db->where('asset.id', $id1);
-      return  $this->db->delete('asset');
+        return $this->db->delete('asset');
     }
 
     public function assets_list() {
-    
-            $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
-    //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
-      $this->db->from('asset');
-       $this->db->join('asset_location', 'asset_location.asset_id= asset.id','left');
-        $this->db->join('asset_user', 'asset_user.asset_id= asset.id','left');
-        $this->db->join('branch_user', 'branch_user.id= asset_user.assetuser_id','left');
+
+        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+        //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
+        $this->db->from('asset');
+        $this->db->join('asset_location', 'asset_location.asset_id= asset.id', 'left');
+        $this->db->join('asset_user', 'asset_user.asset_id= asset.id', 'left');
+        $this->db->join('branch_user', 'branch_user.id= asset_user.assetuser_id', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
         $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
         $this->db->join('users', 'users.id=asset.createdby');
@@ -256,10 +256,14 @@ class Assets extends MY_Model {
         return $this->db->delete('asset_user');
     }
 
-    public function parameter_range_list($asset_id) {
-        $this->db->select('parameter_range.id,parameter_range.name,min_value,max_value,scaling_factor,uom.name as uom,bits_per_sign');
+    public function parameter_range_list($asset_id, $param_range_id = NULL) {
+        $this->db->select('parameter_range.id,parameter.name as parameter,parameter.id as param_id,min_value,max_value,scaling_factor,uom.name as uom,uom_id,bits_per_sign');
         $this->db->from('parameter_range');
+        $this->db->join('parameter', 'parameter_range.parameter_id=parameter.id');
         $this->db->join('uom', 'parameter_range.uom_id=uom.id');
+        if (isset($param_range_id) && $param_range_id !== NULL) {
+            $this->db->where('parameter_range.id', $param_range_id);
+        }
         $this->db->where(array('asset_id' => $asset_id, 'parameter_range.isactive' => 1));
         $query = $this->db->get();
         $result = $query->result_array();
@@ -276,7 +280,113 @@ class Assets extends MY_Model {
             return false;
         }
     }
-    
+
+    public function add_asset_rule_detail($data, $parameter_range_id) {
+
+        $alreadyexist = $this->db->from('asset_parameter_rule')->where('parameter_range_id', $parameter_range_id)->get()->result();
+        if (!$alreadyexist) {
+            $this->db->insert('asset_parameter_rule', $data);
+            $insert_id = $this->db->insert_id();
+            return $insert_id;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_asset_rule_detail($data, $asset_rule_id) {
+
+        $this->db->where('id', $asset_rule_id);
+        $this->db->update('asset_parameter_rule', $data);
+        if ($this->db->affected_rows() == '1') {
+            return TRUE;
+        } else {
+            return false;
+        }
+
+        // $alreadyexist=$this->db->from('asset_parameter_rule')->where('parameter_range_id',$parameter_range_id)->get()->result();
+        // if(!$alreadyexist){
+        //     $this->db->insert('asset_parameter_rule', $data); 
+        //     $insert_id= $this->db->insert_id();
+        //     return $insert_id; 
+        // }else{
+        //     return false;
+        // }
+    }
+
+    public function get_asset_rule_list() {
+        $asset_data = $this->db->from('asset_parameter_rule')->get()->result();
+        if ($asset_data)
+            return $asset_data;
+        else
+            return false;
+    }
+
+    public function get_asset_details($asset_rule_id) {
+        $asset_rule_data = $this->db->from('asset_parameter_rule')->where('id', $asset_rule_id)->get()->result();
+        if ($asset_rule_data) {
+            return $asset_rule_data;
+        } else {
+            return false;
+        }
+    }
+
+    public function delete_asset_rule($asset_rule_id) {
+        $this->db->where('id', $asset_rule_id);
+        $this->db->delete('asset_parameter_rule');
+        return true;
+    }
+    public function get_parameter_range($asset_id){
+        $asset_id=63; 
+
+
+        $this->db->select('asset.id,asset.code,asset.specification,parameter_range.uom_id,parameter_range.parameter_id,parameter_range.min_value,parameter_range.max_value,parameter_range.scaling_factor,parameter_range.bits_per_sign,asset_location.location,asset_location.address'); 
+        $this->db->from('asset');
+        $this->db->join('parameter_range', 'parameter_range.asset_id = asset.id', 'left');
+        $this->db->join('asset_location', 'asset_location.id = asset.customer_locationid', 'left');
+        $this->db->where('asset.id',$asset_id);
+        $query= $this->db->get();
+        $asset_data= $query->result_array();
+        if($query->num_rows()>0){
+            foreach($asset_data as $key=> $value){
+           $param_name=  $this->get_paramiter_name($value['parameter_id']); 
+           $uom_name=$this->get_uom_name($value['uom_id']);
+           if($param_name)
+           {
+            $asset_data[$key]['param_name']=$param_name[0]['name'];
+           }
+            
+
+           if($uom_name)
+           $asset_data[$key]['uom_name']= $uom_name[0]['name']; 
+          
+        }
+        if($asset_data){
+            return $asset_data; 
+        }else{
+            return false; 
+        }
+    }
+}
+    public function get_paramiter_name($id){
+        $asset_param_data=$this->db->select('id,name')->from('parameter')->where('id', $id)->get()->result_array();
+        if($asset_param_data){
+            return $asset_param_data; 
+        }
+       
+    }
+    public function get_uom_name($uom_type_id)
+    {
+        $this->db->select('id,name');
+        $this->db->from('uom');
+        //$this->db->join('uom', 'uom.id = uom_type.uom_id', 'left');
+        $this->db->where('id',$uom_type_id);
+        $query= $this->db->get();
+        $uom_type_data= $query->result_array();
+        if($uom_type_data)
+        return $uom_type_data; 
+
+    }
+
     public function checkasset_locationIfExists($table = NULL, $unique_Data = array()) {
         //var_dump($table,$unique_Data);die;
         $query = $this->db->get_where($table, $unique_Data);
@@ -287,7 +397,6 @@ class Assets extends MY_Model {
             return false;
         }
     }
-
 
     public function parameter_uom($param_id) {
         $this->db->select('uom.id,uom.name,parameter.id as paramid');
@@ -383,5 +492,32 @@ class Assets extends MY_Model {
     
     
 
+
+    public function asset_parameter_add($data) {
+        $alreadyexit = $this->db->from('parameter_range')->where(array('parameter_id' => $data['parameter_id'], 'uom_id' => $data['uom_id'], 'isactive' => 1))->get()->result();
+        if (!$alreadyexit) {
+            $this->db->insert('parameter_range', $data);
+            return $this->db->affected_rows();
+        } else {
+            return 'duplicate';
+        }
+    }
+
+    public function asset_parameter_update($data, $id, $type) {
+        if ($type == 'edit') {
+            $alreadyexit = $this->db->from('parameter_range')->where(array('parameter_id' => $data['parameter_id'], 'uom_id' => $data['uom_id'], 'isactive' => 1))->get()->result();
+            if (count($alreadyexit) == 1 && $alreadyexit[0]->id == $id) {
+                $this->db->where('id', $id);
+                $this->db->update('parameter_range', $data);
+                return $this->db->affected_rows();
+            } else {
+                return 'duplicate';
+            }
+        } elseif ($type == 'delete') {
+            $this->db->where('id', $id);
+            $this->db->update('parameter_range', $data);
+            return $this->db->affected_rows();
+        }
+    }
 
 }

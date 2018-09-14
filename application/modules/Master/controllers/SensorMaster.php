@@ -47,13 +47,14 @@ class SensorMaster extends CI_Controller {
                     'name' => $this->input->post('sensor_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
+                    'isactive' => 1
                 );
                 if ($this->input->post('sensor_description')) {
                     $data['description'] = $this->input->post('sensor_description');
                 }
-                if ($this->input->post('status')) {
-                    $data['isactive'] = $this->input->post('status') ? 1 : 0;
-                }
+//                if ($this->input->post('status')) {
+//                    $data['isactive'] = $this->input->post('status') ? 1 : 0;
+//                }
 
                 $count = $this->sensormodel->insert_sensor_type($data);
                 if (is_numeric($count) && $count > 0) {
