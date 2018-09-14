@@ -106,7 +106,7 @@ class Customer extends MY_Controller {
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
         }else{     
-       
+            $user_id = $this->session->userdata('user_id');
          if($this->input->post('customer_address'))
          $additional_data['customer_address']=$this->input->post('customer_address');
          if($this->input->post('contact_person'))
