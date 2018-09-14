@@ -30,22 +30,18 @@
                                               </select>             
                                               </div>
                                           </div> 
-
-                 <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="sensorid" class="form-control" value="<?php echo $Edit_device_sensors_data['sensor_id'];?>">
-                </div>
-                </div>
+ 
                 <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="sensorid" required="required">
                     <option value="">Select device</option>                    
-<?php foreach ($sensorid_list as $sensorid_list_data) { ?>
-                                <option value="<?php echo $sensorid_list_data['id'];?>"><?php echo $sensorid_list_data['sensor_no'];?></option>
-               
-<?php }  ?>
+<?php foreach ($sensorid_list as $sensorid_list_data) { 
+     if ( $sensorid_list_data['id'] == $Edit_device_sensors_data['sensor_id']) { ?>
+<option value="<?php echo $sensorid_list_data['id'];?>" <?php echo (set_value('sensorid')== $sensorid_list_data['id'])? 'selected':'selected';?> ><?php echo $sensorid_list_data['sensor_no'];?></option>
+     <?php }else { ?>              
+<option value="<?php echo $sensorid_list_data['id'];?>" ><?php echo $sensorid_list_data['sensor_no'];?></option>
+<?php } } ?>
                 </select>             
                 </div>
               </div> 
@@ -63,10 +59,12 @@
 						  <div class="ln_solid"></div>
 						  <div class="item form-group">
 							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                            <input type="hidden" name="sensor_form_action" id="sensor_form_action" value="update <?php echo $Edit_device_sensors_data['id']; ?>" >    
+                                                <input type="hidden" value="<?php echo $Edit_device_sensors_data['id']; ?>" name="id"/>
+                                                 <input type="hidden" name="post" id="post" value="update"/>
+                                                            <!--<input type="hidden" name="sensor_form_action" id="sensor_form_action" value="update <?php echo $Edit_device_sensors_data['id']; ?>" >-->    
 								
                                                             <button type="submit" class="btn btn-primary" name="update_dev_sen_button" id="edit_inventory_button" >Update</button>
-							 <a href="<?php echo base_url('Sensor_inventory_list');?>" type="button" class="btn btn-default">Cancel</a> 
+							 <a href="<?php echo base_url('Device_sensor_list');?>" type="button" class="btn btn-default">Cancel</a> 
 							</div>
 						  </div>
 <?php } ?>

@@ -119,9 +119,15 @@ $route['Device_assets_add'] = 'Inventory/Device_assets_add';
 $route['Device_assets_edit'] = 'Inventory/Device_assets_edit';
 //------ * Sensor Inventory * --------
 //Add_device_sensors,Edit_device_sensors,Sensor_inventory_list
-
-$route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';
+$route['Device_sensor_list'] = 'Inventory/Device_sensor_list';
 $route['Add_device_sensors'] = 'Inventory/Add_device_sensors';
 $route['Edit_device_sensors'] = 'Inventory/Edit_device_sensors';
+
+
+$route['Add_sensor_inventory'] = 'Inventory/add_sensor_inventory';
+$route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';
+
+
+
 
 

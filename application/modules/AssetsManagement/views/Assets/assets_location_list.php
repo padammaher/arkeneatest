@@ -42,12 +42,12 @@
 								</ul>
                         </div>
                         </div>
-<?php if(!empty($asset_location_list)) { foreach ($asset_location_list as $asset_loc_list) { ?>
+<?php $i=1;  if(!empty($asset_location_list)) { foreach ($asset_location_list as $asset_loc_list) { ?>
 						
 						<div class="row clearfix">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<ul class="flex-container nowrap">
-								  <li class="flex-item">1</li>
+								  <li class="flex-item"><?php echo $i;?></li>
 								  <li class="flex-item"><?php echo $asset_loc_list['code'];?></li>
                   <li class="flex-item"><?php echo $asset_loc_list['location'];?></li>
                  
@@ -57,27 +57,32 @@
                     <li class="flex-item"><?php echo $asset_loc_list['contact_no'];?></li>
                     <li class="flex-item"><?php echo $asset_loc_list['contact_email'];?></li>
                     <li class="flex-item">				
-<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_list">                        
-    <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="edit <?php echo $asset_loc_list['id'];?>">
-    <button type="submit" name="edit_asset_location_button">         
-                      <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-    </button>                  
-</form>  
-<form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Assets_location_list">                        
-    <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="delete <?php echo $asset_loc_list['id'];?>">
-    <button type="submit" name="delete_asset_location_button"> 
-                       <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-    </button>                  
-</form>             
-                     
-                          <a href="<?php echo base_url('User_assets_list'); ?>" title="Manage Users" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                        <i class="fa fa-group text-warning"></i> 
-                                    </a>
+
+   <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">
+                <input type="hidden" value="<?php echo $asset_loc_list['id']; ?>" name="asset_location_post_id"/>
+                <input type="hidden" name="asset_location_post" id="post<?php echo $i; ?>"/>
+                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                </a>
+                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                </a> 
+            </form> 
+            <?php if(!empty($asset_loc_list['asset_user_tbl_id'])) { ?>  
+                <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
+                <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                      
+
+                    <a  title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                        <i class="fa fa-group text-warning"></i> 
+                    </a>
+            </form>  <?php } ?>                 
 									</li>
 								</ul>
 							</div>
             </div>
-<?php } } else { ?>
+<?php $i++; } } else { ?>
                         <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
@@ -98,3 +103,32 @@
 			
 
           </div>
+          <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".edit").click(function () {
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+//            alert(id);
+            $("#Assets_location_list" + id).submit();
+        });
+        
+                $(".delete").click(function () {
+            var flag = confirm('Are you sure you want to delete this item?');
+            if (flag == true) {
+                var id = $(this).attr('id');
+                $("#post" + id).val('delete');
+                $("#Assets_location_list" + id).submit();
+            }
+        });
+                $(".manage_user").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+                var id = $(this).attr('id');
+                // $("#post" + id).val('delete');
+                $("#asset_user" + id).submit();
+            // }
+        });
+
+    });
+</script>

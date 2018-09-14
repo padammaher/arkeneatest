@@ -10,28 +10,11 @@ class Inventory_model extends MY_Model {
     public $belongs_to = array('country', 'state');
     public $before_create = array('timestamps_bc');
 
+
     function Add_deviceinventory($data) {
 //   print_r($data);
         $todaysdate=date('Y-m-d'); 
-        $user_id = $this->session->userdata('user_id');
-        $isactivestatus = ($data['device_status'] == "on") ?'1':'0' ;
-            $insert_data=array(
-                                'user_id'=>$user_id,
-                                'number'=>$data['devicename'],
-                                'serial_no'=>$data['serialnumber'],
-                                'make'=>$data['devicemake'],
-                                'model'=>$data['devicemodel'],
-                                'description'=>$data['devicedescription'],
-                                'communication_type'=>$data['comm_type'],
-                                'gsm_number'=>$data['gsmnumber'],
-                                'communication_status'=>$data['comm_status'],
-                                'communication_history'=>$data['comm_history'],
-                                'communication_protocol'=>$data['comm_protocol'],
-                                'createdat'=>$todaysdate,
-                                'createdby'=>$user_id,
-                                'isactive`'=>$isactivestatus  
-                              );
-  
+       
         $table = 'device_inventory';
 //        print_r($insert_data);
 //        exit;
@@ -42,8 +25,18 @@ class Inventory_model extends MY_Model {
         
 //        echo $this->db->last_query();exit;
     }
+    
+    public function checkUnique($table = NULL, $data = array()) {
+        $query = $this->db->get_where($table, $data);
+//        echo $this->db->last_query();
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-    public function Device_inventory_list() {
+    public function Device_inventory_list($user_id) {
         $this->db->select('device_inventory.id,
                             device_inventory.user_id,
                             device_inventory.number,
@@ -59,12 +52,13 @@ class Inventory_model extends MY_Model {
                             device_inventory.createdat,
                             device_inventory.createdby,
                             device_inventory.isactive,
-                            device_sensor_mapping.id as `dev_sen_id`,asset.id as `asset_tbl_id`, asset.code' );
+                            device_sensor_mapping.id as `dev_sen_id`,asset.id as `asset_tbl_id`, asset.code,device_asset.id as `device_asset_id`' );
         $this->db->from('device_inventory');
         $this->db->join('device_sensor_mapping','device_sensor_mapping.device_id=device_inventory.id','left');
         $this->db->join('device_asset','device_asset.device_id=device_inventory.id','left');
         $this->db->join('asset','asset.id=device_asset.asset_id','left');
-        $this->db->group_by('device_inventory.id');
+        $this->db->where('device_inventory.createdby',$user_id);
+        $this->db->group_by('device_inventory.id');        
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -97,8 +91,7 @@ class Inventory_model extends MY_Model {
     
     public function update_deviceinventory($insert_data,$form_action_type) {
         $table='device_inventory';
-//            $data=array('report_flag'=>$flagstatus);
-            //$this->db->set('report_flag','report_flag',false);
+
             $this->db->where('id',$insert_data['id']);
             return $this->db->update('device_inventory',$insert_data);
         
@@ -112,43 +105,137 @@ class Inventory_model extends MY_Model {
     }
     
     //------ * sensor Inventory *--------
-    public function sensor_inventory_list() {
-                       $this->db->select('device_sensor_mapping.id,
-                           device_sensor_mapping.device_id,
-                           device_sensor_mapping.sensor_id,
-                           device_sensor_mapping.createdat,
-                           device_sensor_mapping.createdby,
-                           device_inventory.id as `device_inventory_id`,device_inventory.number');
-        $this->db->from('device_sensor_mapping');
-        $this->db->join('device_inventory','device_sensor_mapping.device_id=device_inventory.id');
+    public function sensor_inventory_list($user_id) {
+                       $this->db->select('sensor_inventory.id, sensor_inventory.sensor_no,sensor_inventory.make,sensor_inventory.model,sensor_inventory.description,
+                                          sensor_inventory.createdat,sensor_inventory.createdby,
+                                          sensor_type.id as `sensor_type_tbl_id`,sensor_type.name as `sensor_type_tbl_name`,
+                                          parameter.id as `parameter_tbl_id`,parameter.name,
+                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`,device_sensor_mapping.id as `device_sensor_mapping_id`,device_asset.id as device_asset_tbl_id`');
+        $this->db->from('sensor_inventory');
+        $this->db->join('sensor_type','sensor_type.id=sensor_inventory.sensor_type_id','left');
+        $this->db->join('device_sensor_mapping','device_sensor_mapping.sensor_id=sensor_inventory.id','left');
+        $this->db->join('device_asset','device_asset.device_id=sensor_inventory.id','left');
+        $this->db->join('parameter','parameter.id=sensor_inventory.parameter_id','left');
+        $this->db->join('uom_type','uom_type.id=sensor_inventory.uom_type_id','left');
+        $this->db->where('sensor_inventory.createdby',$user_id);
+        $this->db->group_by('device_sensor_mapping.id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
     }
     
-    public function assetcode_list() {
+       public function edit_sensor_inventory_list($user_id,$sen_inv_id) {
+                       $this->db->select('sensor_inventory.id, sensor_inventory.sensor_no,sensor_inventory.make,sensor_inventory.model,sensor_inventory.description,
+                                          sensor_inventory.createdat,sensor_inventory.createdby,sensor_inventory.isactive,
+                                          sensor_type.id as `sensor_type_tbl_id`,sensor_type.name as `sensor_type_tbl_name`,
+                                          parameter.id as `parameter_tbl_id`,parameter.name,
+                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`');
+        $this->db->from('sensor_inventory');
+        $this->db->join('sensor_type','sensor_type.id=sensor_inventory.sensor_type_id','left');
+        $this->db->join('parameter','parameter.id=sensor_inventory.parameter_id','left');
+        $this->db->join('uom_type','uom_type.id=sensor_inventory.uom_type_id','left');
+        $this->db->where('sensor_inventory.createdby',$user_id);
+        $this->db->where('sensor_inventory.id',$sen_inv_id);
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }
+    
+     public function add_sensor_inventory($insert_data) {
+         $table = 'sensor_inventory'; 
+        $check = $this->db->insert($table, $insert_data);
+        return $this->db->insert_id();
+    }
+    
+    public function assetcode_list($user_id) {
        $this->db->select('id,code');
         $this->db->from('asset');
         $this->db->where('isactive',1);
+        
         $this->db->group_by('id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
     }    
-    public function device_list() {
+    public function device_list($user_id) {
                $this->db->select('id,                            
                             number,
                             serial_no');
         $this->db->from('device_inventory');
         $this->db->where('isactive',1);
+        $this->db->where('createdby',$user_id);
+        $this->db->group_by('id');        
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }
+
+        public function sensorid_list($user_id) {
+               $this->db->select('id,                                                        
+                            sensor_no');
+        $this->db->from('sensor_inventory');
+        $this->db->where('isactive',1);
+        $this->db->where('createdby',$user_id);
+        $this->db->group_by('id');
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }
+    public function sensor_type_list($user_id) {
+               $this->db->select('id,                                                        
+                            name');
+        $this->db->from('sensor_type');
+        $this->db->where('isactive',1);
+        $this->db->where('createdby',$user_id);
+        $this->db->group_by('id');
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }
+//    sensor_type_list
+        public function parameter_list($user_id) {
+               $this->db->select('id,                                                        
+                            name');
+        $this->db->from('parameter');
+        $this->db->where('isactive',1);
+        $this->db->where('createdby',$user_id);
         $this->db->group_by('id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
     }
     
-    
-    
+        public function uomtype_list($parameter,$user_id) {            
+               $this->db->select('uom_type.id,uom_type.name,uom_type.uom_id,count(`uom_type`.`id`) as `typecount`');
+        $this->db->from('uom_type');
+        $this->db->join('parameter','parameter.uom_type_id=uom_type.id','inner');
+        $this->db->where('parameter.isactive',1);
+        $this->db->where('parameter.createdby',$user_id);
+        $this->db->where('parameter.id',$parameter);
+        $this->db->group_by('parameter.id');
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }
+      public function device_sensors_list($user_id) {
+        $this->db->select('device_sensor_mapping.id,
+                           device_sensor_mapping.device_id,
+                           device_sensor_mapping.sensor_id,
+                           device_sensor_mapping.createdat,
+                           device_sensor_mapping.createdby,
+                           device_inventory.id as `device_inventory_id`,device_inventory.number,
+                           sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`');
+        $this->db->from('device_sensor_mapping');
+        $this->db->join('device_inventory','device_sensor_mapping.device_id=device_inventory.id');
+        $this->db->join('sensor_inventory','sensor_inventory.id=device_sensor_mapping.sensor_id');
+        $this->db->where('device_sensor_mapping.createdby',$user_id);        
+        $this->db->where('device_sensor_mapping.isactive',1);        
+        $query = $this->db->get();        
+//        echo $this->db->last_query();
+        $objData = $query->result_array();
+        
+        return $objData;
+    }
        public function add_devicesensor($insert_data) {
          $table = 'device_sensor_mapping'; 
         $check = $this->db->insert($table, $insert_data);
@@ -156,14 +243,16 @@ class Inventory_model extends MY_Model {
     } 
     
        public function Edit_device_sensors_model($dev_sens_id) {
-        $this->db->select('device_sensor_mapping.id,
+                $this->db->select('device_sensor_mapping.id,
                            device_sensor_mapping.device_id,
                            device_sensor_mapping.sensor_id,
                            device_sensor_mapping.createdat,
                            device_sensor_mapping.createdby,
-                           device_inventory.id as `device_inventory_id`,device_inventory.number');
+                           device_inventory.id as `device_inventory_id`,device_inventory.number,
+                           sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`');
         $this->db->from('device_sensor_mapping');
         $this->db->join('device_inventory','device_sensor_mapping.device_id=device_inventory.id');
+        $this->db->join('sensor_inventory','sensor_inventory.id=device_sensor_mapping.sensor_id');
         $this->db->where('device_sensor_mapping.id',$dev_sens_id);        
         $query = $this->db->get();        
 //        echo $this->db->last_query();
@@ -180,9 +269,15 @@ class Inventory_model extends MY_Model {
 
     }
 //    Delete_sensor_inventory
-        public function Delete_sensor_inventory($dev_sen_id) {
-       $this->db->where(array('id'=>$dev_sen_id));
-        return  $this->db->delete('device_sensor_mapping');
+//        public function Delete_sensor_inventory($dev_sen_id) {
+//       $this->db->where(array('id'=>$dev_sen_id));
+//        return  $this->db->delete('device_sensor_mapping');
+//    }
+    
+    //    Delete_sensor_inventory
+        public function Delete_sensor_inventory($sen_inv_id) {
+       $this->db->where(array('id'=>$sen_inv_id));
+        return  $this->db->delete('sensor_inventory');
     }
     
         public function add_device_asset($insert_data) {
@@ -190,7 +285,7 @@ class Inventory_model extends MY_Model {
         $check = $this->db->insert($table, $insert_data);
         return $this->db->insert_id();
     } 
-     public function device_asset_list() {
+     public function device_asset_list($user_id) {
                        $this->db->select('device_asset.id,
                            device_asset.device_id,
                            device_asset.asset_id,
@@ -200,6 +295,7 @@ class Inventory_model extends MY_Model {
         $this->db->from('device_inventory');
         $this->db->join('device_asset','device_asset.device_id=device_inventory.id');
         $this->db->join('asset','asset.id=device_asset.asset_id');
+        $this->db->where('device_inventory.createdby',$user_id);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
