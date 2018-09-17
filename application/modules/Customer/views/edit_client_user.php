@@ -37,7 +37,7 @@
                     <option>Select Customer Location
                     </option>
                      <?php foreach($client_location as $Location){ ?> 
-                    <option value="<?php echo $Location->location_name;?>"<?php echo ($Location->location_name==$client_details[0]->client_location)?'selected':'';?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
+                    <option value="<?php echo $Location->location_name;?>"<?php echo ($Location->location_name==(isset($client_details[0]->client_location))?$client_details[0]->client_location:'')?'selected':'';?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
                   <?php   } ?> 
                 </select>
                 </div>
@@ -46,7 +46,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">User Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="client_username" id="client_username" type="text" class="form-control" placeholder="SN@bdv.co.za etc" required="required"  value="<?php echo $client_details[0]->client_username; ?>" >
+                <input name="client_username" id="client_username" type="text" class="form-control" placeholder="Enter Email" required="required"  value="<?php echo (isset($client_details[0]->client_username))?$client_details[0]->client_username:''; ?>" >
                 <div id="email_error" style="color:red"> </div>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Password
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input name="password" type="text" id="client_password" class="form-control" value="Password@123" required="required"  value="<?php echo $client_details[0]->password; ?>" >
+                    <input name="password" type="text" id="client_password" class="form-control" placeholder="Password@123" required="required"  value="<?php echo (isset($client_details[0]->password))?$client_details[0]->password:''; ?>" >
                 <div id="errorpassword"> </div>
                 </div>
                  

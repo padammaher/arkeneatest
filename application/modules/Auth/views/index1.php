@@ -19,7 +19,7 @@
                 <div id="box">
                   <img src="<?php echo base_url() ?>assets/images/logo1.png">
                 </div>
-                <a href="<?php echo base_url();?>Customer/edit_customer_detail" class="btnprov" type="button">
+                <a href="<?php echo base_url();?>Editcustomerinfo" class="btnprov" type="button">
                   <img src="<?php echo base_url() ?>assets/images/start.png" width="300px;">
                 </a>
               </div>

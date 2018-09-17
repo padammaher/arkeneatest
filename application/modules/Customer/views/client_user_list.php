@@ -74,17 +74,17 @@
             <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
-                  <li class="flex-item"><?php echo   $i++; ?> 
+                  <li class="flex-item"<?php echo $clientinfo->id; ?>><?php echo   $i++; ?> 
                   </li>
-                  <li class="flex-item"><?php echo $clientinfo->client_name; ?> 
+                  <li class="flex-item<?php echo $clientinfo->id; ?>"><?php echo $clientinfo->client_name; ?> 
                   </li>
-                  <li class="flex-item"><?php echo $clientinfo->client_location; ?> 
+                  <li class="flex-item<?php echo $clientinfo->id; ?>"><?php echo $clientinfo->client_location; ?> 
                   </li>
-                  <li class="flex-item"><?php echo $clientinfo->client_username; ?>
+                  <li class="flex-item<?php echo $clientinfo->id; ?>"><?php echo $clientinfo->client_username; ?>
                   </li>
                   <li class="flex-item">
-                      <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
-                    <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                    <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
+                      <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                       <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                       </i>
                       <input type="hidden" value="<?php echo $clientinfo->id; ?>" name="client_id"/>
@@ -150,7 +150,7 @@
                         </div>  
 
                         <script>
-                            $(".flex-item").click(function (e) {
+                            $(".flex-item<?php echo $clientinfo->id; ?>").click(function (e) {
                                 if (!$(e.target).hasClass('fa')) {
                                     $('#detailsModal<?php echo $clientinfo->id; ?>').modal('show');
                                 }
