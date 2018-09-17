@@ -7,8 +7,8 @@
             </div>
             <div class="x_content">
                 <form class="form-horizontal form-label-left" id="Add_Task" name="Add_Task"   method="POST" action="<?php echo base_url(); ?>Assets_location_list">
-                    <?php foreach ($asset_location_list as $asset_location_data) { ?>
-                        <!--//print_r($asset_location_data);-->
+                    <?php foreach ($asset_location_list as $asset_location_data) {  ?>
+                       
 
 
                         <input type="hidden" name="asset_loc_form_action" id="asset_loc_form_action" value="update <?php echo $asset_location_data['id']; ?>">				
@@ -85,7 +85,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <!-- <input type="text" name="asset_contactemail" id="asset_contactemail" class="form-control" value="<?php echo $asset_location_data['contact_email']; ?>" placeholder="joy@bdv.co.za"  required="required" onchange="CheckEmailvalidation(Add_Task.asset_contactemail)"> -->
 
-                                  <input type="email" name="asset_contactemail" id="asset_contactemail" value="<?php echo set_value('asset_contactemail', $asset_location_data['contact_email']); ?>" class="form-control" placeholder="joy@bdv.co.za"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required="required">
+                                  <input type="email" name="asset_contactemail" id="asset_contactemail" value="<?php echo set_value('asset_contactemail', $asset_location_data['contact_email']); ?>" class="form-control" placeholder="joy@bdv.co.za"  required="required">
                             </div>
                              <?php if (form_error('asset_contactemail')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_contactemail'); ?></span>

@@ -660,7 +660,7 @@ class Inventory extends MY_Controller {
             } else {
                 $data['device_asset_list'] = $this->Inventory_model->device_asset_list($user_id);
 
-                load_view_template($data, 'SensorInventory/device_assets_list');
+                load_view_template($data, 'DeviceInventory/device_assets_list');
             }
         }
     }
