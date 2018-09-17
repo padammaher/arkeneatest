@@ -27,6 +27,9 @@
 <?php } ?>
                 </select>             
                 </div>
+                <?php if (form_error('deviceid')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('deviceid'); ?></span>
+                            <?php } ?>
               </div> 
                         
                         
@@ -43,6 +46,9 @@
 <?php } ?>
                 </select>             
                 </div>
+                 <?php if (form_error('assetid')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('assetid'); ?></span>
+                            <?php } ?>
               </div> 
                  					  
 						  

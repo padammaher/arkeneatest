@@ -11,7 +11,7 @@ class Inventory_model extends MY_Model {
     public $before_create = array('timestamps_bc');
 
 
-    function Add_deviceinventory($data) {
+    function Add_deviceinventory($insert_data) {
 //   print_r($data);
         $todaysdate=date('Y-m-d'); 
        
@@ -51,7 +51,13 @@ class Inventory_model extends MY_Model {
                             device_inventory.communication_protocol,
                             device_inventory.createdat,
                             device_inventory.createdby,
-                            device_inventory.isactive,
+                            device_inventory.isactive,                            
+                            device_inventory.stock_date,
+                            device_inventory.oem_ser_interval_type,
+                            device_inventory.oem_ser_interval_number,
+                            device_inventory.service_after_type,
+                            device_inventory.service_after_number,
+
                             device_sensor_mapping.id as `dev_sen_id`,asset.id as `asset_tbl_id`, asset.code,device_asset.id as `device_asset_id`' );
         $this->db->from('device_inventory');
         $this->db->join('device_sensor_mapping','device_sensor_mapping.device_id=device_inventory.id','left');
@@ -80,7 +86,12 @@ class Inventory_model extends MY_Model {
                             communication_protocol,
                             createdat,
                             createdby,
-                            isactive');
+                            isactive,
+                            stock_date,
+                            oem_ser_interval_type,
+                            oem_ser_interval_number,
+                            service_after_type,
+                            service_after_number');
         $this->db->from('device_inventory');
         $this->db->where('id',$inventoryid);
         $query = $this->db->get();
@@ -248,6 +259,7 @@ class Inventory_model extends MY_Model {
                            device_sensor_mapping.sensor_id,
                            device_sensor_mapping.createdat,
                            device_sensor_mapping.createdby,
+                           device_sensor_mapping.isactive,
                            device_inventory.id as `device_inventory_id`,device_inventory.number,
                            sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`');
         $this->db->from('device_sensor_mapping');
@@ -332,4 +344,16 @@ class Inventory_model extends MY_Model {
         return  $this->db->delete('device_asset');
     }
 
+
+
+  public function Check_devicenum_is_exist($devicenum,$user_id) {
+               $this->db->select('id,                                                        
+                            number,count(number) as `Cnt_number`');
+        $this->db->from('device_inventory');                
+        $this->db->limit('1');
+        $this->db->group_by('id');
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }
 }

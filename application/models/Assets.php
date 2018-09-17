@@ -122,7 +122,7 @@ class Assets extends MY_Model {
         return $objData;
     }
 
-    public function assets_location_list() {
+    public function assets_location_list($user_id) {
         $this->db->select('asset_location.id,
                                 asset_location.location,
                                 asset_location.address,
@@ -137,9 +137,11 @@ class Assets extends MY_Model {
                                 asset.id as `asset_tbl_id`,asset.code,branch_user.id as `branch_user_id`,asset_user.id as `asset_user_tbl_id`');
         $this->db->from('asset_location');
         $this->db->join('asset', 'asset.id=asset_location.asset_id', 'inner');
-        $this->db->join('asset_user', 'asset_user.asset_id=asset.id', 'inner');
-        $this->db->join('branch_user', 'branch_user.id=asset_user.assetuser_id', 'inner');
+        $this->db->join('asset_user', 'asset_user.asset_id=asset.id', 'left');
+        $this->db->join('branch_user', 'branch_user.id=asset_user.assetuser_id', 'left');
+        $this->db->where('asset_location.createdby',$user_id);
         $query = $this->db->get();
+       // echo  $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
@@ -202,19 +204,30 @@ class Assets extends MY_Model {
         return $objData;
     }
 
-    public function assetcode_list() {
+    public function assetcode_list($user_id) {
         $this->db->select('id,code');
         $this->db->from('asset');
         $this->db->where('isactive', 1);
+        $this->db->where('createdby', $user_id);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
     }
 
+
+        public function assetcode_list_for_asset_location($user_id) {
+       $query="SELECT asset.id,asset.code FROM asset
+                where asset.createdby=".$user_id." and id not in(select asset_id from asset_location)";
+        $res = $this->db->query($query);
+        return $obj = $res->result_array(); 
+     }
+    
+
     public function asset_userid_list() {
         $this->db->select('id,client_name');
         $this->db->from('branch_user');
         $this->db->where('status', 1);
+        // $this->db->where('isactive', 1);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -391,6 +404,7 @@ class Assets extends MY_Model {
         //var_dump($table,$unique_Data);die;
         $query = $this->db->get_where($table, $unique_Data);
         // echo $this->db->last_query();
+        // exit;
         if ($query->num_rows() > 0) {
             return true;
         } else {

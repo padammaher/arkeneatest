@@ -11,15 +11,9 @@
 					</div>
                   <div class="x_content">
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>Add_device_sensors">
+                                       
                 <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" name="srno" class="form-control" placeholder="1">
-              </div>
-              </div>
-                        
-                <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Device ID</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Device ID *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="deviceid" required="required">
                     <option value="">Select device</option>
@@ -30,10 +24,13 @@
 <?php } ?>
                 </select>             
                 </div>
+                   <?php if (form_error('deviceid')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('deviceid'); ?></span>
+                            <?php } ?>
               </div> 
                         
                 <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="sensorid" required="required">
                     <option value="">Select device</option>
@@ -45,14 +42,18 @@
 <?php }  ?>
                 </select>             
                 </div>
+                  <?php if (form_error('sensorid')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensorid'); ?></span>
+                            <?php } ?>
               </div>                         
                         
                 <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                     <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                      <label>
-                              <input type="checkbox" name="device_sen_status" class="flat" checked="checked"> Active
+                      <label><?php $isactive=set_value('device_sen_status'); ?>
+                              <input type="checkbox" name="device_sen_status" class="flat" <?php if(!empty($isactive)) { echo ($isactive)== "on"? 'checked': ''; } else { }?>> Active
                             </label>
+                            <label>  
                     </div>
               </div>                        
                         

@@ -16,14 +16,17 @@
 foreach ($sensor_inventory_list_data as $sensor_inventory_data) { ?>
 
                <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" name="sensornum" value="<?php echo set_value('sensornum',$sensor_inventory_data['sensor_no']);?>" class="form-control" placeholder="SN001" required="required">
               </div>
+               <?php if (form_error('sensornum')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensornum'); ?></span>
+                            <?php } ?>
               </div>             
               	
             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Type</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Type *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   
                   <select class="form-control" name="sensortype" required="required">                      
@@ -36,21 +39,30 @@ foreach ($sensor_inventory_list_data as $sensor_inventory_data) { ?>
 <?php } } ?>
                 </select>                               
                 </div>
+                 <?php if (form_error('sensortype')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensortype'); ?></span>
+                            <?php } ?>
               </div> 
 						
 							
             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Make</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" name="make" value="<?php echo set_value('make',$sensor_inventory_data['make']);?>" class="form-control" placeholder="Seimens" required="required">
               </div>
+               <?php if (form_error('make')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('make'); ?></span>
+                            <?php } ?>
               </div>
 
             <div class="item form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Model</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Model *</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <input type="text" name="model" value="<?php echo set_value('model',$sensor_inventory_data['model']);?>" class="form-control" placeholder="T001A" required="required">
                   </div>
+                    <?php if (form_error('model')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('model'); ?></span>
+                            <?php } ?>
             </div>
             <div class="item form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
@@ -60,7 +72,7 @@ foreach ($sensor_inventory_list_data as $sensor_inventory_data) { ?>
             </div>
 
             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="Parameter" id="Parameter" required="required">
                     <option value="">Select Type</option>                   
@@ -73,13 +85,20 @@ foreach ($sensor_inventory_list_data as $sensor_inventory_data) { ?>
 <?php } } ?>
                 </select>             
                 </div>
-              </div>             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM</label>
+                  <?php if (form_error('Parameter')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Parameter'); ?></span>
+                            <?php } ?>
+              </div> 
+            <div class="item form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="UOM" id="UOM" required="required">
                     <option value="<?php if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo $sensor_inventory_data['uom_type_tbl_id'];} ?>"><?php if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo $sensor_inventory_data['uom_type_tbl_name'];}?></option>                   
                 </select>             
                 </div>
+                  <?php if (form_error('UOM')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('UOM'); ?></span>
+                            <?php } ?>
               <input type="hidden" name="selectuom" id="selectuom">
                      
               </div> 

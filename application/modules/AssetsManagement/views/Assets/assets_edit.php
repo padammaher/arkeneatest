@@ -14,26 +14,22 @@
                         ?>
 
 
-
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" value="<?php echo $list['id'] ?>" required="required" id="SrNo" name="SrNo">
-                            </div>
-                        </div>
-
                         <!--DG0001-->
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">  
                                 <input type="text" class="form-control" value="<?php echo set_value('Assetcode',$list['code']); ?>" required="required"  id="Assetcode" name="Assetcode" readonly>
                             </div>
+                             <?php if (form_error('Assetcode')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetcode'); ?></span>
+                            <?php }
+                            ?>
                         </div>
 
 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" id="Customerlocation" name="Customerlocation">
                                     <option value="">Select Customer Location</option>
@@ -46,10 +42,14 @@
 
                                 </select>
                             </div>
+                             <?php if (form_error('Customerlocation')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Customerlocation'); ?></span>
+                            <?php }
+                            ?>
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Category</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Category *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" required="required" id="Assetcategory" name="Assetcategory">
                                     <option value="">Select Category</option>
@@ -62,9 +62,13 @@
 
                                 </select>
                             </div>
+                              <?php if (form_error('Assetcategory')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetcategory'); ?></span>
+                            <?php }
+                            ?>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Type</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Type *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" required="required"  id="Assettype" name="Assettype">
                                     <option value="">Select Type</option>
@@ -76,6 +80,10 @@
                                 </select>
                                 </select>
                             </div>
+                             <?php if (form_error('Assettype')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assettype'); ?></span>
+                            <?php }
+                            ?>
                         </div>
                         <!--Fuel: diesel HSD, O/p Voltage 220V AC-->
                         <div class="item form-group">
@@ -87,23 +95,35 @@
 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Serial No.</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Serial No. *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" class="form-control" value="<?php echo $list['serial_no'] ?>" required="required" id="Assetserialno" name="Assetserialno">
                             </div>
+                             <?php if (form_error('Assetserialno')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetserialno'); ?></span>
+                            <?php }
+                            ?>
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Make</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" class="form-control" value="<?php echo $list['make'] ?>" id="Make" name="Make">
                             </div>
+                            <?php if (form_error('Make')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Make'); ?></span>
+                            <?php }
+                            ?>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Model No.</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Model No. *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" class="form-control" value="<?php echo $list['model'] ?>" required="required" id="Modelno" name="Modelno">
                             </div>
+                             <?php if (form_error('Modelno')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Modelno'); ?></span>
+                            <?php }
+                            ?>
                         </div>
 
                         <div class="item form-group">
@@ -115,7 +135,7 @@
 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Movable / Immovable</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Movable / Immovable *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" id="Movable" name="Movable">
 
@@ -126,6 +146,10 @@
                                 </select>
 
                             </div>
+                               <?php if (form_error('Movable')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Movable'); ?></span>
+                            <?php }
+                            ?>
                         </div> 
                     <div class="item form-group">
            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>

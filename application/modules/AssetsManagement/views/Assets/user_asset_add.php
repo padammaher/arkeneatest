@@ -1,4 +1,5 @@
-			<div class="row">
+			
+      <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                    <div class="x_title">
@@ -9,15 +10,10 @@
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url();?>User_asset_add">
 
                         <input type="hidden" name="asset_user_form_action" value="add 0">
-            <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control" placeholder="1">
-              </div>
-              </div>
+           
 
                 <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="assetcode" required="required">
                     <option value="">Select Asset Code</option>
@@ -28,11 +24,15 @@
 <?php } ?>
                 </select>             
                 </div>
+                 <?php if (form_error('assetcode')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('assetcode'); ?></span>
+                            <?php }
+                            ?>
               </div> 
                         
     
                 <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">User Name</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">User Name *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="assetuserid" required="required">
                     <option value="">Select User Name</option>
@@ -43,6 +43,10 @@
 <?php } ?>
                 </select>             
                 </div>
+                  <?php if (form_error('assetuserid')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('assetuserid'); ?></span>
+                            <?php }
+                            ?>
               </div> 
                                                
 						  

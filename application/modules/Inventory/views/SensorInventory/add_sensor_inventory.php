@@ -22,10 +22,13 @@
 
 
                <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" name="sensornum" value="<?php echo set_value('sensornum');?>" class="form-control" placeholder="SN001" required="required">
+                <input type="text" name="sensornum" value="<?php echo set_value('sensornum');?>" class="form-control" placeholder="SN001" required="required" pattern="[A-Za-z0-9\s]*">
               </div>
+               <?php if (form_error('sensornum')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensornum'); ?></span>
+                            <?php } ?>
               </div>
 
 <!--               <div class="item form-group">
@@ -36,7 +39,7 @@
               </div>-->
               	
             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Type</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Type *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   
                   <select class="form-control" name="sensortype" required="required">                      
@@ -47,34 +50,43 @@
 <?php } ?>
                 </select>                               
                 </div>
+                 <?php if (form_error('sensortype')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensortype'); ?></span>
+                            <?php } ?>
               </div> 
 						
 							
             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Make</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" name="make" value="<?php echo set_value('make');?>" class="form-control" placeholder="Seimens" required="required">
+                <input type="text" name="make" value="<?php echo set_value('make');?>" class="form-control" placeholder="Seimens" required="required" pattern="[A-Za-z\s]*">
               </div>
+               <?php if (form_error('make')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('make'); ?></span>
+                            <?php } ?>
               </div>
 
             <div class="item form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Model</label>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Model *</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" name="model" value="<?php echo set_value('model');?>" class="form-control" placeholder="T001A" required="required">
+                    <input type="text" name="model" value="<?php echo set_value('model');?>" class="form-control" placeholder="T001A" required="required" pattern="[A-Za-z\s]*">
                   </div>
+                    <?php if (form_error('model')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('model'); ?></span>
+                            <?php } ?>
             </div>
             <div class="item form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" name="description" value="<?php echo set_value('description');?>" class="form-control" placeholder="Oil Temperature" required="required">
+                      <input type="text" name="description" value="<?php echo set_value('description');?>" class="form-control" placeholder="Oil Temperature"  pattern="[A-Za-z\s]*">
                   </div>
             </div>
 
             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="Parameter" id="Parameter" required="required">
-                    <option value="">Select Type</option>                   
+                    <option value="">Select Type </option>                   
 <?php foreach ($parameter_list as $parameter_list_data) { 
 //                    if($assetcode_list_data['id'] != $dev_asset_data['asset_id']){ ?>
                                 <option value="<?php echo $parameter_list_data['id'];?>" <?php echo set_value('Parameter')== $parameter_list_data['id']? 'selected':'';?>><?php echo $parameter_list_data['name'];?></option>
@@ -83,13 +95,19 @@
 <?php } ?>
                 </select>             
                 </div>
+                 <?php if (form_error('Parameter')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Parameter'); ?></span>
+                            <?php } ?>
               </div>             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="UOM" id="UOM" required="required">
                     <option value="<?php if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo '';} ?>"><?php if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo "Select Type";}?></option>                   
                 </select>             
                 </div>
+                  <?php if (form_error('UOM')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('UOM'); ?></span>
+                            <?php } ?>
               <input type="hidden" name="selectuom" id="selectuom">
                      
               </div> 

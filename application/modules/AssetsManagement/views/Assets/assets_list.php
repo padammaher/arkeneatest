@@ -68,7 +68,7 @@
                             <ul class="flex-container nowrap">
 
                                 <?php //var_dump($assetlist) ?>
-                                <li class="flex-item"><?php echo $list['id'] ?></li>
+                                <li class="flex-item"><?php echo $i; ?></li>
                                 <li class="flex-item"><?php echo $list['code'] ?></li>
                                 <li class="flex-item"><?php echo $list['location'] ?></li>
                                 <li class="flex-item"><?php echo $list['client_username'] ?></li>
