@@ -104,7 +104,7 @@
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updatesensor" + id).submit();
-            }
+            });
         });
     });
 </script>

@@ -15,7 +15,7 @@
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Model No. : <span><?php echo isset($asset_details[0]['model']) ? $asset_details[0]['model'] : ''; ?></span></div>
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Description : <span><?php echo isset($asset_details[0]['description']) ? $asset_details[0]['description'] : ''; ?></span></div>
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Movable / Immovable : <span><?php echo isset($asset_details[0]['ismovable']) && $asset_details[0]['ismovable'] == 1 ? 'Movable' : 'Immovable'; ?></span></div>
-                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Parameter Count : <span><?php echo isset($asset_details[0]['parameter_count']) ? $asset_details[0]['parameter_count'] : 0; ?></span></div>
+                        <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Parameter Count : <span><?php echo isset($parameter_range_info) ? count($parameter_range_info) : 0; ?></span></div>
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo"></div>
                     </div>				 
                 </div>

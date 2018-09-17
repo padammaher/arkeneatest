@@ -103,7 +103,7 @@
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateasset" + id).submit();
-            }
+            });
         });
 //        $(".flex-item").click(function (e) {
 //            if (!$(e.target).hasClass('fa')) {

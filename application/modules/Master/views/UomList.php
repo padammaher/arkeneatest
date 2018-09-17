@@ -102,7 +102,7 @@
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateuomtype" + id).submit();
-            }
+            });
         });
     });
 </script>
