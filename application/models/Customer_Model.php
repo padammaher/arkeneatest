@@ -39,19 +39,24 @@ class Customer_Model extends CI_Model {
         return true;
     }
 
+    public function get_client_list($user_id){
+        $client_data=$this->db->from('branch_user')->where('user_id',$user_id)->get()->result();
+        return $client_data; 
+
+    }
     public function add_client_detail($data) {
         //  print_r($data['client_username']); exit() ;
         $alreadyexit = $this->db->select('id')->from('branch_user')->where('client_username', $data['client_username'])->get()->result();
         if (count($alreadyexit) > 0) {
-
             return 2;
         } else {
             $this->db->insert('branch_user', $data);
             return 1;
         }
+
     }
 
-    public function get_client_list() {
+  /*  public function get_client_list() {
         $client_data = $this->db->from('branch_user')->get()->result();
 //        $this->db->select('branch_user.id,branch_user.client_name,branch_user.client_username,customer_business_location.location_name as client_location');
 //        $this->db->from('branch_user');
@@ -59,7 +64,7 @@ class Customer_Model extends CI_Model {
 //        $client_data = $this->db->get()->result();
 
         return $client_data;
-    }
+    }*/
 
     public function get_client_detail($user_id) {
         $client_data = $this->db->from('branch_user')->where('id', $user_id)->get()->result();
@@ -88,13 +93,21 @@ class Customer_Model extends CI_Model {
         return true;
     }
 
-    public function get_business_list() {
+    /*public function get_business_list($user_id){
+       
+        $this->db->select('customer_business_location.*,city.name as city_name,country.name as country_name,state.name as state_name'); 
+        $this->db->from('customer_business_location'); 
+    }*/
+
+    public function get_business_list($user_id) {
 
         $this->db->select('customer_business_location.*,city.name as city_name,country.name as country_name,state.name as state_name');
         $this->db->from('customer_business_location');
+
         $this->db->join('city', 'customer_business_location.city = city.id', 'left');
         $this->db->join('country', 'customer_business_location.country = country.id', 'left');
         $this->db->join('state', 'customer_business_location.state = state.id', 'left');
+        $this->db->where('user_id', $user_id);        
         $this->db->order_by("customer_business_location.id", "desc");
         $query = $this->db->get();
         $business_data = $query->result();

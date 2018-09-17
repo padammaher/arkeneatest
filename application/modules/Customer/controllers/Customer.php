@@ -104,7 +104,7 @@ class Customer extends MY_Controller {
     }
 
     public function update_cutomer_info() {
-        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+        if (!$this->ion_auth->logged_in() ) {
             redirect('auth', 'refresh');
         } else {
             $user_id = $this->session->userdata('user_id');
@@ -152,19 +152,15 @@ class Customer extends MY_Controller {
         load_view_template($this->data, 'customer_info');
     }
 
+
+
+
     public function client_user_list() {
         $user_id = $this->session->userdata('user_id');
-        $this->data['client_details'] = $this->Customer_Model->get_client_list();
-        $data1['client_details'] = $this->Customer_Model->get_client_list();
-
+        $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
-        // $this->template->set_master_template('template.php');
-        // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
-        // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        // $this->template->render();
+
     }
 
     public function client_user_add() {
@@ -184,11 +180,11 @@ class Customer extends MY_Controller {
 
     public function add_client_detail() {
 
-        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+        if (!$this->ion_auth->logged_in() ) {
             redirect('auth', 'refresh');
         } else {
             if ($this->input->post('admin_user_id'))
-                $additional_data['user_id'] = $this->input->post('admin_user_id');
+                $additional_data['user_id'] = $this->session->userdata('user_id');
             if ($this->input->post('client_name'))
                 $additional_data['client_name'] = $this->input->post('client_name');
             if ($this->input->post('client_location'))
@@ -244,7 +240,7 @@ class Customer extends MY_Controller {
         // $this->template->render();
     }
 
-    public function update_client_detail() {
+   /* public function update_client_detail() {
         $user_id = $this->session->userdata('user_id');
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
@@ -283,7 +279,7 @@ class Customer extends MY_Controller {
             // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             // $this->template->render();
         }
-    }
+    }*/
 
     public function delete_client_user() {
         $client_id = $this->input->get('client_id');
@@ -301,7 +297,187 @@ class Customer extends MY_Controller {
         // $this->template->render();
     }
 
-    public function customer_business_location_list() {
+   public function update_client_detail()
+   {
+    $user_id = $this->session->userdata('user_id');
+    if (!$this->ion_auth->logged_in() ) {
+        redirect('auth', 'refresh');
+    }else{   
+    
+     if($this->input->post('id'))
+      $id=$this->input->post('id');
+
+     if($this->input->post('srno'))
+      $additional_data['srno']=$this->input->post('srno');
+     if($this->input->post('client_name'))
+     $additional_data['client_name']=$this->input->post('client_name'); 
+     if($this->input->post('client_location'))
+     $additional_data['client_location']=$this->input->post('client_location');
+     if($this->input->post('client_username'))
+     $additional_data['client_username']=$this->input->post('client_username'); 
+     if($this->input->post('password'))
+     $additional_data['password']=$this->input->post('password'); 
+     if($this->input->post('status'))
+     $additional_data['status']=$this->input->post('status');
+     
+    $update_record= $this->Customer_Model->update_client_detail($additional_data,$id); 
+    if($update_record){
+        $this->session->set_flashdata('success_msg','This user record update sucessfully');
+    }else{
+        $this->session->set_flashdata('error_msg','This user record update failed');
+    }
+    redirect('Customer/client_user_list', 'refresh');
+    //    $this->data['client_details']= $this->Customer_Model->get_client_list();
+    //     $this->data['dataHeader'] = $this->users->get_allData($user_id);
+    //     load_view_template($this->data, 'client_user_list');
+    // $this->template->set_master_template('template.php');
+    // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+    // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+    // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
+    // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+    // $this->template->render();
+    }
+   }
+
+   /*public function delete_client_user()
+   {
+    $client_id= $this->input->get('client_id'); 
+    $this->data['client_details']= $this->Customer_Model->delete_client_detail($client_id);
+    $this->data['client_details']= $this->Customer_Model->get_client_list();
+    $this->session->set_flashdata('success_msg','This client record delete sucessfully');
+    $user_id = $this->session->userdata('user_id');
+    $this->data['dataHeader'] = $this->users->get_allData($user_id);
+    load_view_template($this->data, 'client_user_list');
+    // $this->template->set_master_template('template.php');
+    // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+    // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+    // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
+    // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+    // $this->template->render();
+   }*/
+   public function customer_business_location_list()
+   {
+       $user_id = $this->session->userdata('user_id');
+    $this->data['location_detail']=  $this->Customer_Model->get_business_list($user_id); 
+    
+    $this->data['dataHeader'] = $this->users->get_allData($user_id);
+    load_view_template($this->data, 'customer_business_location_list');
+    // $this->template->set_master_template('template.php');
+    // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+    // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+    // $this->template->write_view('content', 'customer_business_location_list', (isset($this->data) ? $this->data : NULL), TRUE);
+    // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+    // $this->template->render();
+
+   }
+
+   public function add_customer_business_location()
+   {
+    $this->data['country']=$country=$this->Customer_Model->get_country();
+    $user_id = $this->session->userdata('user_id');
+    $this->data['dataHeader'] = $this->users->get_allData($user_id);
+    load_view_template($this->data, 'customer_business_location_add');
+    // $this->template->set_master_template('template.php');
+    // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+    // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+    // $this->template->write_view('content', 'customer_business_location_add', (isset($this->data) ? $this->data : NULL), TRUE);
+    // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+    // $this->template->render();
+
+   }
+   public function add_business_location(){
+    if (!$this->ion_auth->logged_in() ) {
+        redirect('auth', 'refresh');
+    }else{  
+
+        if($this->input->post('location_name'))
+        $additional_data['location_name']=$this->input->post('location_name');
+        if($this->input->post('address'))
+        $additional_data['address']=$this->input->post('address'); 
+        if($this->input->post('contact_person_name'))
+        $additional_data['contact_person_name']=$this->input->post('contact_person_name');
+        if($this->input->post('city'))
+        $additional_data['city']=$this->input->post('city'); 
+        if($this->input->post('state'))
+        $additional_data['state']=$this->input->post('state'); 
+        if($this->input->post('country'))
+        $additional_data['country']=$this->input->post('country'); 
+        if($this->input->post('pincode'))
+        $additional_data['pincode']=$this->input->post('pincode'); 
+        if($this->input->post('telephone'))
+        $additional_data['telephone']=$this->input->post('telephone');
+        if($this->input->post('mobile'))
+        $additional_data['mobile']=$this->input->post('mobile');
+        if($this->input->post('email'))
+        $additional_data['email']=$this->input->post('email');
+        $additional_data['user_id']=$this->session->userdata('user_id');
+        
+        $this->Customer_Model->add_business_location($additional_data); 
+       // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
+
+       $this->session->set_flashdata('success_msg','Business location added sucessfully');
+       redirect('Customer/customer_business_location_list', 'refresh');
+    //    $user_id = $this->session->userdata('user_id');
+    //    $this->data['dataHeader'] = $this->users->get_allData($user_id);
+    //    load_view_template($this->data, 'customer_business_location_list');
+    //   $this->template->set_master_template('template.php');
+    //   $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+    //   $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+    //   $this->template->write_view('content', 'customer_business_location_list', (isset($this->data) ? $this->data : NULL), TRUE);
+    //   $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+    //   $this->template->render();
+      
+    }
+   }
+
+   public function edit_business_location(){
+      $business_id= $this->input->get('business_id'); 
+      $this->data['business_detail']= $this->Customer_Model->get_business_detail($business_id); 
+      $this->data['country']=$country=$this->Customer_Model->get_country();
+      $user_id = $this->session->userdata('user_id');
+       $this->data['dataHeader'] = $this->users->get_allData($user_id);
+       load_view_template($this->data, 'customer_business_location_edit');
+
+   
+   }
+   public function update_business_location(){
+    if (!$this->ion_auth->logged_in()) {
+        redirect('auth', 'refresh');
+    }else{  
+        if($this->input->post('id'))
+        $id= $this->input->post('id');
+        if($this->input->post('location_name'))
+        $additional_data['location_name']=$this->input->post('location_name');
+        if($this->input->post('address'))
+        $additional_data['address']=$this->input->post('address'); 
+        if($this->input->post('contact_person_name'))
+        $additional_data['contact_person_name']=$this->input->post('contact_person_name');
+        if($this->input->post('city'))
+        $additional_data['city']=$this->input->post('city'); 
+        if($this->input->post('state'))
+        $additional_data['state']=$this->input->post('state'); 
+        if($this->input->post('country'))
+        $additional_data['country']=$this->input->post('country'); 
+        if($this->input->post('pincode'))
+        $additional_data['pincode']=$this->input->post('pincode'); 
+        if($this->input->post('telephone'))
+        $additional_data['telephone']=$this->input->post('telephone');
+        if($this->input->post('mobile'))
+        $additional_data['mobile']=$this->input->post('mobile');
+        if($this->input->post('email'))
+        $additional_data['email']=$this->input->post('email');
+         $additional_data['user_id']=$this->session->userdata('user_id');
+        $this->Customer_Model->update_busineess_location($additional_data,$id); 
+       // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
+        $this->session->set_flashdata('success_msg','Business location update sucessfully');
+        redirect('Customer/customer_business_location_list', 'refresh');
+        // $user_id = $this->session->userdata('user_id');
+        // $this->data['dataHeader'] = $this->users->get_allData($user_id);
+        // load_view_template($this->data, 'customer_business_location_list');
+
+    }
+   }
+    /*public function customer_business_location_list() {
         $this->data['location_detail'] = $this->Customer_Model->get_business_list();
         $user_id = $this->session->userdata('user_id');
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
@@ -312,9 +488,9 @@ class Customer extends MY_Controller {
         // $this->template->write_view('content', 'customer_business_location_list', (isset($this->data) ? $this->data : NULL), TRUE);
         // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
         // $this->template->render();
-    }
+    }*/
 
-    public function add_customer_business_location() {
+   /* public function add_customer_business_location() {
         $this->data['country'] = $country = $this->Customer_Model->get_country();
         $user_id = $this->session->userdata('user_id');
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
@@ -325,9 +501,9 @@ class Customer extends MY_Controller {
         // $this->template->write_view('content', 'customer_business_location_add', (isset($this->data) ? $this->data : NULL), TRUE);
         // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
         // $this->template->render();
-    }
+    }*/
 
-    public function add_business_location() {
+   /* public function add_business_location() {
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
         } else {
@@ -367,9 +543,9 @@ class Customer extends MY_Controller {
             //   $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             //   $this->template->render();
         }
-    }
+    }*/
 
-    public function edit_business_location() {
+  /*  public function edit_business_location() {
         $business_id = $this->input->get('business_id');
         $this->data['business_detail'] = $this->Customer_Model->get_business_detail($business_id);
         $this->data['country'] = $country = $this->Customer_Model->get_country();
@@ -424,7 +600,7 @@ class Customer extends MY_Controller {
             // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             // $this->template->render();
         }
-    }
+    }*/
 
     public function delete_business_location() {
         $business_id = $this->input->get('business_id');
