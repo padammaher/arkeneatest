@@ -35,7 +35,7 @@
                   <tr>
                     <td width="15%" class="lft-td">Customer Name
                     </td>
-                    <td><?php echo $user_detail[0]->first_name.' '.$user_detail[0]->last_name; ?> 
+                    <td><?php echo $user_detail[0]->company_name; ?> 
                     </td>
                   </tr>
                   <tr>

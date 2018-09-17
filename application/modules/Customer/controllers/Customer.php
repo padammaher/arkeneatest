@@ -103,7 +103,7 @@ class Customer extends MY_Controller {
 
     }
     public function update_cutomer_info(){
-        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+        if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }else{     
             $user_id = $this->session->userdata('user_id');
