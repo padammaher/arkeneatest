@@ -48,7 +48,6 @@ class Customer_Model extends CI_Model {
         //  print_r($data['client_username']); exit() ;
         $alreadyexit = $this->db->select('id')->from('branch_user')->where('client_username', $data['client_username'])->get()->result();
         if (count($alreadyexit) > 0) {
-
             return 2;
         } else {
             $this->db->insert('branch_user', $data);

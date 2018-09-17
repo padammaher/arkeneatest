@@ -180,11 +180,11 @@ class Customer extends MY_Controller {
 
     public function add_client_detail() {
 
-        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+        if (!$this->ion_auth->logged_in() ) {
             redirect('auth', 'refresh');
         } else {
             if ($this->input->post('admin_user_id'))
-                $additional_data['user_id'] = $this->input->post('admin_user_id');
+                $additional_data['user_id'] = $this->session->userdata('user_id');
             if ($this->input->post('client_name'))
                 $additional_data['client_name'] = $this->input->post('client_name');
             if ($this->input->post('client_location'))
@@ -300,7 +300,7 @@ class Customer extends MY_Controller {
    public function update_client_detail()
    {
     $user_id = $this->session->userdata('user_id');
-    if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+    if (!$this->ion_auth->logged_in() ) {
         redirect('auth', 'refresh');
     }else{   
     
