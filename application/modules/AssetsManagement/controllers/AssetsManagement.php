@@ -142,9 +142,8 @@ class AssetsManagement extends MY_Controller {
             $data['location_list'] = $this->Assets->CustomerLocation_list();
             $data['category_list'] = $this->Assets->AssetCategory_list();
             $data['type_list'] = $this->Assets->AssetType_list();
-             load_view_template($data, 'Assets/assets_list');
-
-           
+            $this->session->unset_userdata('asset_id');
+             load_view_template($data, 'Assets/assets_list');           
         }
     }
 
@@ -184,10 +183,8 @@ class AssetsManagement extends MY_Controller {
                 $data['Assets_edit_data'] = $this->Assets->Asset_edit($edit_asset_list_id);
 
                 if ($form_action == "edit") {
-
-                  //                  $this->session->set_flashdata('error_msg', 'assets already existed!');
+                   // $this->session->set_flashdata('error_msg', 'assets already existed!');
                     load_view_template($data, 'Assets/assets_edit');
-
                    
                 } else if ($form_action == "update") {
                     //   print_r($this->input->post());
@@ -268,7 +265,7 @@ class AssetsManagement extends MY_Controller {
                 }
             } else {
 
-                    //            $data['assetlist'] = $this->Assets->assets_list();
+                //            $data['assetlist'] = $this->Assets->assets_list();
 
                 load_view_template($data, 'Assets/assets_edit');
 
@@ -299,7 +296,7 @@ class AssetsManagement extends MY_Controller {
                     $this->session->set_flashdata('error_msg', 'Assets failed to delete');
                 }
                 redirect(base_url('Assets_list'));
-                    //              Assets_list
+                //              Assets_list
             }
         }
 
@@ -320,7 +317,7 @@ class AssetsManagement extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
-                //            $data['assetlist'] = $this->Assets->assets_list();
+            //            $data['assetlist'] = $this->Assets->assets_list();
 
           
             load_view_template($data, 'Assets/assets_edit');
@@ -374,7 +371,7 @@ class AssetsManagement extends MY_Controller {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $todaysdate = date('Y-m-d');
                 $asset_loc_form_action = explode(" ", $this->input->post('asset_loc_form_action'));
-                        //                  print_r($sensor_form_action); asset_loc_form_action
+                //                  print_r($sensor_form_action); asset_loc_form_action
                 $form_action = $this->input->post('asset_location_post');
                 $asset_loc_id = $this->input->post('asset_location_post_id');
 
@@ -415,7 +412,7 @@ class AssetsManagement extends MY_Controller {
                     $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
                     // echo $isUnique; exit;
                     if ($isUnique) {
-                    //                        echo '<script>alert("Asset Code is already existed!");</script>';
+                        //                        echo '<script>alert("Asset Code is already existed!");</script>';
                         //                         $this->session->set_flashdata('item', array('msg' => 'Asset Code is already existed!','class' => 'success'));
                         $this->session->set_flashdata('error_msg', 'Asset location is already existed');
                         load_view_template($data, 'Assets/assets_location_edit');
@@ -434,9 +431,9 @@ class AssetsManagement extends MY_Controller {
                             'asset_id' => $this->input->post('assetcode')
                         );
 
-                            //                $inserteddata=$this->Assets->add_assets_location($insert_data);
-                            //                        print_r($insert_data);
-                            //                  exit;
+                        //                $inserteddata=$this->Assets->add_assets_location($insert_data);
+                        //                        print_r($insert_data);
+                        //                  exit;
                         $update_asset_location = $this->Assets->Update_asset_location($update_data, $asset_loc_id);
                         if ($update_asset_location) {
                             $this->session->set_flashdata('success_msg', 'Asset location successfully updated');
@@ -637,7 +634,7 @@ class AssetsManagement extends MY_Controller {
 
             $data['asset_code_list'] = $this->Assets->assetcode_list();
             $data['asset_userid_list'] = $this->Assets->asset_userid_list();
-                //                asset_user_form_action
+            //                asset_user_form_action
             $data['dataHeader'] = $this->users->get_allData($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $todaysdate = date('Y-m-d');
@@ -684,7 +681,7 @@ class AssetsManagement extends MY_Controller {
                     
                       load_view_template($data, 'Assets/user_asset_add');
                    
-                }
+                        }
 
         }
     }
@@ -749,10 +746,10 @@ class AssetsManagement extends MY_Controller {
                         'createdby' => $user_id);
 
                     $isUnique = $this->Assets->checkasset_locationIfExists('asset_user', $unique_Data);
-                            // echo $isUnique;
+                    // echo $isUnique;
                     // print_r($update_data);exit;
                     if ($isUnique) {
-                                    //                
+                        //                
 
                         $this->session->set_flashdata('error_msg', 'Asset user is already existed');
                        load_view_template($data, 'Assets/user_assets_edit');
@@ -861,7 +858,7 @@ class AssetsManagement extends MY_Controller {
             else
                 $data['rule_status'] = 0;
         }
-        
+
         $parameter_range_id = 3;
         if (!$asset_rule_id) {
             $insert_id = $this->Assets->add_asset_rule_detail($data, $parameter_range_id);
@@ -899,7 +896,6 @@ class AssetsManagement extends MY_Controller {
 
         // $user_id = $this->session->userdata('user_id');
         // $data['dataHeader'] = $this->users->get_allData($user_id);
-
         // $this->data['asset_list'] = $this->Assets->get_asset_rule_list();
         redirect('Asset_Rule_list', 'refresh');
         // $this->template->set_master_template('template.php');
@@ -925,13 +921,15 @@ class AssetsManagement extends MY_Controller {
             //get asset info
             if ($this->input->post('asset_id')) {
                 $asset_id = $this->input->post('asset_id');
-            } else {
-                $asset_id = 63;
+            } elseif ($this->session->userdata('asset_id')) {
+                $asset_id = $this->session->userdata('asset_id');
             }
+
             $this->session->set_userdata('asset_id', $asset_id);
             $this->session->unset_userdata('paramrange_post');
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
             $data['parameter_range_info'] = $this->Assets->parameter_range_list($asset_id);
+
             load_view_template($data, 'assets_parameter/asset_parameter_range_list');
         }
     }
@@ -1127,26 +1125,22 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the home page because they must be an administrator to view this page
             // return show_error('You must be an administrator to view this page.');
         } else {
-            if($this->input->post('rule_id')){
-                $rule_id=$this->input->post('rule_id');
-            }else{
-                $rule_id=5;
-            }
-            
-            
+            $rule_id = $this->input->post('rule_id');
+
             $user_id = $this->session->userdata('user_id');
-            $asset_id=$this->session->userdata('asset_id');
+            $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            
+
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
-            $data['trigger_list']= $this->Assets->trigger_list($user_id,$asset_id);
-            $data['header_desc']=$this->Assets->showdescription($rule_id,$asset_id);
+            $data['trigger_list'] = $this->Assets->trigger_list($user_id, $asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($rule_id, $asset_id);
+
             load_view_template($data, 'trigger/trigger_list');
         }
     }
 
     public function trigger_add() {
-        $trigger_post_id='';
+        $trigger_post_id = '';
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
@@ -1154,128 +1148,110 @@ class AssetsManagement extends MY_Controller {
             $this->restricted();
             // redirect them to the home page because they must be an administrator to view this page
             // return show_error('You must be an administrator to view this page.');
-        } else {  
-            if($this->input->post('rule_id')){
-                $rule_id=$this->input->post('rule_id');
-            }else{
-                $rule_id=5;
+        } else {
+            if ($this->input->post('rule_id')) {
+                $rule_id = $this->input->post('rule_id');
+            } else {
+                $rule_id = 5;
             }
             $user_id = $this->session->userdata('user_id');
-             $asset_id=$this->session->userdata('asset_id');
+            $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            
+
 //            $data['dataHeader'] = $this->users->get_allData($user_id);
             $todaysdate = date('Y-m-d');
-            $data['trigger_edit_list']=array();
-             $data['header_desc']=$this->Assets->showdescription($rule_id,$asset_id);
+            $data['trigger_edit_list'] = array();
+            $data['header_desc'] = $this->Assets->showdescription($rule_id, $asset_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
-             
-             $trigger_form_action=$this->input->post('trigger_form_action');
-             $trigger_post_id=$this->input->post('trigger_post_id');
-             
-                      $unique_Data=array('rule_id'=>$rule_id,
-                                         'asset_id'=>$this->session->userdata('asset_id'),                                         
-                                         'trigger_name' => $this->input->post('trigger_name'),
-                                         'trigger_threshold_id'=> $this->input->post('trigger_threshold'),
-                                         'email'=> $this->input->post('email'),
-                                         'sms_contact_no'=>$this->input->post('contactno'),                                         
-                                         'createby'=>$user_id                                         
-                                        );               
+
+                $trigger_form_action = $this->input->post('trigger_form_action');
+                $trigger_post_id = $this->input->post('trigger_post_id');
+
+                $unique_Data = array('rule_id' => $rule_id,
+                    'asset_id' => $this->session->userdata('asset_id'),
+                    'trigger_name' => $this->input->post('trigger_name'),
+                    'trigger_threshold_id' => $this->input->post('trigger_threshold'),
+                    'email' => $this->input->post('email'),
+                    'sms_contact_no' => $this->input->post('contactno'),
+                    'createby' => $user_id
+                );
 //             if(!empty($trigger_post_id)) 
 //                 {
-                 $data['trigger_edit_list']= $this->Assets->edit_trigger_list($user_id,$asset_id,$trigger_post_id);                 
+                $data['trigger_edit_list'] = $this->Assets->edit_trigger_list($user_id, $asset_id, $trigger_post_id);
 //                 }
-                 
-              $trigger_input_data=array('rule_id'=>$rule_id,
-                                         'asset_id'=>$this->session->userdata('asset_id'),                                         
-                                         'trigger_name' => $this->input->post('trigger_name'),
-                                         'trigger_threshold_id'=> $this->input->post('trigger_threshold'),
-                                         'email'=> $this->input->post('email'),
-                                         'sms_contact_no'=>$this->input->post('contactno'), 
-                                         'createdate'=>$todaysdate,
-                                         'createby'=>$user_id,
-                                         'isactive'=>1
-                                        );
+
+                $trigger_input_data = array('rule_id' => $rule_id,
+                    'asset_id' => $this->session->userdata('asset_id'),
+                    'trigger_name' => $this->input->post('trigger_name'),
+                    'trigger_threshold_id' => $this->input->post('trigger_threshold'),
+                    'email' => $this->input->post('email'),
+                    'sms_contact_no' => $this->input->post('contactno'),
+                    'createdate' => $todaysdate,
+                    'createby' => $user_id,
+                    'isactive' => 1
+                );
 //              echo $trigger_form_action;
 //               $data['trigger_threshold_option']= $this->Assets->Trigger_threshold($asset_id);
-              $data['result']=$this->Assets->Trigger_threshold($asset_id,$rule_id);
+                $data['result'] = $this->Assets->Trigger_threshold($asset_id, $rule_id);
 //              print_r($data['result']);
-                 if(isset($data['result']) && !empty($data['result'])){
-                     foreach($data['result'] as $r){
-                         $data['threshold_array'][]=$r->trigger_threshold_id;
-                     }
-                 }
-             if($trigger_form_action =='addNew') 
-             { 
+                if (isset($data['result']) && !empty($data['result'])) {
+                    foreach ($data['result'] as $r) {
+                        $data['threshold_array'][] = $r->trigger_threshold_id;
+                    }
+                }
+                if ($trigger_form_action == 'addNew') {
 
-                 load_view_template($data, 'trigger/trigger_add');
-             }
-             else if($trigger_form_action == "add")
-             {
+                    load_view_template($data, 'trigger/trigger_add');
+                } else if ($trigger_form_action == "add") {
 //                 print_r($this->input->post());exit;
-              
 
 
-                     $isUnique = $this->Assets->checkUnique('trigger', $unique_Data);
-  
-            if ($isUnique) {
-                $this->session->set_flashdata('error_msg', 'Alarm trigger alredy existed'); 
-                load_view_template($data, 'trigger/trigger_add');
-                
-             }else {
-                 $insert_data=$this->Assets->add_trigger($trigger_input_data);
-                 if($insert_data)
-                 {
-                     $this->session->set_flashdata('success_msg', 'Alarm trigger successfully added');                     
-                 }
-                 else{
-                     $this->session->set_flashdata('note_msg', 'Oops ! something wrong..!');                     
-                 }
-                 return redirect('trigger_list','refresh');
-                 
-             }
-             }
-             else if($trigger_form_action=='edit')
-             {
+
+                    $isUnique = $this->Assets->checkUnique('trigger', $unique_Data);
+
+                    if ($isUnique) {
+                        $this->session->set_flashdata('error_msg', 'Alarm trigger alredy existed');
+                        load_view_template($data, 'trigger/trigger_add');
+                    } else {
+                        $insert_data = $this->Assets->add_trigger($trigger_input_data);
+                        if ($insert_data) {
+                            $this->session->set_flashdata('success_msg', 'Alarm trigger successfully added');
+                        } else {
+                            $this->session->set_flashdata('note_msg', 'Oops ! something wrong..!');
+                        }
+                        return redirect('trigger_list', 'refresh');
+                    }
+                } else if ($trigger_form_action == 'edit') {
 //                 echo $trigger_form_action.'--'.$trigger_post_id;exit;
-                  load_view_template($data, 'trigger/trigger_add');
-             }
-             else if($trigger_form_action =='update')
-             {
+                    load_view_template($data, 'trigger/trigger_add');
+                } else if ($trigger_form_action == 'update') {
 //              echo $trigger_form_action.'--'.$trigger_post_id;exit;
-                $isUnique = $this->Assets->checkUnique('trigger', $unique_Data);
+                    $isUnique = $this->Assets->checkUnique('trigger', $unique_Data);
 //             echo $isUnique;exit; 
 //                 print_r($trigger_input_data);exit;
-            if ($isUnique) {
-                $this->session->set_flashdata('error_msg', 'Alarm trigger alredy existed'); 
-                load_view_template($data, 'trigger/trigger_add');                
-             }
-             else
-                {
-                
-                    $update_data=$this->Assets->update_trigger($trigger_input_data,$trigger_post_id);
-                   if($update_data)
-                   {
-                       $this->session->set_flashdata('success_msg', 'Alarm trigger successfully updated');                     
-                   }
-                   else{
-                       $this->session->set_flashdata('note_msg', 'Oops ! something wrong..!');                     
-                   }
-                   return redirect('trigger_list','refresh');
-                }
-             }
-             else if($trigger_form_action=='delete')
-             {
+                    if ($isUnique) {
+                        $this->session->set_flashdata('error_msg', 'Alarm trigger alredy existed');
+                        load_view_template($data, 'trigger/trigger_add');
+                    } else {
+
+                        $update_data = $this->Assets->update_trigger($trigger_input_data, $trigger_post_id);
+                        if ($update_data) {
+                            $this->session->set_flashdata('success_msg', 'Alarm trigger successfully updated');
+                        } else {
+                            $this->session->set_flashdata('note_msg', 'Oops ! something wrong..!');
+                        }
+                        return redirect('trigger_list', 'refresh');
+                    }
+                } else if ($trigger_form_action == 'delete') {
 //                 echo "delete";exit;
-                 $delete_data=$this->Assets->delete_trigger($trigger_post_id);
-                   if($delete_data)
-                   {
-                       $this->session->set_flashdata('success_msg', 'Alarm trigger successfully deleted');                     
-                   }
-                   return redirect('trigger_list','refresh');
-             }
-            }else {
-            return redirect('trigger_list','refresh');
+                    $delete_data = $this->Assets->delete_trigger($trigger_post_id);
+                    if ($delete_data) {
+                        $this->session->set_flashdata('success_msg', 'Alarm trigger successfully deleted');
+                    }
+                    return redirect('trigger_list', 'refresh');
+                }
+            } else {
+                return redirect('trigger_list', 'refresh');
             }
         }
     }

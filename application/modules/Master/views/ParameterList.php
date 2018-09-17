@@ -103,7 +103,7 @@
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateparam" + id).submit();
-            }
+            });
         });
     });
 </script>

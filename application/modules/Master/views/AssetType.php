@@ -95,7 +95,7 @@
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateassettype" + id).submit();
-            }
+            });
         });
     });
 </script>
