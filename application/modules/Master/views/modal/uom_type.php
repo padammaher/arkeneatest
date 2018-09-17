@@ -1,4 +1,4 @@
-<div id="detailsModal" class="modal fade" role="dialog">
+<?php if (isset($result) && !empty($result)) { ?>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -13,15 +13,15 @@
                     <tbody>
                         <tr>
                             <td width="" class="lft-td">Sr. No.</td>
-                            <td>1</td>
+                            <td><?php echo $sr_no; ?></td>
                         </tr>
                         <tr>
                             <td width="" class="lft-td">UOM Type</td>
-                            <td>Height</td>
+                            <td><?php echo $result[0]['name']; ?></td>
                         </tr>
                         <tr>
                             <td class="lft-td">UOM</td>
-                            <td>Mts</td>
+                            <td><?php echo $result[0]['uomname']; ?></td>
                         </tr>
 
                     </tbody>
@@ -33,4 +33,4 @@
             </div>
         </div>
     </div>
-</div>  
+<?php } ?>

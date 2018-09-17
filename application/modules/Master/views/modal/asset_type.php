@@ -1,4 +1,4 @@
-<div id="detailsModal" class="modal fade" role="dialog">
+<?php if (isset($result) && !empty($result)) { ?>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -12,29 +12,18 @@
                 <table class="table table-bordered">                      
                     <tbody>
                         <tr>
-                            <td width="" class="lft-td">Customer Name</td>
-                            <td>Ronald Smith</td>
+                            <td width="" class="lft-td">Sr. no.</td>
+                            <td id="sr_name_modal"><?php echo $sr_no; ?></td>
                         </tr>
                         <tr>
-                            <td width="" class="lft-td">Address</td>
-                            <td>New Mercy rd, Manila, Lowa, Crowford, 51454.</td>
+                            <td width="" class="lft-td">Asset Type</td>
+                            <td id="asset_cat_modal"><?php echo $result[0]['name']; ?></td>
                         </tr>
                         <tr>
-                            <td class="lft-td">Contact Person</td>
-                            <td>Jenny Kim</td>
+                            <td class="lft-td">Description</td>
+                            <td id="asset_cat_descmodal"><?php echo $result[0]['description']; ?></td>
                         </tr>
-                        <tr>
-                            <td class="lft-td">Telephone</td>
-                            <td>05252455235</td>
-                        </tr>
-                        <tr>
-                            <td class="lft-td">Mobile No.</td>
-                            <td>88888 88888</td>
-                        </tr>
-                        <tr>
-                            <td class="lft-td">Email ID</td>
-                            <td>info@test.com</td>
-                        </tr>
+
                     </tbody>
                 </table>
 
@@ -44,4 +33,4 @@
             </div>
         </div>
     </div>
-</div>  
+<?php } ?>

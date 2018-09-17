@@ -143,4 +143,15 @@ class SensorMaster extends CI_Controller {
         }
     }
 
+    public function sensor_details() {
+        if ($this->input->post('sensor_id')) {
+            $id = explode('_', $this->input->post('sensor_id'));
+            $data['sr_no'] = $id[1];
+            $data['result'] = $this->sensormodel->get_sensor_type($id[0]);
+
+            $view = $this->load->view('master/modal/sensor_type', $data);
+            echo $view;
+        }
+    }
+
 }

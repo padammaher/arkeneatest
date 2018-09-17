@@ -1,13 +1,5 @@
 <!--<div class="right_col" role="main">-->
 <div class="">
-    <?php
-//    if ($this->session->flashdata('success_msg')) {
-//        echo $this->session->flashdata('success_msg');
-//    }
-//    if ($this->session->flashdata('error_msg')) {
-//        echo $this->session->flashdata('error_msg');
-//    }
-    ?>
     <div class="page-title">
         <div class="title_left">
             <h4>UOM List</h4>
@@ -45,9 +37,9 @@
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
-                                        <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $r['name']; ?></li>
-                                        <li class="flex-item"><?php echo $r['uomname']; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uomname']; ?></li>
                                         <li class="flex-item">
                                             <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
@@ -87,7 +79,7 @@
 
 </div>
 <!--</div>-->
-
+<div id="detailsModal" class="modal fade" role="dialog"></div>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -103,6 +95,21 @@
                 $("#post" + id).val('delete');
                 $("#updateuomtype" + id).submit();
             });
+        });
+        $(".flex-item").click(function (e) {
+            if (!$(e.target).hasClass('fa')) {
+                var id = $(this).attr('data-value');
+                $.ajax({
+                    url: "<?php echo base_url() . 'Master/uommaster/uom_details'; ?>",
+                    method: "POST",
+                    data: {uom_id: id},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#detailsModal").html(data);
+                        $('#detailsModal').modal('show');
+                    }
+                });
+            }
         });
     });
 </script>
