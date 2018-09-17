@@ -157,18 +157,10 @@ class Customer extends MY_Controller {
 
     public function client_user_list() {
         $user_id = $this->session->userdata('user_id');
-        $this->data['client_details'] = $this->Customer_Model->get_client_list();
-        $data1['client_details'] = $this->Customer_Model->get_client_list();
-
-
+        $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
-        // $this->template->set_master_template('template.php');
-        // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
-        // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        // $this->template->render();
+
     }
 
     public function client_user_add() {

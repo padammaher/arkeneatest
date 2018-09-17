@@ -100,7 +100,7 @@ class Customer_Model extends CI_Model {
         $this->db->from('customer_business_location'); 
     }*/
 
-    public function get_business_list() {
+    public function get_business_list($user_id) {
 
         $this->db->select('customer_business_location.*,city.name as city_name,country.name as country_name,state.name as state_name');
         $this->db->from('customer_business_location');
