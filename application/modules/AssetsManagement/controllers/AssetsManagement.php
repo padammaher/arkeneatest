@@ -64,9 +64,9 @@ class AssetsManagement extends MY_Controller {
             $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
             $this->form_validation->set_rules('Assettype', 'Asset Type', 'required'); 
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric_spaces'); 
-            $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric_spaces');
-            $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric_spaces'); 
+            $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric'); 
+            $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric');
+            $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric'); 
             // $this->form_validation->set_rules('description', 'Description', 'required');
             $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  
 
@@ -375,14 +375,14 @@ class AssetsManagement extends MY_Controller {
                 $form_action = $this->input->post('asset_location_post');
                 $asset_loc_id = $this->input->post('asset_location_post_id');
 
-            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
-            $this->form_validation->set_rules('location', 'Asset Location', 'required'); 
-            $this->form_validation->set_rules('address', 'Asset address', 'required');
+            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
+            $this->form_validation->set_rules('asset_location', 'Asset Location', 'required'); 
+            $this->form_validation->set_rules('asset_address', 'Asset address', 'required');
             
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('contact_no', 'Contact number', 'required|numeric'); 
-            $this->form_validation->set_rules('contact_person', 'Contact person', 'required|alpha_numeric_spaces');
-            $this->form_validation->set_rules('contact_email', 'Email', 'required|valid_email'); 
+            $this->form_validation->set_rules('asset_contactno', 'Contact number', 'required|numeric'); 
+            $this->form_validation->set_rules('asset_contactperson', 'Contact person', 'required');
+            $this->form_validation->set_rules('asset_contactemail', 'Email', 'required|valid_email'); 
                 // print_r($this->input->post());
                 // var_dump($isUnique);
                 // die;
@@ -402,9 +402,9 @@ class AssetsManagement extends MY_Controller {
                     'location' => $this->input->post('asset_location'),
                     'address' => $this->input->post('asset_address'),
                     'latitude' => $this->input->post('asset_lat'),
-                    'contact_no' => $this->input->post('asset_long'),
-                    'longitude' => $this->input->post('asset_contactperson'),
-                    'contact_person' => $this->input->post('asset_contactno'),
+                    'contact_no' => $this->input->post('asset_contactno'),
+                    'longitude' => $this->input->post('asset_long'),
+                    'contact_person' => $this->input->post('asset_contactperson'),
                     'contact_email' => $this->input->post('asset_contactemail')
                     
                 );
@@ -513,14 +513,14 @@ class AssetsManagement extends MY_Controller {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //            exit;
 
-            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
-            $this->form_validation->set_rules('location', 'Asset Location', 'required'); 
-            $this->form_validation->set_rules('address', 'Asset address', 'required');
+            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
+            $this->form_validation->set_rules('asset_location', 'Asset Location', 'required'); 
+            $this->form_validation->set_rules('asset_address', 'Asset address', 'required');
             
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('contact_no', 'Contact number', 'required|numeric'); 
-            $this->form_validation->set_rules('contact_person', 'Contact person', 'required|alpha_numeric_spaces');
-            $this->form_validation->set_rules('contact_email', 'Email', 'required|valid_email'); 
+            $this->form_validation->set_rules('asset_contactno', 'Contact number', 'required|numeric'); 
+            $this->form_validation->set_rules('asset_contactperson', 'Contact person', 'required');
+            $this->form_validation->set_rules('asset_contactemail', 'Email', 'required|valid_email'); 
             // $this->form_validation->set_rules('description', 'Description', 'required');
             // $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  
              if ($this->form_validation->run() == TRUE) {  
@@ -528,9 +528,9 @@ class AssetsManagement extends MY_Controller {
                     'location' => $this->input->post('asset_location'),
                     'address' => $this->input->post('asset_address'),
                     'latitude' => $this->input->post('asset_lat'),
-                    'contact_no' => $this->input->post('asset_long'),
-                    'longitude' => $this->input->post('asset_contactperson'),
-                    'contact_person' => $this->input->post('asset_contactno'),
+                    'contact_no' => $this->input->post('asset_contactno'),
+                    'longitude' => $this->input->post('asset_long'),
+                    'contact_person' => $this->input->post('asset_contactperson'),
                     'contact_email' => $this->input->post('asset_contactemail'),
                     'asset_id' => $this->input->post('assetcode')
                 );
@@ -547,9 +547,9 @@ class AssetsManagement extends MY_Controller {
                     $insert_data = array('location' => $this->input->post('asset_location'),
                         'address' => $this->input->post('asset_address'),
                         'latitude' => $this->input->post('asset_lat'),
-                        'contact_no' => $this->input->post('asset_long'),
-                        'longitude' => $this->input->post('asset_contactperson'),
-                        'contact_person' => $this->input->post('asset_contactno'),
+                        'contact_no' => $this->input->post('asset_contactno'),
+                        'longitude' => $this->input->post('asset_long'),
+                        'contact_person' => $this->input->post('asset_contactperson'),
                         'contact_email' => $this->input->post('asset_contactemail'),
                         'createdat' => $todaysdate,
                         'createdby' => $user_id,

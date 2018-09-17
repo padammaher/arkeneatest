@@ -15,7 +15,7 @@
                             <select class="form-control" name="assetcode" required>
                                 <option value="">Select Asset Code</option>
                                 <?php foreach ($asset_code_list as $asset_id_list) { ?>
-                                    <option value="<?php echo $asset_id_list['id']; ?>"><?php echo $asset_id_list['code']; ?></option>
+                                    <option value="<?php echo $asset_id_list['id']; ?>" <?php echo set_value('assetcode')?'selected':'';?> ><?php echo $asset_id_list['code']; ?></option>
 
 
                                 <?php } ?>
