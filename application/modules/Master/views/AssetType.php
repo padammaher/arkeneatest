@@ -8,7 +8,7 @@
 
         <div class="title_right">
             <div class="pull-right">
-                <a href="<?php echo base_url() ?>addAssetType" class="btn btn-sm btn-primary">Add New</a>
+                <a href="<?php echo base_url() ?>addAssetType" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
             </div>
         </div>
     </div>
