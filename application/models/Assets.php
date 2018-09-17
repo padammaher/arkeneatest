@@ -49,10 +49,10 @@ class Assets extends MY_Model {
 
     public function assets_list($id = NULL) {
 
-        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
         //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
         $this->db->from('asset');
-        $this->db->join('asset_location', 'asset_location.asset_id= asset.id', 'left');
+        $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
         $this->db->join('asset_user', 'asset_user.asset_id= asset.id', 'left');
         $this->db->join('branch_user', 'branch_user.id= asset_user.assetuser_id', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
@@ -84,10 +84,10 @@ class Assets extends MY_Model {
 //    }
 
     public function Asset_edit($edit_asset_list_id) {
-        $this->db->select('asset.id,asset.code,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid,asset.isactive, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+        $this->db->select('asset.id,asset.code,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid,asset.isactive, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
         // $this->db->select('asset.id,asset.code,asset_location.location,asset_location.id as locid,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
         $this->db->from('asset');
-        $this->db->join('asset_location', 'asset_location.id= asset.customer_locationid');
+        $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
         $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
         $this->db->join('users', 'users.id=asset.createdby');
@@ -141,9 +141,9 @@ class Assets extends MY_Model {
         $this->db->join('asset', 'asset.id=asset_location.asset_id', 'inner');
         $this->db->join('asset_user', 'asset_user.asset_id=asset.id', 'left');
         $this->db->join('branch_user', 'branch_user.id=asset_user.assetuser_id', 'left');
-        $this->db->where('asset_location.createdby',$user_id);
+        $this->db->where('asset_location.createdby', $user_id);
         $query = $this->db->get();
-       // echo  $this->db->last_query();
+        // echo  $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
@@ -216,14 +216,12 @@ class Assets extends MY_Model {
         return $objData;
     }
 
-
-        public function assetcode_list_for_asset_location($user_id) {
-       $query="SELECT asset.id,asset.code FROM asset
-                where asset.createdby=".$user_id." and id not in(select asset_id from asset_location)";
+    public function assetcode_list_for_asset_location($user_id) {
+        $query = "SELECT asset.id,asset.code FROM asset
+                where asset.createdby=" . $user_id . " and id not in(select asset_id from asset_location)";
         $res = $this->db->query($query);
-        return $obj = $res->result_array(); 
-     }
-    
+        return $obj = $res->result_array();
+    }
 
     public function asset_userid_list() {
         $this->db->select('id,client_name');
