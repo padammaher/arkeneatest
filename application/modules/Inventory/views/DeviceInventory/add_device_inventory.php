@@ -18,6 +18,7 @@
           <?php if (form_error('devicename')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('devicename'); ?></span>
                             <?php } ?>
+                                <span class="mrtp10 text-center englable deivcenumexist" style="color:#ff3333; font-size: 15px; "></span>                     
   </div><!--
         -->
         <div class="item form-group">
@@ -230,14 +231,25 @@
                     dataType: 'text',
                     data: {devicenum: this.value},
                     success: function (res) {
-
+                        if(res >=1)
+                        {
+                            //alert("already");
+                            $("#devicename").css('border','1px solid #CE5454');
+//                                border: 1px solid #CE5454;
+                            $(".deivcenumexist").text('Device num already exist..!');
+                        }
+                        else
+                        {
+                            //alert("Not already");
+                            $(".deivcenumexist").text('');
+                        }
                         // var obj = $.parseJSON(res);
 
                         // for (i = 0; i < obj.length; i++) {
                         //     options += '<option value="' + obj[i]['id'] + '">' + obj[i]['name'] + '</option>';
                         // }
                         // $("#UOM").html(options);
-                         alert(res);
+//                         alert(res);
                     }
                 });
             });

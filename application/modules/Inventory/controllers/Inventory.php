@@ -249,7 +249,7 @@ class Inventory extends MY_Controller {
             $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required'); 
             $this->form_validation->set_rules('service_after', 'Service after', 'required'); 
             $this->form_validation->set_rules('service_type_count', 'Service Type', 'required'); 
-            $isUnique = $this->Inventory_model->checkUnique('device_inventory', $unique_Data);
+            $isUnique = $this->Inventory_model->checkUnique('device_inventory', $unique_data);
              $data['Edit_deviceinventory_data']=$this->Inventory_model->edit_deviceinventory($dev_inv_id);
              if ($this->form_validation->run() == TRUE) { 
                         if ($isUnique) {
@@ -766,7 +766,7 @@ class Inventory extends MY_Controller {
             } else{
             $data['device_asset_list']=$this->Inventory_model->device_asset_list($user_id);
             
-           load_view_template($data, 'SensorInventory/device_assets_list');
+           load_view_template($data, 'DeviceInventory/device_assets_list');
 
             
             }

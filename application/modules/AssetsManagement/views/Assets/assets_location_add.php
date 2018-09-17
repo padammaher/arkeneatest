@@ -82,7 +82,7 @@
 <!--                            <input type="text" name="asset_contactemail" class="form-control" placeholder="joy@bdv.co.za" data-validate-length-range="6" data-validate-words="2" required="required"  required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">-->
                             <!-- <input type="text" name="asset_contactemail" id="asset_contactemail" value="<?php echo set_value('asset_contactemail'); ?>" class="form-control" placeholder="joy@bdv.co.za" pattern="[^@\s]+@[^@\s]+" title="in-valid"  required="required" > -->
                             <!-- <input type="text" class="form-control" placeholder="joy@bdv.co.za" pattern="" required /> -->
-                           <input type="email" name="asset_contactemail" id="asset_contactemail" value="<?php echo set_value('asset_contactemail'); ?>" class="form-control" placeholder="joy@bdv.co.za"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required="required">
+                           <input type="text" name="asset_contactemail" id="asset_contactemail" value="<?php echo set_value('asset_contactemail'); ?>" class="form-control" placeholder="joy@bdv.co.za" required="required">
 
                         </div>
                             <?php if (form_error('asset_contactemail')) { ?>

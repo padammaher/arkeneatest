@@ -632,7 +632,7 @@ class AssetsManagement extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
             
 
-            $data['asset_code_list'] = $this->Assets->assetcode_list();
+            $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
             $data['asset_userid_list'] = $this->Assets->asset_userid_list();
             //                asset_user_form_action
             $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -659,7 +659,7 @@ class AssetsManagement extends MY_Controller {
                             if ($isUnique) {
                             //                
 
-                                $this->session->set_flashdata('error_msg', 'Asset user is already existed');
+                                $this->session->set_flashdata('error_msg', 'Asset user is already added');
                                 load_view_template($data, 'Assets/user_asset_add');
                             } else {
                                     $inserteddata = $this->Assets->add_asset_user($insert_data);
@@ -705,7 +705,7 @@ class AssetsManagement extends MY_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
-            $data['asset_code_list'] = $this->Assets->assetcode_list();
+            $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
             $data['asset_userid_list'] = $this->Assets->asset_userid_list();
 
 
@@ -751,7 +751,7 @@ class AssetsManagement extends MY_Controller {
                     if ($isUnique) {
                         //                
 
-                        $this->session->set_flashdata('error_msg', 'Asset user is already existed');
+                        $this->session->set_flashdata('error_msg', 'Asset user is already updated');
                        load_view_template($data, 'Assets/user_assets_edit');
 
                     } else {

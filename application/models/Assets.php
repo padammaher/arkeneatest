@@ -101,6 +101,7 @@ class Assets extends MY_Model {
         $this->db->select('id,location_name');
         $this->db->from('customer_business_location');
 //        $this->db->where('isactive', 1);
+        $this->db->group_by('id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
