@@ -98,9 +98,9 @@ class Assets extends MY_Model {
     }
 
     public function CustomerLocation_list() {
-        $this->db->select('id,location');
-        $this->db->from('asset_location');
-        $this->db->where('isactive', 1);
+        $this->db->select('id,location_name');
+        $this->db->from('customer_business_location');
+//        $this->db->where('isactive', 1);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;

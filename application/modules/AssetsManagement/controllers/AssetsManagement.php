@@ -59,14 +59,14 @@ class AssetsManagement extends MY_Controller {
                         'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0'
                 );
 
-            $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha|numeric');
+            $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('Customerlocation', 'User Location', 'required'); 
             $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
             $this->form_validation->set_rules('Assettype', 'Asset Type', 'required'); 
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha|numeric'); 
-            $this->form_validation->set_rules('Make', 'Make', 'required|alpha|numeric');
-            $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha|numeric'); 
+            $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric_spaces'); 
+            $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric_spaces');
+            $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric_spaces'); 
             // $this->form_validation->set_rules('description', 'Description', 'required');
             $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  
 
@@ -189,14 +189,14 @@ class AssetsManagement extends MY_Controller {
                 } else if ($form_action == "update") {
                     //   print_r($this->input->post());
                     //  exit;
-            $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha|numeric');
+            $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('Customerlocation', 'User Location', 'required'); 
             $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
             $this->form_validation->set_rules('Assettype', 'Asset Type', 'required'); 
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha|numeric'); 
-            $this->form_validation->set_rules('Make', 'Make', 'required|alpha|numeric');
-            $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha|numeric'); 
+            $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric_spaces'); 
+            $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric_spaces');
+            $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric_spaces'); 
             // $this->form_validation->set_rules('description', 'Description', 'required');
             $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  
                     $assets_data = array(
@@ -375,13 +375,13 @@ class AssetsManagement extends MY_Controller {
                 $form_action = $this->input->post('asset_location_post');
                 $asset_loc_id = $this->input->post('asset_location_post_id');
 
-            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required|alpha|numeric');
+            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('location', 'Asset Location', 'required'); 
             $this->form_validation->set_rules('address', 'Asset address', 'required');
             
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
             $this->form_validation->set_rules('contact_no', 'Contact number', 'required|numeric'); 
-            $this->form_validation->set_rules('contact_person', 'Contact person', 'required|alpha|numeric');
+            $this->form_validation->set_rules('contact_person', 'Contact person', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('contact_email', 'Email', 'required|valid_email'); 
                 // print_r($this->input->post());
                 // var_dump($isUnique);
@@ -513,13 +513,13 @@ class AssetsManagement extends MY_Controller {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //            exit;
 
-            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required|alpha|numeric');
+            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('location', 'Asset Location', 'required'); 
             $this->form_validation->set_rules('address', 'Asset address', 'required');
             
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
             $this->form_validation->set_rules('contact_no', 'Contact number', 'required|numeric'); 
-            $this->form_validation->set_rules('contact_person', 'Contact person', 'required|alpha|numeric');
+            $this->form_validation->set_rules('contact_person', 'Contact person', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('contact_email', 'Email', 'required|valid_email'); 
             // $this->form_validation->set_rules('description', 'Description', 'required');
             // $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  

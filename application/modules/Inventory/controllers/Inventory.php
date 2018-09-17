@@ -87,10 +87,10 @@ class Inventory extends MY_Controller {
                                 'isactive`'=>$isactivestatus  
                               );
   
-            $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha|numeric');
-            $this->form_validation->set_rules('serialnumber', 'Serial number', 'required|alpha|numeric');
-            $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha|numeric'); 
-            $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha|numeric');
+            $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha_numeric_spaces');
+            $this->form_validation->set_rules('serialnumber', 'Serial number', 'required|alpha_numeric_spaces');
+            $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha_numeric_spaces'); 
+            $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('comm_type', 'Communication Type', 'required'); 
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
             $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric'); 
@@ -236,10 +236,10 @@ class Inventory extends MY_Controller {
                                 'isactive`'=>($this->input->post('isactive') == "on") ? '1':'0' 
                               );
             
-              $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha_numeric');
-            $this->form_validation->set_rules('serialnumber', 'Serial number', 'required|alpha_numeric');
-            $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha_numeric'); 
-            $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric');
+              $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha_numeric_spaces');
+            $this->form_validation->set_rules('serialnumber', 'Serial number', 'required|alpha_numeric_spaces');
+            $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha_numeric_spaces'); 
+            $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric_spaces');
             $this->form_validation->set_rules('comm_type', 'Communication Type', 'required'); 
             // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
             $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric'); 
@@ -969,21 +969,16 @@ class Inventory extends MY_Controller {
 
       function Check_devicenum_is_exist()
       {
-          $data='';
+          $data=0;
           
           $user_id = $this->session->userdata('user_id');
           $devicenum=$this->input->post('devicenum');
           $devicedata=$this->Inventory_model->Check_devicenum_is_exist($devicenum,$user_id);          
-          if($devicedata[0]['Cnt_number'] > 0)
-          {
-             $return=1;
+          foreach ($devicedata as $devicedataVal) {
+              $data=$devicedataVal->Cnt_number;
           }
-          else
-          {
-            $return=0;
-          }
-          echo $return;
-           // echo json_encode($devicedata);
+          echo $data;
+
 
       }      
 }

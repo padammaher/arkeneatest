@@ -223,7 +223,7 @@
                
                 var options;
                 // $("#UOM").empty();
-                var options = '<option value="">Select Type</option>';
+//                var options = '<option value="">Select Type</option>';
                 $.ajax({
                     url: '<?php echo base_url(); ?>Inventory/Check_devicenum_is_exist',
                     type: 'post',
@@ -237,7 +237,7 @@
                         //     options += '<option value="' + obj[i]['id'] + '">' + obj[i]['name'] + '</option>';
                         // }
                         // $("#UOM").html(options);
-                        // alert(res);
+                         alert(res);
                     }
                 });
             });
