@@ -827,18 +827,15 @@ class Inventory extends MY_Controller {
     }
 
     function Check_devicenum_is_exist() {
-        $data = '';
+        $data = 0;
 
         $user_id = $this->session->userdata('user_id');
         $devicenum = $this->input->post('devicenum');
         $devicedata = $this->Inventory_model->Check_devicenum_is_exist($devicenum, $user_id);
-        if ($devicedata[0]['Cnt_number'] > 0) {
-            $return = 1;
-        } else {
-            $return = 0;
+        foreach ($devicedata as $devicedataVal) {
+            $data = $devicedataVal->Cnt_number;
         }
-        echo $return;
-        // echo json_encode($devicedata);
+        echo $data;
     }
 
 }

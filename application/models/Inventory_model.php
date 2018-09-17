@@ -352,8 +352,10 @@ class Inventory_model extends MY_Model {
         $this->db->from('device_inventory');                
         $this->db->limit('1');
         $this->db->group_by('id');
+        $this->db->where('device_inventory.number',$devicenum);
         $query = $this->db->get();
-        $objData = $query->result_array();
+//        echo $this->db->last_query();
+        $objData = $query->result();
         return $objData;
     }
 }
