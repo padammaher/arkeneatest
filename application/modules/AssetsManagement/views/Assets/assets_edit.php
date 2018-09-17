@@ -139,10 +139,10 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" id="Movable" name="Movable">
 
-                                    <option value="<?php echo $list['ismovable'] ?>"></option>
+                                    <option value="">Select Type</option>
 
-                                    <option value="1">Movable</option>
-                                    <option value="2">Immovable</option>
+                                    <option value="1" <?php echo set_value('Movable',$list['ismovable']) == "1"? 'selected':'' ;?>>Movable</option>
+                                    <option value="2" <?php echo set_value('Movable',$list['ismovable']) == "2"? 'selected':'' ;?>>Immovable</option>
                                 </select>
 
                             </div>

@@ -78,7 +78,7 @@
                                     <li class="flex-item"><?php echo $list['client_username'] ?></li>
 
 
-                                    <li class="flex-item">
+                                    <li class="flex-item" style="    display: -webkit-inline-box;">
 
                                         <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
@@ -96,10 +96,14 @@
                                                 <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
 
 
-                                                <a title="Manage Users" class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
+                                                <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
                                                     <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
                                                 </a>   
-                                            </form> <?php } ?>
+                                            </form> <?php }else {?>                                               
+                                            <a href="<?php echo base_url('Assets_add');?>" class="manage_location"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
+                                                    <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                </a> 
+                                            <?php } ?>
                                         <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
@@ -109,7 +113,11 @@
                                                 <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                     <i class="fa fa-group text-warning"></i> 
                                                 </a>
-                                            </form> <?php } ?>
+                                            </form> <?php }else { ?>
+                                        <a href="<?php echo base_url('User_asset_add');?>" title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                    <i class="fa fa-group text-warning"></i> 
+                                                </a>
+                                            <?php } ?>
                                         <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
                                             <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
@@ -117,6 +125,7 @@
                                                 <i class="fa fa-list-ul text-info"></i> 
                                             </a>
                                         </form>
+                                        
 
                                     </li>
 
