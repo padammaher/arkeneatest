@@ -155,7 +155,7 @@ class Customer extends MY_Controller {
 
     public function client_user_list()
     {     $user_id = $this->session->userdata('user_id');
-        $this->data['client_details']= $this->Customer_Model->get_client_list();
+        $this->data['client_details']= $this->Customer_Model->get_client_list($user_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
         // $this->template->set_master_template('template.php');
@@ -304,8 +304,9 @@ class Customer extends MY_Controller {
    }
    public function customer_business_location_list()
    {
-    $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
-    $user_id = $this->session->userdata('user_id');
+       $user_id = $this->session->userdata('user_id');
+    $this->data['location_detail']=  $this->Customer_Model->get_business_list($user_id); 
+    
     $this->data['dataHeader'] = $this->users->get_allData($user_id);
     load_view_template($this->data, 'customer_business_location_list');
     // $this->template->set_master_template('template.php');
@@ -332,7 +333,7 @@ class Customer extends MY_Controller {
 
    }
    public function add_business_location(){
-    if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+    if (!$this->ion_auth->logged_in() ) {
         redirect('auth', 'refresh');
     }else{  
 
@@ -356,6 +357,8 @@ class Customer extends MY_Controller {
         $additional_data['mobile']=$this->input->post('mobile');
         if($this->input->post('email'))
         $additional_data['email']=$this->input->post('email');
+        $additional_data['user_id']=$this->session->userdata('user_id');
+        
         $this->Customer_Model->add_business_location($additional_data); 
        // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
 
@@ -381,17 +384,11 @@ class Customer extends MY_Controller {
       $user_id = $this->session->userdata('user_id');
        $this->data['dataHeader'] = $this->users->get_allData($user_id);
        load_view_template($this->data, 'customer_business_location_edit');
-    //   $this->template->set_master_template('template.php');
-    //   $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-    //   $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-    //   $this->template->write_view('content', 'customer_business_location_edit', (isset($this->data) ? $this->data : NULL), TRUE);
-    //   $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-    //   $this->template->render();
 
    
    }
    public function update_business_location(){
-    if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+    if (!$this->ion_auth->logged_in()) {
         redirect('auth', 'refresh');
     }else{  
         if($this->input->post('id'))
@@ -416,6 +413,7 @@ class Customer extends MY_Controller {
         $additional_data['mobile']=$this->input->post('mobile');
         if($this->input->post('email'))
         $additional_data['email']=$this->input->post('email');
+         $additional_data['user_id']=$this->session->userdata('user_id');
         $this->Customer_Model->update_busineess_location($additional_data,$id); 
        // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
         $this->session->set_flashdata('success_msg','Business location update sucessfully');

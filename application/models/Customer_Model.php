@@ -49,8 +49,8 @@ class Customer_Model extends CI_Model {
         }
 
     }
-    public function get_client_list(){
-        $client_data=$this->db->from('branch_user')->get()->result();
+    public function get_client_list($user_id){
+        $client_data=$this->db->from('branch_user')->where('user_id',$user_id)->get()->result();
         return $client_data; 
     }
     
@@ -80,13 +80,14 @@ class Customer_Model extends CI_Model {
         $this->db->insert('customer_business_location',$data);
         return true; 
     }
-    public function get_business_list(){
+    public function get_business_list($user_id){
        
         $this->db->select('customer_business_location.*,city.name as city_name,country.name as country_name,state.name as state_name'); 
         $this->db->from('customer_business_location'); 
         $this->db->join('city', 'customer_business_location.city = city.id', 'left');
         $this->db->join('country', 'customer_business_location.country = country.id', 'left');
         $this->db->join('state', 'customer_business_location.state = state.id', 'left');
+        $this->db->where('user_id', $user_id);        
         $this->db->order_by("customer_business_location.id", "desc");
         $query= $this->db->get();
         $business_data=  $query->result();
