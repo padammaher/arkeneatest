@@ -33,7 +33,7 @@ class Users extends MY_Model {
     }
     
     public function get_allData($user_id){
-           $this->db->select('*');
+        $this->db->select('*');
         $this->db->from('users');
         $this->db->where('id', $user_id);
         $query = $this->db->get();

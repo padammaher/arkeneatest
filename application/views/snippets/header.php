@@ -3,7 +3,7 @@
     <div class="nav_menu">
         <nav>
             <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a> <div class="companyid">Bidvest Vericon Ltd.</div>
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a> <div class="companyid"><?php echo $dataHeader['company_name']; ?></div>
             </div>
 
             <ul class="nav navbar-nav navbar-right">
