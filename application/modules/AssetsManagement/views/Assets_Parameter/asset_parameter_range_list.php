@@ -58,13 +58,13 @@
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
-                                        <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $r['parameter']; ?></li>
-                                        <li class="flex-item"><?php echo $r['min_value'] ? $r['min_value'] : ""; ?></li>
-                                        <li class="flex-item"><?php echo $r['max_value'] ? $r['max_value'] : ''; ?></li>
-                                        <li class="flex-item"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ''; ?></li>
-                                        <li class="flex-item"><?php echo $r['uom'] ? $r['uom'] : ''; ?></li>
-                                        <li class="flex-item"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ''; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['parameter']; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['min_value'] ? $r['min_value'] : ""; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['max_value'] ? $r['max_value'] : ''; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ''; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uom'] ? $r['uom'] : ''; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ''; ?></li>
                                         <li class="flex-item">
                                             <form action="" method="post" id="update_param_range<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
@@ -111,7 +111,7 @@
         </div>
     </div>
 </div>
-
+<div id="detailsModal" class="modal fade" role="dialog"></div>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -138,6 +138,21 @@
             $("#post" + id).val('edit');
             $("#update_param_range" + id).attr('action', url);
             $("#update_param_range" + id).submit();
+        });
+        $(".flex-item").click(function (e) {
+            if (!$(e.target).hasClass('fa')) {
+                var id = $(this).attr('data-value');
+                $.ajax({
+                    url: "<?php echo base_url() . 'AssetsManagement/asset_parameter_range_details'; ?>",
+                    method: "POST",
+                    data: {param_range_id: id},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#detailsModal").html(data);
+                        $('#detailsModal').modal('show');
+                    }
+                });
+            }
         });
     });
 </script>

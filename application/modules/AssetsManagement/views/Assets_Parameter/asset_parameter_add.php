@@ -200,7 +200,7 @@
         } else {
             if (uom.length == 0) {
                 var selected_val = "<?php echo isset($uom_id) ? $uom_id : ''; ?>";
-                alert(uom + " " + param);
+//                alert(uom + " " + param);
                 $.ajax({
                     url: "<?php echo base_url() . 'AssetsManagement/parameter_uom'; ?>",
                     method: "POST",

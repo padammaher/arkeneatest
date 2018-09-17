@@ -1,14 +1,6 @@
 <!-- page content -->
 <!--<div class="right_col" role="main">-->
 <div class="">
-    <?php
-//    if ($this->session->flashdata('success_msg')) {
-//        echo $this->session->flashdata('success_msg');
-//    }
-//    if ($this->session->flashdata('error_msg')) {
-//        echo $this->session->flashdata('error_msg');
-//    }
-    ?>
     <div class="page-title">
         <div class="title_left">
             <h4>Asset Category</h4>
@@ -47,9 +39,9 @@
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
-                                        <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $r['name']; ?></li>
-                                        <li class="flex-item"><?php echo $r['description'] ? $r['description'] : ""; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['description'] ? $r['description'] : ""; ?></li>
                                         <!--<li class="flex-item"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></li>-->
                                         <li class="flex-item">
                                             <form action="<?php echo base_url(); ?>updateAssetCategory" method="post" id="updateasset<?php echo $i; ?>">
@@ -87,7 +79,8 @@
     </div>
 </div>
 <!--</div>-->
-<?php // echo $this->load->view('master/modal/assetcategory');  ?>
+<div id="detailsModal" class="modal fade" role="dialog"></div>
+<?php // echo $this->load->view('master/modal/assetcategory'); ?>
 
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
@@ -99,18 +92,27 @@
         });
         $(".delete").click(function () {
             var id = $(this).attr('id');
-            $(".modal").modal();
+            $(".confirmmodal").modal();
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateasset" + id).submit();
             });
         });
-//        $(".flex-item").click(function (e) {
-//            if (!$(e.target).hasClass('fa')) {
-////                $('#sr_name_modal').html()
-//                $('#detailsModal').modal('show');
-//            }
-//        });
+        $(".flex-item").click(function (e) {
+            if (!$(e.target).hasClass('fa')) {
+                var id = $(this).attr('data-value');
+                $.ajax({
+                    url: "<?php echo base_url() . 'Master/assetmaster/asset_category_details'; ?>",
+                    method: "POST",
+                    data: {category_id: id},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#detailsModal").html(data);
+                        $('#detailsModal').modal('show');
+                    }
+                });
+            }
+        });
     });
 </script>
 <!-- /page content -->

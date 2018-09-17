@@ -46,9 +46,9 @@
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
-                                        <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $r['name']; ?></li>
-                                        <li class="flex-item"><?php echo $r['description'] ? $r['description'] : ""; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></li>
+                                        <li class="flex-item"  data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></li>
+                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['description'] ? $r['description'] : ""; ?></li>
                                         <li class="flex-item">
                                             <form action="<?php echo base_url(); ?>updateSensorType" method="post" id="updatesensor<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
@@ -89,7 +89,7 @@
 
 </div>
 <!--</div>-->
-
+<div id="detailsModal" class="modal fade" role="dialog"></div>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -105,6 +105,21 @@
                 $("#post" + id).val('delete');
                 $("#updatesensor" + id).submit();
             });
+        });
+        $(".flex-item").click(function (e) {
+            if (!$(e.target).hasClass('fa')) {
+                var id = $(this).attr('data-value');
+                $.ajax({
+                    url: "<?php echo base_url() . 'Master/sensormaster/sensor_details'; ?>",
+                    method: "POST",
+                    data: {sensor_id: id},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#detailsModal").html(data);
+                        $('#detailsModal').modal('show');
+                    }
+                });
+            }
         });
     });
 </script>

@@ -1,4 +1,4 @@
-<div id="detailsModal" class="modal fade" role="dialog">
+<?php if (isset($result) && !empty($result)) { ?>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -13,15 +13,15 @@
                     <tbody>
                         <tr>
                             <td width="" class="lft-td">Sr. no.</td>
-                            <td id="sr_name_modal">1</td>
+                            <td id="sr_name_modal"><?php echo $sr_no; ?></td>
                         </tr>
                         <tr>
                             <td width="" class="lft-td">Asset Category</td>
-                            <td id="asset_cat_modal"></td>
+                            <td id="asset_cat_modal"><?php echo $result[0]['name']; ?></td>
                         </tr>
                         <tr>
                             <td class="lft-td">Description</td>
-                            <td id="asset_cat_descmodal"></td>
+                            <td id="asset_cat_descmodal"><?php echo $result[0]['description']; ?></td>
                         </tr>
 
                     </tbody>
@@ -33,4 +33,4 @@
             </div>
         </div>
     </div>
-</div>  
+<?php } ?>

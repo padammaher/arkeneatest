@@ -262,4 +262,26 @@ class AssetMaster extends CI_Controller {
         }
     }
 
+    public function asset_category_details() {
+        if ($this->input->post('category_id')) {
+            $id = explode('_', $this->input->post('category_id'));
+            $data['sr_no'] = $id[1];
+            $data['result'] = $this->assetmodel->get_asset_category($id[0]);
+
+            $view = $this->load->view('master/modal/assetcategory', $data);
+            echo $view;
+        }
+    }
+
+    public function asset_type_details() {
+        if ($this->input->post('assettype_id')) {
+            $id = explode('_', $this->input->post('assettype_id'));
+            $data['sr_no'] = $id[1];
+            $data['result'] = $this->assetmodel->get_asset_type($id[0]);
+
+            $view = $this->load->view('master/modal/asset_type', $data);
+            echo $view;
+        }
+    }
+
 }

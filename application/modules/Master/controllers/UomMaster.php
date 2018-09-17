@@ -172,4 +172,15 @@ class UomMaster extends CI_Controller {
 //        $this->TaskModel->getTask_autocomplete($keyword);
     }
 
+    public function uom_details() {
+        if ($this->input->post('uom_id')) {
+            $id = explode('_', $this->input->post('uom_id'));
+            $data['sr_no'] = $id[1];
+            $data['result'] = $this->uommodel->get_uom_type($id[0]);
+
+            $view = $this->load->view('master/modal/uom_type', $data);
+            echo $view;
+        }
+    }
+
 }
