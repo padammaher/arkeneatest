@@ -47,7 +47,7 @@ class Assets extends MY_Model {
         return $this->db->delete('asset');
     }
 
-    public function assets_list($id = NULL) {
+    public function assets_list($user_id, $id = NULL) {
 
         $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
         //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
@@ -62,6 +62,7 @@ class Assets extends MY_Model {
         if (isset($id) && $id !== NULL) {
             $this->db->where('asset.id', $id);
         }
+        $this->db->where('asset.createdby', $user_id);
         $query = $this->db->get();
         $assets_list = $query->result_array();
         return $assets_list;
@@ -101,6 +102,7 @@ class Assets extends MY_Model {
         $this->db->select('id,location_name');
         $this->db->from('customer_business_location');
 //        $this->db->where('isactive', 1);
+        $this->db->group_by('id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;

@@ -58,66 +58,88 @@
                         </ul>
                     </div>
                 </div>
- 
-       
+
+
                 <div class="row clearfix">
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <?php $i=1; foreach ($assetlist as $list) {// var_dump($list); ?>
-                          
+                        <?php
+                        if (isset($assetlist) && !empty($assetlist)) {
+                            $i = 1;
+                            foreach ($assetlist as $list) {// var_dump($list);  
+                                ?>
+
+                                <ul class="flex-container nowrap">
+
+                                    <?php //var_dump($assetlist)   ?>
+                                    <li class="flex-item"><?php echo $i; ?></li>
+                                    <li class="flex-item"><?php echo $list['code'] ?></li>
+                                    <li class="flex-item"><?php echo $list['location'] ?></li>
+                                    <li class="flex-item"><?php echo $list['client_username'] ?></li>
+
+
+                                    <li class="flex-item" style="    display: -webkit-inline-box;">
+
+                                        <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
+                                            <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
+                                            <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                            <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                            </a>
+                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                            </a> 
+                                        </form>
+                                        <?php if (!empty($list['locid'])) { ?>  
+                                            <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $list['locid']; ?>" name="asset_location_post_id"/>
+                                                <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+
+
+                                                <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
+                                                    <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                </a>   
+                                            </form> <?php }else {?>                                               
+                                            <a href="<?php echo base_url('Assets_add');?>" class="manage_location"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
+                                                    <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                </a> 
+                                            <?php } ?>
+                                        <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
+                                            <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
+                                                <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+
+
+                                                <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                    <i class="fa fa-group text-warning"></i> 
+                                                </a>
+                                            </form> <?php }else { ?>
+                                        <a href="<?php echo base_url('User_asset_add');?>" title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                    <i class="fa fa-group text-warning"></i> 
+                                                </a>
+                                            <?php } ?>
+                                        <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
+                                            <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
+                                            <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
+                                            <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
+                                                <i class="fa fa-list-ul text-info"></i> 
+                                            </a>
+                                        </form>
+                                        
+
+                                    </li>
+
+                                </ul>
+                                <?php
+                                $i++;
+                            }
+                        } else {
+                            ?>
                             <ul class="flex-container nowrap">
-
-                                <?php //var_dump($assetlist) ?>
-                                <li class="flex-item"><?php echo $i; ?></li>
-                                <li class="flex-item"><?php echo $list['code'] ?></li>
-                                <li class="flex-item"><?php echo $list['location'] ?></li>
-                                <li class="flex-item"><?php echo $list['client_username'] ?></li>
-                              
-                        
-                                <li class="flex-item">
-                                    
-                <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
-                <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
-                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                </a>
-                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                </a> 
-            </form>
-              <?php if(!empty($list['locid'])){ ?>  
-             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
-                <input type="hidden" value="<?php echo $list['locid']; ?>" name="asset_location_post_id"/>
-                <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                      
-
-                   <a title="Manage Users" class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
-                      <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
-                    </a>   
-                </form> <?php } ?>
-                 <?php if(!empty($list['asset_user_tbl_id'])){ ?>  
-                <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
-                <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
-                <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                      
-
-                                    <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                        <i class="fa fa-group text-warning"></i> 
-                                    </a>
-                </form> <?php } ?>
-                 <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
-                <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
-                <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
-                <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
-                      <i class="fa fa-list-ul text-info"></i> 
-                    </a>
-                 </form>
-                                                     
-                                </li>
-
+                                <li class="flex-item">No data found..!</li>
                             </ul>
-                        <?php $i++; } ?>
+                        <?php }
+                        ?>
                     </div>
 
                 </div>
@@ -135,7 +157,7 @@
 //            alert(id);
             $("#Assets_edit" + id).submit();
         });
-        
+
 //                $(".delete").click(function () {
 //            var flag = confirm('Are you sure you want to delete this item?');
 //            if (flag == true) {
@@ -145,7 +167,7 @@
 //            }
 //        });
 
-  $(".delete").click(function () {
+        $(".delete").click(function () {
             var id = $(this).attr('id');
             $(".modal").modal();
             $(".ok").click(function () {
@@ -154,31 +176,31 @@
                 $("#Assets_edit" + id).submit();
             });
         });
-        
-                $(".manage_user").click(function () {
+
+        $(".manage_user").click(function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
-                var id = $(this).attr('id');
-                // $("#post" + id).val('delete');
-                $("#asset_user" + id).submit();
+            var id = $(this).attr('id');
+            // $("#post" + id).val('delete');
+            $("#asset_user" + id).submit();
             // }
         });
-                 $(".manage_location").click(function () {
+        $(".manage_location").click(function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
-                var id = $(this).attr('id');
-                // $("#post" + id).val('delete');
-                $("#asset_location" + id).submit();
+            var id = $(this).attr('id');
+            // $("#post" + id).val('delete');
+            $("#asset_location" + id).submit();
             // }
-        }); 
+        });
         $(".asset_para_range").click(function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
-                var id = $(this).attr('id');
-                // $("#post" + id).val('delete');
-                $("#asset_parameter_range" + id).submit();
+            var id = $(this).attr('id');
+            // $("#post" + id).val('delete');
+            $("#asset_parameter_range" + id).submit();
             // }
-        }); 
+        });
 
     });
 </script>
