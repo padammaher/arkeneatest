@@ -36,8 +36,6 @@ class Auth extends MY_Controller {
             $groups = $this->ion_auth->groups()->result_array();
             $currentGroups = $this->ion_auth->get_users_groups($user_id)->result();
             // display the edit user form
-            $this->ion_auth->update_login_flag($user_id); 
-            
             $this->data['csrf'] = $this->_get_csrf_nonce();
 
             // set the flash data error message if there is one

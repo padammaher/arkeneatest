@@ -37,10 +37,10 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <select class="form-control" required="required" name="country_id">
+                    <select class="form-control" name="client_location" required="required" name="country_id">
                     <option>Select Customer Location </option>
-                      <?php foreach($country as $contries){ ?> 
-                      <option value="<?php echo  $contries->location_name;?>"><?php echo $contries->location_name;?> </option>
+                      <?php foreach($client_location as $location){ ?> 
+                      <option value="<?php echo  $location->location_name;?>"><?php echo $location->location_name;?> </option>
                       <?php } ?> 
                    </select>
                 </div>
@@ -57,15 +57,8 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Password
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="password" id="client_password" autocomplete="off" type="password" class="form-control" value="Enter Password" required="required">
-                  <ul  id="d1" class="list-group">
-                    <li class="list-group-item list-group-item-success">Password Conditions</li>
-                    <li class="list-group-item" id=d12><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Upper Case Letter</li>
-                    <li class="list-group-item" id=d13 ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Lower Case Letter </li>
-                    <li class="list-group-item" id=d14><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Special Char </li>
-                    <li class="list-group-item" id=d15><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Number</li>
-                    <li class="list-group-item" id=d16><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> Length 8 Char</li>
-                  </ul>
+                    <input name="password" id="client_password" autocomplete="off" type="text" class="form-control" placeholder="Enter Password" required="required">
+                  <div id="errorpassword"> </div>
                 </div>
               </div>						  
               <div class="item form-group">
@@ -138,7 +131,7 @@ $('#client_username').focusout(function(){
 <script>
 $(document).ready(function() {
 ////////////////////
-$('#client_password').keyup(function(){
+$('#client_password').focusout(function(){
 var str=$('#client_password').val();
 var upper_text= new RegExp('[A-Z]');
 var lower_text= new RegExp('[a-z]');
@@ -147,69 +140,15 @@ var special_char= new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
 
 var flag='T';
 
-if(str.match(upper_text)){
-$('#d12').html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> One Upper Case Letter ");
-$('#d12').css("color", "green");
+if(str.match(upper_text)&&str.match(lower_text)&&str.match(special_char)&&str.match(number_check)&&str.length>7){
+$('#errorpassword').html("");
+//$('#errorpassword').css("color", "green");
 }else{$('#d12').css("color", "red");
-$('#d12').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Upper Case Letter ");
-flag='F';}
-
-if(str.match(lower_text)){
-$('#d13').html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> One Lower Case Letter ");
-$('#d13').css("color", "green");
-}else{$('#d13').css("color", "red");
-$('#d13').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Lower Case Letter ");
-flag='F';}
-
-if(str.match(special_char)){
-$('#d14').html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> One Special Char ");
-$('#d14').css("color", "green");
-}else{
-$('#d14').css("color", "red");
-$('#d14').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Special Char ");
-flag='F';}
-
-if(str.match(number_check)){
-$('#d15').html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> One Number ");
-$('#d15').css("color", "green");
-}else{
-$('#d15').css("color", "red");
-$('#d15').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> One Number ");
-flag='F';}
-
-
-if(str.length>7){
-$('#d16').html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> Length 8 Char ");
-
-$('#d16').css("color", "green");
-}else{
-$('#d16').css("color", "red");
-$('#d16').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> Length 8 Char ");
-
-flag='F';}
-
-
-if(flag=='T'){
-$("#d1").fadeOut();
-$('#display_box').css("color","green");
-$('#display_box').html("<span class='glyphicon glyphicon-ok' aria-hidden='true'></span> "+str);
-}else{
-$("#d1").show();
-$('#display_box').css("color","red");
-$('#display_box').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> "+str);
+$('#errorpassword').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> add atleast one upper,lower,special character, one number, and minimum 8 character length");
+$('#errorpassword').css("color", "red");
 }
 });
-///////////////////
-$('#client_password').blur(function(){
-$("#d1").fadeOut();
 });
-///////////
-$('#client_password').focus(function(){
-$("#d1").show();
-});
-////////////
-
-})
 </script>
 
   

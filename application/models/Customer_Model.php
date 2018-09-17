@@ -12,6 +12,14 @@ class Customer_Model extends CI_Model {
         $this->load->helper('date');
         $this->lang->load('ion_auth');
     }
+     public function update_login_flag($user_id){
+        $data['login_flag']=1; 
+      
+        $this->db->where('id',$user_id); 
+        $this->db->update('users', $data);  
+       // print_r($user_id); exit();
+        return true; 
+    }
     public function add_customer($data){
        $alreadyexit=  $this->db->from('user_details')->where('user_id',$user_id)->get()->result(); 
        if(!$alreadyexit){
@@ -87,7 +95,7 @@ class Customer_Model extends CI_Model {
         $this->db->join('city', 'customer_business_location.city = city.id', 'left');
         $this->db->join('country', 'customer_business_location.country = country.id', 'left');
         $this->db->join('state', 'customer_business_location.state = state.id', 'left');
-        $this->db->order_by("customer_business_location.id", "desc");
+        //$this->db->order_by("customer_business_location.id", "desc");
         $query= $this->db->get();
         $business_data=  $query->result();
         //$client_data=$this->db->from('customer_business_location')->where('id',$user_id)->get()->result();

@@ -50,3 +50,6 @@
     </div>
   </div>
 </div>
+<script> 
+    $('#sidebar-menu').css('pointer-events','none');
+    </script> 

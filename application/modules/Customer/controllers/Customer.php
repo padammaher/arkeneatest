@@ -129,7 +129,7 @@ class Customer extends MY_Controller {
          $update_user_id =$this->input->post('user_id');
 
          $this->Customer_Model->update_customer_detail($additional_data, $update_user_id);
-
+         $this->Customer_Model->update_login_flag($user_id); 
          $this->session->set_flashdata('success_msg','customer information update sucessfully');
           redirect('Customerinfo', 'refresh');
         //  $this->data['user_detail'] =$this->Customer_Model->get_customer_detail($update_user_id); 
@@ -156,6 +156,7 @@ class Customer extends MY_Controller {
     public function client_user_list()
     {     $user_id = $this->session->userdata('user_id');
         $this->data['client_details']= $this->Customer_Model->get_client_list();
+        $this->data['client_location']=$country=$this->Customer_Model->get_customer_location();
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
         // $this->template->set_master_template('template.php');
@@ -171,7 +172,7 @@ class Customer extends MY_Controller {
         $user_id = $this->session->userdata('user_id');
         $this->data['user_id']= $user_id; 
        
-        $this->data['country']=$country=$this->Customer_Model->get_customer_location();
+        $this->data['client_location']=$country=$this->Customer_Model->get_customer_location();
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_add');
         // $this->template->set_master_template('template.php');
@@ -199,7 +200,7 @@ class Customer extends MY_Controller {
          $additional_data['password']=$this->input->post('password'); 
          if($this->input->post('status'))
          $additional_data['status']=$this->input->post('status');
-        
+         
          $alreadyexist= $this->Customer_Model->add_client_detail($additional_data); 
         if($alreadyexist==2){
             $this->session->set_flashdata('error_msg','This user name already Exist');
@@ -235,6 +236,7 @@ class Customer extends MY_Controller {
         $user_id = $this->session->userdata('user_id');
         $client_id= $this->input->get('client_id'); 
         $this->data['client_details']= $this->Customer_Model->get_client_detail($client_id);
+        $this->data['client_location']=$this->Customer_Model->get_customer_location();
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'edit_client_user');
         // $this->template->set_master_template('template.php');
@@ -376,8 +378,10 @@ class Customer extends MY_Controller {
 
    public function edit_business_location(){
       $business_id= $this->input->get('business_id'); 
-      $this->data['business_detail']= $this->Customer_Model->get_business_detail($business_id); 
-      $this->data['country']=$country=$this->Customer_Model->get_country();
+      $this->data['business_detail']=$business_data= $this->Customer_Model->get_business_detail($business_id); 
+      $this->data['country_list']=$country=$this->Customer_Model->get_country();
+      $this->data['states_list']=  $state_list=  $this->Customer_Model->get_state_list($business_data[0]->country); 
+      $this->data['city_list']= $this->Customer_Model->get_city_list($business_data[0]->state); 
       $user_id = $this->session->userdata('user_id');
        $this->data['dataHeader'] = $this->users->get_allData($user_id);
        load_view_template($this->data, 'customer_business_location_edit');

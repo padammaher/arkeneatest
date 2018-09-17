@@ -7,7 +7,8 @@
         <div class="x_panel">
           <div class="x_title">
             <h4>Edit Customer Business Location
-            </h4>						
+            </h4>	
+             
             <div class="clearfix">
             </div>
           </div>
@@ -43,8 +44,8 @@
                   <select class="form-control" required="required" name="country" onChange="getState(this.value);">
                     <option value="">Select
                     </option>
-                    <?php foreach($country as $contries){ ?> 
-                   <option value="<?php echo $contries->id;?>"><?php echo $contries->name;?> </option>
+                    <?php  foreach($country_list as $contries){ ?> 
+                   <option value="<?php echo $contries->id;?>"<?php echo ($business_detail[0]->country==$contries->id)?'selected':''; ?>><?php echo $contries->name; ?> </option>
                    <?php } ?> 
                   </select>
                 </div>
@@ -56,6 +57,9 @@
                 <select class="form-control" name="state" id="State_id" onChange="getCity(this.value);">
                     <option value="">Select
                     </option>
+                     <?php foreach($states_list as $stat){ ?> 
+                   <option value="<?php echo $stat->id;?>"<?php echo ($business_detail[0]->state==$stat->id)?'selected':''; ?>><?php echo $stat->name; ?> </option>
+                   <?php } ?> 
                    
                   </select>
                 </div>
@@ -67,7 +71,9 @@
                 <select class="form-control"  name="city" id="City_id">
                     <option value="">Select
                     </option>
-                    
+                   <?php foreach($city_list as $city){ ?> 
+                     <option value="<?php echo $city->id;?>"<?php echo ($business_detail[0]->city==$city->id)?'selected':''; ?>><?php echo $city->name; ?> </option>
+                   <?php } ?> 
                   </select>
                   </select>
                 </div>

@@ -7,11 +7,11 @@
       </div>
       <div class="title_right">
         <div class="pull-right">
-          <a href="<?php echo base_url()?>Customer/add_customer_business_location" class="btn btn-sm btn-primary">Add New
+          <a href="<?php echo base_url()?>Add_Business_Location" class="btn btn-sm btn-primary">Add New
           </a>
-          <a href="<?php echo base_url()?>Customer/edit_customer_detail" class="btn btn-sm btn-primary">Customer Provisioning
+          <a href="<?php echo base_url()?>Editcustomerinfo" class="btn btn-sm btn-primary">Customer Provisioning
           </a>
-          <a href="<?php echo base_url()?>Customer/client_user_list" class="btn btn-sm btn-primary">User Management
+          <a href="<?php echo base_url()?>ManageUsers" class="btn btn-sm btn-primary">User Management
           </a>
         </div>
       </div>
@@ -52,11 +52,11 @@
                 </ul>
               </div>
             </div>
-            <?php foreach($location_detail as $location){ ?> 
+            <?php $i=1; foreach($location_detail as $location){ ?> 
             <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
-                  <li class="flex-item"><?php echo $location->id; ?>
+                  <li class="flex-item"><?php echo $i++; ?>
                   </li>
                   <li class="flex-item"><?php echo $location->location_name; ?>
                   </li>
