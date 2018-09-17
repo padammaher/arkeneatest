@@ -39,7 +39,7 @@
             <div class="pull-right">
                 <a href="<?php echo base_url() ?>AddClient" class="btn btn-sm btn-primary">Add New
                 </a>
-                <a href="<?php echo base_url() ?>Editcustomerinfo" class="btn btn-sm btn-primary">Customer Provisioning
+                <a href="<?php echo base_url() ?>Customerinfo" class="btn btn-sm btn-primary">Customer Provisioning
                 </a>
                 <a href="<?php echo base_url() ?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary">Customer Business Location
                 </a>
@@ -83,14 +83,19 @@
                   <li class="flex-item"><?php echo $clientinfo->client_username; ?>
                   </li>
                   <li class="flex-item">
-                    <a href="<?php echo base_url()?>Customer/edit_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Edit">  
+                      <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
+                    <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                       <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                       </i>
+                      <input type="hidden" value="<?php echo $clientinfo->id; ?>" name="client_id"/>
+                      <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                     </a>
-                    <a href="<?php echo base_url()?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');">
+                    <a  class="delete" id="<?php echo $i; ?>">
+                    <!-- <a href="<?php echo base_url()?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"> -->
                       <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
                       </i> 
                     </a> 
+                </form> 
                   </li>
                 </ul>
               </div>
@@ -217,9 +222,31 @@
         $("#aftersavemessage").delay(500).fadeOut("slow");
     });
 
+
 </script>
 <script>
     setTimeout(function () {
         $('#infoMessage').fadeOut('fast');
     }, 3000);
 </script> 
+
+
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".edit").click(function () {
+            alert('asdas');
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+            $("#update_client" + id).submit();
+        });
+        $(".delete").click(function () {
+            var id = $(this).attr('id');
+            $(".modal").modal();
+            $(".ok").click(function () {
+                $("#post" + id).val('delete');
+                $("#update_client" + id).submit();
+            });
+        });
+    });
+</script>

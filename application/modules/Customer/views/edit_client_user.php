@@ -1,4 +1,4 @@
-<div class="right_col" role="main">
+<!-- <div class="right_col" role="main"> -->
   <div class="">
     <div class="clearfix">
     </div>
@@ -17,16 +17,16 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="srno" type="text"  class="form-control" value="<?php echo $client_details[0]->srno; ?>" >
+                <input name="srno" type="text"  class="form-control" value="<?php echo (isset($client_details[0]->srno))?$client_details[0]->srno:''; ?>" >
                 
                 </div>
               </div> -->
-              <input name="id" type="hidden"  class="form-control"  value="<?php echo $client_details[0]->id; ?>" >
+              <input name="id" type="hidden"  class="form-control"  value="<?php echo (isset($client_details[0]->id))?$client_details[0]->id:''; ?>" >
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="client_name" type="text" class="form-control" placeholder="Saschin Naidoo" required="required"  value="<?php echo $client_details[0]->client_name; ?>" >
+                <input name="client_name" type="text" class="form-control" placeholder="Saschin Naidoo" required="required"  value="<?php echo (isset($client_details[0]->client_name))?$client_details[0]->client_name:''; ?>" >
                 </div>
               </div>
               <div class="item form-group">
@@ -37,7 +37,7 @@
                     <option>Select Customer Location
                     </option>
                      <?php foreach($client_location as $Location){ ?> 
-                    <option value="<?php echo $Location->location_name;?>"<?php echo ($Location->location_name==$client_details[0]->client_location)?'selected':'';?>><?php echo $Location->location_name; ?></option>
+                    <option value="<?php echo $Location->location_name;?>"<?php echo ($Location->location_name==$client_details[0]->client_location)?'selected':'';?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
                   <?php   } ?> 
                 </select>
                 </div>
@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 <script> 
 $(document).ready(function() {
 

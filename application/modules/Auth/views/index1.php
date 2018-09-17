@@ -51,5 +51,5 @@
   </div>
 </div>
 <script> 
-    $('#sidebar-menu').css('pointer-events','none');
+   /// $('#sidebar-menu').css('pointer-events','none');
     </script> 

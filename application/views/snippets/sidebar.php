@@ -19,9 +19,12 @@
         <!-- /menu profile quick info -->
 
         <br />
-
+ <?php if($this->session->userdata('login_flag'))
+ { 
+     $login_flag=$this->session->userdata('login_flag'); 
+ }?> 
         <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php if(isset($login_flag)&&$login_flag==1){ echo 'cursor-notallowed'; } ?>">
 
             <div class="menu_section">
                 <h3>Home</h3>

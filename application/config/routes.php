@@ -144,8 +144,11 @@ $route['Editcustomerinfo']='Customer/edit_customer_detail';
 $route['UpdateInfo']='Customer/update_cutomer_info';
 $route['ManageUsers']='Customer/client_user_list'; 
 $route['ManageBusinessLoacaiton']='Customer/customer_business_location_list';
-$route['AddClient']='Customer/client_user_add'; 
+//$route['AddClient']='Customer/client_user_add'; 
+$route['AddClient']='Customer/edit_client_user';
 $route['Add_Business_Location']='Customer/add_customer_business_location';
+
+//$route['update_client']='Customer/Customer';
 
 
 

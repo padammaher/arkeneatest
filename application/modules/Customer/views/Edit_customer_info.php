@@ -1,4 +1,4 @@
-<div class="right_col" role="main">
+<!-- <div class="right_col" role="main"> -->
   <div class="">
     <div class="clearfix">
     </div>
@@ -106,7 +106,7 @@
              <?php } ?> 
               <div class="item form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary">Save
+                  <button id="customer_info_submit" type="submit" class="btn btn-primary">Save
                   </button>
                   <a href="<?php echo base_url()?>Customer/customer_info">
                   <button type="button" class="btn btn-default">Cancel
@@ -120,7 +120,7 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 
 <script>
 function getState(val) {
@@ -151,12 +151,15 @@ $('#customer_email').focusout(function(){
                    var emil=$('#customer_email').val();
               var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             if( !emailReg.test( emil ) ) {
-                   $("#email_error").html('Please enter valid email'); 
+             
+                   $( "#customer_info_submit" ).prop( "disabled", true );
+                   $("#email_error").html('Please enter valid emaildfsdf'); 
                 } else {
-                  $("#email_error").html("");
                  
-               // alert('Thank you for your valid email');
-                }
+                  $("#email_error").html("");
+                  $( "#customer_info_submit" ).prop( "disabled", false );
+                    }
+                 
                 })
             });
 });

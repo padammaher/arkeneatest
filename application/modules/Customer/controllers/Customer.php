@@ -15,17 +15,12 @@ class Customer extends MY_Controller {
         $this->lang->load('auth');
     }
 
-    // redirect if needed, otherwise display the user list
+  
     public function index() {
         $user_id = $this->session->userdata('user_id');
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'add_customer');
-        // $this->template->set_master_template('template.php');
-        // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        // $this->template->write_view('content', 'add_customer', (isset($this->data) ? $this->data : NULL), TRUE);
-        // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        // $this->template->render();
+       
     }
     public function AddCustomer() {
 
@@ -94,12 +89,7 @@ class Customer extends MY_Controller {
         // print_r($this->data); exit(); 
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'Edit_customer_info');
-        // $this->template->set_master_template('template.php');
-        // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        // $this->template->write_view('content', 'Edit_customer_info', (isset($this->data) ? $this->data : NULL), TRUE);
-        // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        // $this->template->render();
+      
     }
 
     public function update_cutomer_info() {
@@ -132,16 +122,7 @@ class Customer extends MY_Controller {
          $this->Customer_Model->update_login_flag($user_id); 
          $this->session->set_flashdata('success_msg','customer information update sucessfully');
           redirect('Customerinfo', 'refresh');
-        //  $this->data['user_detail'] =$this->Customer_Model->get_customer_detail($update_user_id); 
-        //  $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        //  load_view_template($this->data, 'customer_info');
-         
-        //  $this->template->set_master_template('template.php');
-        //  $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        //  $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        //  $this->template->write_view('content', 'customer_info', (isset($this->data) ? $this->data : NULL), TRUE);
-        //  $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        //  $this->template->render();
+      
         }
     }
 
@@ -164,16 +145,9 @@ class Customer extends MY_Controller {
     public function client_user_add() {
         $user_id = $this->session->userdata('user_id');
         $this->data['user_id'] = $user_id;
-
         $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location();
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_add');
-        // $this->template->set_master_template('template.php');
-        // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        // $this->template->write_view('content', 'client_user_add', (isset($this->data) ? $this->data : NULL), TRUE);
-        // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        // $this->template->render();
     }
 
     public function add_client_detail() {
@@ -201,27 +175,14 @@ class Customer extends MY_Controller {
                 $this->data['user_id'] = $user_id;
                 $this->data['dataHeader'] = $this->users->get_allData($user_id);
                 load_view_template($this->data, 'client_user_add');
-                // $this->template->set_master_template('template.php');
-                // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-                // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-                // $this->template->write_view('content', 'client_user_add', (isset($this->data) ? $this->data : NULL), TRUE);
-                // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-                // $this->template->render();
+              
             } else {
                 $this->session->set_flashdata('success_msg', 'Client added sucessfully');
                 redirect('Customer/client_user_list', 'refresh');
-                // $this->data['client_details']= $this->Customer_Model->get_client_list();
-                // $this->data['dataHeader'] = $this->users->get_allData($user_id);
-                // load_view_template($this->data, 'client_user_list');
-                // $this->template->set_master_template('template.php');
-                // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-                // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-                // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
-                // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-                // $this->template->render();
+              
             }
         }
-        // 
+       
     }
 
     public function edit_client_user() {
@@ -232,85 +193,7 @@ class Customer extends MY_Controller {
         $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'edit_client_user');
-        // $this->template->set_master_template('template.php');
-        // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        // $this->template->write_view('content', 'edit_client_user', (isset($this->data) ? $this->data : NULL), TRUE);
-        // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        // $this->template->render();
     }
-
-   /* public function update_client_detail() {
-        $user_id = $this->session->userdata('user_id');
-        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
-            redirect('auth', 'refresh');
-        }else{     
-        if($this->input->post('admin_user_id'))
-        $additional_data['user_id']=$this->input->post('admin_user_id');
-        if($this->input->post('client_name'))
-         $additional_data['client_name']=$this->input->post('client_name'); 
-         if($this->input->post('client_location'))
-         $additional_data['client_location']=$this->input->post('client_location');
-         if($this->input->post('client_username'))
-         $additional_data['client_username']=$this->input->post('client_username'); 
-         if($this->input->post('password'))
-         $additional_data['password']=$this->input->post('password'); 
-         if($this->input->post('status'))
-         $additional_data['status']=$this->input->post('status');
-         
-         $alreadyexist= $this->Customer_Model->add_client_detail($additional_data); 
-        if($alreadyexist==2){
-            $this->session->set_flashdata('error_msg','This user name already Exist');
-            $user_id = $this->session->userdata('user_id');
-            $this->data['user_id']= $user_id; 
-            $this->data['dataHeader'] = $this->users->get_allData($user_id);
-            load_view_template($this->data, 'client_user_add');
-            // $this->template->set_master_template('template.php');
-            // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            // $this->template->write_view('content', 'client_user_add', (isset($this->data) ? $this->data : NULL), TRUE);
-            // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            // $this->template->render();
-        }else{
-            $this->session->set_flashdata('success_msg','Client added sucessfully');
-=======
-        } else {
-
-            if ($this->input->post('id'))
-                $id = $this->input->post('id');
-
-            if ($this->input->post('srno'))
-                $additional_data['srno'] = $this->input->post('srno');
-            if ($this->input->post('client_name'))
-                $additional_data['client_name'] = $this->input->post('client_name');
-            if ($this->input->post('client_location'))
-                $additional_data['client_location'] = $this->input->post('client_location');
-            if ($this->input->post('client_username'))
-                $additional_data['client_username'] = $this->input->post('client_username');
-            if ($this->input->post('password'))
-                $additional_data['password'] = $this->input->post('password');
-            if ($this->input->post('status'))
-                $additional_data['status'] = $this->input->post('status');
-
-            $update_record = $this->Customer_Model->update_client_detail($additional_data, $id);
-            if ($update_record) {
-                $this->session->set_flashdata('success_msg', 'This user record update sucessfully');
-            } else {
-                $this->session->set_flashdata('error_msg', 'This user record update failed');
-            }
->>>>>>> 345f5d971b85498747d3682dea8bd6d98201c4df
-            redirect('Customer/client_user_list', 'refresh');
-            //    $this->data['client_details']= $this->Customer_Model->get_client_list();
-            //     $this->data['dataHeader'] = $this->users->get_allData($user_id);
-            //     load_view_template($this->data, 'client_user_list');
-            // $this->template->set_master_template('template.php');
-            // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
-            // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            // $this->template->render();
-        }
-    }*/
 
     public function delete_client_user() {
         $user_id = $this->session->userdata('user_id');
@@ -319,12 +202,6 @@ class Customer extends MY_Controller {
         $this->data['client_location']=$this->Customer_Model->get_customer_location();
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
-        // $this->template->set_master_template('template.php');
-        // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
-        // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        // $this->template->render();
     }
 
    public function update_client_detail()
@@ -357,15 +234,6 @@ class Customer extends MY_Controller {
         $this->session->set_flashdata('error_msg','This user record update failed');
     }
     redirect('Customer/client_user_list', 'refresh');
-    //    $this->data['client_details']= $this->Customer_Model->get_client_list();
-    //     $this->data['dataHeader'] = $this->users->get_allData($user_id);
-    //     load_view_template($this->data, 'client_user_list');
-    // $this->template->set_master_template('template.php');
-    // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-    // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-    // $this->template->write_view('content', 'client_user_list', (isset($this->data) ? $this->data : NULL), TRUE);
-    // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-    // $this->template->render();
     }
    }
 
@@ -392,13 +260,6 @@ class Customer extends MY_Controller {
     
     $this->data['dataHeader'] = $this->users->get_allData($user_id);
     load_view_template($this->data, 'customer_business_location_list');
-    // $this->template->set_master_template('template.php');
-    // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-    // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-    // $this->template->write_view('content', 'customer_business_location_list', (isset($this->data) ? $this->data : NULL), TRUE);
-    // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-    // $this->template->render();
-
    }
 
    public function add_customer_business_location()
@@ -407,13 +268,7 @@ class Customer extends MY_Controller {
     $user_id = $this->session->userdata('user_id');
     $this->data['dataHeader'] = $this->users->get_allData($user_id);
     load_view_template($this->data, 'customer_business_location_add');
-    // $this->template->set_master_template('template.php');
-    // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-    // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-    // $this->template->write_view('content', 'customer_business_location_add', (isset($this->data) ? $this->data : NULL), TRUE);
-    // $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-    // $this->template->render();
-
+   
    }
    public function add_business_location(){
     if (!$this->ion_auth->logged_in() ) {
@@ -447,15 +302,7 @@ class Customer extends MY_Controller {
 
        $this->session->set_flashdata('success_msg','Business location added sucessfully');
        redirect('Customer/customer_business_location_list', 'refresh');
-    //    $user_id = $this->session->userdata('user_id');
-    //    $this->data['dataHeader'] = $this->users->get_allData($user_id);
-    //    load_view_template($this->data, 'customer_business_location_list');
-    //   $this->template->set_master_template('template.php');
-    //   $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-    //   $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-    //   $this->template->write_view('content', 'customer_business_location_list', (isset($this->data) ? $this->data : NULL), TRUE);
-    //   $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-    //   $this->template->render();
+    
       
     }
    }
@@ -503,10 +350,7 @@ class Customer extends MY_Controller {
        // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
         $this->session->set_flashdata('success_msg','Business location update sucessfully');
         redirect('Customer/customer_business_location_list', 'refresh');
-        // $user_id = $this->session->userdata('user_id');
-        // $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        // load_view_template($this->data, 'customer_business_location_list');
-
+       
     }
    }
     /*public function customer_business_location_list() {

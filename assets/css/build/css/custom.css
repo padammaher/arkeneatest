@@ -4611,6 +4611,12 @@ input[type="text"].static-text{
     animation: slider 0.8s ease 0s infinite alternate;
     margin: 0 auto;
 }
+
+.cursor-notallowed li a {
+    cursor:not-allowed;
+   
+}
+
 @-webkit-keyframes fadeIn {
     from {
         -webkit-transform: scale(0.5);

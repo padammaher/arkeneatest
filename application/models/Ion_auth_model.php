@@ -899,13 +899,18 @@ class Ion_auth_model extends CI_Model {
         }
 
         $this->trigger_events('extra_where');
-
-        $query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
-                ->where($this->identity_column, $identity)
-                ->limit(1)
-                ->order_by('id', 'desc')
-                ->get($this->tables['users']);
-
+        $this->db->select($this->identity_column . ', email, id, password, active, last_login,login_flag'); 
+        $this->db->from($this->tables['users']);
+        $this->where($this->identity_column, $identity); 
+        $this->db->limit(1);
+        $this->db->order_by('id', 'desc'); 
+        $query=$this->db->get();
+        // //$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login,login_flag')
+        //         ->where($this->identity_column, $identity)
+        //         ->limit(1)
+        //         ->order_by('id', 'desc')
+        //         ->get($this->tables['users']);
+       
         if ($this->is_time_locked_out($identity)) {
             // Hash something anyway, just to take up time
             $this->hash_password($password);
@@ -1620,6 +1625,7 @@ class Ion_auth_model extends CI_Model {
             'email' => $user->email,
             'user_id' => $user->id, //everyone likes to overwrite id so we'll use user_id
             'old_last_login' => $user->last_login,
+            'login_flag' => $user->login_flag,
             'last_check' => time(),
         );
 
@@ -1696,7 +1702,7 @@ class Ion_auth_model extends CI_Model {
 
         // get the user
         $this->trigger_events('extra_where');
-        $query = $this->db->select($this->identity_column . ', id, email, last_login')
+        $query = $this->db->select($this->identity_column . ', id, email, last_login,login_flag')
                 ->where($this->identity_column, urldecode(get_cookie($this->config->item('identity_cookie_name', 'ion_auth'))))
                 ->where('remember_code', get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
                 ->where('active', 1)
