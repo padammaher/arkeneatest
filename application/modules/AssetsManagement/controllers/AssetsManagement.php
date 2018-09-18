@@ -1064,21 +1064,19 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            
-//             if ($this->input->post('rule_id')) {
-//                $rule_id = $this->input->post('rule_id');
-//            } else {
-//                $rule_id = 5;
-//            }
-//            
-//            $this->session->set_userdata('asset_id', $rule_id);
-            
+            if($this->input->post('rule_id')){
+            $rule_id = $this->input->post('rule_id');
+            }
+            else{
+                $rule_id='0';
+            }
             $user_id = $this->session->userdata('user_id');
             $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
             $data['trigger_list'] = $this->Assets->trigger_list($user_id, $asset_id);
+            
             $data['header_desc'] = $this->Assets->showdescription($asset_id);
 
             load_view_template($data, 'trigger/trigger_list');
@@ -1103,6 +1101,7 @@ class AssetsManagement extends MY_Controller {
 //            $data['dataHeader'] = $this->users->get_allData($user_id);
             $todaysdate = date('Y-m-d');
             $data['trigger_edit_list'] = array();
+           
             $data['header_desc'] = $this->Assets->showdescription($asset_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
