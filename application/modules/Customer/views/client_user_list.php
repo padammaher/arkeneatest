@@ -74,13 +74,13 @@
             <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
-                  <li class="flex-item"<?php echo $clientinfo->id; ?>><?php echo   $i++; ?> 
+                  <li class="flex-item"<?php echo $i; ?>><?php echo   $i++; ?> 
                   </li>
-                  <li class="flex-item<?php echo $clientinfo->id; ?>"><?php echo $clientinfo->client_name; ?> 
+                  <li class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_name; ?> 
                   </li>
-                  <li class="flex-item<?php echo $clientinfo->id; ?>"><?php echo $clientinfo->client_location; ?> 
+                  <li class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_location; ?> 
                   </li>
-                  <li class="flex-item<?php echo $clientinfo->id; ?>"><?php echo $clientinfo->client_username; ?>
+                  <li class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_username; ?>
                   </li>
                   <li class="flex-item">
                     <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
@@ -101,7 +101,7 @@
               </div>
             </div>
 
-                        <div id="detailsModalold<?php echo $clientinfo->id; ?>" class="modal fade" role="dialog">
+                        <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <!-- Modal content-->
                                 <div class="modal-content">
@@ -150,9 +150,9 @@
                         </div>  
 
                         <script>
-                            $(".flex-item<?php echo $clientinfo->id; ?>").click(function (e) {
+                            $(".flex-item<?php echo $i; ?>").click(function (e) {
                                 if (!$(e.target).hasClass('fa')) {
-                                    $('#detailsModal<?php echo $clientinfo->id; ?>').modal('show');
+                                    $('#detailsModal<?php echo $i; ?>').modal('show');
                                 }
                             });
                         </script>
@@ -235,7 +235,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".edit").click(function () {
-            alert('asdas');
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
             $("#update_client" + id).submit();
