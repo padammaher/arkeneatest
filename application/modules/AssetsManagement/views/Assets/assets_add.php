@@ -19,6 +19,7 @@
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetcode'); ?></span>
                             <?php }
                             ?>
+                      <span class="mrtp10 text-center englable assetcodeexist" style="color:#ff3333; font-size: 15px; "></span>
                     </div>
 
                     <div class="item form-group">
@@ -141,7 +142,7 @@
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 <!--                            <input type="hidden" name="assets_add_submit" value="assets_add_submit">                                   -->
-                            <button type="submit" name="assets_add_button" class="btn btn-primary">Save</button>
+                            <button type="submit" name="assets_add_button" id="assets_add_button" class="btn btn-primary">Save</button>
                             <a href="<?php echo base_url('Assets_list'); ?>" type="button" class="btn btn-default">Cancel</a>
 
                         </div>
@@ -155,7 +156,38 @@
 </div>
 
 
-
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
-   
+    $(document).ready(function () {
+      
+     $("#Assetcode").change(function ()
+            {
+                   
+                var options;
+                $.ajax({
+                    url: '<?php echo base_url(); ?>AssetsManagement/Check_assetcode_is_exist',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {assetcode: this.value},
+                    success: function (res) {
+                        if(res >=1)
+                        {                           
+                            $("#Assetcode").css('border','1px solid #CE5454');                          
+                            $(".assetcodeexist").text('Asset code already exist..!');
+//                            $("#postbutton").disabled=true;
+                            document.getElementById("assets_add_button").disabled = true;
+                        }
+                        else
+                        {                          
+                            $(".assetcodeexist").text('');
+//                            alert($(".serialnumexist").text());
+//                            if($(".serialnumexist").text() == ""){
+                             document.getElementById("assets_add_button").disabled = false;
+//                         }
+                        }
+                      
+                    }
+                });
+            });
+});
 </script>

@@ -1086,6 +1086,7 @@ class AssetsManagement extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
+            
             $data['trigger_list'] = $this->Assets->trigger_list($user_id, $asset_id);
             
             $data['header_desc'] = $this->Assets->showdescription($set_rule_id,$asset_id);
@@ -1218,6 +1219,19 @@ class AssetsManagement extends MY_Controller {
             $view = $this->load->view('AssetsManagement/Assets_Parameter/modal/parameter_range', $data);
             echo $view;
         }
+    }
+    
+    
+     function Check_assetcode_is_exist() {
+        $data = 0;
+
+        $user_id = $this->session->userdata('user_id');
+        $assetcode = $this->input->post('assetcode');
+        $devicedata = $this->Assets->Check_assetcode_is_exist($assetcode, $user_id);
+        foreach ($devicedata as $devicedataVal) {
+            $data = $devicedataVal->Cnt_number;
+        }
+        echo $data;
     }
 
 }
