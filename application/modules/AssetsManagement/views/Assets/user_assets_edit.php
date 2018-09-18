@@ -22,9 +22,9 @@ foreach ($asset_user_list_data as $asset_user_data) { ?>
                     
 <?php foreach ($asset_code_list as $asset_id_list) { 
                 if($asset_id_list['id'] == $asset_user_data['asset_tbl_id']) {    ?>
-                <option value="<?php echo $asset_id_list['id'];?>"  <?php echo (set_value('assetcode')==$asset_id_list['id']) ? 'selected':'selected';?> ><?php echo $asset_id_list['code'];?></option>
+                <option value="<?php echo $asset_id_list['id'];?>"  <?php echo (set_value('assetcode')==$asset_id_list['id']) ? 'selected':'';?> selected><?php echo $asset_id_list['code'];?></option>
                 <?php } else { ?> 
-                <option value="<?php echo $asset_id_list['id'];?>"><?php echo $asset_id_list['code'];?></option>
+                <option value="<?php echo $asset_id_list['id'];?>" <?php echo (set_value('assetcode')==$asset_id_list['id'])? 'selected':'';?>><?php echo $asset_id_list['code'];?></option>
                   <?php } ?>
                        
 <?php } ?>
@@ -45,35 +45,21 @@ foreach ($asset_user_list_data as $asset_user_data) { ?>
                     
 <?php foreach ($asset_userid_list as $asset_user_id_list) { 
             if($asset_user_id_list['id'] == $asset_user_data['branch_user_tbl_id']) { ?>
-              <option value="<?php echo $asset_user_id_list['id'];?>" <?php echo (set_value('assetuserid')==$asset_user_id_list['id']) ? 'selected':'selected';?> ><?php echo $asset_user_id_list['client_name'];?></option>
+              <option value="<?php echo $asset_user_id_list['id'];?>" <?php echo set_value('assetuserid')==$asset_user_id_list['id'] ? 'selected':'';?> selected><?php echo $asset_user_id_list['client_name'];?></option>
             <?php } else { ?> 
-            <option value="<?php echo $asset_user_id_list['id'];?>"><?php echo $asset_user_id_list['client_name'];?></option>
+            <option value="<?php echo $asset_user_id_list['id'];?>" <?php echo set_value('assetuserid')==$asset_user_id_list['id'] ? 'selected':'';?> ><?php echo $asset_user_id_list['client_name'];?></option>
                              
 
                        
 <?php } } ?>
                 </select>             
-                </div>
+                </div><?php  echo set_value('assetuserid');?>
                  <?php if (form_error('assetuserid')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('assetuserid'); ?></span>
                             <?php }
                             ?>
               </div> 
-  <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock Date</label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-
-                        <div class="xdisplay_inputx item form-group has-feedback">
-                            <input type="text" class="form-control has-feedback-left" name="wef_date" id="single_cal1" placeholder="Wef Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" required="required" value="<?php echo set_value('wef_date',date("m/d/Y",strtotime($asset_user_data['createdate']))) ;?>">
-                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                            <span id="inputSuccess2Status" class="sr-only">(success)</span>
-                        </div>
-
-                    </div>
-                    <?php if (form_error('wef_date')) { ?>
-                      <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('wef_date'); ?></span>
-                    <?php } ?>
-                </div>                                    
+                                  
               
                                                
 						  
