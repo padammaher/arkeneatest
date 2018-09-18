@@ -13,7 +13,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" required="required" placeholder="DG0001" id="Assetcode" name="Assetcode" value="<?php echo set_value('Assetcode');?>" pattern="[a-zA-Z0-9]+">
+                            <input type="text" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" required="required" placeholder="Enter Asset Code" id="Assetcode" name="Assetcode" value="<?php echo set_value('Assetcode');?>" pattern="[a-zA-Z0-9]+">
                         </div>
                          <?php if (form_error('Assetcode')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetcode'); ?></span>
@@ -73,14 +73,14 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Specification</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Fuel: diesel HSD, O/p Voltage 220V AC"  id="assetspecification" name="assetspecification" value="<?php echo set_value('assetspecification');?>">
+                            <input type="text" class="form-control" placeholder="Enter Asset Specification"  id="assetspecification" name="assetspecification" value="<?php echo set_value('assetspecification');?>">
                         </div>
                     </div>
 
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Serial No. *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="CLR0021212A" required="required" id="Assetserialno" name="Assetserialno" pattern="[a-zA-Z0-9]+" value="<?php echo set_value('Assetserialno');?>">
+                            <input type="text" class="form-control" placeholder="Enter Asset Serial No" required="required" id="Assetserialno" name="Assetserialno" pattern="[a-zA-Z0-9]+" value="<?php echo set_value('Assetserialno');?>">
                         </div>
                            <?php if (form_error('Assetserialno')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetserialno'); ?></span>
@@ -91,7 +91,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Cummins" required="required" id="Make" name="Make" pattern="[a-zA-Z0-9]+"  value="<?php echo set_value('Make');?>">
+                            <input type="text" class="form-control" placeholder="Enter Make" required="required" id="Make" name="Make" pattern="[a-zA-Z0-9]+"  value="<?php echo set_value('Make');?>">
                         </div>
                           <?php if (form_error('Make')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Make'); ?></span>
@@ -101,7 +101,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Model No. *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" placeholder="CU001A" required="required" id="Modelno" name="Modelno" pattern="[a-zA-Z0-9]+"  value="<?php echo set_value('Modelno');?>">
+                            <input type="text" class="form-control" placeholder="Enter Model No" required="required" id="Modelno" name="Modelno" pattern="[a-zA-Z0-9]+"  value="<?php echo set_value('Modelno');?>">
                         </div>
                           <?php if (form_error('Modelno')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Modelno'); ?></span>
@@ -112,7 +112,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <textarea class="form-control" rows="2" style="resize: vertical;" placeholder="Diesel Gen Sets" id="Description" name="Description"><?php echo set_value('Description');?></textarea>
+                            <textarea class="form-control" rows="2" style="resize: vertical;" placeholder="Enter Description" id="Description" name="Description"><?php echo set_value('Description');?></textarea>
                         </div>                          
                     </div>  
 
