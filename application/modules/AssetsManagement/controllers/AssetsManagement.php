@@ -740,13 +740,6 @@ class AssetsManagement extends MY_Controller {
 
     public function asset_rule_list() {
 
-
-        $this->session->unset_userdata('parameter_id');
-        $this->session->unset_userdata('rule_id');
-        $parameter_id = $this->input->post('id'); 
-        $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_id);
-
-       
         if($this->input->post('id')){
             $this->session->unset_userdata('parameter_id');
             $this->session->unset_userdata('parameter_range_id');
