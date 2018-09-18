@@ -431,8 +431,6 @@ class Assets extends MY_Model {
         $this->db->where('parameter_range.id', $parameter_id);
         $query = $this->db->get();
         $asset_data = $query->result_array();
-
-        // print_r($asset_data[0]['customer_locationid']); exit(); 
         if ($query->num_rows() > 0) {
             foreach ($asset_data as $key => $value) {
                 $asset_location = $this->get_asset_location($value['customer_locationid']);
