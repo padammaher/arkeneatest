@@ -130,6 +130,7 @@ class AssetsManagement extends MY_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['assetlist'] = $this->Assets->assets_list($user_id);
+            $data['assetlistinfo'] = $this->Assets->assets_list_info($user_id);
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
             $data['type_list'] = $this->Assets->AssetType_list($user_id);
