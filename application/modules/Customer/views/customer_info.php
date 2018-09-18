@@ -72,11 +72,11 @@
               </table>
               <div class="text-center mtop20 col-md-12 col-sm-12">
                 <div class="col-md-6 col-sm-6">
-                  <a href="<?php echo base_url()?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary btn-block">Manage Business Location
+                  <a href="<?php echo base_url()?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary btn-block"><i class="fa fa-map-marker"></i> Manage Business Location
                   </a>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                  <a href="<?php echo base_url()?>ManageUsers" class="btn btn-sm btn-success btn-block">Manage Users
+                  <a href="<?php echo base_url()?>ManageUsers" class="btn btn-sm btn-success btn-block"> <i class="fa fa-user"></i> Manage Users
                   </a>
                 </div>
               </div>

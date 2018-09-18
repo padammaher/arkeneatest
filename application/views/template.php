@@ -174,7 +174,10 @@
         <!-- NProgress -->
         <script src="<?php echo base_url('assets/css/nprogress/nprogress.js'); ?>" type="text/javascript"></script>
 
-
+        <!-- form validatin -->
+        
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
         <!-- CORE JS Jquery Validation - START -->
 
         <script>
