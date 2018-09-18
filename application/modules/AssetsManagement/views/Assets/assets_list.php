@@ -50,7 +50,7 @@
 
                             <li class="flex-item">Customer Location</li>
                             <li class="flex-item">User Name</li>
-                            <li class="flex-item">Parameter Count</li>
+                            
                             <li class="flex-item">Actions</li>
                         </ul>
                     </div>
@@ -68,12 +68,12 @@
 
                                 <ul class="flex-container nowrap">
 
-                                    <?php var_dump($assetlist)   ?>
+                                    <?php // var_dump($assetlist)   ?>
                                     <li  class="flex-item"><?php echo $i; ?></li>
                                     <li data-toggle="modal" href="#assest_list_modal_<?php echo $list['id']; ?>" class="flex-item"><?php echo $list['code'] ?></li>
                                     <li class="flex-item"><?php echo $list['location'] ?></li>
                                     <li class="flex-item"><?php echo $list['client_name'] ?></li>
-                                    <li class="flex-item"><?php // echo $list['client_name'] ?></li>
+                                    
 
                                     <li class="flex-item" style="    display: -webkit-inline-box;">
 

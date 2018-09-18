@@ -52,7 +52,7 @@
               </div> 
                         
  <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock Date</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Wef Date</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
 
                         <div class="xdisplay_inputx item form-group has-feedback">

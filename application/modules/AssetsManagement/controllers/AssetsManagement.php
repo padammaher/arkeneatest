@@ -1080,7 +1080,7 @@ class AssetsManagement extends MY_Controller {
 //            echo$rule_id;
              $this->session->set_userdata('rule_id', $rule_id);
             $user_id = $this->session->userdata('user_id');
-            print_r($this->session->userdata);
+//            print_r($this->session->userdata);
             $set_rule_id = $this->session->userdata('rule_id');
              $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
