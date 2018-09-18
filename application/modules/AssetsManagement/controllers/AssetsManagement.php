@@ -748,15 +748,12 @@ class AssetsManagement extends MY_Controller {
         }else{
             $parameter_range_id= $this->session->userdata('parameter_range_id'); 
         }
-        
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
-
-
         $this->session->set_userdata('parameter_id', $this->data['parameter_detail'][0]['parameter_id']);
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
         $this->data['parameter_id']=$parameter_range_id; 
-        $this->data['asset_list'] = $this->Assets->get_asset_rule_list($this->data['parameter_detail'][0]['parameter_id']);
+        $this->data['asset_list'] = $this->Assets->get_asset_rule_list($parameter_range_id);
         $this->template->set_master_template('template.php');
         $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
         $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -784,11 +781,13 @@ class AssetsManagement extends MY_Controller {
        
         if ($param_data[0]['uom_type_id'])
             $uom_data = $this->Assets->get_uom_name($param_data[0]['uom_type_id']);
-        if(isset($uom_data[0]['name']))   
-        $this->data['uom_name'] = $uom_data[0]['name'];
+        $this->data['uom_data']=(isset($uom_data))? $uom_data:'';
+       // print_r( $this->data['uom_data']); exit;
+        // if(isset($uom_data[0]['name']))   
+        // $this->data['uom_name'] = $uom_data[0]['name'];
 
-        if(isset($uom_data[0]['id'])) 
-        $this->data['uom_id'] = $uom_data[0]['id'];
+        // if(isset($uom_data[0]['id'])) 
+        // $this->data['uom_id'] = $uom_data[0]['id'];
 
         $data['dataHeader'] = $this->users->get_allData($user_id);
         $this->template->set_master_template('template.php');
@@ -800,6 +799,7 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function add_asset_rule_detail() {
+        $parameter_range_id= $this->session->userdata('parameter_range_id'); 
         $asset_rule_id = '';
         if ($this->input->post('asset_rule_id'))
             $asset_rule_id = $this->input->post('asset_rule_id');
@@ -807,8 +807,12 @@ class AssetsManagement extends MY_Controller {
             $data['rule_name'] = $this->input->post('rule_name');
         if ($this->input->post('rule_des'))
             $data['rule_des '] = $this->input->post('rule_des');
-        if ($this->input->post('parameter_range_id'))
-            $data['parameter_range_id'] = $this->input->post('parameter_range_id');
+       
+        if ($this->input->post('parameter_id'))
+            $data['parameter'] = $this->input->post('parameter_id');
+        if ($parameter_range_id)
+            $data['parameter_range_id'] = $parameter_range_id; 
+
         if ($this->input->post('uom'))
             $data['uom'] = $this->input->post('uom');
         if ($this->input->post('green_value'))
