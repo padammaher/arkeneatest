@@ -80,10 +80,10 @@ class Inventory extends MY_Controller {
                     'isactive`' => $isactivestatus
                 );
 
-                $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha|numeric');
-                $this->form_validation->set_rules('serialnumber', 'Serial number', 'required|alpha|numeric');
-                $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha|numeric');
-                $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha|numeric');
+                $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha_numeric');
+                $this->form_validation->set_rules('serialnumber', 'Serial number', 'required|alpha_numeric');
+                $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha_numeric');
+                $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric');
                 $this->form_validation->set_rules('comm_type', 'Communication Type', 'required');
                 // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
                 $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric');
@@ -519,13 +519,8 @@ class Inventory extends MY_Controller {
             } else {
                 $data['sensor_inventory_list'] = $this->Inventory_model->sensor_inventory_list($user_id);
 
-                $this->template->set_master_template('template.php');
-                $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-                $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-
-                $this->template->write_view('content', 'SensorInventory/sensor_inventory_list_1', (isset($this->data) ? $this->data : NULL), TRUE);
-                $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-                $this->template->render();
+                load_view_template($data, 'SensorInventory/sensor_inventory_list_1');
+                
             }
         }
     }

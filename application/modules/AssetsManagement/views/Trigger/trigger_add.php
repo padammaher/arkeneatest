@@ -49,7 +49,7 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable(this);" name="check_email" id="<?php echo isset($header_desc[0]['client_username']) ? $header_desc[0]['client_username'] : ''; ?>" <?php echo (set_value('check_email'))== 'on'? 'checked':''; ?> > Email</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable(this);" name="check_email" id="<?php echo isset($trigger_edit_data['email']) ? $trigger_edit_data['email']: $header_desc[0]['client_username']; ?>" <?php echo (set_value('check_email'))== 'on'? 'checked':''; ?> > Email</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <?php ?>
                                 <input type="text" name="email" id="email" value="<?php echo isset($header_desc[0]['client_username']) ? $header_desc[0]['client_username'] : set_value('email',$trigger_edit_data['email']); ?>" class="form-control" placeholder="abc@xyz.com" <?php if(!empty(set_value('check_email'))){ echo (set_value('check_email'))== 'on'? '':'readonly';} else{ echo 'readonly';} ?> >
@@ -57,7 +57,7 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable1(this)" name="check_contact" id="<?php echo isset($header_desc[0]['wef_date']) ? $header_desc[0]['wef_date'] : ''; ?>" <?php echo (set_value('check_contact'))== 'on'? 'checked':''; ?>> SMS</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable1(this)" name="check_contact" id="<?php echo isset($trigger_edit_data['sms_contact_no']) ? $trigger_edit_data['sms_contact_no']: ''; ?>" <?php echo (set_value('check_contact'))== 'on'? 'checked':''; ?>> SMS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" name="contactno" value="<?php echo set_value('contactno',$trigger_edit_data['sms_contact_no']);?>" class="form-control" id="contactno" placeholder="9823230011" <?php if(!empty(set_value('check_contact'))){ echo (set_value('check_contact'))== 'on'? '':'readonly';} else{ echo 'readonly';} ?>>
                             </div>
@@ -105,6 +105,7 @@ function undisable1(vall) {
     else if(vall.checked == false)
     {
         $("#contactno").attr("readonly", true);
+        $("#contactno").val(vall.id);
     }
 }
 </script>
