@@ -144,13 +144,23 @@
 
 
 
-        $(".delete").click(function () {
-            var flag = confirm('Are you sure you want to delete this item?');
-            if (flag == true) {
-                var id = $(this).attr('id');
+//        $(".delete").click(function () {
+//            var flag = confirm('Are you sure you want to delete this item?');
+//            if (flag == true) {
+//                var id = $(this).attr('id');
+//                $("#post" + id).val('delete');
+//                $("#updateasset" + id).submit();
+//            }
+//        });
+        
+             $(".delete").click(function () {
+            var id = $(this).attr('id');
+            $("#confirmmodal_Box").modal();
+            $(".ok").click(function () {
                 $("#post" + id).val('delete');
+//                $("#update_param_range" + id).attr('action', update_url);
                 $("#updateasset" + id).submit();
-            }
+            });
         });
 
         $(".dev_assets").click(function () {

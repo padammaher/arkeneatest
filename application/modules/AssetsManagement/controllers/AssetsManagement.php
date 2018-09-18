@@ -34,7 +34,7 @@ class AssetsManagement extends MY_Controller {
             //list the users
             //list the users
             $data['groups1'] = $this->group_model->get_allGroupData();
-
+            $this->session->unset_userdata('rule_id');
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
@@ -122,7 +122,7 @@ class AssetsManagement extends MY_Controller {
         } else {
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
+                        $this->session->unset_userdata('rule_id');
             //list the users
             $data['groups1'] = $this->group_model->get_allGroupData();
 
@@ -130,6 +130,7 @@ class AssetsManagement extends MY_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['assetlist'] = $this->Assets->assets_list($user_id);
+            $data['assetlistinfo'] = $this->Assets->assets_list_info($user_id);
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
             $data['type_list'] = $this->Assets->AssetType_list($user_id);
@@ -309,7 +310,7 @@ class AssetsManagement extends MY_Controller {
         } else {
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
+            $this->session->unset_userdata('rule_id');
             //list the users
             $data['groups1'] = $this->group_model->get_allGroupData();
 
@@ -457,7 +458,7 @@ class AssetsManagement extends MY_Controller {
         } else {
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
+            $this->session->unset_userdata('rule_id');
             //list the users
             $data['groups1'] = $this->group_model->get_allGroupData();
 
@@ -739,6 +740,12 @@ class AssetsManagement extends MY_Controller {
 
     public function asset_rule_list() {
 
+
+        $this->session->unset_userdata('parameter_id');
+        $this->session->unset_userdata('rule_id');
+        $parameter_id = $this->input->post('id'); 
+        $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_id);
+
        
         if($this->input->post('id')){
             $this->session->unset_userdata('parameter_id');
@@ -750,6 +757,7 @@ class AssetsManagement extends MY_Controller {
         }
         
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
+
 
         $this->session->set_userdata('parameter_id', $this->data['parameter_detail'][0]['parameter_id']);
         $user_id = $this->session->userdata('user_id');
@@ -879,7 +887,7 @@ class AssetsManagement extends MY_Controller {
         } else {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-
+            $this->session->unset_userdata('rule_id');
             //get asset info
             if ($this->input->post('asset_id')) {
                 $asset_id = $this->input->post('asset_id');

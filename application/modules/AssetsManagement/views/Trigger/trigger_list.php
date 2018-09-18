@@ -132,7 +132,7 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
         
          $(".delete").click(function () {
             var id = $(this).attr('id');
-            $(".modal").modal();
+            $("#confirmmodal_Box").modal();
             $(".ok").click(function () {
                 $("#trigger_form_action" + id).val('delete');
 //                $("#update_param_range" + id).attr('action', update_url);
@@ -152,10 +152,10 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
         }); 
       });
       
-             $(".flex-item").click(function (e) {
-            if (!$(e.target).hasClass('fa')) {
-//                var id = $(this).attr('data-value');
-                $('#detailsModal').modal('show');
+//             $(".flex-item").click(function (e) {
+//            if (!$(e.target).hasClass('fa')) {
+////                var id = $(this).attr('data-value');
+//                $('#detailsModal').modal('show');
 //                $.ajax({
 //                    url: "<?php echo base_url() . 'Master/assetmaster/asset_type_details'; ?>",
 //                    method: "POST",
@@ -166,6 +166,6 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
 //                        $('#detailsModal').modal('show');
 //                    }
 //                });
-            }
-        });
+//            }
+//        });
 </script>        
