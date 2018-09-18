@@ -608,6 +608,8 @@ class AssetsManagement extends MY_Controller {
                 $todaysdate = date('Y-m-d');
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
+                $this->form_validation->set_rules('wef_date', 'Wef date', 'required');
+                
 
                 if ($this->form_validation->run() == TRUE) {
 
@@ -615,7 +617,7 @@ class AssetsManagement extends MY_Controller {
                     if ($asset_user_form_action[0] == 'add') {
                         $insert_data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
-                            'createdate' => $todaysdate,
+                            'createdate' => date('Y-m-d',strtotime($this->input->post('wef_date'))),
                             'createdby' => $user_id);
 
                         $unique_Data = array('asset_id' => $this->input->post('assetcode'),
@@ -684,7 +686,7 @@ class AssetsManagement extends MY_Controller {
 
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
-
+                $this->form_validation->set_rules('wef_date', 'Wef date', 'required');
 
                 if ($asset_user_post == 'edit') {
 
@@ -697,7 +699,7 @@ class AssetsManagement extends MY_Controller {
 
                         $update_data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
-                            'createdate' => $todaysdate,
+                            'createdate' => date('Y-m-d',strtotime($this->input->post('wef_date'))),
                             'createdby' => $user_id);
 
                         $unique_Data = array('asset_id' => $this->input->post('assetcode'),
@@ -1075,14 +1077,18 @@ class AssetsManagement extends MY_Controller {
             else{
                 $rule_id='0';
             }
+//            echo$rule_id;
+             $this->session->set_userdata('rule_id', $rule_id);
             $user_id = $this->session->userdata('user_id');
+            
+            $set_rule_id = $this->session->userdata('rule_id');
              $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
             $data['trigger_list'] = $this->Assets->trigger_list($user_id, $asset_id);
             
-            $data['header_desc'] = $this->Assets->showdescription($asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($set_rule_id,$asset_id);
 
             load_view_template($data, 'trigger/trigger_list');
         }
@@ -1094,11 +1100,12 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            if ($this->input->post('rule_id')) {
-                $rule_id = $this->input->post('rule_id');
-            } else {
-                $rule_id = 5;
-            }
+//            if ($this->input->post('rule_id')) {
+//                $rule_id = $this->input->post('rule_id');
+//            } else {
+//                $rule_id = 0;
+//            }
+           $set_rule_id = $this->session->userdata('rule_id');
             $user_id = $this->session->userdata('user_id');
             $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -1107,13 +1114,13 @@ class AssetsManagement extends MY_Controller {
             $todaysdate = date('Y-m-d');
             $data['trigger_edit_list'] = array();
            
-            $data['header_desc'] = $this->Assets->showdescription($asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($set_rule_id,$asset_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $trigger_form_action = $this->input->post('trigger_form_action');
                 $trigger_post_id = $this->input->post('trigger_post_id');
 
-                $unique_Data = array('rule_id' => $rule_id,
+                $unique_Data = array('rule_id' => $set_rule_id,
                     'asset_id' => $this->session->userdata('asset_id'),
                     'trigger_name' => $this->input->post('trigger_name'),
                     'trigger_threshold_id' => $this->input->post('trigger_threshold'),
@@ -1126,7 +1133,7 @@ class AssetsManagement extends MY_Controller {
                 $data['trigger_edit_list'] = $this->Assets->edit_trigger_list($user_id, $asset_id, $trigger_post_id);
 //                 }
 
-                $trigger_input_data = array('rule_id' => $rule_id,
+                $trigger_input_data = array('rule_id' => $set_rule_id,
                     'asset_id' => $this->session->userdata('asset_id'),
                     'trigger_name' => $this->input->post('trigger_name'),
                     'trigger_threshold_id' => $this->input->post('trigger_threshold'),
@@ -1138,7 +1145,7 @@ class AssetsManagement extends MY_Controller {
                 );
 //              echo $trigger_form_action;
 //               $data['trigger_threshold_option']= $this->Assets->Trigger_threshold($asset_id);
-                $data['result'] = $this->Assets->Trigger_threshold($asset_id, $rule_id);
+                $data['result'] = $this->Assets->Trigger_threshold($asset_id, $set_rule_id);
 //              print_r($data['result']);
                 if (isset($data['result']) && !empty($data['result'])) {
                     foreach ($data['result'] as $r) {
