@@ -34,7 +34,9 @@
                             <a href="<?php echo base_url('Assets_list');?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Management</a>
                             <a href="<?php echo base_url('asset_parameter_range_list');?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Parameter Range List</a>
                             <a href="<?php echo base_url('AssetsManagement/asset_rule_list');?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Rule & Action Master List</a>
+                             
                             <a class="btn btn-sm btn-primary trigger_add"> <i class="fa fa-plus"></i> Add Trigger</a>
+                             
                         </div>
                     </div>
                 </div>
@@ -90,7 +92,8 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
                             </ul>
                         </div>
                     </div>
-<?php } ?>
+<?php } ?><form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form0">
+                                 <input type="hidden" name="trigger_form_action" id="trigger_form_action0"/></form>
                     <ul class="pagination">
                         <li><a href="#">1</a></li>
                         <li class="active"><a href="#">2</a></li>
@@ -104,6 +107,8 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
         </div>
     </div>
 </div>
+
+<div id="detailsModal" class="modal fade" role="dialog"></div>
 
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
@@ -137,8 +142,8 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
         
         
          $(".trigger_add").click(function () {
-           
-                var id = 1;
+//             alert("sdsf");
+                var id = 0;
                 $("#trigger_form_action"+id).val('addNew');
                 $("#triggerid"+id).val('');
 //                alert($("#triggerid"+id).val());
@@ -146,5 +151,21 @@ if (!empty($trigger_list)){ foreach ($trigger_list as $trigger_list_data) { ?>
            
         }); 
       });
-        
+      
+             $(".flex-item").click(function (e) {
+            if (!$(e.target).hasClass('fa')) {
+//                var id = $(this).attr('data-value');
+                $('#detailsModal').modal('show');
+//                $.ajax({
+//                    url: "<?php echo base_url() . 'Master/assetmaster/asset_type_details'; ?>",
+//                    method: "POST",
+//                    data: {assettype_id: id},
+//                    dataType: "html",
+//                    success: function (data) {
+//                        $("#detailsModal").html(data);
+//                        $('#detailsModal').modal('show');
+//                    }
+//                });
+            }
+        });
 </script>        
