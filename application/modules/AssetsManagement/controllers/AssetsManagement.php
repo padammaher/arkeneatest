@@ -739,8 +739,11 @@ class AssetsManagement extends MY_Controller {
 
     public function asset_rule_list() {
        // if($this->input->post('id')){
-        $parameter_id = $this->input->post('id'); 
-        $parameter_id =2;
+        if($this->input->post('id')){
+            $parameter_id = $this->input->post('id'); 
+        }else{
+            $parameter_id =2;
+        }
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_id);
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -755,11 +758,12 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function add_asset_rule() {
-        //$parameter_id= $this->input->get('parameter_id'); 
-
-        $parameter_id = 2;
-        $uom_id = 6;
-
+        //$parameter_id= $this->input->get('parameter_id');
+        if($this->input->post('id')){
+            $parameter_id = $this->input->post('id'); 
+        }else{
+            $parameter_id =2;
+        }
         $user_id = $this->session->userdata('user_id');
         if ($this->input->post('asset_rule_id')) {
             $asset_rule_id = $this->input->post('asset_rule_id');
@@ -788,7 +792,7 @@ class AssetsManagement extends MY_Controller {
 
     public function add_asset_rule_detail() {
         $asset_rule_id = '';
-        // print_r($_POST); exit(); 
+         //print_r($_POST); exit(); 
 
         if ($this->input->post('asset_rule_id'))
             $asset_rule_id = $this->input->post('asset_rule_id');
@@ -815,9 +819,9 @@ class AssetsManagement extends MY_Controller {
                 $data['rule_status'] = 0;
         }
 
-        $parameter_range_id = 3;
+       // $parameter_range_id = 3;
         if (!$asset_rule_id) {
-            $insert_id = $this->Assets->add_asset_rule_detail($data, $parameter_range_id);
+            $insert_id = $this->Assets->add_asset_rule_detail($data);
             if ($insert_id) {
                 $this->session->set_flashdata('success_msg', 'Assets rules Added Successfully');
                 redirect('Asset_Rule_list', 'refresh');

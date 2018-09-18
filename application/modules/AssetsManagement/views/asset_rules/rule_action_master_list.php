@@ -126,7 +126,7 @@
                                         </li>
                                         <li class="flex-item"><?php echo (isset($asset_rule->rule_name)) ? $asset_rule->rule_name : ''; ?> 
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->parameter)) ? $asset_rule->parameter : ''; ?> 
+                                        <li class="flex-item"><?php echo (isset($asset_rule->parameter_range_id)) ? $asset_rule->parameter_range_id : ''; ?> 
                                         </li>
                                         <li class="flex-item"><?php echo (isset($asset_rule->green_value)) ? $asset_rule->green_value : ''; ?>
                                         </li>
