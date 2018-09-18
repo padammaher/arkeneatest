@@ -130,6 +130,7 @@ class AssetsManagement extends MY_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['assetlist'] = $this->Assets->assets_list($user_id);
+            $data['assetlistinfo'] = $this->Assets->assets_list_info($user_id);
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
             $data['type_list'] = $this->Assets->AssetType_list($user_id);
@@ -739,15 +740,30 @@ class AssetsManagement extends MY_Controller {
 
     public function asset_rule_list() {
 
+
         $this->session->unset_userdata('parameter_id');
         $this->session->unset_userdata('rule_id');
         $parameter_id = $this->input->post('id'); 
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_id);
+
+       
+        if($this->input->post('id')){
+            $this->session->unset_userdata('parameter_id');
+            $this->session->unset_userdata('parameter_range_id');
+            $parameter_range_id = $this->input->post('id'); 
+            $this->session->set_userdata('parameter_range_id', $parameter_range_id);            
+        }else{
+            $parameter_range_id= $this->session->userdata('parameter_range_id'); 
+        }
+        
+        $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
+
+
         $this->session->set_userdata('parameter_id', $this->data['parameter_detail'][0]['parameter_id']);
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
-        $this->data['parameter_id']=$parameter_id; 
-        $this->data['asset_list'] = $this->Assets->get_asset_rule_list($parameter_id);
+        $this->data['parameter_id']=$parameter_range_id; 
+        $this->data['asset_list'] = $this->Assets->get_asset_rule_list($this->data['parameter_detail'][0]['parameter_id']);
         $this->template->set_master_template('template.php');
         $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
         $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -772,9 +788,13 @@ class AssetsManagement extends MY_Controller {
 
         $this->data['param_id'] = (isset($param_data[0]['id'])) ? $param_data[0]['id'] : '';
         $this->data['parameter_name'] = (isset($param_data[0]['name'])) ? $param_data[0]['name'] : '';
-        if ($param_data[0]['id'])
-            $uom_data = $this->Assets->get_uom_name($param_data[0]['id']);
+       
+        if ($param_data[0]['uom_type_id'])
+            $uom_data = $this->Assets->get_uom_name($param_data[0]['uom_type_id']);
+        if(isset($uom_data[0]['name']))   
         $this->data['uom_name'] = $uom_data[0]['name'];
+
+        if(isset($uom_data[0]['id'])) 
         $this->data['uom_id'] = $uom_data[0]['id'];
 
         $data['dataHeader'] = $this->users->get_allData($user_id);

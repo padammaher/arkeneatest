@@ -62,10 +62,10 @@
                 <div class="row clearfix">
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <?php
+                        <?php //var_dump($assetlistinfo);  
                         if (isset($assetlist) && !empty($assetlist)) {
                             $i = 1;
-                            foreach ($assetlist as $list) {// var_dump($list);  
+                            foreach ($assetlist as $list) { 
                                 ?>
 
                                 <ul class="flex-container nowrap">
