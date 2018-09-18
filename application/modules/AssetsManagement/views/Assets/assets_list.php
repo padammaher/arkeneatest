@@ -50,7 +50,9 @@
 
                             <li class="flex-item">Customer Location</li>
                             <li class="flex-item">User Name</li>
-                            
+
+                            <li class="flex-item">Parameter Count</li>
+
                             <li class="flex-item">Actions</li>
                         </ul>
                     </div>
@@ -72,8 +74,8 @@
                                     <li  class="flex-item"><?php echo $i; ?></li>
                                     <li data-toggle="modal" href="#assest_list_modal_<?php echo $list['id']; ?>" class="flex-item"><?php echo $list['code'] ?></li>
                                     <li class="flex-item"><?php echo $list['location'] ?></li>
-                                    <li class="flex-item"><?php echo $list['client_name'] ?></li>
-                                    
+                                    <li class="flex-item"><?php echo $list['client_name'] ?></li>                                    
+                                    <li class="flex-item"><?php echo count($list['parametercount']) ?></li>
 
                                     <li class="flex-item" style="    display: -webkit-inline-box;">
 
@@ -83,9 +85,9 @@
                                             <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                 <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                             </a>
-                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
+        <!--                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                 <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                            </a> 
+                                            </a> -->
                                         </form>
                                         <?php if (!empty($list['assetlocid'])) { ?>  
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
@@ -96,11 +98,13 @@
                                                 <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
                                                     <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
                                                 </a>   
+
                                             </form> <?php }else {?>                                               
                                             <a href="<?php echo base_url('Assets_location_add');?>" class="manage_location"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
                                                     <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
                                                 </a> 
                                             <?php } ?>
+
                                         <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
@@ -110,11 +114,11 @@
                                                 <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                     <i class="fa fa-group text-warning"></i> 
                                                 </a>
-                                            </form> <?php }else { ?>
-                                        <a href="<?php echo base_url('User_asset_add');?>" title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                    <i class="fa fa-group text-warning"></i> 
-                                                </a>
-                                            <?php } ?>
+                                            </form> <?php } else { ?>
+                                            <a href="<?php echo base_url('User_asset_add'); ?>" title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                <i class="fa fa-group text-warning"></i> 
+                                            </a>
+                                        <?php } ?>
                                         <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
                                             <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
@@ -122,8 +126,15 @@
                                                 <i class="fa fa-list-ul text-info"></i> 
                                             </a>
                                         </form>
-                                        
 
+                                        <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
+                                            <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
+                                            <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+
+                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                            </a> 
+                                        </form>
                                     </li>
 
                                 </ul>
@@ -145,7 +156,7 @@
         </div>
     </div>
 </div>
-<?php $this->load->view('modal/asset_list_modal')?>
+<?php $this->load->view('modal/asset_list_modal') ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
