@@ -223,7 +223,7 @@ class Inventory extends MY_Controller {
                     $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required');
                     $this->form_validation->set_rules('service_after', 'Service after', 'required');
                     $this->form_validation->set_rules('service_type_count', 'Service Type', 'required');
-                    $isUnique = $this->Inventory_model->checkUnique('device_inventory', $unique_Data);
+                    $isUnique = $this->Inventory_model->checkUnique('device_inventory', $unique_data);
                     $data['Edit_deviceinventory_data'] = $this->Inventory_model->edit_deviceinventory($dev_inv_id);
                     if ($this->form_validation->run() == TRUE) {
                         if ($isUnique) {
@@ -829,6 +829,18 @@ class Inventory extends MY_Controller {
         $user_id = $this->session->userdata('user_id');
         $devicenum = $this->input->post('devicenum');
         $devicedata = $this->Inventory_model->Check_devicenum_is_exist($devicenum, $user_id);
+        foreach ($devicedata as $devicedataVal) {
+            $data = $devicedataVal->Cnt_number;
+        }
+        echo $data;
+    }
+    
+     function Check_serialnum_is_exist() {
+        $data = 0;
+
+        $user_id = $this->session->userdata('user_id');
+        $serialnum = $this->input->post('serialnum');
+        $devicedata = $this->Inventory_model->Check_serialnum_is_exist($serialnum, $user_id);
         foreach ($devicedata as $devicedataVal) {
             $data = $devicedataVal->Cnt_number;
         }

@@ -24,11 +24,12 @@
         <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Serial Number *</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="serialnumber" class="form-control" value="<?php echo set_value('serialnumber'); ?>" placeholder="Serial Number" pattern="[A-Za-z0-9\s]*" title="enter characters / numbers only">
+                    <input type="text" name="serialnumber" id="serialnumber" class="form-control" value="<?php echo set_value('serialnumber'); ?>" placeholder="Serial Number" pattern="[A-Za-z0-9\s]*" title="enter characters / numbers only">
                 </div>
                           <?php if (form_error('serialnumber')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('serialnumber'); ?></span>
                             <?php } ?>
+                                <span class="mrtp10 text-center englable serialnumexist" style="color:#ff3333; font-size: 15px; "></span>                     
           </div>
           <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Make *</label>
@@ -54,13 +55,7 @@
                   <textarea class="form-control" name="devicedescription" rows="2" placeholder="Description.." style="resize: vertical;" required="required"><?php echo set_value('devicedescription'); ?></textarea>
                 </div>
           </div>
-         <!--  <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Communication Type *</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="comm_type" class="form-control" placeholder="Communication Type" value="<?php echo set_value('comm_type'); ?>" required="required">
-                </div>
-          </div> -->
-
+       
                 <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Communication Type *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
@@ -84,18 +79,7 @@
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('gsmnumber'); ?></span>
                             <?php } ?>
           </div>
-         <!--  <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Communication Status</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="comm_status" class="form-control" placeholder="Communication Status" value="<?php echo set_value('comm_status'); ?>" required="required" pattern="[A-Za-zs]*" title="enter characters only">
-                </div>
-          </div>
-          <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Communication History</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="comm_history" class="form-control" placeholder="Communication History" value="<?php echo set_value('comm_history'); ?>" required="required" pattern="[A-Za-zs]*" title="enter characters only">
-                </div>
-          </div> -->
+     
           <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Communication Protocol</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -188,7 +172,7 @@
   <div class="ln_solid"></div>
   <div class="item form-group">
         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <input type="submit" name="post" value="add" class="btn btn-primary" />
+            <input type="submit" name="post" id="postbutton" value="Save" class="btn btn-primary" />
                 <!--Save</button>-->
          <a href="<?php echo base_url('Device_inventory_list');?>" type="button" class="btn btn-default">Cancel</a>
 
@@ -207,7 +191,7 @@
         $("#comm_type").change(function () {
            // $("#gsmnumber").attr('required');
            if($("#comm_type").val() != ""){
-           alert($("#comm_type").val());
+//           alert($("#comm_type").val());
             $("#gsmnumber").attr('required','');
          }
          else
@@ -220,11 +204,8 @@
 
      $("#devicename").change(function ()
             {
-      // alert(this.value);
-               
+                   
                 var options;
-                // $("#UOM").empty();
-//                var options = '<option value="">Select Type</option>';
                 $.ajax({
                     url: '<?php echo base_url(); ?>Inventory/Check_devicenum_is_exist',
                     type: 'post',
@@ -232,24 +213,51 @@
                     data: {devicenum: this.value},
                     success: function (res) {
                         if(res >=1)
-                        {
-                            //alert("already");
-                            $("#devicename").css('border','1px solid #CE5454');
-//                                border: 1px solid #CE5454;
+                        {                           
+                            $("#devicename").css('border','1px solid #CE5454');                          
                             $(".deivcenumexist").text('Device num already exist..!');
+//                            $("#postbutton").disabled=true;
+                            document.getElementById("postbutton").disabled = true;
                         }
                         else
-                        {
-                            //alert("Not already");
+                        {                          
                             $(".deivcenumexist").text('');
+//                            alert($(".serialnumexist").text());
+                            if($(".serialnumexist").text() == ""){
+                             document.getElementById("postbutton").disabled = false;
+                         }
                         }
-                        // var obj = $.parseJSON(res);
-
-                        // for (i = 0; i < obj.length; i++) {
-                        //     options += '<option value="' + obj[i]['id'] + '">' + obj[i]['name'] + '</option>';
-                        // }
-                        // $("#UOM").html(options);
-//                         alert(res);
+                      
+                    }
+                });
+            });
+            
+              $("#serialnumber").change(function ()
+            {
+                   
+                var options;
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Inventory/Check_serialnum_is_exist',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {serialnum: this.value},
+                    success: function (res) {
+                        if(res >=1)
+                        {                           
+                            $("#serialnumber").css('border','1px solid #CE5454');                          
+                            $(".serialnumexist").text('Device num already exist..!');
+//                            $("#postbutton").disabled=true;
+                            document.getElementById("postbutton").disabled = true;
+                        }
+                        else
+                        {                          
+                            $(".serialnumexist").text('');
+                            if($(".deivcenumexist").text() == ""){
+                             document.getElementById("postbutton").disabled = false;
+                         }
+//                             document.getElementById("postbutton").disabled = false;
+                        }
+                      
                     }
                 });
             });

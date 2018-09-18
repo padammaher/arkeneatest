@@ -552,5 +552,17 @@ class Assets extends MY_Model {
         $res = $this->db->query($query);
         return $obj = $res->result_array();
     }
+    
+         public function Check_assetcode_is_exist($assetcode,$user_id) {
+               $this->db->select('id,code,count(code) as `Cnt_number`');
+        $this->db->from('asset');                
+        $this->db->limit('1');
+        $this->db->group_by('id');
+        $this->db->where('asset.code',$assetcode);
+        $query = $this->db->get();
+//        echo $this->db->last_query();
+        $objData = $query->result();
+        return $objData;
+    }
 
 }
