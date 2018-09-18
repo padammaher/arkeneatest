@@ -62,7 +62,7 @@ class Assets extends MY_Model {
         $this->db->where('createdby', $user_id);
         $query = $this->db->get();
         $obj = $query->result_array();
-        return $obj[0]['locationcount'];
+        return $obj[0]['assetcount'];
     }
 
     public function getDeviceCount($user_id) {
@@ -71,7 +71,7 @@ class Assets extends MY_Model {
         $this->db->where('createdby', $user_id);
         $query = $this->db->get();
         $obj = $query->result_array();
-        return $obj[0]['locationcount'];
+        return $obj[0]['devicecount'];
     }
 
     public function getSensorCount($user_id) {
@@ -80,7 +80,7 @@ class Assets extends MY_Model {
         $this->db->where('createdby', $user_id);
         $query = $this->db->get();
         $obj = $query->result_array();
-        return $obj[0]['locationcount'];
+        return $obj[0]['sensorcount'];
     }
 
     public function assets_list($user_id, $id = NULL) {
@@ -114,9 +114,9 @@ class Assets extends MY_Model {
 
     public function assets_list_info($user_id, $id = NULL) {
         $assets_list[0]['customerlocationcount'] = $this->getCustomerLocationCount($user_id);
-        //        $assets_list['assetcount'] = $this->getAssetCount($user_id);
-//        $assets_list['devicecount'] = $this->getDeviceCount($user_id);
-//        $assets_list['sensorcount'] = $this->getSensorCount($user_id);
+                $assets_list['assetcount'] = $this->getAssetCount($user_id);
+        $assets_list['devicecount'] = $this->getDeviceCount($user_id);
+        $assets_list['sensorcount'] = $this->getSensorCount($user_id);
         return $assets_list;
     }
 

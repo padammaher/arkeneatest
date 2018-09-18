@@ -1,22 +1,22 @@
 <div class="row tile_count asset-stats">
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-map-marker"></i> Total Customer Location</span>
-        <div class="count">36</div>
+        <div class="count"><?php if($assetlistinfo[0]['customerlocationcount']) echo $assetlistinfo[0]['customerlocationcount'] ?></div>
 
     </div>
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-users"></i> Total Active Assets</span>
-        <div class="count">190</div>
+        <div class="count"><?php if($assetlistinfo['assetcount']) echo $assetlistinfo['assetcount'] ?></div>
 
     </div>
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-gears"></i> Total Active Devices</span>
-        <div class="count green">210</div>
+        <div class="count green"><?php if($assetlistinfo['devicecount']) echo $assetlistinfo['devicecount'] ?></div>
 
     </div>
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-magnet"></i> Total Active Sensor</span>
-        <div class="count">200</div>
+        <div class="count"><?php if( $assetlistinfo['sensorcount']) echo $assetlistinfo['sensorcount'] ?></div>
 
     </div>
 
