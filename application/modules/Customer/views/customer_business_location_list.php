@@ -54,7 +54,7 @@
     </div>
     <div class="title_right">
       <div class="pull-right">
-        <a href="<?php echo base_url()?>Add_Business_Location" class="btn btn-sm btn-primary"> 
+        <a href="<?php echo base_url()?>Customerinfo" class="btn btn-sm btn-primary"> 
           <i class="fa fa-users">
           </i> Customer Provisioning
         </a>
