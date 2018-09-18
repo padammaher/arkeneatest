@@ -39,9 +39,9 @@ class AssetsManagement extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
 
-            $data['location_list'] = $this->Assets->CustomerLocation_list();
-            $data['category_list'] = $this->Assets->AssetCategory_list();
-            $data['type_list'] = $this->Assets->AssetType_list();
+            $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
+            $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
+            $data['type_list'] = $this->Assets->AssetType_list($user_id);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $unique_Data = array(
@@ -130,9 +130,9 @@ class AssetsManagement extends MY_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['assetlist'] = $this->Assets->assets_list($user_id);
-            $data['location_list'] = $this->Assets->CustomerLocation_list();
-            $data['category_list'] = $this->Assets->AssetCategory_list();
-            $data['type_list'] = $this->Assets->AssetType_list();
+            $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
+            $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
+            $data['type_list'] = $this->Assets->AssetType_list($user_id);
             $this->session->unset_userdata('asset_id');
             load_view_template($data, 'Assets/assets_list');
         }
@@ -1068,15 +1068,22 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $rule_id = $this->input->post('rule_id');
-
+            
+//             if ($this->input->post('rule_id')) {
+//                $rule_id = $this->input->post('rule_id');
+//            } else {
+//                $rule_id = 5;
+//            }
+//            
+//            $this->session->set_userdata('asset_id', $rule_id);
+            
             $user_id = $this->session->userdata('user_id');
             $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
             $data['trigger_list'] = $this->Assets->trigger_list($user_id, $asset_id);
-            $data['header_desc'] = $this->Assets->showdescription($rule_id, $asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($asset_id);
 
             load_view_template($data, 'trigger/trigger_list');
         }
@@ -1100,7 +1107,7 @@ class AssetsManagement extends MY_Controller {
 //            $data['dataHeader'] = $this->users->get_allData($user_id);
             $todaysdate = date('Y-m-d');
             $data['trigger_edit_list'] = array();
-            $data['header_desc'] = $this->Assets->showdescription($rule_id, $asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($asset_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $trigger_form_action = $this->input->post('trigger_form_action');
