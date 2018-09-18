@@ -51,8 +51,9 @@ class Customer_Model extends CI_Model {
 
     }
     public function add_client_detail($data) {
-        //  print_r($data['client_username']); exit() ;
+       // echo "fsdfsadf"; print_r($data); exit() ;
         $alreadyexit = $this->db->select('id')->from('branch_user')->where('client_username', $data['client_username'])->get()->result();
+      //  print_r($alreadyexit); exit;
         if (count($alreadyexit) > 0) {
             return 2;
         } else {

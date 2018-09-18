@@ -149,4 +149,16 @@ class ParameterMaster extends CI_Controller {
         }
     }
 
+    public function parameter_details() {
+        if ($this->input->post('param_id')) {
+            $user_id = $this->session->userdata('user_id');
+            $id = explode('_', $this->input->post('param_id'));
+            $data['sr_no'] = $id[1];
+            $data['result'] = $this->parametermodel->get_parameterlist($user_id, $id[0]);
+
+            $view = $this->load->view('master/modal/parameter_type', $data);
+            echo $view;
+        }
+    }
+
 }

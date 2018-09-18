@@ -1,4 +1,4 @@
-<div class="right_col" role="main">
+<!-- <div class="right_col" role="main"> -->
   <div class="">
     <div class="clearfix">
     </div>
@@ -18,7 +18,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Location Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='location_name' type="text" class="form-control" placeholder="Sandton" required="required" value="<?php echo $business_detail[0]->location_name;?>" >
+                  <input name='location_name' type="text" class="form-control" placeholder="Sandton" required="required" value="<?php echo (isset($business_detail[0]->location_name))?$business_detail[0]->location_name:'';?>" >
                   <input name="id" type="hidden" class="form-control" placeholder="Sandton" value="<?php echo $business_detail[0]->id; ?>" >
               
                 </div>
@@ -27,14 +27,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='address' type="text" class="form-control" placeholder="West Road North Morningside, Sandton" required="required" value="<?php echo $business_detail[0]->address;?>">
+                <input name='address' type="text" class="form-control" placeholder="West Road North Morningside, Sandton" required="required" value="<?php echo (isset($business_detail[0]->address))?$business_detail[0]->address:'';?>">
                </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='contact_person_name' type="text" class="form-control" placeholder="Mark Tayler" required="required" value="<?php echo $business_detail[0]->contact_person_name;?>">
+                <input name='contact_person_name' type="text" class="form-control" placeholder="Mark Tayler" required="required" value="<?php echo (isset($business_detail[0]->contact_person_name))?$business_detail[0]->contact_person_name:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -82,14 +82,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input name='pincode' type="number" class="form-control" placeholder="10001" required="required" value="<?php echo $business_detail[0]->pincode;?>">
+                    <input name='pincode' type="number" class="form-control" placeholder="10001" required="required" value="<?php echo (isset($business_detail[0]->pincode))?$business_detail[0]->pincode:'';?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='telephone' type="number" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo $business_detail[0]->telephone;?>">
+                <input name='telephone' type="number" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo (isset($business_detail[0]->telephone))?$business_detail[0]->telephone:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -98,7 +98,7 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='mobile' type="number" class="form-control"  placeholder="27 82 480 7309" required="required" value="<?php echo $business_detail[0]->mobile;?>">
+                <input name='mobile' type="number" class="form-control"  placeholder="27 82 480 7309" required="required" value="<?php echo (isset($business_detail[0]->mobile))?$business_detail[0]->mobile:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -107,7 +107,7 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='email' id="customer_email" type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo $business_detail[0]->email;?>">
+                <input name='email' id="customer_email" type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo (isset($business_detail[0]->email))?$business_detail[0]->email:'';?>">
                 <div id="email_error" style="color:red"></div>  
                 </div>
               </div>
@@ -129,7 +129,7 @@
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 <script>
 function getState(val) {
   $.ajax({

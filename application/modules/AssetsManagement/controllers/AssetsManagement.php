@@ -56,17 +56,17 @@ class AssetsManagement extends MY_Controller {
                     'createdby' => $user_id,
                     'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0'
                 );
-                
-            $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
-            $this->form_validation->set_rules('Customerlocation', 'User Location', 'required'); 
-            $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
-            $this->form_validation->set_rules('Assettype', 'Asset Type', 'required'); 
-            // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric'); 
-            $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric');
-            $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric'); 
-            // $this->form_validation->set_rules('description', 'Description', 'required');
-            $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  
+
+                $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('Customerlocation', 'User Location', 'required');
+                $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
+                $this->form_validation->set_rules('Assettype', 'Asset Type', 'required');
+                // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
+                $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric');
+                $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric');
+                $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric');
+                // $this->form_validation->set_rules('description', 'Description', 'required');
+                $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');
 
 
                 $isUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
@@ -344,14 +344,14 @@ class AssetsManagement extends MY_Controller {
                 $form_action = $this->input->post('asset_location_post');
                 $asset_loc_id = $this->input->post('asset_location_post_id');
 
-            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
-            $this->form_validation->set_rules('asset_location', 'Asset Location', 'required'); 
-            $this->form_validation->set_rules('asset_address', 'Asset address', 'required');
-            
-            // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('asset_contactno', 'Contact number', 'required|numeric'); 
-            $this->form_validation->set_rules('asset_contactperson', 'Contact person', 'required');
-            $this->form_validation->set_rules('asset_contactemail', 'Email', 'required|valid_email'); 
+                $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
+                $this->form_validation->set_rules('asset_location', 'Asset Location', 'required');
+                $this->form_validation->set_rules('asset_address', 'Asset address', 'required');
+
+                // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
+                $this->form_validation->set_rules('asset_contactno', 'Contact number', 'required|numeric');
+                $this->form_validation->set_rules('asset_contactperson', 'Contact person', 'required');
+                $this->form_validation->set_rules('asset_contactemail', 'Email', 'required|valid_email');
 
                 // print_r($this->input->post());
                 // var_dump($isUnique);
@@ -367,50 +367,47 @@ class AssetsManagement extends MY_Controller {
                 if ($form_action == 'update') {
                     //                       print_r($this->input->post());
 
-                     $unique_Data = array(
-                    'location' => $this->input->post('asset_location'),
-                    'address' => $this->input->post('asset_address'),
-                    'latitude' => $this->input->post('asset_lat'),
-                    'contact_no' => $this->input->post('asset_contactno'),
-                    'longitude' => $this->input->post('asset_long'),
-                    'contact_person' => $this->input->post('asset_contactperson'),
-                    'contact_email' => $this->input->post('asset_contactemail')
-                    
-                );
-                     if ($this->form_validation->run() == TRUE) {  
-                    $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
-                    // echo $isUnique; exit;
-                    if ($isUnique) {
-                        //                        echo '<script>alert("Asset Code is already existed!");</script>';
-                        //                         $this->session->set_flashdata('item', array('msg' => 'Asset Code is already existed!','class' => 'success'));
-                        $this->session->set_flashdata('error_msg', 'Asset location is already existed');
-                        load_view_template($data, 'Assets/assets_location_edit');
-                        
-                    } else {
-                        $update_data = array('location' => $this->input->post('asset_location'),
-                            'address' => $this->input->post('asset_address'),
-                            'latitude' => $this->input->post('asset_lat'),
-                            'contact_no' => $this->input->post('asset_contactno'),
-                            'longitude' => $this->input->post('asset_long'),
-                            'contact_person' => $this->input->post('asset_contactperson'),
-                            'contact_email' => $this->input->post('asset_contactemail'),
-                            'createdat' => $todaysdate,
-                            'createdby' => $user_id,
-                            'isactive' => '1',
-                            'asset_id' => $this->input->post('assetcode')
-                        );
+                    $unique_Data = array(
+                        'location' => $this->input->post('asset_location'),
+                        'address' => $this->input->post('asset_address'),
+                        'latitude' => $this->input->post('asset_lat'),
+                        'contact_no' => $this->input->post('asset_contactno'),
+                        'longitude' => $this->input->post('asset_long'),
+                        'contact_person' => $this->input->post('asset_contactperson'),
+                        'contact_email' => $this->input->post('asset_contactemail')
+                    );
+                    if ($this->form_validation->run() == TRUE) {
+                        $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
+                        // echo $isUnique; exit;
+                        if ($isUnique) {
+                            //                        echo '<script>alert("Asset Code is already existed!");</script>';
+                            //                         $this->session->set_flashdata('item', array('msg' => 'Asset Code is already existed!','class' => 'success'));
+                            $this->session->set_flashdata('error_msg', 'Asset location is already existed');
+                            load_view_template($data, 'Assets/assets_location_edit');
+                        } else {
+                            $update_data = array('location' => $this->input->post('asset_location'),
+                                'address' => $this->input->post('asset_address'),
+                                'latitude' => $this->input->post('asset_lat'),
+                                'contact_no' => $this->input->post('asset_contactno'),
+                                'longitude' => $this->input->post('asset_long'),
+                                'contact_person' => $this->input->post('asset_contactperson'),
+                                'contact_email' => $this->input->post('asset_contactemail'),
+                                'createdat' => $todaysdate,
+                                'createdby' => $user_id,
+                                'isactive' => '1',
+                                'asset_id' => $this->input->post('assetcode')
+                            );
 
-                        //                $inserteddata=$this->Assets->add_assets_location($insert_data);
-                        //                        print_r($insert_data);
-                        //                  exit;
-                        $update_asset_location = $this->Assets->Update_asset_location($update_data, $asset_loc_id);
-                        if ($update_asset_location) {
-                            $this->session->set_flashdata('success_msg', 'Asset location successfully updated');
-                            return redirect('Assets_location_list', 'refresh');
-
+                            //                $inserteddata=$this->Assets->add_assets_location($insert_data);
+                            //                        print_r($insert_data);
+                            //                  exit;
+                            $update_asset_location = $this->Assets->Update_asset_location($update_data, $asset_loc_id);
+                            if ($update_asset_location) {
+                                $this->session->set_flashdata('success_msg', 'Asset location successfully updated');
+                                return redirect('Assets_location_list', 'refresh');
+                            }
                         }
-                    }
-                     }else {
+                    } else {
                         load_view_template($data, 'Assets/assets_location_edit');
                     }
                 } else if ($form_action == 'delete') {
@@ -474,41 +471,21 @@ class AssetsManagement extends MY_Controller {
             $data['asset_code_list'] = $this->Assets->assetcode_list_for_asset_location($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            //            exit;
+                //            exit;
 
-            $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
-            $this->form_validation->set_rules('asset_location', 'Asset Location', 'required'); 
-            $this->form_validation->set_rules('asset_address', 'Asset address', 'required');
-            
-            // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-            $this->form_validation->set_rules('asset_contactno', 'Contact number', 'required|numeric'); 
-            $this->form_validation->set_rules('asset_contactperson', 'Contact person', 'required');
-            $this->form_validation->set_rules('asset_contactemail', 'Email', 'required|valid_email'); 
-            // $this->form_validation->set_rules('description', 'Description', 'required');
-            // $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  
-             if ($this->form_validation->run() == TRUE) {  
-                $unique_Data = array(
-                    'location' => $this->input->post('asset_location'),
-                    'address' => $this->input->post('asset_address'),
-                    'latitude' => $this->input->post('asset_lat'),
-                    'contact_no' => $this->input->post('asset_contactno'),
-                    'longitude' => $this->input->post('asset_long'),
-                    'contact_person' => $this->input->post('asset_contactperson'),
-                    'contact_email' => $this->input->post('asset_contactemail'),
-                    'asset_id' => $this->input->post('assetcode')
-                );
-                $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
-                //            print_r($isUnique);
-                //              var_dump($isUnique);
-                //            die;
-                if ($isUnique) {
-              
-                    $this->session->set_flashdata('error_msg', 'Asset location is already added');
-                   load_view_template($data, 'Assets/assets_location_add');
-                   
-                } else {
-                    $insert_data = array('location' => $this->input->post('asset_location'),
+                $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
+                $this->form_validation->set_rules('asset_location', 'Asset Location', 'required');
+                $this->form_validation->set_rules('asset_address', 'Asset address', 'required');
 
+                // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
+                $this->form_validation->set_rules('asset_contactno', 'Contact number', 'required|numeric');
+                $this->form_validation->set_rules('asset_contactperson', 'Contact person', 'required');
+                $this->form_validation->set_rules('asset_contactemail', 'Email', 'required|valid_email');
+                // $this->form_validation->set_rules('description', 'Description', 'required');
+                // $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');  
+                if ($this->form_validation->run() == TRUE) {
+                    $unique_Data = array(
+                        'location' => $this->input->post('asset_location'),
                         'address' => $this->input->post('asset_address'),
                         'latitude' => $this->input->post('asset_lat'),
                         'contact_no' => $this->input->post('asset_contactno'),
@@ -529,27 +506,46 @@ class AssetsManagement extends MY_Controller {
                         $insert_data = array('location' => $this->input->post('asset_location'),
                             'address' => $this->input->post('asset_address'),
                             'latitude' => $this->input->post('asset_lat'),
-                            'contact_no' => $this->input->post('asset_long'),
-                            'longitude' => $this->input->post('asset_contactperson'),
-                            'contact_person' => $this->input->post('asset_contactno'),
+                            'contact_no' => $this->input->post('asset_contactno'),
+                            'longitude' => $this->input->post('asset_long'),
+                            'contact_person' => $this->input->post('asset_contactperson'),
                             'contact_email' => $this->input->post('asset_contactemail'),
-                            'createdat' => $todaysdate,
-                            'createdby' => $user_id,
-                            'isactive' => '1',
                             'asset_id' => $this->input->post('assetcode')
                         );
+                        $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
+                        //            print_r($isUnique);
+                        //              var_dump($isUnique);
+                        //            die;
+                        if ($isUnique) {
 
-
-                        $inserteddata = $this->Assets->add_assets_location($insert_data);
-
-                        if ($inserteddata) {
-                            $this->session->set_flashdata('success_msg', 'Asset location successfully added');
-                            return redirect('Assets_location_list', 'refresh');
+                            $this->session->set_flashdata('error_msg', 'Asset location is already added');
+                            load_view_template($data, 'Assets/assets_location_add');
                         } else {
-                            return redirect('Assets_location_list', 'refresh');
+                            $insert_data = array('location' => $this->input->post('asset_location'),
+                                'address' => $this->input->post('asset_address'),
+                                'latitude' => $this->input->post('asset_lat'),
+                                'contact_no' => $this->input->post('asset_long'),
+                                'longitude' => $this->input->post('asset_contactperson'),
+                                'contact_person' => $this->input->post('asset_contactno'),
+                                'contact_email' => $this->input->post('asset_contactemail'),
+                                'createdat' => $todaysdate,
+                                'createdby' => $user_id,
+                                'isactive' => '1',
+                                'asset_id' => $this->input->post('assetcode')
+                            );
+
+
+                            $inserteddata = $this->Assets->add_assets_location($insert_data);
+
+                            if ($inserteddata) {
+                                $this->session->set_flashdata('success_msg', 'Asset location successfully added');
+                                return redirect('Assets_location_list', 'refresh');
+                            } else {
+                                return redirect('Assets_location_list', 'refresh');
+                            }
                         }
                     }
-             } } else {
+                } else {
                     load_view_template($data, 'Assets/assets_location_add');
                 }
             } else {
@@ -1199,6 +1195,17 @@ class AssetsManagement extends MY_Controller {
             } else {
                 return redirect('trigger_list', 'refresh');
             }
+        }
+    }
+
+    public function asset_parameter_range_details() {
+        if ($this->input->post('param_range_id')) {
+            $id = explode('_', $this->input->post('param_range_id'));
+            $data['sr_no'] = $id[1];
+            $data['result'] = $this->Assets->parameter_range_list($this->session->userdata('asset_id'), $id[0]);
+
+            $view = $this->load->view('AssetsManagement/Assets_Parameter/modal/parameter_range', $data);
+            echo $view;
         }
     }
 
