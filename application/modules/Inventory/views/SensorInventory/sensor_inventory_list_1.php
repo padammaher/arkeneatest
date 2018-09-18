@@ -6,12 +6,14 @@
 
         <div class="title_right">
             <div class="pull-right">
-                <a href="<?php echo base_url('Add_sensor_inventory'); ?>" class="btn btn-sm btn-primary">Add New</a>
-                <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary">Device Inventory</a>
-                <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary">Device Asset</a>   
+                
+                <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
+                <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-tachometer"></i> Device Sensor</a>
+                <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>   
+                <a href="<?php echo base_url('Add_sensor_inventory'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
                 <!--<a href="sensor-inventory-add.html" class="btn btn-sm btn-primary">Add New</a>-->
                 <!--<a href="device-inventory-list.html" class="btn btn-sm btn-primary">Device Inventory</a>-->
-                <!--<a href="device-sensors-list.html" class="btn btn-sm btn-primary">Device Sensor</a>-->
+                
                 <!--<a href="device-assets-list.html" class="btn btn-sm btn-primary">Device Asset</a>-->
             </div>
         </div>
@@ -54,7 +56,7 @@
                                         <li class="flex-item"><?php echo $inventory_list['sensor_no']; ?></li>                  
                                         <li class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></li>
                                         <li class="flex-item"><?php echo $inventory_list['description']; ?></li>
-                                        <li class="flex-item">
+                                        <li class="flex-item" style="    display: -webkit-inline-box;">
 
                                             <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
@@ -72,7 +74,12 @@
                                                     <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
                                                     <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $inventory_list['device_sensor_mapping_id']; ?>">
                                                         <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                                                    </a></form><?php } ?>
+                                                    </a></form><?php } else {?>                                             
+                                             <a href="<?php echo base_url('Add_device_sensors');?>" title="Device Sensor" class="dev_assets" id="<?php echo $i; ?>">
+                                                         <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+                                                    </a>
+                                            <?php } ?>
+                                            
                                             <?php if (!empty($inventory_list['device_asset_tbl_id'])) { ?>
                                                 <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
                                                     <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id"/>

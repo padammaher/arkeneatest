@@ -6,7 +6,7 @@
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a> <div class="companyid"><?php echo $dataHeader['company_name']; ?></div>
             </div>
 
-            <ul class="nav navbar-nav navbar-right">
+              <ul class="nav navbar-nav navbar-right"><li class="dropdown logout"><a href="<?php echo base_url() ?>auth/logout" class="dropdown-toggle info-number mt-10"><i class="fa fa-power-off pull-right"></i></a></li>
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <img src="<?php echo base_url('assets/images/img.jpg'); ?>" alt=""><?php echo $dataHeader['username']; ?>
@@ -21,7 +21,7 @@
                             </a>
                         </li>
                         <li><a href="javascript:;">Help</a></li>
-                        <li><a href="<?php echo base_url() ?>auth/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                        <!--<li><a href="<?php echo base_url() ?>auth/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>-->
                     </ul>
                 </li>
 

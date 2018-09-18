@@ -59,6 +59,22 @@ foreach ($asset_user_list_data as $asset_user_data) { ?>
                             <?php }
                             ?>
               </div> 
+  <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock Date</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                        <div class="xdisplay_inputx item form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="wef_date" id="single_cal1" placeholder="Wef Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" required="required" value="<?php echo set_value('wef_date',date("m/d/Y",strtotime($asset_user_data['createdate']))) ;?>">
+                            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                        </div>
+
+                    </div>
+                    <?php if (form_error('wef_date')) { ?>
+                      <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('wef_date'); ?></span>
+                    <?php } ?>
+                </div>                                    
+              
                                                
 						  
 						  <div class="ln_solid"></div>

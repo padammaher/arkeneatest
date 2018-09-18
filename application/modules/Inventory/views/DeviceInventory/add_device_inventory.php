@@ -111,7 +111,7 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
 
                                                 <div class="xdisplay_inputx item form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left" name="stockdate" id="single_cal1" placeholder="Wef Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" required="required">
+                                                    <input type="text" class="form-control has-feedback-left" name="stockdate" id="single_cal1" placeholder="Wef Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" required="required" value="<?php echo set_value('stockdate');?>">
                                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                                     <span id="inputSuccess2Status" class="sr-only">(success)</span>
                                                 </div>

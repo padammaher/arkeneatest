@@ -6,10 +6,11 @@
 
         <div class="title_right">
             <div class="pull-right">
-
-                <a href="<?php echo base_url('Device_inventory_add'); ?>" class="btn btn-sm btn-primary">Add New</a>
-                <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary">Device Sensor</a>
-                <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary">Device Asset</a>
+                
+                <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-tachometer"></i> Device Sensor</a>
+                <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>
+                <a href="<?php echo base_url('Device_inventory_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
+                
             </div>
         </div>
 
@@ -72,7 +73,7 @@
 
                                         <li class="flex-item"><?php echo $InventoryListRowData['gsm_number']; ?></li>
 
-                                        <li class="flex-item">
+                                        <li class="flex-item" style="    display: -webkit-inline-box;">
 
                                             <form action="<?php echo base_url(); ?>Device_inventory_edit" method="post" id="updateasset<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $InventoryListRowData['id']; ?>" name="id"/>
@@ -99,8 +100,11 @@
                                                         <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
                                                     </a>
                                                 </form>                                                    
+                                            <?php }else { ?>
+                                             <a href="<?php echo base_url('Add_device_sensors');?>" title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
+                                                        <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+                                                    </a>
                                             <?php } ?>
-
                                             </form>                                                    
                                         </li>
                                     </ul>

@@ -58,7 +58,7 @@
                     <li class="flex-item"><?php echo $asset_loc_list['longitude'];?></li>
                     <li class="flex-item"><?php echo $asset_loc_list['contact_no'];?></li>
                     <li class="flex-item"><?php echo $asset_loc_list['contact_email'];?></li>
-                    <li class="flex-item">				
+                    <li class="flex-item" style="    display: -webkit-inline-box;">				
 
    <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">
                 <input type="hidden" value="<?php echo $asset_loc_list['id']; ?>" name="asset_location_post_id"/>
@@ -79,8 +79,11 @@
                     <a  title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                         <i class="fa fa-group text-warning"></i> 
                     </a>
-            </form>  <?php } ?>                 
-									</li>
+</form>  <?php } else { ?>                 
+  <a href="<?php echo base_url('User_asset_add');?>" title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+        <i class="fa fa-group text-warning"></i> 
+    </a>                      
+<?php } ?>									</li>
 								</ul>
 							</div>
             </div>
