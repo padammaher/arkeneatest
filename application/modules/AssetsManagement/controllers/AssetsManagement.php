@@ -57,7 +57,7 @@ class AssetsManagement extends MY_Controller {
                     'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0'
                 );
 
-                $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric');
                 $this->form_validation->set_rules('Customerlocation', 'User Location', 'required');
                 $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
                 $this->form_validation->set_rules('Assettype', 'Asset Type', 'required');
@@ -175,14 +175,14 @@ class AssetsManagement extends MY_Controller {
                 } else if ($form_action == "update") {
                     //   print_r($this->input->post());
                     //  exit;
-                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha|numeric');
+                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric');
                     $this->form_validation->set_rules('Customerlocation', 'User Location', 'required');
                     $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
                     $this->form_validation->set_rules('Assettype', 'Asset Type', 'required');
                     // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-                    $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha|numeric');
-                    $this->form_validation->set_rules('Make', 'Make', 'required|alpha|numeric');
-                    $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha|numeric');
+                    $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric');
+                    $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric');
+                    $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric');
                     // $this->form_validation->set_rules('description', 'Description', 'required');
                     $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');
                     $assets_data = array(
@@ -608,7 +608,7 @@ class AssetsManagement extends MY_Controller {
                 $todaysdate = date('Y-m-d');
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
-                $this->form_validation->set_rules('wef_date', 'Wef date', 'required');
+                
                 
 
                 if ($this->form_validation->run() == TRUE) {
@@ -617,7 +617,7 @@ class AssetsManagement extends MY_Controller {
                     if ($asset_user_form_action[0] == 'add') {
                         $insert_data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
-                            'createdate' => date('Y-m-d',strtotime($this->input->post('wef_date'))),
+                            'createdate' =>$todaysdate,
                             'createdby' => $user_id);
 
                         $unique_Data = array('asset_id' => $this->input->post('assetcode'),
@@ -686,7 +686,7 @@ class AssetsManagement extends MY_Controller {
 
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
-                $this->form_validation->set_rules('wef_date', 'Wef date', 'required');
+                
 
                 if ($asset_user_post == 'edit') {
 
@@ -699,7 +699,7 @@ class AssetsManagement extends MY_Controller {
 
                         $update_data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
-                            'createdate' => date('Y-m-d',strtotime($this->input->post('wef_date'))),
+                            'createdate' => $todaysdate,
                             'createdby' => $user_id);
 
                         $unique_Data = array('asset_id' => $this->input->post('assetcode'),
