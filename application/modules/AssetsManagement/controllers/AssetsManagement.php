@@ -1103,7 +1103,7 @@ class AssetsManagement extends MY_Controller {
 //            $data['dataHeader'] = $this->users->get_allData($user_id);
             $todaysdate = date('Y-m-d');
             $data['trigger_edit_list'] = array();
-            $data['header_desc'] = $this->Assets->showdescription(63);
+            $data['header_desc'] = $this->Assets->showdescription($asset_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $trigger_form_action = $this->input->post('trigger_form_action');
