@@ -57,7 +57,7 @@ class AssetsManagement extends MY_Controller {
                     'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0'
                 );
 
-                $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric');
                 $this->form_validation->set_rules('Customerlocation', 'User Location', 'required');
                 $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
                 $this->form_validation->set_rules('Assettype', 'Asset Type', 'required');
@@ -176,14 +176,14 @@ class AssetsManagement extends MY_Controller {
                 } else if ($form_action == "update") {
                     //   print_r($this->input->post());
                     //  exit;
-                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha|numeric');
+                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric');
                     $this->form_validation->set_rules('Customerlocation', 'User Location', 'required');
                     $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
                     $this->form_validation->set_rules('Assettype', 'Asset Type', 'required');
                     // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-                    $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha|numeric');
-                    $this->form_validation->set_rules('Make', 'Make', 'required|alpha|numeric');
-                    $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha|numeric');
+                    $this->form_validation->set_rules('Assetserialno', 'Serial number', 'required|alpha_numeric');
+                    $this->form_validation->set_rules('Make', 'Make', 'required|alpha_numeric');
+                    $this->form_validation->set_rules('Modelno', 'Model', 'required|alpha_numeric');
                     // $this->form_validation->set_rules('description', 'Description', 'required');
                     $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');
                     $assets_data = array(

@@ -69,15 +69,21 @@ foreach ($Edit_deviceinventory_data as $deviceinventory_data) {
                 <textarea name="devicedescription" class="form-control" rows="2" placeholder="IOT Device" style="resize: vertical;"><?php echo set_value('devicedescription',$deviceinventory_data['description']);?></textarea>
               </div>
         </div>
-        <div class="item form-group">
+                <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Communication Type *</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" name="comm_type" id="comm_type" class="form-control" value="<?php echo set_value('deviceid',$deviceinventory_data['communication_type']);?>">
-              </div>
-                <?php if (form_error('comm_type')) { ?>
-              <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('comm_type'); ?></span>
-          <?php } ?>
-        </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">  
+                  <select class="form-control" name="comm_type" id="comm_type" required="required">
+                    <option value="">Select Type</option>
+                    <option value="GSM" <?php echo set_value('comm_type',$deviceinventory_data['communication_type'])== "GSM" ?'selected':'';?>>GSM</option>
+
+                </select>             
+                </div>
+                 <?php if (form_error('comm_type')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('comm_type'); ?></span>
+                            <?php } ?>
+              </div>         
+
+
         <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">GSM Number</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -106,16 +112,16 @@ foreach ($Edit_deviceinventory_data as $deviceinventory_data) {
         </div>					
 
   <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock Date</label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Stock Date</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                                <div class="xdisplay_inputx item form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left" name="stockdate" id="single_cal1" placeholder="Wef Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" value="<?php echo set_value('stockdate',date("m/d/Y",strtotime($deviceinventory_data['stock_date'])));?>" required="required">
-                                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                                    <span id="inputSuccess2Status" class="sr-only">(success)</span>
-                                                </div>
+                                    <div class="xdisplay_inputx item form-group has-feedback">
+                                        <input type="text" class="form-control has-feedback-left" name="stockdate" id="single_cal1" placeholder="Wef Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" value="<?php echo set_value('stockdate',date("m/d/Y",strtotime($deviceinventory_data['stock_date'])));?>" required="required">
+                                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                                    </div>
 
-                                            </div>
+                                </div>
                             <?php if (form_error('stockdate')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('stockdate'); ?></span>
                             <?php } ?>
@@ -205,3 +211,19 @@ foreach ($Edit_deviceinventory_data as $deviceinventory_data) {
                 </div>
               </div>
             </div>
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#comm_type").change(function () {
+           // $("#gsmnumber").attr('required');
+           if($("#comm_type").val() != ""){
+//           alert($("#comm_type").val());
+            $("#gsmnumber").attr('required','');
+         }
+         else
+         {
+        $("#gsmnumber").removeAttr('required');
+         }
+        });
+    });
+</script>        
