@@ -107,6 +107,9 @@ $('#client_username').focusout(function(){
 	position:absolute; 
     color:red;
 }
+.form-group .control-label:after {
+  content:"*";color:red;
+}
 </style> 
 
 <script>

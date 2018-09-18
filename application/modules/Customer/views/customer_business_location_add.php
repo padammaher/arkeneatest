@@ -161,3 +161,8 @@ $('#customer_email').focusout(function(){
             });
 });
 </script>
+
+<style>
+  .required{
+    colort:red;
+  }
