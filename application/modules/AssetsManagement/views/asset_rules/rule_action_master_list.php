@@ -145,11 +145,10 @@
                                                 <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
                                             </a>  
                                             </form> 
-                                            <form name="triggerlist" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
-                                            <a  class="trigger_data" id="<?php echo $i; ?>">
+                                            <form name="triggerlistewrwer" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
+                                            <a class="trigger_data" id="<?php echo $i; ?>">
                                                 <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
-                                                <i class="fa fa-pencil blue" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="" ata-original-title="Manage Trigger"></i>
-                                                <!-- <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i>  -->
+                                                 <i class="fa fa-wifi" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
                                             </a>
                                             </form> 
                                             <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
