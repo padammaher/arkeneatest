@@ -6,9 +6,11 @@
 
               <div class="title_right">
                 <div class="pull-right">
-                 <a href="<?php echo base_url('Add_device_sensors');?>" class="btn btn-sm btn-primary">Add New</a>
-                  <a href="<?php echo base_url('Device_inventory_list');?>" class="btn btn-sm btn-primary">Device Inventory</a>
-                   <a href="<?php echo base_url('Device_assets_list');?>" class="btn btn-sm btn-primary">Device Asset</a>
+                                   
+                  <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
+                   <a href="<?php echo base_url('Device_assets_list');?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>
+                 <a href="<?php echo base_url('Add_device_sensors');?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                                     
+                                              
                 </div>
               </div>
             </div>

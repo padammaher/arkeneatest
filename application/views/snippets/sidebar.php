@@ -60,11 +60,10 @@
             <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-bell"></i> Notification </a></li>
-                    <li><a><i class="fa fa-envelope"></i> Email </a></li>
+                    
                     <li><a><i class="fa fa-bar-chart-o"></i> Stats/Report </a></li>
                     <li><a><i class="fa fa-table"></i> Configuration </a></li>
-                    <li><a href="login.html"><i class="fa fa-power-off"></i> Logout </a></li>
+                    
 
                 </ul>
             </div>
@@ -92,5 +91,15 @@
     </div>
 </div>
 
-
+ <?php 
+ $login_flag=$this->session->userdata('login_flag'); 
+ if($login_flag == 0 && $login_flag != '') {  ?>
+<script type="text/javascript">
+    $(document).ready(function() {                
+            $("#sidebar-menu a").removeAttr("href");
+            $("#sidebar-menu a").css("cursor", "not-allowed");         
+            $("#sidebar-menu a").addClass('not-allowed');   
+    });
+</script>
+ <?php } ?> 
 
