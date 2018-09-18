@@ -108,7 +108,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                   <button id="customer_info_submit" type="submit" class="btn btn-primary">Save
                   </button>
-                  <a href="<?php echo base_url()?>Customer/customer_info">
+                  <a href="<?php echo base_url()?>Customerinfo">
                   <button type="button" class="btn btn-default">Cancel
                   </button></a>
                 </div>
@@ -165,3 +165,8 @@ $('#customer_email').focusout(function(){
 });
 </script>
 
+<style>
+  .form-group .control-label:after {
+  content:"*";color:red;
+}
+</style>
