@@ -1,20 +1,3 @@
-<div class="page-title">
-    <div class="title_left">
-        <h4>Asset Management</h4>
-    </div>
-
-    <div class="title_right">
-        <div class="pull-right">
-            <a href="<?php echo base_url('Assets_add'); ?>" class="btn btn-sm btn-primary">Add New</a>
-            <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary">Asset Location</a>
-            <a href="<?php echo base_url('User_assets_list'); ?>" class="btn btn-sm btn-primary">Asset User</a>
-        </div>
-    </div>
-
-</div>
-<div class="clearfix"></div>
-
-
 <div class="row tile_count asset-stats">
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-map-marker"></i> Total Customer Location</span>
@@ -37,6 +20,20 @@
 
     </div>
 
+
+</div>
+<div class="page-title">
+    <div class="title_left">
+        <h4>Asset Management</h4>
+    </div>
+
+    <div class="title_right">
+        <div class="pull-right">
+            <a href="<?php echo base_url('Assets_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
+            <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i>Asset Location</a>
+            <a href="<?php echo base_url('User_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-user"></i> Asset User</a>
+        </div>
+    </div>
 
 </div>
 <div class="row">    

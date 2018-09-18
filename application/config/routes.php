@@ -148,7 +148,7 @@ $route['ManageBusinessLoacaiton']='Customer/customer_business_location_list';
 $route['AddClient']='Customer/edit_client_user';
 $route['Add_Business_Location']='Customer/add_customer_business_location';
 
-//$route['update_client']='Customer/Customer';
+$route['update_client']='Customer/update_client_detail';
 
 
 

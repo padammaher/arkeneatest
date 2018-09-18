@@ -891,6 +891,7 @@ class Ion_auth_model extends CI_Model {
      * @author Mathew
      * */
     public function login($identity, $password, $remember = FALSE) {
+        //print_r($this->identity_column); exit();
         $this->trigger_events('pre_login');
 
         if (empty($identity) || empty($password)) {
@@ -901,7 +902,7 @@ class Ion_auth_model extends CI_Model {
         $this->trigger_events('extra_where');
         $this->db->select($this->identity_column . ', email, id, password, active, last_login,login_flag'); 
         $this->db->from($this->tables['users']);
-        $this->where($this->identity_column, $identity); 
+        $this->db->where($this->identity_column, $identity); 
         $this->db->limit(1);
         $this->db->order_by('id', 'desc'); 
         $query=$this->db->get();
