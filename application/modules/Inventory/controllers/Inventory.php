@@ -685,11 +685,11 @@ class Inventory extends MY_Controller {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
                 $this->form_validation->set_rules('assetid', 'Asset ID', 'required');
-
+                $this->form_validation->set_rules('wef_date', 'Wef date', 'required');
                 $insert_data = array(
                     'device_id' => $this->input->post('deviceid'),
                     'asset_id' => $this->input->post('assetid'),
-                    'createdate' => $todaysdate,
+                    'createdate' =>  date('Y-m-d',strtotime($this->input->post('wef_date'))),
                     'createdby' => $user_id
                 );
                 $unique_data = array(
@@ -745,6 +745,7 @@ class Inventory extends MY_Controller {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
                 $this->form_validation->set_rules('assetid', 'Asset ID', 'required');
+                $this->form_validation->set_rules('wef_date', 'Wef date', 'required');
 //                   $form_action=$this->input->post('post');
 //                  $sen_inv_id=$this->input->post('id');
                 $form_action = ($this->input->post('post')) == '' ? $this->input->post('dev_asset_post') : $this->input->post('post');
@@ -762,9 +763,10 @@ class Inventory extends MY_Controller {
                     $update_data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'asset_id' => $this->input->post('assetid'),
-                        'createdate' => $todaysdate,
+                        'createdate' => date('Y-m-d',strtotime($this->input->post('wef_date'))),
                         'createdby' => $user_id
                     );
+                    
                     $unique_data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'asset_id' => $this->input->post('assetid'),

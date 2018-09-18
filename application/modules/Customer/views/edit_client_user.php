@@ -6,7 +6,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h4>Edit Client User
+            <h4> <?php echo (isset($client_details[0]->id))?'Edit Client User':'Add Client User'; ?>
             </h4>						
             <div class="clearfix">
             </div>

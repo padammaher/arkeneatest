@@ -6,7 +6,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h4>Edit Customer Provisioning
+            <h4>Add Customer Provisioning
             </h4>						
             <div class="clearfix">
             </div>
@@ -18,7 +18,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" class="form-control static-text" placeholder="Customer Name" value="<?php echo $user->first_name.' '.$user->last_name; ?>" disabled>
+                <input type="text" class="form-control static-text" placeholder="Customer Name" value="<?php echo (isset($user->company_name))?$user->company_name:''; ?>" disabled>
                  <input name="user_id" type="hidden" class="form-control static-text" placeholder="Asset Sr. No." value="<?php echo $user->id; ?>">
                   </div>
               </div>
@@ -76,28 +76,28 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name="pincode" type="number" class="form-control" placeholder="Enter pincode" required="required" value="<?php echo $user->pincode; ?>">
+                  <input name="pincode" id="pincode" type="number" class="form-control" placeholder="Enter pincode" required="required" value="<?php echo $user->pincode; ?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="phone" type="number" class="form-control" placeholder="Telephone No." required="required" value="<?php echo $user->phone; ?>">
+                <input name="phone" id="phone" type="number" class="form-control" placeholder="Telephone No." required="required" value="<?php echo $user->phone; ?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="mobile" type="number" class="form-control" placeholder="Mobile No." required="required" value="<?php echo $user->mobile; ?>">
+                <input name="mobile" id="mobile" type="number" class="form-control" placeholder="Mobile No." required="required" value="<?php echo $user->mobile; ?>">
                </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="email" id="customer_email" type="Email" class="form-control" placeholder="Email ID" required="required" value="<?php echo $user->email; ?>">
+                <input name="email"  id="customer_email" type="Email" class="form-control" placeholder="Email ID" required="required" value="<?php echo $user->email; ?>">
                 <div id="email_error" style="color:red;"></div>
                 </div>
               </div>
@@ -162,6 +162,26 @@ $('#customer_email').focusout(function(){
                  
                 })
             });
+});
+
+$('#mobile').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+  
+});
+$('#pincode').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+});
+$('#phone').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
 });
 </script>
 

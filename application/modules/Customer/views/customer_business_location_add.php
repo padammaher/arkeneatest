@@ -74,14 +74,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='pincode' type="number" class="form-control" placeholder="Enter Pincode Number" required="required">
+                  <input name='pincode' id="pincode" type="number" class="form-control" placeholder="Enter Pincode Number" required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='telephone' type="number" class="form-control" placeholder="Enter Land line Number " required="required">
+                  <input name='telephone' id="phone" type="number" class="form-control" placeholder="Enter Land line Number " required="required">
                 </div>
               </div>
               <div class="item form-group">
@@ -90,7 +90,7 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='mobile' type="number" class="form-control"  placeholder="Enter Mobile Number " required="required">
+                  <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="Enter Mobile Number " required="required">
                 </div>
               </div>
               <div class="item form-group">
@@ -159,6 +159,27 @@ $('#customer_email').focusout(function(){
                 }
                 })
             });
+});
+
+
+$('#mobile').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+  
+});
+$('#pincode').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+});
+$('#phone').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
 });
 </script>
 

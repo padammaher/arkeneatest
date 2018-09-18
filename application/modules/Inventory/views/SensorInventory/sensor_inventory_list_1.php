@@ -88,9 +88,12 @@
                                                         <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
                                                     </a>
                                                 </form>                                                    
+                                            <?php } else { ?>
+                                            <a href="<?php echo base_url('Device_assets_add');?>" title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
+                                                        <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
+                                                    </a>
                                             <?php } ?>
-
-                                            </form>   
+                                            <!--</form>-->   
 
                                         </li>
 
