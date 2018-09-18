@@ -64,7 +64,10 @@ class Assets extends MY_Model {
         }
         $this->db->where('asset.createdby', $user_id);
         $query = $this->db->get();
-        $assets_list = $query->result_array();
+        $assets_list = $query->result_array(); $param_range_id =null;
+        foreach($assets_list as $k => $data){
+        $assets_list[$k]['parametercount'] = $this->parameter_range_list($data['id'], $param_range_id);
+        }
         return $assets_list;
     }
 
@@ -599,6 +602,18 @@ class Assets extends MY_Model {
              where asset_parameter_rule.rule_status='1' and parameter_range.isactive='1' and parameter_range.asset_id=" . $asset_id . " ";
         $res = $this->db->query($query);
         return $obj = $res->result_array();
+    }
+    
+         public function Check_assetcode_is_exist($assetcode,$user_id) {
+               $this->db->select('id,code,count(code) as `Cnt_number`');
+        $this->db->from('asset');                
+        $this->db->limit('1');
+        $this->db->group_by('id');
+        $this->db->where('asset.code',$assetcode);
+        $query = $this->db->get();
+//        echo $this->db->last_query();
+        $objData = $query->result();
+        return $objData;
     }
 
 }

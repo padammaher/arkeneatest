@@ -358,4 +358,16 @@ class Inventory_model extends MY_Model {
         $objData = $query->result();
         return $objData;
     }
+    
+     public function Check_serialnum_is_exist($devicenum,$user_id) {
+               $this->db->select('id,serial_no,count(serial_no) as `Cnt_number`');
+        $this->db->from('device_inventory');                
+        $this->db->limit('1');
+        $this->db->group_by('id');
+        $this->db->where('device_inventory.serial_no',$devicenum);
+        $query = $this->db->get();
+//        echo $this->db->last_query();
+        $objData = $query->result();
+        return $objData;
+    }
 }
