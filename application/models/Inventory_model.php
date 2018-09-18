@@ -129,8 +129,9 @@ class Inventory_model extends MY_Model {
         $this->db->join('parameter','parameter.id=sensor_inventory.parameter_id','left');
         $this->db->join('uom_type','uom_type.id=sensor_inventory.uom_type_id','left');
         $this->db->where('sensor_inventory.createdby',$user_id);
-        $this->db->group_by('device_sensor_mapping.id');
+        $this->db->group_by('sensor_inventory.id');
         $query = $this->db->get();
+//        echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
