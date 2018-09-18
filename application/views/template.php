@@ -89,7 +89,7 @@
                     <!--</div>-->
                 </div>
                 <!--- Confirmation Modal --->
-                <div class="modal confirmmodal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal confirmmodal fade bs-example-modal-sm" id="confirmmodal_Box" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                             <div class="modal-header">

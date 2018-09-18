@@ -65,28 +65,11 @@ class Assets extends MY_Model {
         }
         $this->db->where('asset.createdby', $user_id);
         $query = $this->db->get();
-        $assets_list = $query->result_array(); $param_range_id =null;
-        foreach($assets_list as $k => $data){
-        $assets_list[$k]['parametercount'] = $this->parameter_range_list($data['id'], $param_range_id);
-        }
+        $assets_list = $query->result_array();
         return $assets_list;
     }
 
-//    public function get_assets($id) {
-//        $this->db->select('asset.id,asset.code,asset_location.location,asset_category.name as assetcategoryname,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable,branch_user.client_name');
-//        $this->db->from('asset');
-//        $this->db->join('asset_location', 'asset_location.id= asset.customer_locationid', 'left');
-//        $this->db->join('asset_user', 'asset_user.asset_id= asset.id', 'left');
-//        $this->db->join('branch_user', 'asset_user.assetuser_id= branch_user.id', 'left');
-//        $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
-//        $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
-//        $this->db->join('users', 'users.id=asset.createdby');
-//        $this->db->where('asset.id', $id);
-////        $this->db->group_by('asset.id');
-//        $query = $this->db->get();
-//        $asset = $query->result_array();
-//        return $asset;
-//    }
+    
 
     public function Asset_edit($edit_asset_list_id) {
         $this->db->select('asset.id,asset.code,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid,asset.isactive, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
@@ -336,8 +319,8 @@ class Assets extends MY_Model {
         // }
     }
 
-    public function get_asset_rule_list($parameter_range_id='') { //
-        $asset_data = $this->db->from('asset_parameter_rule')->where('parameter_range_id', $parameter_range_id)->get()->result();
+    public function get_asset_rule_list() {
+        $asset_data = $this->db->from('asset_parameter_rule')->get()->result();
         if ($asset_data)
             return $asset_data;
         else
@@ -358,85 +341,37 @@ class Assets extends MY_Model {
         $this->db->delete('asset_parameter_rule');
         return true;
     }
-    public function get_asset_id($parameter_id){
-        $this->db->select('asset_id');
-        $this->db->from('parameter_range');
-        $this->db->where('parameter_range.id', $parameter_id);
-        $query = $this->db->get();
-        $asset_id= $query->result_array();   
-        
-        return  $asset_id[0]['asset_id']; 
-    }
 
-    public function get_parameter_range($parameter_id){
-        $this->db->select('asset.id,asset.customer_locationid,asset.code,asset.specification,parameter_range.uom_id,parameter_range.parameter_id,parameter_range.min_value,parameter_range.max_value,parameter_range.scaling_factor,parameter_range.bits_per_sign');
-        $this->db->from('parameter_range');
-        $this->db->join('asset', 'parameter_range.asset_id = asset.id', 'left');
-        $this->db->where('parameter_range.id', $parameter_id);
+    public function get_parameter_range($asset_id) {
+        $asset_id = 63;
+
+
+        $this->db->select('asset.id,asset.code,asset.specification,parameter_range.uom_id,parameter_range.parameter_id,parameter_range.min_value,parameter_range.max_value,parameter_range.scaling_factor,parameter_range.bits_per_sign,asset_location.location,asset_location.address');
+        $this->db->from('asset');
+        $this->db->join('parameter_range', 'parameter_range.asset_id = asset.id', 'left');
+        $this->db->join('asset_location', 'asset_location.id = asset.customer_locationid', 'left');
+        $this->db->where('asset.id', $asset_id);
         $query = $this->db->get();
         $asset_data = $query->result_array();
-
-       // print_r($asset_data[0]['customer_locationid']); exit(); 
         if ($query->num_rows() > 0) {
             foreach ($asset_data as $key => $value) {
-               $asset_location= $this->get_asset_location($value['customer_locationid']); 
-                if(isset($asset_location[0]['location']))
-                $asset_data[$key]['location']=$asset_location[0]['location'];
-
-                if(isset($asset_location[0]['address']))
-                $asset_data[$key]['address']=$asset_location[0]['address'];
-
                 $param_name = $this->get_paramiter_name($value['parameter_id']);
                 $uom_name = $this->get_uom_name($value['uom_id']);
                 if ($param_name) {
                     $asset_data[$key]['param_name'] = $param_name[0]['name'];
                 }
+
+
                 if ($uom_name)
                     $asset_data[$key]['uom_name'] = $uom_name[0]['name'];
             }
-            if($asset_data) {
+            if ($asset_data) {
                 return $asset_data;
             } else {
                 return false;
             }
         }
-
     }
-    public function get_asset_location($location_id){
-        $this->db->select('asset_location.location,asset_location.address');
-        $this->db->from('asset_location');
-        $this->db->where('asset_location.id', $location_id);
-        $query = $this->db->get();
-        $location_data = $query->result_array();
-        return $location_data;
-    }
-
-    // public function get_parameter_range($asset_id) {
-
-    //     $this->db->select('asset.id,asset.code,asset.specification,parameter_range.uom_id,parameter_range.parameter_id,parameter_range.min_value,parameter_range.max_value,parameter_range.scaling_factor,parameter_range.bits_per_sign,asset_location.location,asset_location.address');
-    //     $this->db->from('asset');
-    //     $this->db->join('parameter_range', 'parameter_range.asset_id = asset.id', 'left');
-    //     $this->db->join('asset_location', 'asset_location.id = asset.customer_locationid', 'left');
-    //     $this->db->where('asset.id', $asset_id);
-    //     $query = $this->db->get();
-    //     $asset_data = $query->result_array();
-    //     if ($query->num_rows() > 0) {
-    //         foreach ($asset_data as $key => $value) {
-    //             $param_name = $this->get_paramiter_name($value['parameter_id']);
-    //             $uom_name = $this->get_uom_name($value['uom_id']);
-    //             if ($param_name) {
-    //                 $asset_data[$key]['param_name'] = $param_name[0]['name'];
-    //             }
-    //             if ($uom_name)
-    //                 $asset_data[$key]['uom_name'] = $uom_name[0]['name'];
-    //         }
-    //         if ($asset_data) {
-    //             return $asset_data;
-    //         } else {
-    //             return false;
-    //         }
-    //     }
-    // }
 
     public function get_paramiter_name($id) {
         $asset_param_data = $this->db->select('id,name')->from('parameter')->where('id', $id)->get()->result_array();
@@ -585,7 +520,7 @@ class Assets extends MY_Model {
         }
     }
 
-    public function showdescription($set_rule_id,$asset_id) {
+    public function showdescription($asset_id) {
 
 
         $query = "SELECT 

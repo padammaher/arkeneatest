@@ -108,7 +108,7 @@
 
        $(".delete").click(function () {
             var id = $(this).attr('id');
-            $(".modal").modal();
+            $("#confirmmodal_Box").modal();
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
 //                $("#update_param_range" + id).attr('action', update_url);
