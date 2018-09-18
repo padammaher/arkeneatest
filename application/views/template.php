@@ -106,6 +106,25 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div id="delete_confirmation" class="modal confirmmodal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Confirmation<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4></h4>
+                                <p>Are you sure you want to delete this item ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary ok">Ok</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- End Modal -->
                 <footer>      
                     {footer}            

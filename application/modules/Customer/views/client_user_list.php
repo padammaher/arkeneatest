@@ -241,7 +241,7 @@
         });
         $(".delete").click(function () {
             var id = $(this).attr('id');
-            $(".modal").modal();
+            $("#delete_confirmation").modal('show');
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#update_client" + id).submit();
