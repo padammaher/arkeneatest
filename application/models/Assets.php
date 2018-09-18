@@ -49,10 +49,11 @@ class Assets extends MY_Model {
 
     public function assets_list($user_id, $id = NULL) {
 
-        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,asset_location.id as assetlocid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
         //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
         $this->db->from('asset');
         $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
+        $this->db->join('asset_location', 'asset_location.asset_id= asset.id', 'left');
         $this->db->join('asset_user', 'asset_user.asset_id= asset.id', 'left');
         $this->db->join('branch_user', 'branch_user.id= asset_user.assetuser_id', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
@@ -486,7 +487,7 @@ class Assets extends MY_Model {
         return $this->db->insert_id();
     }
 
-    public function trigger_list($user_id, $asset_id) {
+    public function trigger_list($rule_id=NULL,$user_id, $asset_id) {
 
         $this->db->select('trigger.id,
                         trigger.rule_id,
@@ -499,7 +500,8 @@ class Assets extends MY_Model {
                         trigger.createby');
         $this->db->from('trigger');
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.createby' => $user_id));
-//        $this->db->where('trigger.isactive', 1);
+        $this->db->where('trigger.isactive', 1);
+        
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
@@ -583,7 +585,7 @@ class Assets extends MY_Model {
         }
     }
 
-    public function showdescription($asset_id) {
+    public function showdescription($set_rule_id,$asset_id) {
 
 
         $query = "SELECT 
@@ -593,11 +595,11 @@ class Assets extends MY_Model {
                 asset_parameter_rule.red_value,asset_parameter_rule.wef_date,asset.code,asset.specification,branch_user.client_name,branch_user.client_username,parameter.name as `parameter_name`,
                 parameter_range.id as parameter_range_tbl_id,(select count(`trigger`.trigger_threshold_id) from `trigger` where `trigger`.`rule_id`=asset_parameter_rule.id) as `trigger_threshold_id_count`
              FROM asset_parameter_rule
-             inner join parameter_range on parameter_range.id=asset_parameter_rule.parameter_range_id
-             inner join parameter on parameter.id=parameter_range.parameter_id
-             inner join asset on asset.id=parameter_range.asset_id
-             inner join asset_user on asset_user.asset_id= asset.id
-             inner join branch_user on branch_user.id= asset_user.assetuser_id
+             left join parameter_range on parameter_range.id=asset_parameter_rule.parameter_range_id
+             left join parameter on parameter.id=parameter_range.parameter_id
+             left join asset on asset.id=parameter_range.asset_id
+             left join asset_user on asset_user.asset_id= asset.id
+             left join branch_user on branch_user.id= asset_user.assetuser_id
              left join `trigger` on `trigger`.`rule_id`=asset_parameter_rule.id
              where asset_parameter_rule.rule_status='1' and parameter_range.isactive='1' and parameter_range.asset_id=" . $asset_id . " ";
         $res = $this->db->query($query);
