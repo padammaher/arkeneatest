@@ -495,13 +495,9 @@ class Inventory extends MY_Controller {
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
                 if ($this->input->post('post') == 'edit') {
 
-                    $this->template->set_master_template('template.php');
-                    $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-                    $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+                   load_view_template($data, 'SensorInventory/edit_sensor_inventory_1');
 
-                    $this->template->write_view('content', 'SensorInventory/edit_sensor_inventory_1', (isset($this->data) ? $this->data : NULL), TRUE);
-                    $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-                    $this->template->render();
+                    
                 }
 //                  $sensor_form_action=explode(" ",$this->input->post('sensor_form_action'));
 //                  print_r($sensor_form_action);

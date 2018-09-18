@@ -1070,12 +1070,15 @@ class AssetsManagement extends MY_Controller {
                 $rule_id='0';
             }
             $user_id = $this->session->userdata('user_id');
+
+            $set_rule_id = $this->session->userdata('rule_id');
+
              $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
             
-            $data['trigger_list'] = $this->Assets->trigger_list($user_id, $asset_id);
+            $data['trigger_list'] = $this->Assets->trigger_list($set_rule_id,$user_id, $asset_id);
             
             $data['header_desc'] = $this->Assets->showdescription($asset_id);
 
