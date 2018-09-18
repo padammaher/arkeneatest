@@ -98,29 +98,32 @@ class Assets extends MY_Model {
         return $assets_list;
     }
 
-    public function CustomerLocation_list() {
+    public function CustomerLocation_list($user_id) {
         $this->db->select('id,location_name');
         $this->db->from('customer_business_location');
-//        $this->db->where('isactive', 1);
+        $this->db->where('user_id', $user_id);
         $this->db->group_by('id');
         $query = $this->db->get();
+        echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
 
-    public function AssetCategory_list() {
+    public function AssetCategory_list($user_id) {
         $this->db->select('id,name');
         $this->db->from('asset_category');
         $this->db->where('isactive', 1);
+        $this->db->where('createdby', $user_id);        
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
     }
 
-    public function AssetType_list() {
+    public function AssetType_list($user_id) {
         $this->db->select('id,name');
         $this->db->from('asset_type');
         $this->db->where('isactive', 1);
+        $this->db->where('createdby', $user_id);        
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -528,7 +531,7 @@ class Assets extends MY_Model {
         }
     }
 
-    public function showdescription($rule_id, $asset_id) {
+    public function showdescription($asset_id) {
 
 
         $query = "SELECT 
@@ -536,7 +539,7 @@ class Assets extends MY_Model {
                 asset_parameter_rule.green_value,
                 asset_parameter_rule.orange_value,
                 asset_parameter_rule.red_value,asset_parameter_rule.wef_date,asset.code,asset.specification,branch_user.client_name,branch_user.client_username,parameter.name as `parameter_name`,
-                parameter_range.id as parameter_range_tbl_id,(select count(`trigger`.trigger_threshold_id) from `trigger` where `trigger`.`rule_id`=" . $rule_id . ") as `trigger_threshold_id_count`
+                parameter_range.id as parameter_range_tbl_id,(select count(`trigger`.trigger_threshold_id) from `trigger` where `trigger`.`rule_id`=asset_parameter_rule.id) as `trigger_threshold_id_count`
              FROM asset_parameter_rule
              inner join parameter_range on parameter_range.id=asset_parameter_rule.parameter_range_id
              inner join parameter on parameter.id=parameter_range.parameter_id
@@ -544,8 +547,7 @@ class Assets extends MY_Model {
              inner join asset_user on asset_user.asset_id= asset.id
              inner join branch_user on branch_user.id= asset_user.assetuser_id
              left join `trigger` on `trigger`.`rule_id`=asset_parameter_rule.id
-             where asset_parameter_rule.rule_status='1' and parameter_range.isactive='1' and parameter_range.asset_id=" . $asset_id . " 
-             and asset_parameter_rule.id =" . $rule_id . "";
+             where asset_parameter_rule.rule_status='1' and parameter_range.isactive='1' and parameter_range.asset_id=" . $asset_id . " ";
         $res = $this->db->query($query);
         return $obj = $res->result_array();
     }
