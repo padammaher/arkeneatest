@@ -9,7 +9,7 @@
       </div>
       <div class="title_right">
         <div class="pull-right">
-          <a href="<?php echo base_url()?>Editcustomerinfo" class="btn btn-sm btn-primary">Edit Customer Information
+          <a href="<?php echo base_url()?>Editcustomerinfo" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit Customer Information
           </a>
           <!--- <a href="assets-location-list.html" class="btn btn-sm btn-primary">Asset Location</a>
 <a href="user-assets-list.html" class="btn btn-sm btn-primary">Asset User</a>--->
