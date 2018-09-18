@@ -64,7 +64,10 @@ class Assets extends MY_Model {
         }
         $this->db->where('asset.createdby', $user_id);
         $query = $this->db->get();
-        $assets_list = $query->result_array();
+        $assets_list = $query->result_array(); $param_range_id =null;
+        foreach($assets_list as $k => $data){
+        $assets_list[$k]['parametercount'] = $this->parameter_range_list($data['id'], $param_range_id);
+        }
         return $assets_list;
     }
 

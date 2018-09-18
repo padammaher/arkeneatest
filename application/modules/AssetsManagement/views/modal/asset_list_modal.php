@@ -57,7 +57,7 @@
 									
 									<tr>
                                         <td class="lft-td">Parameter Count</td>
-                                        <td><?php echo $list['assetcategoryname'] ?></td>
+                                        <td><?php echo count($list['parametercount']) ?></td>
                                     </tr>
                       </tbody>
                     </table>
