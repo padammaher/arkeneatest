@@ -275,7 +275,7 @@
           </div>  
           <?php  } ?> 
           <!-- Model end  -->
-          <ul class="pagination">
+          <!-- <ul class="pagination">
             <li>
               <a href="#">1
               </a>
@@ -296,7 +296,7 @@
               <a href="#">5
               </a>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>

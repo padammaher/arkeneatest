@@ -91,5 +91,15 @@
     </div>
 </div>
 
-
+ <?php 
+ $login_flag=$this->session->userdata('login_flag'); 
+ if($login_flag == 0 && $login_flag != '') {  ?>
+<script type="text/javascript">
+    $(document).ready(function() {                
+            $("#sidebar-menu a").removeAttr("href");
+            $("#sidebar-menu a").css("cursor", "not-allowed");         
+            $("#sidebar-menu a").addClass('not-allowed');   
+    });
+</script>
+ <?php } ?> 
 

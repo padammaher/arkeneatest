@@ -4617,6 +4617,10 @@ input[type="text"].static-text{
    
 }
 
+    .not-allowed:hover {   
+    cursor: not-allowed;
+}
+
 @-webkit-keyframes fadeIn {
     from {
         -webkit-transform: scale(0.5);

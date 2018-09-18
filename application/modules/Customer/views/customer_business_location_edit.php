@@ -82,14 +82,14 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input name='pincode' type="number" class="form-control" placeholder="10001" required="required" value="<?php echo (isset($business_detail[0]->pincode))?$business_detail[0]->pincode:'';?>">
+                    <input name='pincode' id="pincode" type="number" class="form-control" placeholder="10001" required="required" value="<?php echo (isset($business_detail[0]->pincode))?$business_detail[0]->pincode:'';?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='telephone' type="number" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo (isset($business_detail[0]->telephone))?$business_detail[0]->telephone:'';?>">
+                <input name='telephone' id="phone" type="number" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo (isset($business_detail[0]->telephone))?$business_detail[0]->telephone:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -98,7 +98,7 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='mobile' type="number" class="form-control"  placeholder="27 82 480 7309" required="required" value="<?php echo (isset($business_detail[0]->mobile))?$business_detail[0]->mobile:'';?>">
+                <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="27 82 480 7309" required="required" value="<?php echo (isset($business_detail[0]->mobile))?$business_detail[0]->mobile:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -168,5 +168,25 @@ $('#customer_email').focusout(function(){
                 }
                 })
             });
+});
+
+$('#mobile').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+  
+});
+$('#pincode').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+});
+$('#phone').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
 });
 </script>
