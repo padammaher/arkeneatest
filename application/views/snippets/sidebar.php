@@ -19,12 +19,15 @@
         <!-- /menu profile quick info -->
 
         <br />
- <?php if($this->session->userdata('login_flag'))
- { 
-     $login_flag=$this->session->userdata('login_flag'); 
- }?> 
+        <?php
+        if ($this->session->userdata('login_flag')) {
+            $login_flag = $this->session->userdata('login_flag');
+        }
+        ?> 
         <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php if(isset($login_flag)&&$login_flag==0){ echo 'cursor-notallowed'; } ?>">
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php if (isset($login_flag) && $login_flag == 0) {
+            echo 'cursor-notallowed';
+        } ?>">
 
             <div class="menu_section">
                 <h3>Home</h3>
@@ -60,11 +63,8 @@
             <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                    
                     <li><a><i class="fa fa-bar-chart-o"></i> Stats/Report </a></li>
                     <li><a><i class="fa fa-table"></i> Configuration </a></li>
-                    
-
                 </ul>
             </div>
 
@@ -91,15 +91,16 @@
     </div>
 </div>
 
- <?php 
- $login_flag=$this->session->userdata('login_flag'); 
- if($login_flag == 0 && $login_flag != '') {  ?>
-<script type="text/javascript">
-    $(document).ready(function() {                
+<?php
+$login_flag = $this->session->userdata('login_flag');
+if ($login_flag == 0 && $login_flag != '') {
+    ?>
+    <script type="text/javascript">
+        $(document).ready(function () {
             $("#sidebar-menu a").removeAttr("href");
-            $("#sidebar-menu a").css("cursor", "not-allowed");         
-            $("#sidebar-menu a").addClass('not-allowed');   
-    });
-</script>
- <?php } ?> 
+            $("#sidebar-menu a").css("cursor", "not-allowed");
+            $("#sidebar-menu a").addClass('not-allowed');
+         });
+    </script>
+<?php } ?> 
 

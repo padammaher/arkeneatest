@@ -69,8 +69,8 @@
                                 <ul class="flex-container nowrap">
 
                                     <?php //var_dump($assetlist)   ?>
-                                    <li class="flex-item"><?php echo $i; ?></li>
-                                    <li class="flex-item"><?php echo $list['code'] ?></li>
+                                    <li  class="flex-item"><?php echo $i; ?></li>
+                                    <li data-toggle="modal" href="#assest_list_modal_<?php echo $list['id']; ?>" class="flex-item"><?php echo $list['code'] ?></li>
                                     <li class="flex-item"><?php echo $list['location'] ?></li>
                                     <li class="flex-item"><?php echo $list['client_username'] ?></li>
 
@@ -145,6 +145,7 @@
         </div>
     </div>
 </div>
+<?php $this->load->view('modal/asset_list_modal')?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
