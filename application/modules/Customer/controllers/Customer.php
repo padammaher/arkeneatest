@@ -302,11 +302,12 @@ class Customer extends MY_Controller {
    
    }
    public function add_business_location(){
+
+
     if (!$this->ion_auth->logged_in() ) {
         redirect('auth', 'refresh');
-    }else{  
-
-        if($this->input->post('location_name'))
+    }else{
+         if($this->input->post('location_name'))
         $additional_data['location_name']=$this->input->post('location_name');
         if($this->input->post('address'))
         $additional_data['address']=$this->input->post('address'); 
@@ -332,14 +333,14 @@ class Customer extends MY_Controller {
        // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
 
        $this->session->set_flashdata('success_msg','Business location added sucessfully');
-       redirect('Customer/customer_business_location_list', 'refresh');
+       redirect('ManageBusinessLoacaiton', 'refresh');
     
       
     }
    }
 
    public function edit_business_location(){
-      $business_id= $this->input->get('business_id'); 
+      $business_id= $this->input->post('business_id'); 
       $this->data['business_detail']=$business_data= $this->Customer_Model->get_business_detail($business_id); 
       $this->data['country_list']=$country=$this->Customer_Model->get_country();
       $this->data['states_list']=  $state_list=  $this->Customer_Model->get_state_list($business_data[0]->country); 
@@ -380,7 +381,7 @@ class Customer extends MY_Controller {
         $this->Customer_Model->update_busineess_location($additional_data,$id); 
        // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
         $this->session->set_flashdata('success_msg','Business location update sucessfully');
-        redirect('Customer/customer_business_location_list', 'refresh');
+        redirect('ManageBusinessLoacaiton', 'refresh');
        
     }
    }
@@ -510,13 +511,13 @@ class Customer extends MY_Controller {
     }*/
 
     public function delete_business_location() {
-        $business_id = $this->input->get('business_id');
-        $this->Customer_Model->delete_business_location_data($business_id);
-        $this->data['location_detail'] = $this->Customer_Model->get_business_list();
-        $this->session->set_flashdata('success_msg', 'Business location deleted sucessfully');
         $user_id = $this->session->userdata('user_id');
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'customer_business_location_list');
+        $business_id = $this->input->post('business_id');
+        $this->Customer_Model->delete_business_location_data($business_id);
+        $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);
+        $this->session->set_flashdata('success_msg', 'Business location deleted sucessfully');
+        //exit;
+        redirect('ManageBusinessLoacaiton', 'refresh');
         // $this->template->set_master_template('template.php');
         // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
         // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));

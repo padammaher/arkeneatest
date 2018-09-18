@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class="x_content">
-          <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>Customer/update_client_detail">
+          <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>update_client">
               <!-- <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.
                 </label>
@@ -32,12 +32,13 @@
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location
                 </label>
+                
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" required="required" name="client_location">
                     <option>Select Customer Location
                     </option>
-                     <?php foreach($client_location as $Location){ ?> 
-                    <option value="<?php echo $Location->location_name;?>"<?php echo ($Location->location_name==(isset($client_details[0]->client_location))?$client_details[0]->client_location:'')?'selected':'';?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
+                     <?php  foreach($client_location as $Location){ ?> 
+                    <option value="<?php echo $Location->location_name;?>"<?php if(isset($client_details[0]->client_location)){ echo ($Location->location_name==$client_details[0]->client_location)?'selected':''; } ?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
                   <?php   } ?> 
                 </select>
                 </div>
