@@ -487,7 +487,7 @@ class Assets extends MY_Model {
     // }
 
     public function get_paramiter_name($id) {
-        $asset_param_data = $this->db->select('id,name')->from('parameter')->where('id', $id)->get()->result_array();
+        $asset_param_data = $this->db->select('id,name,uom_type_id')->from('parameter')->where('id', $id)->get()->result_array();
         if ($asset_param_data) {
             return $asset_param_data;
         }
