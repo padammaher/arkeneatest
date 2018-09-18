@@ -738,8 +738,9 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function asset_rule_list() {
-        if($this->input->post('id')){
+       // if($this->input->post('id')){
         $parameter_id = $this->input->post('id'); 
+        $parameter_id =2;
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_id);
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -750,7 +751,7 @@ class AssetsManagement extends MY_Controller {
         $this->template->write_view('content', 'asset_rules/rule_action_master_list', (isset($this->data) ? $this->data : NULL), TRUE);
         $this->template->write_view('footer', 'snippets/footer', '', TRUE);
         $this->template->render();
-        }       
+        //}       
     }
 
     public function add_asset_rule() {

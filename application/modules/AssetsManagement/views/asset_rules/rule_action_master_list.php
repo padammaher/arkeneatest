@@ -116,13 +116,13 @@
                         </div>
                     </div>
                     <?php
-                    if ($asset_list) {
+                    if ($asset_list) { $i=1;
                         foreach ($asset_list as $key => $asset_rule) {
                             ?> 
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <ul class="flex-container flex-item_row nowrap opendialog<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
-                                        <li class="flex-item"><?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?> 
+                                    <ul class="flex-container flex-item_row nowrap opendialog<?php echo $i; ?>">
+                                        <li class="flex-item"><?php echo $i; ?> 
                                         </li>
                                         <li class="flex-item"><?php echo (isset($asset_rule->rule_name)) ? $asset_rule->rule_name : ''; ?> 
                                         </li>
@@ -139,21 +139,24 @@
                                         <li class="flex-item">2
                                         </li>
                                         <li class="flex-item">
-                                            <form name="edit_asset" method="post" action="<?php echo base_url(); ?>Asset_Rule">
+                                            <form name="edit_asset_rule" id="edit_asset_rule<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>Asset_Rule">
+                                            <a  class="edit_asset" id="<?php echo $i; ?>">    
                                                 <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
-                                                <button type="submit" style="background-color: Transparent;" class="btn"><i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
-                                                </button>
+                                                <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
+                                            </a>  
                                             </form> 
                                             <form name="triggerlist" method="post" action="<?php echo base_url(); ?>trigger_list">
+                                                 <a  class="trigger" id="<?php echo $i; ?>">
                                                 <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
-                                                <button type="submit" class="btn"><i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
-                                                </button>
+                                                <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
+                                               
                                             </form> 
 
-                                            <form name="edit_asset" method="post" action="<?php echo base_url(); ?>Delete_Rule">
-                                                <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
-                                                <button type="submit" style="background-color: Transparent;" class="btn"><i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i> 
-                                                </button>
+                                            <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
+                                                <a  class="delete_asset" id="<?php echo $i; ?>">
+                                                    <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i>
+                                                </a>
                                             </form> 
                                         </li>
                                     </ul>
@@ -162,7 +165,7 @@
 
 
                             <!-- -----------------------modal //////////////////////////////-->
-                            <div id="detailsModal<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>" class="modal fade" role="dialog">
+                            <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
 
                                     <!-- Modal content-->
@@ -226,20 +229,20 @@
                             </div>  
 
                             <script>
-                                $(".opendialog<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?> .flex-item").click(function (e) {
+                                $(".opendialog<?php echo $i; ?> .flex-item").click(function (e) {
                                     if (!$(e.target).hasClass('fa')) {
-                                        $('#detailsModal<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>').modal('show');
+                                        $('#detailsModal<?php echo $i; ?>').modal('show');
                                     }
                                 });
 
                                 $(".flex-container-head .flex-item").click(function () {
-                                    $('#detailsModal<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>').modal('hide');
+                                    $('#detailsModal<?php echo $i; ?>').modal('hide');
                                 });
                             </script>
                             <!-- ///////////////////End Modal //////////////////////////////-->
 
                             <?php
-                        }
+                        $i++; }
                     } else {
                         ?><h3>No Record Found </h3> <?php } ?>
                     <!-- <div class="row clearfix">
@@ -305,3 +308,22 @@
         </div>
     </div>
 </div>
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".edit_asset").click(function () {
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+            $("#edit_asset_rule" + id).submit();
+        });
+        $(".delete_asset").click(function () {
+            var id = $(this).attr('id');
+            
+            $("#delete_confirmation").modal('show');
+            $(".ok").click(function () {
+               // $("#post" + id).val('delete');
+                $("#delete_asset_rule" + id).submit();
+            });
+        });
+    });
+</script>
