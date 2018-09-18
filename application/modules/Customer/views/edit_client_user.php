@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class="x_content">
-          <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>Customer/update_client_detail">
+          <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>update_client">
               <!-- <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.
                 </label>
