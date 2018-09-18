@@ -126,7 +126,7 @@ class Customer extends MY_Controller {
     public function client_user_list() {
         $user_id = $this->session->userdata('user_id');
         $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
-        $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location();
+        $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
     }
@@ -171,7 +171,7 @@ class Customer extends MY_Controller {
     public function edit_client_user() {
         $user_id = $this->session->userdata('user_id');
         $this->data['user_id'] = $user_id;
-        $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location();
+        $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
         $client_id = $this->input->get('client_id');
         $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
@@ -225,12 +225,11 @@ class Customer extends MY_Controller {
                 } else {
                     $additional_data['user_id'] = $user_id;
                     $alreadyexist = $this->Customer_Model->add_client_detail($additional_data);
+                    
                     if ($alreadyexist == 2) {
                         $this->session->set_flashdata('error_msg', 'This user name already Exist');
-                        $user_id = $this->session->userdata('user_id');
-                        $this->data['user_id'] = $user_id;
-                        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-                        load_view_template($this->data, 'client_user_add');
+                        redirect('ManageUsers','refresh');
+                       
                     } else {
                         $this->session->set_flashdata('success_msg', 'Client added sucessfully');
                         redirect('ManageUsers', 'refresh');

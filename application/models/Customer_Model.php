@@ -51,8 +51,9 @@ class Customer_Model extends CI_Model {
 
     }
     public function add_client_detail($data) {
-       // echo "fsdfsadf"; print_r($data); exit() ;
-        $alreadyexit = $this->db->select('id')->from('branch_user')->where('client_username', $data['client_username'])->get()->result();
+        $user_id = $this->session->userdata('user_id');
+        $where= array('client_username' =>  $data['client_username'], 'user_id' => $user_id);
+        $alreadyexit = $this->db->select('id')->from('branch_user')->where($where)->get()->result();
       //  print_r($alreadyexit); exit;
         if (count($alreadyexit) > 0) {
             return 2;
@@ -152,9 +153,8 @@ class Customer_Model extends CI_Model {
         return $city_data;
     }
 
-    public function get_customer_location() {
-
-        $location_data = $this->db->select('DISTINCT(location_name)')->from('customer_business_location')->get()->result();
+    public function get_customer_location($user_id) {
+        $location_data = $this->db->select('DISTINCT(location_name)')->from('customer_business_location')->where('user_id', $user_id)->get()->result();
         return $location_data;
     }
 
