@@ -1064,8 +1064,12 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            if($this->input->post('rule_id')){
             $rule_id = $this->input->post('rule_id');
-
+            }
+            else{
+                $rule_id='0';
+            }
             $user_id = $this->session->userdata('user_id');
             $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
