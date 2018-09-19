@@ -52,15 +52,17 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
                                         <li class="flex-item"><?php echo $i; ?></li>
-                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['code']; ?></li>
-                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['location']; ?></li>
+                                        <?php $setId_to_modal=$asset_loc_list['id'];
+                                        $modal_idand_class="data-toggle='modal' href='#assest_list_modal_".$setId_to_modal."'"; ?>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['code']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['location']; ?></li>
 
                                         
-                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['latitude']; ?></li>
-                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['longitude']; ?></li>
-                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['contact_person']; ?></li>
-                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['contact_no']; ?></li>                                        
-                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['contact_email']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['latitude']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['longitude']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['contact_person']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['contact_no']; ?></li>                                        
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['contact_email']; ?></li>
                                         <li class="flex-item" style="    display: -webkit-inline-box;">				
 
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">

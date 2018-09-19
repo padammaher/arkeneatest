@@ -57,21 +57,22 @@
 
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
+                                         <?php $setId_to_modal=$InventoryListRowData['id'];
+                                        $modal_idand_class="data-toggle='modal' href='#device_inventory_list_modal_".$setId_to_modal."'"; ?>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $i; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['number']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['code']; ?></li>
 
-                                        <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $InventoryListRowData['number']; ?></li>
-                                        <li class="flex-item"><?php echo $InventoryListRowData['code']; ?></li>
-
-                                        <li class="flex-item"><?php echo $InventoryListRowData['serial_no']; ?></li>
-
-
-                                        <li class="flex-item"><?php echo $InventoryListRowData['make']; ?></li>
-                                        <li class="flex-item"><?php echo $InventoryListRowData['model']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['serial_no']; ?></li>
 
 
-                                        <li class="flex-item"><?php echo $InventoryListRowData['description']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['make']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['model']; ?></li>
 
-                                        <li class="flex-item"><?php echo $InventoryListRowData['gsm_number']; ?></li>
+
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['description']; ?></li>
+
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['gsm_number']; ?></li>
 
                                         <li class="flex-item" style="    display: -webkit-inline-box;">
 
