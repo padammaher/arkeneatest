@@ -234,7 +234,7 @@ class Assets extends MY_Model {
 //        }
     }
 
-    public function asset_user_list() {
+    public function asset_user_list($user_id) {
 
         $this->db->select('asset_user.id,
                                     asset.id as `asset_tbl_id`,
@@ -246,7 +246,9 @@ class Assets extends MY_Model {
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('branch_user', 'branch_user.id = asset_user.assetuser_id', 'inner');
         $this->db->where('branch_user.status', 1);
+        $this->db->where('asset_user.createdby', $user_id);
         $query = $this->db->get();
+        
         // echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
@@ -270,11 +272,11 @@ class Assets extends MY_Model {
         return $obj = $res->result_array();
     }
 
-    public function asset_userid_list() {
+    public function asset_userid_list($user_id) {
         $this->db->select('id,client_name');
         $this->db->from('branch_user');
         $this->db->where('status', 1);
-        // $this->db->where('isactive', 1);
+         $this->db->where('user_id', $user_id);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;

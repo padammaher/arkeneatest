@@ -576,7 +576,7 @@ class AssetsManagement extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
 
-            $data['asset_user_list'] = $this->Assets->asset_user_list();
+            $data['asset_user_list'] = $this->Assets->asset_user_list($user_id);
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -603,7 +603,7 @@ class AssetsManagement extends MY_Controller {
 
 
             $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
-            $data['asset_userid_list'] = $this->Assets->asset_userid_list();
+            $data['asset_userid_list'] = $this->Assets->asset_userid_list($user_id); 
             //                asset_user_form_action
             $data['dataHeader'] = $this->users->get_allData($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {

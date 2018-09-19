@@ -64,7 +64,11 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
+<<<<<<< HEAD
+                                <input type="text" name="asset_contactperson" id="asset_contactperson" class="form-control" value="<?php echo set_value('asset_contactperson',$asset_location_data['contact_person']); ?>" placeholder="Joy" required="required" onchange="">
+=======
                                 <input type="text" name="asset_contactperson" id="asset_contactperson" class="form-control" value="<?php echo set_value('asset_contactperson',$asset_location_data['contact_person']); ?>" placeholder="Enter Contact Person" required="required" onchange="Checkcontactperson(Add_Task.asset_contactperson)">
+>>>>>>> 33cad54d9e5075943e51b5d4a19ddbbd2f6d5f42
                             </div>
                               <?php if (form_error('asset_contactperson')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_contactperson'); ?></span>
