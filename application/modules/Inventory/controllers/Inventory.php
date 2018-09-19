@@ -607,7 +607,7 @@ class Inventory extends MY_Controller {
                             $this->session->set_flashdata('error_msg', 'Sensor inventory already updated!');
                             load_view_template($data, 'SensorInventory/add_sensor_inventory');
                         } else {
-                            $insertdata = $this->Inventory_model->add_sensor_inventory($insert_data);
+                            $insertdata = $this->Inventory_model->update_sensor_inventory($insert_data,$add_sen_inv_form_action[1]);
                             if ($insertdata) {
                                 $this->session->set_flashdata('success_msg', 'Sensor inventory successfully addedd!');
                                 return redirect('Sensor_inventory_list', 'refresh');

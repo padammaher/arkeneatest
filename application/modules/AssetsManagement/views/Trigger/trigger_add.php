@@ -18,7 +18,7 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Alarm Trigger Name</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <?php // print_r($this->input->post()); ?>
-                                <input type="text" name="trigger_name" value="<?php echo set_value('trigger_name',$trigger_edit_data['trigger_name']);?>" class="form-control" placeholder="Extreme Oil Pressure" required="required">
+                                <input type="text" name="trigger_name" value="<?php echo set_value('trigger_name',$trigger_edit_data['trigger_name']);?>" class="form-control" placeholder="Enter Alarm Trigger Name" required="required">
                             </div>
                         </div>
 
@@ -52,14 +52,14 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable(this);" name="check_email" id="<?php echo isset($trigger_edit_data['email']) ? $trigger_edit_data['email']: $header_desc[0]['client_username']; ?>" <?php echo (set_value('check_email'))== 'on'? 'checked':''; ?> > Email</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <?php ?>
-                                <input type="text" name="email" id="email" value="<?php echo isset($header_desc[0]['client_username']) ? $header_desc[0]['client_username'] : set_value('email',$trigger_edit_data['email']); ?>" class="form-control" placeholder="abc@xyz.com" <?php if(!empty(set_value('check_email'))){ echo (set_value('check_email'))== 'on'? '':'readonly';} else{ echo 'readonly';} ?> >
+                                <input type="text" name="email" id="email" value="<?php echo isset($header_desc[0]['client_username']) ? $header_desc[0]['client_username'] : set_value('email',$trigger_edit_data['email']); ?>" class="form-control" placeholder="Enter Email" <?php if(!empty(set_value('check_email'))){ echo (set_value('check_email'))== 'on'? '':'readonly';} else{ echo 'readonly';} ?> >
                             </div>
                         </div>
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable1(this)" name="check_contact" id="<?php echo isset($trigger_edit_data['sms_contact_no']) ? $trigger_edit_data['sms_contact_no']: ''; ?>" <?php echo (set_value('check_contact'))== 'on'? 'checked':''; ?>> SMS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="contactno" value="<?php echo set_value('contactno',$trigger_edit_data['sms_contact_no']);?>" class="form-control" id="contactno" placeholder="9823230011" <?php if(!empty(set_value('check_contact'))){ echo (set_value('check_contact'))== 'on'? '':'readonly';} else{ echo 'readonly';} ?>>
+                                <input type="text" name="contactno" value="<?php echo set_value('contactno',$trigger_edit_data['sms_contact_no']);?>" class="form-control" id="contactno" placeholder="Enter Mobile Number" <?php if(!empty(set_value('check_contact'))){ echo (set_value('check_contact'))== 'on'? '':'readonly';} else{ echo 'readonly';} ?>>
                             </div>
                         </div>
 

@@ -27,8 +27,9 @@
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <ul class="flex-container flex-container-head nowrap">
+                                <li class="flex-item">Sr No.</li>
                                 <li class="flex-item">Device_Num</li>
-                                <li class="flex-item">Asset ID</li>
+                                <li class="flex-item">Asset Code</li>
                                 <li class="flex-item">Actions</li>
                             </ul>
                         </div>

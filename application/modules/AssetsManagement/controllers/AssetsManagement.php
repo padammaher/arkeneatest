@@ -176,7 +176,7 @@ class AssetsManagement extends MY_Controller {
                 } else if ($form_action == "update") {
                     //   print_r($this->input->post());
                     //  exit;
-                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric');
+                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required');
                     $this->form_validation->set_rules('Customerlocation', 'User Location', 'required');
                     $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
                     $this->form_validation->set_rules('Assettype', 'Asset Type', 'required');
@@ -222,10 +222,11 @@ class AssetsManagement extends MY_Controller {
                         $isUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
                         // var_dump($isUnique);die;
                         if ($isUnique) {
+                             $this->session->set_flashdata('note_msg', 'Assets already updated');
                             load_view_template($data, 'Assets/assets_edit');
                         } else {
-                            $data = $this->Assets->update_assets($assets_data, $id);
-                            if ($data) {
+                            $updatedata = $this->Assets->update_assets($assets_data, $id);
+                            if ($updatedata) {
                                 $this->session->set_flashdata('success_msg', 'Assets Successfully updated');
                                 redirect(base_url('Assets_list'));
                             } else {
@@ -525,9 +526,9 @@ class AssetsManagement extends MY_Controller {
                             $insert_data = array('location' => $this->input->post('asset_location'),
                                 'address' => $this->input->post('asset_address'),
                                 'latitude' => $this->input->post('asset_lat'),
-                                'contact_no' => $this->input->post('asset_long'),
-                                'longitude' => $this->input->post('asset_contactperson'),
-                                'contact_person' => $this->input->post('asset_contactno'),
+                                'contact_no' => $this->input->post('asset_contactno'),
+                                'longitude' => $this->input->post('asset_long'),
+                                'contact_person' => $this->input->post('asset_contactperson'),
                                 'contact_email' => $this->input->post('asset_contactemail'),
                                 'createdat' => $todaysdate,
                                 'createdby' => $user_id,
@@ -748,6 +749,7 @@ class AssetsManagement extends MY_Controller {
         }else{
             $parameter_range_id= $this->session->userdata('parameter_range_id'); 
         }
+         $this->session->unset_userdata('rule_id'); 
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
         $this->session->set_userdata('parameter_id', $this->data['parameter_detail'][0]['parameter_id']);
         $user_id = $this->session->userdata('user_id');
@@ -1086,18 +1088,28 @@ class AssetsManagement extends MY_Controller {
             else{
                 $rule_id='0';
             }
+//            $set_rule_id='';
+            if(!$this->session->userdata('rule_id')){
+            $this->session->set_userdata('rule_id',$rule_id);}
+            else{
+                
+            }
             $user_id = $this->session->userdata('user_id');
+           $set_rule_id = $this->session->userdata('rule_id');             
 
-            $set_rule_id = $this->session->userdata('rule_id');
-
-             $asset_id = $this->session->userdata('asset_id');
+           $asset_id = $this->session->userdata('asset_id');
+           if(!$asset_id)
+           {
+                $this->session->set_flashdata('note_msg', 'session was expired');
+               return redirect('Assets_list');
+           }
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
             
             $data['trigger_list'] = $this->Assets->trigger_list($set_rule_id,$user_id, $asset_id);
             
-            $data['header_desc'] = $this->Assets->showdescription($asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($set_rule_id,$user_id,$asset_id);
 
             load_view_template($data, 'trigger/trigger_list');
         }
@@ -1109,20 +1121,27 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            if ($this->input->post('rule_id')) {
-                $rule_id = $this->input->post('rule_id');
-            } else {
-                $rule_id = 5;
-            }
+//            if ($this->input->post('rule_id')) {
+//                echo$rule_id = $this->input->post('rule_id');
+//            } else {
+//               echo $rule_id = 5;
+//            }
+            $rule_id = $this->session->userdata('rule_id');
             $user_id = $this->session->userdata('user_id');
             $asset_id = $this->session->userdata('asset_id');
+//            exit;
+             if(!$asset_id)
+           {
+                $this->session->set_flashdata('note_msg', 'session was expired');
+               return redirect('Assets_list');
+           }
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
 //            $data['dataHeader'] = $this->users->get_allData($user_id);
             $todaysdate = date('Y-m-d');
             $data['trigger_edit_list'] = array();
            
-            $data['header_desc'] = $this->Assets->showdescription($asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($rule_id,$user_id,$asset_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $trigger_form_action = $this->input->post('trigger_form_action');

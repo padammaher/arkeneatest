@@ -557,7 +557,7 @@ class Assets extends MY_Model {
                         trigger.createdate,
                         trigger.createby');
         $this->db->from('trigger');
-        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.createby' => $user_id));
+        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.createby' => $user_id,'trigger.rule_id'=>$rule_id));
         $this->db->where('trigger.isactive', 1);
 
         $query = $this->db->get();
@@ -644,25 +644,40 @@ class Assets extends MY_Model {
     }
 
 
-    public function showdescription($asset_id) {
+    public function showdescription($set_rule_id=NULL,$user_id,$asset_id) {
 
-
-
-
-        $query = "SELECT 
-                asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,asset_parameter_rule.rule_name,asset_parameter_rule.rule_des,
-                asset_parameter_rule.green_value,
-                asset_parameter_rule.orange_value,
-                asset_parameter_rule.red_value,asset_parameter_rule.wef_date,asset.code,asset.specification,branch_user.client_name,branch_user.client_username,parameter.name as `parameter_name`,
-                parameter_range.id as parameter_range_tbl_id,(select count(`trigger`.trigger_threshold_id) from `trigger` where `trigger`.`rule_id`=asset_parameter_rule.id) as `trigger_threshold_id_count`
-             FROM asset_parameter_rule
-             left join parameter_range on parameter_range.id=asset_parameter_rule.parameter_range_id
-             left join parameter on parameter.id=parameter_range.parameter_id
-             left join asset on asset.id=parameter_range.asset_id
-             left join asset_user on asset_user.asset_id= asset.id
-             left join branch_user on branch_user.id= asset_user.assetuser_id
-             left join `trigger` on `trigger`.`rule_id`=asset_parameter_rule.id
-             where asset_parameter_rule.rule_status='1' and parameter_range.isactive='1' and parameter_range.asset_id=" . $asset_id . " ";
+        $query = "select asset.code,
+    asset.specification,customer_business_location.location_name as `location`,
+    branch_user.client_name,
+    branch_user.client_username,
+    asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,
+    (SELECT asset_parameter_rule.rule_name from asset_parameter_rule where asset_parameter_rule.id=".$set_rule_id.") as `rule_name`,
+    (SELECT asset_parameter_rule.rule_des from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `rule_des`,
+    (SELECT asset_parameter_rule.green_value from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `green_value`,
+    (SELECT asset_parameter_rule.orange_value from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `orange_value`,
+    (SELECT asset_parameter_rule.red_value from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `red_value`,
+    (SELECT asset_parameter_rule.wef_date from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `wef_date`,
+    parameter.name AS `parameter_name`,
+    parameter_range.id AS parameter_range_tbl_id,
+    (SELECT 
+            COUNT(`trigger`.trigger_threshold_id)
+        FROM
+            `trigger`
+        WHERE
+            `trigger`.`rule_id` = ".$set_rule_id.") AS `trigger_threshold_id_count`
+from asset  
+ left join customer_business_location on customer_business_location.id= asset.customer_locationid  
+ LEFT JOIN asset_user ON asset_user.asset_id = asset.id   
+ LEFT JOIN branch_user ON branch_user.id = asset_user.assetuser_id  
+ 
+ left join parameter_range ON parameter_range.asset_id = asset.id
+  LEFT JOIN
+    parameter ON parameter.id = parameter_range.parameter_id 
+  left join asset_parameter_rule on  asset_parameter_rule.parameter_range_id=parameter_range.id    
+   LEFT JOIN
+    `trigger` ON `trigger`.`rule_id` = asset_parameter_rule.id
+ where  asset.id=" . $asset_id . " and  asset.createdby=".$user_id." and asset.isactive='1' 	    
+ group by asset.id ";
         $res = $this->db->query($query);
         return $obj = $res->result_array();
     }

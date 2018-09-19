@@ -27,7 +27,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <ul class="flex-container flex-container-head nowrap">
                                 <li class="flex-item">Device ID</li>
-                                <li class="flex-item">Sensor ID</li>
+                                <li class="flex-item">Sensor_Num</li>
                                 <li class="flex-item">Actions</li>
                             </ul>
                         </div>

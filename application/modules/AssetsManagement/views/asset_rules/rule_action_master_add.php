@@ -41,6 +41,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
+             
                 <select class="form-control" name="uom" id="uom" >
                 <option value=''>Select UOM</option>
                   <?php foreach($uom_data as $um){ ?> 
