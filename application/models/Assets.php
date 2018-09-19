@@ -259,6 +259,7 @@ class Assets extends MY_Model {
         $this->db->from('asset');
         $this->db->where('isactive', 1);
         $this->db->where('createdby', $user_id);
+        $this->db->where('asset.id NOT IN (select asset_user.asset_id from asset_user where asset_user.asset_id=asset.id)', NULL, FALSE);
         $query = $this->db->get();
 //        echo $this->db->last_query();
         $objData = $query->result_array();

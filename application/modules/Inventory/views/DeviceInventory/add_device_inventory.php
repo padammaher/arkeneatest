@@ -164,7 +164,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                   <label><?php $isactive=set_value('device_status'); ?>                          
 
-                    <input type="checkbox" name="device_status" class="flat" <?php if(!empty($isactive)) { echo ($isactive)== "on"? 'checked': ''; } else { }?>> Active
+                    <input type="checkbox" name="device_status" class="flat" <?php if(!empty($isactive)) { echo ($isactive)== "on"? 'checked': ''; } else { echo'checked'; }?>> Active
                         </label>
                 </div>
           </div>						  
