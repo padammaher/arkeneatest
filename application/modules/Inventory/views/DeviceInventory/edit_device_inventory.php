@@ -21,7 +21,7 @@ foreach ($Edit_deviceinventory_data as $deviceinventory_data) {
 
 
               <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Device_Num *</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                   <input type="text" name="devicename" class="form-control" value="<?php echo set_value('devicename',$deviceinventory_data['number']);?>" readonly="readonly">
               </div>
@@ -34,7 +34,7 @@ foreach ($Edit_deviceinventory_data as $deviceinventory_data) {
             
               					  
 <div class="item form-group">
-      <label class="control-label col-md-3 col-sm-3 col-xs-12">Serial_No *</label>
+      <label class="control-label col-md-3 col-sm-3 col-xs-12">Serial No *</label>
       <div class="col-md-6 col-sm-6 col-xs-12">
           <input type="text" name="serialnumber" class="form-control" value="<?php echo set_value('serialnumber',$deviceinventory_data['serial_no']);?>" readonly="readonly">
         

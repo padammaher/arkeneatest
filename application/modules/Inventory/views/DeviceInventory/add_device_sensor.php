@@ -13,7 +13,7 @@
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url(); ?>Add_device_sensors">
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device_Num *</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="deviceid" required="required">
                                     <option value="">Select device</option>
@@ -30,7 +30,7 @@
                         </div> 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Num *</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Number *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="sensorid" required="required">
                                     <option value="">Select device</option>

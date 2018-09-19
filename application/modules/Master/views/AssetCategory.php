@@ -92,7 +92,7 @@
         });
         $(".delete").click(function () {
             var id = $(this).attr('id');
-            $(".confirmmodal").modal();
+            $("#delete_confirmation").modal();
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateasset" + id).submit();
