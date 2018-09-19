@@ -99,3 +99,4 @@
 			
 
           </div>
+<?php $this->load->view('modal/user_asset_list_modal') ?>
