@@ -115,45 +115,45 @@
                             </ul>
                         </div>
                     </div>
-                    <?php
+                    <?php 
                     if ($asset_list) { $i=1;
-                        foreach ($asset_list as $key => $asset_rule) {
+                        foreach ($asset_list as $key => $asset_rule) {  
                             ?> 
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container flex-item_row nowrap opendialog<?php echo $i; ?>">
                                         <li class="flex-item"><?php echo $i; ?> 
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->rule_name)) ? $asset_rule->rule_name : ''; ?> 
+                                        <li class="flex-item"><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> 
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->pararameter_name)) ? $asset_rule->pararameter_name : ''; ?> 
+                                        <li class="flex-item"><?php echo (isset($asset_rule['pararameter_name'])) ? $asset_rule['pararameter_name'] : ''; ?> 
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->green_value)) ? $asset_rule->green_value : ''; ?>
+                                        <li class="flex-item"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?>
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->orange_value)) ? $asset_rule->orange_value : ''; ?>
+                                        <li class="flex-item"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?>
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->red_value)) ? $asset_rule->red_value : ''; ?>
+                                        <li class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?>
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->wef_date)) ? $asset_rule->wef_date : ''; ?>
+                                        <li class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?>
                                         </li>
-                                        <li class="flex-item">2
+                                        <li class="flex-item"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?>
                                         </li>
                                         <li class="flex-item">
                                             <form name="edit_asset_rule" id="edit_asset_rule<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>Asset_Rule">
                                             <a  class="edit_asset" id="<?php echo $i; ?>">    
-                                                <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
+                                                <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
                                                 <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
                                             </a>  
                                             </form> 
                                             <form name="triggerlistewrwer" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
                                             <a class="trigger_data" id="<?php echo $i; ?>">
-                                                <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
+                                                <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
                                                  <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
                                             </a>
                                             </form> 
                                             <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
                                                 <a  class="delete_asset" id="<?php echo $i; ?>">
-                                                    <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?>">
+                                                    <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i>
                                                 </a>
                                             </form> 
@@ -179,41 +179,41 @@
                                                 <tbody>
                                                     <tr>
                                                         <td width="" class="lft-td">Rule No.</td>
-                                                        <td><?php echo ($asset_rule->id) ? $asset_rule->id : ''; ?> </td>
+                                                        <td><?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?> </td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Rule Name</td>
-                                                        <td><?php echo (isset($asset_rule->rule_name)) ? $asset_rule->rule_name : ''; ?> </td>
+                                                        <td><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> </td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Rule Description</td>
-                                                        <td><?php echo (isset($asset_rule->rule_des)) ? $asset_rule->rule_des : ''; ?> .</td>
+                                                        <td><?php echo (isset($asset_rule['rule_des'])) ? $asset_rule['rule_des'] : ''; ?> .</td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Parameter</td>
-                                                        <td><?php echo (isset($asset_rule->parameter)) ? $asset_rule->parameter : ''; ?> </td>
+                                                        <td><?php echo (isset($asset_rule['parameter'])) ? $asset_rule['parameter'] : ''; ?> </td>
                                                     </tr>
 
                                                     <tr>
                                                         <td width="" class="lft-td">Green Value</td>
-                                                        <td><?php echo (isset($asset_rule->green_value)) ? $asset_rule->green_value : ''; ?></td>
+                                                        <td><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Orange Value</td>
-                                                        <td><?php echo (isset($asset_rule->orange_value)) ? $asset_rule->orange_value : ''; ?></td>
+                                                        <td><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Red Value</td>
-                                                        <td><?php echo (isset($asset_rule->red_value)) ? $asset_rule->red_value : ''; ?></td>
+                                                        <td><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Wef Date</td>
-                                                        <td><?php echo (isset($asset_rule->wef_date)) ? $asset_rule->wef_date : ''; ?></td>
+                                                        <td><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
                                                     </tr>
 
                                                     <tr>
                                                         <td width="" class="lft-td">Trigger Count</td>
-                                                        <td>2</td>
+                                                        <td><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>
                                                     </tr>
 
                                                 </tbody>
@@ -242,8 +242,14 @@
 
                             <?php
                         $i++; }
-                    } else {
-                        ?><h3>No Record Found </h3> <?php } ?>
+                    } else { ?>
+                    <div class="row clearfix">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <ul class="flex-container flex-item_row nowrap">
+                                <li class="flex-item" style="text-align: center;">No data found..!</li>                    
+                            </ul>
+                            </div>
+                        <?php } ?>
                     <!-- <div class="row clearfix">
                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <ul class="flex-container flex-item_row nowrap">

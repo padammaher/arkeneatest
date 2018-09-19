@@ -125,7 +125,7 @@
               </ul>
             </div>
           </div>
-          <?php $i=1; foreach($location_detail as $location){ ?> 
+          <?php $i=1; if($location_detail){ foreach($location_detail as $location){ ?> 
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <ul class="flex-container flex-item_row nowrap">
@@ -273,7 +273,15 @@
               </div>
             </div>
           </div>  
-          <?php  } ?> 
+          <?php  } }else{ ?>
+            <div class="row clearfix">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ul class="flex-container flex-item_row nowrap">
+                  <li class="flex-item" style="text-align: center;">No data found..!</li>                    
+                </ul>
+              </div>
+            </div>
+          <?php } ?> 
           <!-- Model end  -->
           <!-- <ul class="pagination">
             <li>

@@ -157,6 +157,6 @@ function compare_rule_value() {
 </script>
 <style>
 .required{
-  color:red; 
+  color:greay; 
 }
 </style>
