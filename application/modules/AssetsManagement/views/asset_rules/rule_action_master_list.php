@@ -17,7 +17,7 @@
                             </span>
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Specification : 
-                            <span>Fuel:<?php echo (isset($parameter_detail[0]['specification'])) ? $parameter_detail[0]['specification'] : ''; ?> 
+                            <span><?php echo (isset($parameter_detail[0]['specification'])) ? $parameter_detail[0]['specification'] : ''; ?> 
                             </span>
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Parameter : 
