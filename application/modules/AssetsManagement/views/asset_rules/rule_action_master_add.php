@@ -12,13 +12,6 @@
         </div>
         <div class="x_content">
           <form class="form-horizontal form-label-left" name="add_asset" id="add_asset" method="post" action="<?php echo base_url();?>Add_Asset_Rule">
-            <!-- <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Rule No.
-              </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="rule_no" id="rule_no" type="text" class="form-control static-text" placeholder="01" value="<?php echo (isset($asset_detail[0]->rule_no))?$asset_detail[0]->rule_no:''; ?>" >
-              </div>
-            </div> -->
             <input name="asset_rule_id" id="asset_rule_id" type="hidden" class="form-control" placeholder="19" value="<?php echo (isset($asset_detail[0]->id))?$asset_detail[0]->id:''; ?>">
              
             <div class="item form-group">
@@ -39,7 +32,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="parameter_range_id" id="parameter_range_id" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($param_id))?$param_id:''; ?>">
+                <input name="parameter_id" id="parameter_id" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($param_id))?$param_id:''; ?>">
                 <input name="" id="parameter" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($parameter_name))?$parameter_name:''; ?>" readonly>
            
               </div>
@@ -48,9 +41,13 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-              <input name="uom" id="uom" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($uom_id))?$uom_id:''; ?>">
-              <input name="" id="uom" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($uom_name))?$uom_name:''; ?>" >
-            
+             
+                <select class="form-control" name="uom" id="uom" >
+                <option value=''>Select UOM</option>
+                  <?php foreach($uom_data as $um){ ?> 
+                   <option value="<?php echo $um['id'];?>"><?php echo $um['name'];?> </option>
+                   <?php } ?> 
+                </select>
               </div>
             </div>
             <div class="item form-group">

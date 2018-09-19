@@ -15,6 +15,7 @@
           <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>Customer/add_business_location">
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Location Name
+                <span class="required"> </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='location_name' type="text" class="form-control" placeholder="Enter location name" required="required">
@@ -22,6 +23,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
+                <span class="required"> </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='address' type="text" class="form-control" placeholder="Add address" required="required">
@@ -29,6 +31,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person Name
+                <span class="required"> </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='contact_person_name' type="text" class="form-control" placeholder="Enter Contact person name" required="required">
@@ -72,6 +75,7 @@
               
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
+                <span class="required"> </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='pincode' id="pincode" type="number" class="form-control" placeholder="Enter Pincode Number" required="required">
@@ -86,18 +90,16 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No. 
-                  <span class="required">*
-                  </span>
-                </label>
+                <span class="required"> </span>
+                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="Enter Mobile Number " required="required">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID 
-                  <span class="required">*
-                  </span>
-                </label>
+                <span class="required"> </span>
+                  </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='email' id="customer_email" type="email" class="form-control"  placeholder="Enter Email id" required="required">
                  <div id="email_error" style="color:red"></div>      
@@ -121,6 +123,13 @@
     </div>
   </div>
 <!-- </div> -->
+<style>
+.required:before{
+  content:"*";
+  font-weight:bold;
+  color:red; 
+}
+</style>
 <script>
 function getState(val) {
   $.ajax({
