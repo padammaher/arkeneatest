@@ -17,10 +17,10 @@
 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device_Num</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="deviceid"  required="required">
-                                    <option value="">Select device</option>
+                                    <option value="">Select Device Number</option>
                                     <?php foreach ($device_list as $device_id_list) { ?>
                                         <option value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid',$managed_dev_asset_Id) == $device_id_list['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list['number']; ?></option>
 
@@ -39,7 +39,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="assetid" required="required">
-                                    <option value="">Select device</option>
+                                    <option value="">Select Asset Code</option>
                                     <?php foreach ($assetcode_list as $assetcode_list_data) { ?>
                                         <option value="<?php echo $assetcode_list_data['id']; ?>" <?php echo (set_value('assetid') == $assetcode_list_data['id']) ? 'selected' : ''; ?> ><?php echo $assetcode_list_data['code']; ?></option>
 

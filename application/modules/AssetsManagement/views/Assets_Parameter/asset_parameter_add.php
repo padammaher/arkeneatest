@@ -35,7 +35,7 @@
                             }
                             ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter <span>*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <?php if (isset($parameter_list) && !empty($parameter_list)) { ?>
                                         <select class="form-control" name="parameter" id="parameter" required>
@@ -74,7 +74,7 @@
                             }
                             ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Minimum value</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Minimum value  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="number" name="min_value" id="min_value" class="form-control input-number" placeholder="Enter Minimum value" value="<?php echo isset($min_value) ? $min_value : ''; ?>" required>
                                 </div>
@@ -94,7 +94,7 @@
                             }
                             ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Maximum value</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Maximum value  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="number" name="max_value" id="max_value" class="form-control input-number" placeholder="Enter Maximum value" value="<?php echo isset($max_value) ? $max_value : ''; ?>" required>
                                 </div>
@@ -114,7 +114,7 @@
                             }
                             ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Scaling factor</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Scaling factor  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="number" name="scaling_factor" class="form-control input-number" placeholder="Enter Scaling factor" value="<?php echo isset($scaling_factor) ? $scaling_factor : ''; ?>" required>
                                 </div>
@@ -133,7 +133,7 @@
                             }
                             ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" name="uom" id="uom" required>
                                         <option value="">Select UOM</option>
@@ -166,7 +166,7 @@
                             }
                             ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Bits / sign</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Bits / sign  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" name="bits_per_sign" class="form-control" placeholder="Enter Bits / sign" pattern="[a-zA-Z0-9\s]+" value="<?php echo isset($bits_per_sign) ? $bits_per_sign : ''; ?>" required>
                                 </div>

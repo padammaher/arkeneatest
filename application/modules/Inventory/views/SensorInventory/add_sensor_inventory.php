@@ -22,7 +22,7 @@
 
 
                <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number *</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Number *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input type="text" name="sensornum" value="<?php echo set_value('sensornum');?>" class="form-control" placeholder="Enter Sensor_Number" required="required" pattern="[A-Za-z0-9\s]*">
               </div>
@@ -39,11 +39,11 @@
               </div>-->
               	
             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Type *</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Type *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   
                   <select class="form-control" name="sensortype" required="required">                      
-                    <option value="">Select Type</option>                   
+                    <option value="">Select Sensor Type</option>                   
 <?php foreach ($sensor_type as $sensor_type_data) { ?>
                                 <option value="<?php echo $sensor_type_data['id'];?>" <?php echo set_value('sensortype')== $sensor_type_data['id']? 'selected':'';?> ><?php echo $sensor_type_data['name'];?></option>
 
@@ -86,7 +86,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="Parameter" id="Parameter" required="required">
-                    <option value="">Select Type </option>                   
+                    <option value="">Select Parameter </option>                   
 <?php foreach ($parameter_list as $parameter_list_data) { 
 //                    if($assetcode_list_data['id'] != $dev_asset_data['asset_id']){ ?>
                                 <option value="<?php echo $parameter_list_data['id'];?>" <?php echo set_value('Parameter')== $parameter_list_data['id']? 'selected':'';?>><?php echo $parameter_list_data['name'];?></option>
@@ -102,7 +102,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="UOM" id="UOM" required="required">
-                    <option value="<?php if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo '';} ?>"><?php if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo "Select Type";}?></option>                   
+                    <option value="<?php if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo '';} ?>"><?php if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo "Select UOM";}?></option>                   
                 </select>             
                 </div>
                   <?php if (form_error('UOM')) { ?>

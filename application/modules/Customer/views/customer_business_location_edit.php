@@ -20,7 +20,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='location_name' type="text" class="form-control" placeholder="Sandton" required="required" value="<?php echo (isset($business_detail[0]->location_name))?$business_detail[0]->location_name:'';?>" >
-                  <input name="id" type="hidden" class="form-control" placeholder="Sandton" value="<?php echo $business_detail[0]->id; ?>" >
+                  <input name="id" type="hidden" class="form-control" placeholder="Enter Business Location" value="<?php echo $business_detail[0]->id; ?>" >
               
                 </div>
               </div>
@@ -29,7 +29,7 @@
                 <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='address' type="text" class="form-control" placeholder="West Road North Morningside, Sandton" required="required" value="<?php echo (isset($business_detail[0]->address))?$business_detail[0]->address:'';?>">
+                <input name='address' type="text" class="form-control" placeholder="Enter Address" required="required" value="<?php echo (isset($business_detail[0]->address))?$business_detail[0]->address:'';?>">
                </div>
               </div>
               <div class="item form-group">
@@ -37,7 +37,7 @@
                 <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='contact_person_name' type="text" class="form-control" placeholder="Mark Tayler" required="required" value="<?php echo (isset($business_detail[0]->contact_person_name))?$business_detail[0]->contact_person_name:'';?>">
+                <input name='contact_person_name' type="text" class="form-control" placeholder="Enter Contact person name " required="required" value="<?php echo (isset($business_detail[0]->contact_person_name))?$business_detail[0]->contact_person_name:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -89,14 +89,14 @@
                 <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input name='pincode' id="pincode" type="number" class="form-control" placeholder="10001" required="required" value="<?php echo (isset($business_detail[0]->pincode))?$business_detail[0]->pincode:'';?>">
+                    <input name='pincode' id="pincode" type="number" class="form-control" placeholder="Enter Pincode Number" required="required" value="<?php echo (isset($business_detail[0]->pincode))?$business_detail[0]->pincode:'';?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='telephone' id="phone" type="number" class="form-control" placeholder="27 11 326 5900" required="required" value="<?php echo (isset($business_detail[0]->telephone))?$business_detail[0]->telephone:'';?>">
+                <input name='telephone' id="phone" type="number" class="form-control" placeholder="Enter Telephone Number" required="required" value="<?php echo (isset($business_detail[0]->telephone))?$business_detail[0]->telephone:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -105,7 +105,7 @@
                   </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="27 82 480 7309" required="required" value="<?php echo (isset($business_detail[0]->mobile))?$business_detail[0]->mobile:'';?>">
+                <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="Enter Mobile Number " required="required" value="<?php echo (isset($business_detail[0]->mobile))?$business_detail[0]->mobile:'';?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -113,7 +113,7 @@
                   <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name='email' id="customer_email" type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo (isset($business_detail[0]->email))?$business_detail[0]->email:'';?>">
+                <input name='email' id="customer_email" type="email" class="form-control"  placeholder="Enter Email id " required="required" value="<?php echo (isset($business_detail[0]->email))?$business_detail[0]->email:'';?>">
                 <div id="email_error" style="color:red"></div>  
                 </div>
               </div>
@@ -121,7 +121,7 @@
               </div>
               <div class="item form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary">Save
+                  <button type="submit" id="customer_businees_location" class="btn btn-primary">Save
                   </button>
                   <a href="<?php echo base_url()?>ManageBusinessLoacaiton">
                   <button type="button" class="btn btn-default">Cancel
@@ -176,12 +176,21 @@ $('#customer_email').focusout(function(){
             });
 });
 
-$('#mobile').keypress(function (event) {
-    var keycode = event.which;
-    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-        event.preventDefault();
+$('#mobile').keyup(function() {
+    $('span.error-keyup-3').remove();
+    var inputVal = $(this).val();
+    //characterReg = /^[2-9]\d{2}-\d{3}-\d{4}$/;
+    var characterReg = /^([a-zA-Z0-9]{0,10})$/;
+    if(!characterReg.test(inputVal)) {
+      $( "#customer_businees_location" ).prop( "disabled", true );
+        $(this).after('<span class="error error-keyup-3" style="color:red">minimun 10 characters.</span>');
+    }else if(inputVal.length<10){
+      $( "#customer_businees_location" ).prop( "disabled", true );
+      $(this).after('<span class="error error-keyup-3" style="color:red">Maximum 10 characters.</span>');
     }
-  
+    if(inputVal.length==10){
+      $( "#customer_businees_location" ).prop( "disabled", false );
+    }
 });
 $('#pincode').keypress(function (event) {
     var keycode = event.which;

@@ -128,11 +128,11 @@
                                         </li>
                                         <li class="flex-item"><?php echo (isset($asset_rule['pararameter_name'])) ? $asset_rule['pararameter_name'] : ''; ?> 
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?>
+                                        <li class="flex-item"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ?'  '.$asset_rule['uom_name'] : ''; ?>
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?>
+                                        <li class="flex-item"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ?'  '.$asset_rule['uom_name'] : ''; ?>
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?>
+                                        <li class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  '.$asset_rule['uom_name'] : ''; ?>
                                         </li>
                                         <li class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?>
                                         </li>
@@ -196,15 +196,15 @@
 
                                                     <tr>
                                                         <td width="" class="lft-td">Green Value</td>
-                                                        <td><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?></td>
+                                                        <td><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?> <?php echo (isset($asset_rule['uom_name'])) ? $asset_rule['uom_name'] : ''; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Orange Value</td>
-                                                        <td><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?></td>
+                                                        <td><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?> <?php echo (isset($asset_rule['uom_name'])) ? $asset_rule['uom_name'] : ''; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Red Value</td>
-                                                        <td><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?></td>
+                                                        <td><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? $asset_rule['uom_name'] : ''; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Wef Date</td>

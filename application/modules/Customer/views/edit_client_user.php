@@ -66,14 +66,14 @@
               <div class="item form-group">
 							<label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-								  <input type="checkbox" name="status" id="status" class="flat"<?php echo (isset($client_details[0]->status))?'checked':''; ?>> Active
+								  <input type="checkbox" name="status" id="status" class="flat" checked> Active
 							</div>
 						  </div>					  
               <div class="ln_solid">
               </div>
               <div class="item form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary">Save
+                  <button type="submit" class="btn btn-primary"><?php echo (isset($client_details[0]->id))?'Update':'Save'; ?>
                   </button>
                   <a href="<?php echo base_url()?>ManageUsers">
                   <button type="button" class="btn btn-default">Cancel

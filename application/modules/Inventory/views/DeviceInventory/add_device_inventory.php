@@ -126,7 +126,7 @@
                             <?php } ?>
                                             </div>
                                             <div class="col-md-2 col-sm-2 col-xs-12">
-                            <input type="text" class="form-control" name="oem_ser_interval_type_count" value="<?php echo set_value('oem_ser_interval_type_count');?>" placeholder="2500" required="required">
+                            <input type="text" class="form-control" id="oem_ser_interval_type_count" name="oem_ser_interval_type_count" value="<?php echo set_value('oem_ser_interval_type_count');?>" placeholder="" required="required">
                                             </div>
                                  <?php if (form_error('oem_ser_interval_type_count')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('oem_ser_interval_type_count'); ?></span>
@@ -152,7 +152,7 @@
                             <?php } ?>
                                             </div>
                                             <div class="col-md-2 col-sm-2 col-xs-12">
-                            <input type="text" class="form-control" name="service_type_count" value="<?php echo set_value('service_type_count');?>" placeholder="12" required="required">
+                            <input type="text" class="form-control" id="service_type_count" name="service_type_count" value="<?php echo set_value('service_type_count');?>" placeholder="" required="required">
                                             </div>
                                  <?php if (form_error('service_type_count')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('service_type_count'); ?></span>
@@ -261,5 +261,18 @@
                     }
                 });
             });
+});
+
+$('#service_type_count').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+});
+$('#oem_ser_interval_type_count').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
 });
 </script>    

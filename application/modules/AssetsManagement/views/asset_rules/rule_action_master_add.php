@@ -49,7 +49,7 @@
                 <select class="form-control" name="uom" id="uom" >
                 <option value=''>Select UOM</option>
                   <?php foreach($uom_data as $um){ ?> 
-                   <option value="<?php echo $um['id'];?>"><?php echo $um['name'];?> </option>
+                   <option value="<?php echo $um['id'];?>" <?php if(isset($asset_detail[0]->uom)){ echo ($um['id']==$asset_detail[0]->uom)?'selected':''; } ?> ><?php echo $um['name'];?> </option>
                    <?php } ?> 
                 </select>
               </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="item form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button type="submit" class="btn btn-primary">Save
+                <button type="submit" id="submit_asset_rule" class="btn btn-primary">Save
                 </button>
                 <a href="<?php echo base_url()?>Asset_Rule_list">
                 <button type="button" class="btn btn-default">Cancel
@@ -134,20 +134,31 @@ function compare_rule_value() {
 
       if(green_value&&orange_value&&red_value){
 
-          if(parseInt(green_value)>=parseInt(orange_value)){
+          if(parseInt(green_value)>=parseInt(orange_value)){           
             $('#orange_error').html('please add value greter than green value '); 
-          }else{  $('#orange_error').html("");   }
+            $("#submit_asset_rule" ).prop( "disabled", true );
+          }else{  
+            $( "#submit_asset_rule" ).prop( "disabled", false );
+            $('#orange_error').html("");  
+           }
           if(parseInt(orange_value)>=parseInt(red_value )){
+            $( "#submit_asset_rule" ).prop( "disabled", true );
             $('#red_error').html('please add value greter than orange value '); 
           }else{
             $('#red_error').html(''); 
+            $( "#submit_asset_rule" ).prop( "disabled", false );
           }
 
       }else if(green_value&&orange_value){
           if(parseInt(green_value)>=parseInt(orange_value)){
-            $('#orange_error').html('please add value greter than green value '); 
-          }else{   $('#orange_error').html("");  }
+            $( "#submit_asset_rule" ).prop( "disabled", true );
+            $('#orange_error').html('please add value greter than green value 3'); 
+          }else{  
+             $('#orange_error').html("");
+              $( "#submit_asset_rule" ).prop( "disabled", false ); 
+          }
       }else if(red_value){
+        $( "#submit_asset_rule" ).prop( "disabled", true );
         $('#red_error').html('please add green value,orange value then add red value ');
       }
   }

@@ -90,7 +90,7 @@
         });
         $(".delete").click(function () {
             var id = $(this).attr('id');
-            $(".modal").modal();
+            $("#delete_confirmation").modal();
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#updateuomtype" + id).submit();
