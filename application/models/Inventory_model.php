@@ -158,7 +158,15 @@ class Inventory_model extends MY_Model {
         $check = $this->db->insert($table, $insert_data);
         return $this->db->insert_id();
     }
-    
+        public function update_sensor_inventory($insert_data,$form_action_type) {
+        $table='sensor_inventory';
+
+            $this->db->where('id',$form_action_type);
+            return $this->db->update('sensor_inventory',$insert_data);
+        
+       
+       // return $objData[0];
+    }
     public function assetcode_list($user_id) {
        $this->db->select('id,code');
         $this->db->from('asset');
