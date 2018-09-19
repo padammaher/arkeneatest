@@ -218,10 +218,9 @@ class Customer extends MY_Controller {
                 if ($this->input->post('password'))
                     $additional_data['password'] = $this->input->post('password');
                 if ($this->input->post('status')){
-                   // $additional_data['status'] = $this->input->post('status');
-                  
+                    $additional_data['status'] = 1;                   
                 }
-                    $additional_data['status'] = 1;
+                   
               
                  
                 // print_r($additional_data); exit();

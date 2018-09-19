@@ -26,7 +26,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Name
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="client_name" type="text" class="form-control" placeholder="Saschin Naidoo" required="required"  value="<?php echo (isset($client_details[0]->client_name))?$client_details[0]->client_name:''; ?>" >
+                <input name="client_name" type="text" class="form-control" placeholder="Enter Name" required="required"  value="<?php echo (isset($client_details[0]->client_name))?$client_details[0]->client_name:''; ?>" >
                 </div>
               </div>
               <div class="item form-group">
@@ -55,11 +55,17 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Password
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input name="password" type="text" id="client_password" class="form-control" placeholder="Password@123" required="required"  value="<?php echo (isset($client_details[0]->password))?$client_details[0]->password:''; ?>" >
+                    <input name="password" type="text" id="client_password" class="form-control" placeholder="Enter Password" required="required"  value="<?php echo (isset($client_details[0]->password))?$client_details[0]->password:''; ?>" >
                 <div id="errorpassword"> </div>
                 </div>
                  
-              </div>						  
+              </div>	
+              <div class="item form-group">
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+							<div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+								  <input type="checkbox" name="status" id="status" class="flat" checked="checked"> Active
+							</div>
+						  </div>					  
               <div class="ln_solid">
               </div>
               <div class="item form-group">
@@ -108,7 +114,7 @@ $('#client_username').focusout(function(){
     color:red;
 }
 .form-group .control-label:after {
-  content:"*";color:red;
+  content:"*";color:gray;
 }
 </style> 
 
