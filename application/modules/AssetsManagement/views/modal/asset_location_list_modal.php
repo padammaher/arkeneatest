@@ -1,6 +1,6 @@
 <?php  foreach ($asset_location_list as $list) {  ?>     
 <!-- Modal -->
-              <div id="assest_list_modal_<?php echo $list['code'] ?>" class="modal fade" role="dialog">
+              <div id="assest_list_modal_<?php echo $list['id'] ?>" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
                   <!-- Modal content-->

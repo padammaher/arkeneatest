@@ -97,11 +97,11 @@
                             </div>
                             <div class="modal-body">
                                 <h4></h4>
-                                <p>Are you sure you want to delete this item ?</p>
+                                <p>Do you want to delete this item ?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary ok">Ok</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary ok">Yes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                             </div>
                         </div>
                     </div>

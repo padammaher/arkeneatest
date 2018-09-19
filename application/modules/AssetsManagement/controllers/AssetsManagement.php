@@ -643,10 +643,12 @@ class AssetsManagement extends MY_Controller {
                         }
                     }
                 } else {
+                     print_r($this->input->post());
+                exit;
                     load_view_template($data, 'Assets/user_asset_add');
                 }
             } else {
-
+               
                 load_view_template($data, 'Assets/user_asset_add');
             }
         }
