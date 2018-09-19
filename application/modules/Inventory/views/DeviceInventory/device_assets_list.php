@@ -27,8 +27,10 @@
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <ul class="flex-container flex-container-head nowrap">
+                                <li class="flex-item">Sr.No</li>
                                 <li class="flex-item">Device_Num</li>
                                 <li class="flex-item">Asset ID</li>
+                                <li class="flex-item">Wef Date</li>
                                 <li class="flex-item">Actions</li>
                             </ul>
                         </div>
@@ -41,8 +43,10 @@
                             ?>						
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <ul class="flex-container nowrap">
+                                    <li class="flex-item"><?php echo $i; ?></li>
                                     <li class="flex-item"><?php echo $device_asset_list_data['number']; ?></li>
                                     <li class="flex-item"><?php echo $device_asset_list_data['code']; ?></li>
+                                    <li class="flex-item"><?php echo $device_asset_list_data['createdate']; ?></li>
                                     <li class="flex-item">
 
                                         <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dervice_asset<?php echo $i; ?>">
