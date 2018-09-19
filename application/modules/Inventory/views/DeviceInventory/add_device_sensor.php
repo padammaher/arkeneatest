@@ -53,7 +53,7 @@
                                 <label><?php $isactive = set_value('device_sen_status'); ?>
                                     <input type="checkbox" name="device_sen_status" class="flat" <?php if (!empty($isactive)) {
                                 echo ($isactive) == "on" ? 'checked' : '';
-                            } else {
+                            } else { echo 'checked';
                                 
                             } ?>> Active
                                 </label>

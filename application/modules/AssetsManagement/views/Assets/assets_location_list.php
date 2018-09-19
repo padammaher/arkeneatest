@@ -52,7 +52,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
                                         <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $asset_loc_list['code']; ?></li>
+                                        <li data-toggle="modal" href="#assest_list_modal_<?php echo $asset_loc_list['code']; ?>" class="flex-item"><?php echo $asset_loc_list['code']; ?></li>
                                         <li class="flex-item"><?php echo $asset_loc_list['location']; ?></li>
 
                                         <li class="flex-item"><?php echo $asset_loc_list['address']; ?></li>
@@ -112,6 +112,7 @@
 
 
 </div>
+<?php // $this->load->view('modal/asset_list_modal') ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
