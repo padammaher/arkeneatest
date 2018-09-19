@@ -32,14 +32,14 @@ if ($login_flag == 0 && $login_flag != '') {
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="customer_address" type="text" class="form-control" placeholder="Address" value="<?php echo $user->customer_address; ?>">
+                <input name="customer_address" type="text" class="form-control" placeholder="Enter Address" value="<?php echo $user->customer_address; ?>">
                </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                 <input name="contact_person" type="text" class="form-control" placeholder="Contact Person Name" value="<?php echo $user->contact_person; ?>">
+                 <input name="contact_person" type="text" class="form-control" placeholder="Enter Contact Person Name" value="<?php echo $user->contact_person; ?>">
                 </div>
               </div>
               <div class="item form-group">
@@ -59,7 +59,7 @@ if ($login_flag == 0 && $login_flag != '') {
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" name="state_id" id="State_id" onChange="getCity(this.value);">
-                    <option value="">Select</option>
+                    <option value="">Select State</option>
                     <?php if(isset($state)){ foreach($state as $stateid){ ?> 
                        <option value="<?php echo $stateid->id;?>" <?php echo ($stateid->id==$user->state_id)?'selected':'' ;?>><?php echo $stateid->name;?> </option>
                  <?php   } } ?> 
@@ -89,21 +89,21 @@ if ($login_flag == 0 && $login_flag != '') {
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="phone" id="phone" type="number" class="form-control" placeholder="Telephone No." required="required" value="<?php echo $user->phone; ?>">
+                <input name="phone" id="phone" type="number" class="form-control" placeholder="Enter Telephone No." required="required" value="<?php echo $user->phone; ?>">
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="mobile" id="mobile" type="number" class="form-control" placeholder="Mobile No." required="required" value="<?php echo $user->mobile; ?>">
+                <input name="mobile" id="mobile" type="number" class="form-control" placeholder="Enter Mobile No." required="required" value="<?php echo $user->mobile; ?>">
                </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="email"  id="customer_email" type="Email" class="form-control" placeholder="Email ID" required="required" value="<?php echo $user->email; ?>">
+                <input name="email"  id="customer_email" type="Email" class="form-control" placeholder="Enter Email ID" required="required" value="<?php echo $user->email; ?>">
                 <div id="email_error" style="color:red;"></div>
                 </div>
               </div>
