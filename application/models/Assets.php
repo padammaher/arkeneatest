@@ -373,8 +373,9 @@ class Assets extends MY_Model {
 
 
     public function get_asset_rule_list($parameter_range_id = '') { 
-        $this->db->select('asset_parameter_rule.*, parameter.name as pararameter_name');
+        $this->db->select('asset_parameter_rule.*, parameter.name as pararameter_name, uom.name as uom_name');
         $this->db->from('asset_parameter_rule');
+        $this->db->join('uom', 'asset_parameter_rule.uom = uom.id', 'left');
         $this->db->join('parameter', 'asset_parameter_rule.parameter = parameter.id', 'left');
         $this->db->where('parameter_range_id', $parameter_range_id);
         $query= $this->db->get();
@@ -386,7 +387,7 @@ class Assets extends MY_Model {
             }
         }
 
-      // print_r($asset_data); exit;
+      //print_r($asset_data); exit;
         if ($asset_data)
             return $asset_data;
         else

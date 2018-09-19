@@ -49,7 +49,7 @@
                 <select class="form-control" name="uom" id="uom" >
                 <option value=''>Select UOM</option>
                   <?php foreach($uom_data as $um){ ?> 
-                   <option value="<?php echo $um['id'];?>"><?php echo $um['name'];?> </option>
+                   <option value="<?php echo $um['id'];?>" <?php if(isset($asset_detail[0]->uom)){ echo ($um['id']==$asset_detail[0]->uom)?'selected':''; } ?> ><?php echo $um['name'];?> </option>
                    <?php } ?> 
                 </select>
               </div>
