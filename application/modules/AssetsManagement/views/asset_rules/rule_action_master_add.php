@@ -49,7 +49,7 @@
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
               <input name="uom" id="uom" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($uom_id))?$uom_id:''; ?>">
-              <input name="" id="uom" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($uom_name))?$uom_name:''; ?>" readonly>
+              <input name="" id="uom" type="text" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($uom_name))?$uom_name:''; ?>" >
             
               </div>
             </div>

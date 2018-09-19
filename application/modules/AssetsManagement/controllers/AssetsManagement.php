@@ -176,7 +176,7 @@ class AssetsManagement extends MY_Controller {
                 } else if ($form_action == "update") {
                     //   print_r($this->input->post());
                     //  exit;
-                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric');
+                    $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required');
                     $this->form_validation->set_rules('Customerlocation', 'User Location', 'required');
                     $this->form_validation->set_rules('Assetcategory', 'Asset Cotegory', 'required');
                     $this->form_validation->set_rules('Assettype', 'Asset Type', 'required');
@@ -222,10 +222,11 @@ class AssetsManagement extends MY_Controller {
                         $isUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
                         // var_dump($isUnique);die;
                         if ($isUnique) {
+                             $this->session->set_flashdata('note_msg', 'Assets already updated');
                             load_view_template($data, 'Assets/assets_edit');
                         } else {
-                            $data = $this->Assets->update_assets($assets_data, $id);
-                            if ($data) {
+                            $updatedata = $this->Assets->update_assets($assets_data, $id);
+                            if ($updatedata) {
                                 $this->session->set_flashdata('success_msg', 'Assets Successfully updated');
                                 redirect(base_url('Assets_list'));
                             } else {
@@ -525,9 +526,9 @@ class AssetsManagement extends MY_Controller {
                             $insert_data = array('location' => $this->input->post('asset_location'),
                                 'address' => $this->input->post('asset_address'),
                                 'latitude' => $this->input->post('asset_lat'),
-                                'contact_no' => $this->input->post('asset_long'),
-                                'longitude' => $this->input->post('asset_contactperson'),
-                                'contact_person' => $this->input->post('asset_contactno'),
+                                'contact_no' => $this->input->post('asset_contactno'),
+                                'longitude' => $this->input->post('asset_long'),
+                                'contact_person' => $this->input->post('asset_contactperson'),
                                 'contact_email' => $this->input->post('asset_contactemail'),
                                 'createdat' => $todaysdate,
                                 'createdby' => $user_id,

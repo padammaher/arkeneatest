@@ -52,7 +52,7 @@
                     <div class="title_left">
                         <h4>Rule & Action Master List - 
                             <span>Parameter : 
-                                <span>Oil Pressure
+                                <span><?php echo (isset($parameter_detail[0]['param_name'])) ? $parameter_detail[0]['param_name'] : ''; ?>
                                 </span>
                             </span> 
                         </h4>

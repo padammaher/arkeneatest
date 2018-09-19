@@ -8,7 +8,7 @@
             <div class="x_content">
                 <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>Assets_edit" method="POST">
                     <!--                <form class="form-horizontal form-label-left">-->
-                    <?php
+                    <?php 
                     foreach ($Assets_edit_data as $list) {
 //                        var_dump($list);
                         ?>
@@ -89,7 +89,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Specification</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" value="<?php echo $list['specification'] ?> " required="required" id="assetspecification" name="assetspecification">
+                                <input type="text" class="form-control" value="<?php echo $list['specification'] ?> " id="assetspecification" name="assetspecification">
                             </div>
                         </div>
 
@@ -129,7 +129,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea class="form-control" rows="2" style="resize: vertical;" required="required" id="Description" name="Description"><?php echo $list['description'] ?> </textarea>
+                                <textarea class="form-control" rows="2" style="resize: vertical;" id="Description" name="Description"><?php echo $list['description'] ?> </textarea>
                             </div>
                         </div> 
 

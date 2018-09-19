@@ -31,7 +31,7 @@
                         </div>  
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Location *<span class="required">*</span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Location <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" name="asset_location" class="form-control" value="<?php echo set_value('asset_location',$asset_location_data['location']); ?>" placeholder="Sandton" required="required">
                             </div>
