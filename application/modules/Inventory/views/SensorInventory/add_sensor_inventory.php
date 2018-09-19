@@ -24,7 +24,7 @@
                <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" name="sensornum" value="<?php echo set_value('sensornum');?>" class="form-control" placeholder="SN001" required="required" pattern="[A-Za-z0-9\s]*">
+                <input type="text" name="sensornum" value="<?php echo set_value('sensornum');?>" class="form-control" placeholder="Enter Sensor_Number" required="required" pattern="[A-Za-z0-9\s]*">
               </div>
                <?php if (form_error('sensornum')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensornum'); ?></span>
@@ -59,7 +59,7 @@
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" name="make" value="<?php echo set_value('make');?>" class="form-control" placeholder="Seimens" required="required" pattern="[A-Za-z\s]*">
+                <input type="text" name="make" value="<?php echo set_value('make');?>" class="form-control" placeholder="Enter Make" required="required" pattern="[A-Za-z\s]*">
               </div>
                <?php if (form_error('make')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('make'); ?></span>
@@ -69,7 +69,7 @@
             <div class="item form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Model *</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" name="model" value="<?php echo set_value('model');?>" class="form-control" placeholder="T001A" required="required" pattern="[A-Za-z\s]*">
+                    <input type="text" name="model" value="<?php echo set_value('model');?>" class="form-control" placeholder="Enter Model" required="required" pattern="[A-Za-z\s]*">
                   </div>
                     <?php if (form_error('model')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('model'); ?></span>
@@ -78,7 +78,7 @@
             <div class="item form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" name="description" value="<?php echo set_value('description');?>" class="form-control" placeholder="Oil Temperature"  pattern="[A-Za-z\s]*">
+                      <input type="text" name="description" value="<?php echo set_value('description');?>" class="form-control" placeholder="Enter Description"  pattern="[A-Za-z\s]*">
                   </div>
             </div>
 
