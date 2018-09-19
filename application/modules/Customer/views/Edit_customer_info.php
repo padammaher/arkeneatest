@@ -6,8 +6,14 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h4>Add Customer Provisioning
-            </h4>						
+              <?php
+$login_flag = $this->session->userdata('login_flag');
+if ($login_flag == 0 && $login_flag != '') {
+    ?>
+            <h4>Add Customer Provisioning</h4>	
+<?php } else { ?>
+       <h4>Edit Customer Provisioning</h4>	      
+<?php } ?>
             <div class="clearfix">
             </div>
           </div>

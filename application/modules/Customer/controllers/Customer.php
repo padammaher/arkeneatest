@@ -195,7 +195,7 @@ class Customer extends MY_Controller {
             redirect('auth', 'refresh');
         } else {
             if ($this->input->post('post') == 'edit') {
-                $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location();
+                $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
                 $client_id = $this->input->post('client_id');
                 $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
                 $this->data['dataHeader'] = $this->users->get_allData($user_id);
