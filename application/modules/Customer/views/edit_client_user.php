@@ -23,16 +23,17 @@
               </div> -->
               <input name="id" type="hidden"  class="form-control"  value="<?php echo (isset($client_details[0]->id))?$client_details[0]->id:''; ?>" >
               <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name<span class='red' style="color:red"> *</span>
                 </label>
+                
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="client_name" type="text" class="form-control" placeholder="Enter Name" required="required"  value="<?php echo (isset($client_details[0]->client_name))?$client_details[0]->client_name:''; ?>" >
                 </div>
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location
-                </label>
-                
+                <span class='red' style="color:red"> *</span>
+                </label>                
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" required="required" name="client_location">
                     <option>Select Customer Location
@@ -45,6 +46,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">User Name
+                <span class='red' style="color:red"> *</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="client_username" id="client_username" type="text" class="form-control" placeholder="Enter Email" required="required"  value="<?php echo (isset($client_details[0]->client_username))?$client_details[0]->client_username:''; ?>" >
@@ -53,6 +55,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Password
+                <span class='red' style="color:red"> *</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <input name="password" type="text" id="client_password" class="form-control" placeholder="Enter Password" required="required"  value="<?php echo (isset($client_details[0]->password))?$client_details[0]->password:''; ?>" >
@@ -61,7 +64,7 @@
                  
               </div>	
               <div class="item form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span class='red' style="color:red"> *</span></label>
 							<div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
 								  <input type="checkbox" name="status" id="status" class="flat" checked="checked"> Active
 							</div>
@@ -113,9 +116,9 @@ $('#client_username').focusout(function(){
 	position:absolute; 
     color:red;
 }
-.form-group .control-label:after {
-  content:"*";color:gray;
-}
+/* .form-group .control-label:after {
+  content:"*";color:red;
+} */
 </style> 
 
 <script>

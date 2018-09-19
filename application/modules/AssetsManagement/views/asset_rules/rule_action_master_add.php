@@ -16,6 +16,7 @@
              
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Rule Name
+              <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="rule_name" id="rule_name" required type="text" class="form-control" placeholder="Enter Parameter Rule Name" value="<?php echo (isset($asset_detail[0]->rule_name))?$asset_detail[0]->rule_name:''; ?>" >
@@ -23,6 +24,7 @@
             </div>
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Rule Desc
+              <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <textarea class="form-control" required name="rule_des" id="rule_des" style="resize: vertical;" placeholder="Enter Paramter Rule Description." ><?php echo (isset($asset_detail[0]->rule_des))?$asset_detail[0]->rule_des:''; ?></textarea>
@@ -30,6 +32,7 @@
             </div>
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter
+              <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="parameter_id" id="parameter_id" type="hidden" class="form-control" placeholder="Oil Pressure" value="<?php echo (isset($param_id))?$param_id:''; ?>">
@@ -39,6 +42,7 @@
             </div>
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM
+              <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
              
@@ -52,6 +56,7 @@
             </div>
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Green Value
+              <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="green_value" required id="green_value" onfocusout="compare_rule_value();" type="text" class="form-control" placeholder="Enter Green Value" value="<?php echo (isset($asset_detail[0]->green_value))?$asset_detail[0]->green_value:''; ?>">
@@ -60,6 +65,7 @@
             </div>
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Orange Value
+              <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name="orange_value" required  onfocusout="compare_rule_value();" id="orange_value" type="text" class="form-control" placeholder="Enter Orange Value" value="<?php echo (isset($asset_detail[0]->orange_value))?$asset_detail[0]->orange_value:''; ?>">
@@ -76,6 +82,7 @@
             </div>
             <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Wef Date
+              <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="xdisplay_inputx item form-group has-feedback">
@@ -148,3 +155,8 @@ function compare_rule_value() {
 
 
 </script>
+<style>
+.required{
+  color:red; 
+}
+</style>
