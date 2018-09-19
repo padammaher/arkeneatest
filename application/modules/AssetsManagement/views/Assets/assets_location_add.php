@@ -1,3 +1,4 @@
+<?php $managedLocationId=''; $managedLocationId=$this->input->post('manage_location_add');?>			
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -15,7 +16,7 @@
                             <select class="form-control" name="assetcode" required>
                                 <option value="">Select Asset Code</option>
                                 <?php foreach ($asset_code_list as $asset_id_list) { ?>
-                                    <option value="<?php echo $asset_id_list['id']; ?>" <?php echo set_value('assetcode')?'selected':'';?> ><?php echo $asset_id_list['code']; ?></option>
+                                    <option value="<?php echo $asset_id_list['id']; ?>" <?php echo set_value('assetcode',$managedLocationId)?'selected':'';?> ><?php echo $asset_id_list['code']; ?></option>
 
 
                                 <?php } ?>
@@ -196,4 +197,7 @@
             return false;
         }
     }
+    
+    
+    
 </script>

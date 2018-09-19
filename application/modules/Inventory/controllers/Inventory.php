@@ -286,7 +286,15 @@ class Inventory extends MY_Controller {
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //                  $add_sen_inv_form_action=explode(" ",$this->input->post('add_sen_inv_form_action'));
-//               if()    
+//               if() 
+                
+                if($this->input->post('dev_sen_post_add') == 'dev_sen_post_add')
+                {
+//                    print_r($this->input->post());
+//                    exit;
+                    load_view_template($data, 'DeviceInventory/add_device_sensor');
+                }
+                else{
                 $unique_Data = array(
                     'device_id' => $this->input->post('deviceid'),
                     'sensor_id' => $this->input->post('sensorid'),
@@ -325,6 +333,7 @@ class Inventory extends MY_Controller {
                     }
                 } else {
                     load_view_template($data, 'DeviceInventory/add_device_sensor');
+                }
                 }
             } else {
 
@@ -494,8 +503,8 @@ class Inventory extends MY_Controller {
                 $data['parameter_list'] = $this->Inventory_model->parameter_list($user_id);
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
                 if ($this->input->post('post') == 'edit') {
-
-                   load_view_template($data, 'SensorInventory/edit_sensor_inventory_1');
+                
+                    load_view_template($data, 'SensorInventory/edit_sensor_inventory_1');
 
                     
                 }
@@ -679,6 +688,12 @@ class Inventory extends MY_Controller {
 
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                
+                if($this->input->post('dev_asset_post_add') == 'dev_asset_post_add') 
+                {
+                    load_view_template($data, 'DeviceInventory/device_assets_add');
+                }else{
+                
                 $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
                 $this->form_validation->set_rules('assetid', 'Asset ID', 'required');
                 $this->form_validation->set_rules('wef_date', 'Wef date', 'required');
@@ -713,6 +728,7 @@ class Inventory extends MY_Controller {
                     }
                 } else {
                     load_view_template($data, 'DeviceInventory/device_assets_add');
+                }
                 }
             } else {
 

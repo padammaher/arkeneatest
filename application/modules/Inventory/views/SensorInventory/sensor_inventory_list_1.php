@@ -24,14 +24,14 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
 
-                <div class="x_content">
+                <div class="x_content" id="sensor-inventory-list">
 
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <ul class="flex-container flex-container-head nowrap">
                                 <li class="flex-item">Sr No.</li>
                                 <li class="flex-item">Sensor_Number</li>
-                                <!--<li class="flex-item">Device ID</li>-->
+                                <li class="flex-item">Device_Num</li>
                                 <li class="flex-item">Sensor_Type</li>
 
 
@@ -43,7 +43,8 @@
                         </div>
                     </div>
                      <div class="row clearfix">
-                    <?php
+                         
+                    <?php // echo "<pre>"; print_r($sensor_inventory_list);
                     $i = 1;
                     if (!empty($sensor_inventory_list)) {
                         foreach ($sensor_inventory_list as $inventory_list) {
@@ -54,7 +55,8 @@
 
                                         <li class="flex-item"><?php echo $i; ?></li>
                                         <li class="flex-item"><?php echo $inventory_list['sensor_no']; ?></li>                  
-                                        <li class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></li>
+                                        <li class="flex-item"><?php echo $inventory_list['device_id_number']; ?></li>
+                                        <li class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></li>                                        
                                         <li class="flex-item"><?php echo $inventory_list['description']; ?></li>
                                         <li class="flex-item" style="display: -webkit-inline-box;">
 
@@ -67,33 +69,40 @@
                                                 <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                 </a></form>
-                                            <?php if (!empty($inventory_list['device_sensor_mapping_id'])) { ?>
+                                            
                                                 <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
-
-                                                    <input type="hidden" value="<?php echo $inventory_list['device_sensor_mapping_id']; ?>" name="dev_sen_post_id"/>
+                                                
+                                                    <input type="hidden" value="<?php echo $inventory_list['device_sensor_mapping_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
                                                     <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
+                                                <?php if (!empty($inventory_list['device_sensor_mapping_id'])) { ?>   
                                                     <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $inventory_list['device_sensor_mapping_id']; ?>">
                                                         <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                                                    </a></form><?php } else {?>                                             
-                                             <a href="<?php echo base_url('Add_device_sensors');?>" title="Device Sensor" class="dev_assets" id="<?php echo $i; ?>">
+                                                    </a><?php } else {?>                                             
+                                             <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add" value='dev_sen_post_add'/>  
+                                             <a  title="Device Sensor" class="dev_sensor_add" name="<?php echo $inventory_list['id'];?>" id="<?php echo $i; ?>">
                                                          <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                     </a>
                                             <?php } ?>
+                                            </form>
                                             
-                                            <?php if (!empty($inventory_list['device_asset_tbl_id'])) { ?>
                                                 <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
-                                                    <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id"/>
+                                                    <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>" />
                                                     <input type="hidden" name="dev_asset_post" id="dev_asset_post<?php echo $i; ?>" value='edit'/>
+                                                <?php if (!empty($inventory_list['device_asset_tbl_id'])) { ?>    
                                                     <a title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
                                                         <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
                                                     </a>
-                                                </form>                                                    
+                                                                                                    
                                             <?php } else { ?>
-                                            <a href="<?php echo base_url('Device_assets_add');?>" title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
-                                                        <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
-                                                    </a>
+                                           
+                                            
+                                             <input type="hidden" name="dev_asset_post_add" id="dev_asset_post_add" value='dev_asset_post_add'/>  
+                                                <a  title="Device Assets" class="dev_assets_add" name="<?php echo $inventory_list['device_inventory_tbl_id'];?>"  id="<?php echo $i; ?>">
+                                                    <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i>  
+                                                </a>    
                                             <?php } ?>
-                                            <!--</form>-->   
+                                                    
+                                            </form>   
 
                                         </li>
 
@@ -163,6 +172,33 @@
 //            alert(id);
             $("#dev_asset" + id).submit();
         });
-
+        
+          var manage_dev_sen_addLink="<?php echo base_url('Add_device_sensors'); ?>";
+        $(".dev_sensor_add").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+            var id = $(this).attr('id');
+//             $("#asset_user_post" + id).val('manageadd');
+//             alert(this.name);
+             $("#dev_sen_post_id"+id).val(this.name);
+//             alert($("#dev_sen_post_id"+ id).val());
+             $("#device_sen" + id).attr('action', manage_dev_sen_addLink);
+                $("#device_sen" + id).submit();
+            // }
+        });
+        
+    var manage_dev_asset_addLink="<?php echo base_url('Device_assets_add'); ?>";
+        $(".dev_assets_add").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+            var id = $(this).attr('id');
+//             $("#asset_user_post" + id).val('manageadd');
+//             alert(this.name);
+             $("#dev_asset_id" + id).val(this.name);
+//             alert($("#asset_user_post" + id).val());
+             $("#dev_asset" + id).attr('action', manage_dev_asset_addLink);
+                $("#dev_asset" + id).submit();
+            // }
+        });
     });
 </script>        

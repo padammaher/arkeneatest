@@ -4434,13 +4434,7 @@ body {
     /* align-content: center; */
 }
 
-.flex-item:first-child {
-  width:16%;
-}
 
-.flex-item:nth-child(2)  {
-  width:20%;
-}
 
 .flex-hold {
     background: #fff;
@@ -4596,6 +4590,11 @@ input[type="text"].static-text{
 	color:red !important;
 }
 
+
+.not-allowed:hover {   
+cursor: not-allowed;
+}
+
 #box {
     display: block;
     width: 150px;
@@ -4611,16 +4610,6 @@ input[type="text"].static-text{
     animation: slider 0.8s ease 0s infinite alternate;
     margin: 0 auto;
 }
-
-.cursor-notallowed li a {
-    cursor:not-allowed;
-   
-}
-
-    .not-allowed:hover {   
-    cursor: not-allowed;
-}
-
 @-webkit-keyframes fadeIn {
     from {
         -webkit-transform: scale(0.5);
@@ -4690,4 +4679,90 @@ input[type="text"].static-text{
     .datehold {
         display: none !important;
     }
+
+}
+
+
+@media screen and (max-width: 767px) {
+
+.x_panel {
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+#rule-action-master, 
+#assets-list, 
+#assets-parameter-list, 
+#trigger-list, 
+#assets-location-list, 
+#asset-type-list, 
+#client-user-list, 
+#asset-category-list, 
+#customer-business-location-list, 
+#device-assets-list, 
+#device-inventory-list, 
+#device-sensors-list, 
+#parameter-list, 
+#sensor-inventory-list, 
+#sensor-type-list, 
+#uom-type-list, 
+#user-assets-list  {
+    
+    width: 700px;
+}
+
+.pagination {
+    float: left;
+}
+
+#device-inventory-list {
+	width: 1000px;	
+}
+
+
+.flex-item {
+	width: 180px;
+}
+
+.flex-item:last-child {
+    width: 200px !important;
+}
+
+.flex-item:first-child {
+    width: 70px !important;
+}
+
+.page-title .title_left {
+    width: 100%;
+    float: none;
+    display: block;
+    text-align: center;
+}
+
+.page-title .title_right {
+    width: 100%;
+    float: none;
+    display: block;
+    margin: 0 auto;
+}
+
+.page-title .title_right .pull-right {
+	display: block;
+    margin: 0 auto;
+    float: left !important;
+}
+
+.page-title .title_left {
+	text-align:left;
+}
+
+.form-control.has-feedback-left {
+    padding-left: 18.5%;
+}
+
+.companyid {
+	display:none;
+}
+
+	
 }

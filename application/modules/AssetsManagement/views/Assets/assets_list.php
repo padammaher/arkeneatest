@@ -89,36 +89,42 @@
                                                 <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                             </a> -->
                                         </form>
-                                        <?php if (!empty($list['assetlocid'])) { ?>  
+                                        
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
-                                                <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id"/>
+                                                <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id" />
                                                 <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
 
-
+                                              <?php if (!empty($list['assetlocid'])) { ?>  
+                                                
                                                 <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
-                                                    <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                    <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
                                                 </a>   
 
-                                            </form> <?php }else {?>                                               
-                                            <a href="<?php echo base_url('Assets_location_add');?>" class="manage_location"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
-                                                    <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                             <?php }else {?>                                               
+                                                <input type="hidden" name="manage_location_add" id="manage_location_add" value="manage_location_add" /> 
+                                            <a class="manage_location_add"  data-toggle="tooltip" data-placement="top" title="" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-original-title="Manage Asset Location">
+                                                    <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                    
                                                 </a> 
                                             <?php } ?>
-
-                                        <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
+                                            </form>    
+                                        
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
-                                                <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
+                                                <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
                                                 <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-
-
+                                                
+                                           <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
+                                              
                                                 <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                     <i class="fa fa-group text-warning"></i> 
                                                 </a>
-                                            </form> <?php } else { ?>
-                                            <a href="<?php echo base_url('User_asset_add'); ?>" title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                           <?php } else { ?>
+                                               <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />        
+                                            <a  title="Manage Users" class="manage_user_add" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                 <i class="fa fa-group text-warning"></i> 
                                             </a>
                                         <?php } ?>
+                                        </form> 
                                         <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
                                             <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
@@ -210,6 +216,35 @@
             $("#asset_parameter_range" + id).submit();
             // }
         });
-
+        
+        var manage_user_addLink="<?php echo base_url('User_asset_add'); ?>";
+        $(".manage_user_add").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+            var id = $(this).attr('id');
+             $("#asset_user_post" + id).val('manageadd');
+             
+             $("#asset_user_post_id" + id).val(this.name);
+//             alert($("#asset_user_post" + id).val());
+             $("#asset_user" + id).attr('action', manage_user_addLink);
+                $("#asset_user" + id).submit();
+            // }
+        });
+        
+        
+//        manage_location_add
+          var manage_location_addLink="<?php echo base_url('Assets_location_add'); ?>";
+        $(".manage_location_add").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+            var id = $(this).attr('id');
+//             $("#asset_user_post" + id).val('manageadd');
+             
+             $("#asset_location_post_id" + id).val(this.name);
+//             alert($("#asset_user_post" + id).val());
+             $("#asset_location" + id).attr('action', manage_location_addLink);
+                $("#asset_location" + id).submit();
+            // }
+        });
     });
 </script>

@@ -1,4 +1,4 @@
-			
+<?php $managedId=''; $managedId=$this->input->post('asset_user_post_id');?>			
       <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -18,7 +18,7 @@
                   <select class="form-control" name="assetcode" required="required">
                     <option value="">Select Asset Code</option>
 <?php foreach ($asset_code_list as $asset_id_list) { ?>
-                                <option value="<?php echo $asset_id_list['id'];?>" <?php echo set_value('assetcode')==$asset_id_list['id']? 'selected':$asset_id_list['id']; ?> ><?php echo $asset_id_list['code'];?></option>
+                                <option value="<?php echo $asset_id_list['id'];?>" <?php echo set_value('assetcode',$managedId)==$asset_id_list['id']? 'selected':'' ?> ><?php echo $asset_id_list['code'];?></option>
 
                        
 <?php } ?>

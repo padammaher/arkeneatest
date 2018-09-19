@@ -44,7 +44,7 @@
                             </ul>
                         </div>
                     </div>
-                    <?php $i = 1;
+                    <?php $i = 1; 
                     if (!empty($asset_location_list)) {
                         foreach ($asset_location_list as $asset_loc_list) { ?>
 
@@ -75,20 +75,25 @@
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                 </a> 
                                             </form> 
-        <?php if (!empty($asset_loc_list['asset_user_tbl_id'])) { ?>  
-                                                <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
-                                                    <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" name="asset_user_post_id"/>
-                                                    <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-
-
-                                                    <a  title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                        <i class="fa fa-group text-warning"></i> 
-                                                    </a>
-                                                </form>  <?php } else { ?>                 
-                                                <a href="<?php echo base_url('User_asset_add'); ?>" title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+   
+                                            
+                            <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
+                                                <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                                
+                                           <?php if (!empty($asset_loc_list['asset_user_tbl_id'])) { ?>  
+                                              
+                                                <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                     <i class="fa fa-group text-warning"></i> 
-                                                </a>                      
-        <?php } ?>									</li>
+                                                </a>
+                                           <?php } else { ?>
+                                               <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />        
+                                            <a  title="Manage Users" class="manage_user_add" name="<?php echo $asset_loc_list['asset_tbl_id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                <i class="fa fa-group text-warning"></i> 
+                                            </a>
+                                        <?php } ?>
+                            </form>                                             
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -154,6 +159,18 @@
             $("#asset_user" + id).submit();
             // }
         });
-
+        var manage_user_addLink="<?php echo base_url('User_asset_add'); ?>";
+        $(".manage_user_add").click(function () {
+            // var flag = confirm('Are you sure you want to delete this item?');
+            // if (flag == true) {
+            var id = $(this).attr('id');
+             $("#asset_user_post" + id).val('manageadd');
+             
+             $("#asset_user_post_id" + id).val(this.name);
+//             alert($("#asset_user_post_id" + id).val());
+             $("#asset_user" + id).attr('action', manage_user_addLink);
+                $("#asset_user" + id).submit();
+            // }
+        });
     });
 </script>

@@ -1,4 +1,4 @@
-
+@media screen and (min-width: 768px) {
 
 /* rule-action-master list start */
 #rule-action-master .flex-item:first-child {
@@ -613,3 +613,5 @@ width: 12%;
 	width: 10%;
 }
 /* user-assets-list end*/
+
+}

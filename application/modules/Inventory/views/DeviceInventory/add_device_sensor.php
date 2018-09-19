@@ -1,3 +1,4 @@
+<?php $managed_dev_sen_Id=''; $managed_dev_sen_Id=$this->input->post('dev_sen_post_id');?>	
 <div class="">
 
     <div class="clearfix"></div>
@@ -18,7 +19,7 @@
                                 <select class="form-control" name="deviceid" required="required">
                                     <option value="">Select device</option>
                                     <?php foreach ($device_list as $device_id_list) { ?>
-                                        <option value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid') == $device_id_list['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list['number']; ?></option>
+                                        <option value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid',$managed_dev_sen_Id) == $device_id_list['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list['number']; ?></option>
 
 
                                     <?php } ?>

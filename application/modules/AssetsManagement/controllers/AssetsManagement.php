@@ -475,6 +475,14 @@ class AssetsManagement extends MY_Controller {
 
                 //            exit;
 
+                if($this->input->post('manage_location_add')=='manage_location_add')
+                {
+//                    echo "manage_location_add";                    
+//                    print_r($this->input->post('manage_location_add'));
+//                    exit;
+                     load_view_template($data, 'Assets/assets_location_add');
+                 }
+                 else{
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('asset_location', 'Asset Location', 'required');
                 $this->form_validation->set_rules('asset_address', 'Asset address', 'required');
@@ -550,6 +558,7 @@ class AssetsManagement extends MY_Controller {
                 } else {
                     load_view_template($data, 'Assets/assets_location_add');
                 }
+                 }
             } else {
 
 
@@ -608,6 +617,12 @@ class AssetsManagement extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $todaysdate = date('Y-m-d');
+              
+                if($this->input->post('manage_asset_add') == 'manage_asset_add')
+                {  
+                    //echo "0000";die;
+                    load_view_template($data, 'Assets/user_asset_add'); 
+                } else { 
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
 
@@ -643,9 +658,8 @@ class AssetsManagement extends MY_Controller {
                         }
                     }
                 } else {
-                     print_r($this->input->post());
-                exit;
                     load_view_template($data, 'Assets/user_asset_add');
+                }
                 }
             } else {
                
