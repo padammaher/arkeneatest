@@ -17,7 +17,7 @@
                             </span>
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Asset Specification : 
-                            <span>Fuel:<?php echo (isset($parameter_detail[0]['specification'])) ? $parameter_detail[0]['specification'] : ''; ?> 
+                            <span><?php echo (isset($parameter_detail[0]['specification'])) ? $parameter_detail[0]['specification'] : ''; ?> 
                             </span>
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-12 rdinfo">Parameter : 
@@ -126,7 +126,7 @@
                                         </li>
                                         <li class="flex-item"><?php echo (isset($asset_rule->rule_name)) ? $asset_rule->rule_name : ''; ?> 
                                         </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule->parameter_range_id)) ? $asset_rule->parameter_range_id : ''; ?> 
+                                        <li class="flex-item"><?php echo (isset($asset_rule->pararameter_name)) ? $asset_rule->pararameter_name : ''; ?> 
                                         </li>
                                         <li class="flex-item"><?php echo (isset($asset_rule->green_value)) ? $asset_rule->green_value : ''; ?>
                                         </li>
