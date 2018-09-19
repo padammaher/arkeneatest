@@ -18,7 +18,7 @@ foreach ($sensor_inventory_list_data as $sensor_inventory_data) { ?>
                <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input type="text" name="sensornum" value="<?php echo set_value('sensornum',$sensor_inventory_data['sensor_no']);?>" class="form-control" placeholder="SN001" required="required">
+                <input type="text" name="sensornum" value="<?php echo set_value('sensornum',$sensor_inventory_data['sensor_no']);?>" class="form-control" placeholder="SN001" required="required" readonly="readonly">
               </div>
                <?php if (form_error('sensornum')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensornum'); ?></span>

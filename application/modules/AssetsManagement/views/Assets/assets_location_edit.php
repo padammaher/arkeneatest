@@ -64,7 +64,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="asset_contactperson" id="asset_contactperson" class="form-control" value="<?php echo set_value('asset_contactperson',$asset_location_data['contact_person']); ?>" placeholder="Joy" required="required" onchange="Checkcontactperson(Add_Task.asset_contactperson)">
+                                <input type="text" name="asset_contactperson" id="asset_contactperson" class="form-control" value="<?php echo set_value('asset_contactperson',$asset_location_data['contact_person']); ?>" placeholder="Joy" required="required" onchange="">
                             </div>
                               <?php if (form_error('asset_contactperson')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_contactperson'); ?></span>

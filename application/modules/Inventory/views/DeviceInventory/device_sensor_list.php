@@ -28,7 +28,8 @@
 					<div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							 <ul class="flex-container flex-container-head nowrap">
-								        <li class="flex-item">Device ID</li>
+                        <li class="flex-item">Sr.No</li>
+                            <li class="flex-item">Device ID</li>
                         <li class="flex-item">Sensor ID</li>
                         <li class="flex-item">Actions</li>
 								</ul>
@@ -39,6 +40,7 @@
         <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <ul class="flex-container nowrap">
+                            <li class="flex-item"><?php echo $i;?></li>
                             <li class="flex-item"><?php echo $device_sen_list['number'];?></li>
                     <li class="flex-item"><?php echo $device_sen_list['sensor_no'];?></li>
                     <li class="flex-item">
