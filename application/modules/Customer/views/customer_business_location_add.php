@@ -39,6 +39,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Country
+                <span class="required"> </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" required="required" name="country" onChange="getState(this.value);">
@@ -52,6 +53,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" name="state">State / Province
+                <span class="required"> </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" name="state" id="State_id" onChange="getCity(this.value);">
@@ -63,6 +65,7 @@
               </div>  
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">City
+                <span class="required"> </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control"  name="city" id="City_id">
@@ -191,8 +194,3 @@ $('#phone').keypress(function (event) {
     }
 });
 </script>
-
-<style>
-  .required{
-    colort:red;
-  }
