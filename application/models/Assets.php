@@ -461,9 +461,9 @@ class Assets extends MY_Model {
  
 
     public function get_asset_location($location_id) {
-        $this->db->select('asset_location.location,asset_location.address');
-        $this->db->from('asset_location');
-        $this->db->where('asset_location.id', $location_id);
+        $this->db->select('customer_business_location.location_name as location');
+        $this->db->from('customer_business_location');
+        $this->db->where('customer_business_location.id', $location_id);
         $query = $this->db->get();
         $location_data = $query->result_array();
         return $location_data;
