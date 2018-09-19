@@ -748,7 +748,7 @@ class AssetsManagement extends MY_Controller {
         }else{
             $parameter_range_id= $this->session->userdata('parameter_range_id'); 
         }
-        
+         $this->session->unset_userdata('rule_id'); 
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
 
 
@@ -1082,9 +1082,14 @@ class AssetsManagement extends MY_Controller {
             else{
                 $rule_id='0';
             }
+//            $set_rule_id='';
+            if(!$this->session->userdata('rule_id')){
+            $this->session->set_userdata('rule_id',$rule_id);}
+            else{
+                
+            }
             $user_id = $this->session->userdata('user_id');
-
-            $set_rule_id = $this->session->userdata('rule_id');
+            $set_rule_id = $this->session->userdata('rule_id');             
 
              $asset_id = $this->session->userdata('asset_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -1093,7 +1098,7 @@ class AssetsManagement extends MY_Controller {
             
             $data['trigger_list'] = $this->Assets->trigger_list($set_rule_id,$user_id, $asset_id);
             
-            $data['header_desc'] = $this->Assets->showdescription($asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($set_rule_id,$user_id,$asset_id);
 
             load_view_template($data, 'trigger/trigger_list');
         }
@@ -1105,20 +1110,22 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            if ($this->input->post('rule_id')) {
-                $rule_id = $this->input->post('rule_id');
-            } else {
-                $rule_id = 5;
-            }
+//            if ($this->input->post('rule_id')) {
+//                echo$rule_id = $this->input->post('rule_id');
+//            } else {
+//               echo $rule_id = 5;
+//            }
+            $rule_id = $this->session->userdata('rule_id');
             $user_id = $this->session->userdata('user_id');
             $asset_id = $this->session->userdata('asset_id');
+//            exit;
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
 //            $data['dataHeader'] = $this->users->get_allData($user_id);
             $todaysdate = date('Y-m-d');
             $data['trigger_edit_list'] = array();
            
-            $data['header_desc'] = $this->Assets->showdescription($asset_id);
+            $data['header_desc'] = $this->Assets->showdescription($rule_id,$user_id,$asset_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 $trigger_form_action = $this->input->post('trigger_form_action');

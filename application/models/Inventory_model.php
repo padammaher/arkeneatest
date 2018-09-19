@@ -165,6 +165,7 @@ class Inventory_model extends MY_Model {
         $this->db->where('isactive',1);
         
         $this->db->group_by('id');
+        $this->db->where('createdby',$user_id);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
