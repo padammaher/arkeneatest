@@ -749,7 +749,7 @@ class AssetsManagement extends MY_Controller {
         }else{
             $parameter_range_id= $this->session->userdata('parameter_range_id'); 
         }
-         $this->session->unset_userdata('rule_id'); 
+        $this->session->unset_userdata('rule_id'); 
         $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
         $this->session->set_userdata('parameter_id', $this->data['parameter_detail'][0]['parameter_id']);
         $user_id = $this->session->userdata('user_id');
@@ -801,6 +801,7 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function add_asset_rule_detail() {
+
         $parameter_range_id= $this->session->userdata('parameter_range_id'); 
         $asset_rule_id = '';
         if ($this->input->post('asset_rule_id'))
@@ -832,7 +833,7 @@ class AssetsManagement extends MY_Controller {
                 $data['rule_status'] = 0;
         }
 
-        $parameter_range_id = 3;
+       
         if (!$asset_rule_id) {
             $insert_id = $this->Assets->add_asset_rule_detail($data, $parameter_range_id);
             if ($insert_id) {

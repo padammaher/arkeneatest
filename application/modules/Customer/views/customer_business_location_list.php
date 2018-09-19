@@ -274,7 +274,13 @@
             </div>
           </div>  
           <?php  } }else{ ?>
-              <h1> Record Not Found </h1>
+            <div class="row clearfix">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <ul class="flex-container flex-item_row nowrap">
+                  <li class="flex-item" style="text-align: center;">No data found..!</li>                    
+                </ul>
+              </div>
+            </div>
           <?php } ?> 
           <!-- Model end  -->
           <!-- <ul class="pagination">

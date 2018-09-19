@@ -133,7 +133,7 @@
   color:red; 
 } */
 .required{
-  color:red; 
+  color:geray; 
 }
 </style>
 <script>

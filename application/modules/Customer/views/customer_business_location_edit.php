@@ -199,6 +199,6 @@ $('#phone').keypress(function (event) {
 
 <style> 
 .required{
-  color:red; 
+  color:greay; 
 }
 </style> 

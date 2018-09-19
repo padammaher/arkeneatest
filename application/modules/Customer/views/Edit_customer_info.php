@@ -193,6 +193,6 @@ $('#phone').keypress(function (event) {
 
 <style>
   .form-group .control-label:after {
-  content:"*";color:red;
+  content:"*";color:greay;
 }
 </style>

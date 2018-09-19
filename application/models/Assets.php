@@ -356,15 +356,10 @@ class Assets extends MY_Model {
         //}
     }
 
-    public function update_asset_rule_detail($data, $asset_rule_id) {
-
-        $this->db->where('id', $asset_rule_id);
+    public function update_asset_rule_detail($data, $parameter_range_id) {
+        $this->db->where('id', $parameter_range_id);
         $this->db->update('asset_parameter_rule', $data);
-        if ($this->db->affected_rows() == '1') {
-            return TRUE;
-        } else {
-            return false;
-        }
+         return true;
 
         // $alreadyexist=$this->db->from('asset_parameter_rule')->where('parameter_range_id',$parameter_range_id)->get()->result();
         // if(!$alreadyexist){
@@ -383,14 +378,30 @@ class Assets extends MY_Model {
         $this->db->join('parameter', 'asset_parameter_rule.parameter = parameter.id', 'left');
         $this->db->where('parameter_range_id', $parameter_range_id);
         $query= $this->db->get();
-        $asset_data= $query->result();
+        $asset_data= $query->result_array();
+        if ($query->num_rows() > 0) {
+            foreach ($asset_data as $key=>$value) {
+                $asset_data[$key]['triger_count']= $this->get_triger_count($value['id']); 
+              
+            }
+        }
 
+      // print_r($asset_data); exit;
         if ($asset_data)
             return $asset_data;
         else
             return false;
     }
-
+    public function get_triger_count($rule_id)
+    {
+        $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where('rule_id', $rule_id)->get()->result_array();
+        //print_r($asset_rule_data[0]['triger_count']); exit;
+        if ($asset_rule_data) {
+            return $asset_rule_data[0]['triger_count'];
+        } else {
+            return false;
+        }
+    }
     public function get_asset_details($asset_rule_id) {
         $asset_rule_data = $this->db->from('asset_parameter_rule')->where('id', $asset_rule_id)->get()->result();
         if ($asset_rule_data) {
