@@ -26,7 +26,7 @@
                 <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='address' type="text" class="form-control" placeholder="Add address" required="required">
+                  <input name='address' type="text" class="form-control" placeholder="Enter address" required="required">
                 </div>
               </div>
               <div class="item form-group">
