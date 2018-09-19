@@ -42,9 +42,9 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
                                         
-                                        <li class="flex-item"><?php echo $k+1 ?></li>
-                                        <li class="flex-item"><?php echo $asset_user_list_data['code']; ?></li>
-                                        <li class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></li>
+                                        <li data-toggle="modal" href="#user_assest_list_modal_<?php echo $asset_user_list_data['code']; ?>" class="flex-item"><?php echo $k+1 ?></li>
+                                        <li data-toggle="modal" href="#user_assest_list_modal_<?php echo $asset_user_list_data['code']; ?>" class="flex-item"><?php echo $asset_user_list_data['code']; ?></li>
+                                        <li data-toggle="modal" href="#user_assest_list_modal_<?php echo $asset_user_list_data['code']; ?>" class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></li>
 
 
                                         <li class="flex-item">
@@ -88,6 +88,7 @@
 
 
 </div>
+<?php $this->load->view('modal/user_asset_list_modal') ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
