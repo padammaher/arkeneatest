@@ -170,12 +170,28 @@ $('#customer_email').focusout(function(){
             });
 });
 
-$('#mobile').keypress(function (event) {
-    var keycode = event.which;
-    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-        event.preventDefault();
-    }
+// $('#mobile').keypress(function (event) {
+//     var keycode = event.which;
+//     if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+//         event.preventDefault();
+//     }
   
+// });
+$('#mobile').keyup(function() {
+    $('span.error-keyup-3').remove();
+    var inputVal = $(this).val();
+    //characterReg = /^[2-9]\d{2}-\d{3}-\d{4}$/;
+    var characterReg = /^([a-zA-Z0-9]{0,10})$/;
+    if(!characterReg.test(inputVal)) {
+      $( "#customer_info_submit" ).prop( "disabled", true );
+        $(this).after('<span class="error error-keyup-3" style="color:red">minimun 10 characters.</span>');
+    }else if(inputVal.length<10){
+      $( "#customer_info_submit" ).prop( "disabled", true );
+      $(this).after('<span class="error error-keyup-3" style="color:red">Maximum 10 characters.</span>');
+    }
+    if(inputVal.length==10){
+      $( "#customer_info_submit" ).prop( "disabled", false );
+    }
 });
 $('#pincode').keypress(function (event) {
     var keycode = event.which;
