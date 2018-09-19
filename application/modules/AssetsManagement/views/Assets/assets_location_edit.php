@@ -33,7 +33,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Location <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="asset_location" class="form-control" value="<?php echo set_value('asset_location',$asset_location_data['location']); ?>" placeholder="Sandton" required="required">
+                                <input type="text" name="asset_location" class="form-control" value="<?php echo set_value('asset_location',$asset_location_data['location']); ?>" placeholder="Enter Asset Location" required="required">
                             </div>
                              <?php if (form_error('asset_location')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_location'); ?></span>
@@ -43,7 +43,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea name="asset_address" class="form-control" rows="2" style="resize: vertical;" placeholder="Far East Bank, Sandton, 2014" required="required"><?php echo set_value('asset_address',$asset_location_data['address']); ?></textarea>
+                                <textarea name="asset_address" class="form-control" rows="2" style="resize: vertical;" placeholder="Enter Address" required="required"><?php echo set_value('asset_address',$asset_location_data['address']); ?></textarea>
                             </div>
                              <?php if (form_error('asset_address')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_address'); ?></span>
@@ -52,19 +52,23 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Latitude</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="asset_lat"  id="asset_lat"  class="form-control" value="<?php echo set_value('asset_lat',$asset_location_data['latitude']); ?>" placeholder="-26.107567" required="required" onchange="CheckDecimallatitude(Add_Task.asset_lat)">
+                                <input type="text" name="asset_lat"  id="asset_lat"  class="form-control" value="<?php echo set_value('asset_lat',$asset_location_data['latitude']); ?>" placeholder="Enter Latitude" required="required" onchange="CheckDecimallatitude(Add_Task.asset_lat)">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Longitude</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="asset_long" id="asset_long" class="form-control" value="<?php  echo set_value('asset_long',$asset_location_data['longitude']); ?>" placeholder="28.056702" required="required" onchange="CheckDecimalLongitude(Add_Task.asset_long)">
+                                <input type="text" name="asset_long" id="asset_long" class="form-control" value="<?php  echo set_value('asset_long',$asset_location_data['longitude']); ?>" placeholder="Enter Longitude" required="required" onchange="CheckDecimalLongitude(Add_Task.asset_long)">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
+<<<<<<< HEAD
                                 <input type="text" name="asset_contactperson" id="asset_contactperson" class="form-control" value="<?php echo set_value('asset_contactperson',$asset_location_data['contact_person']); ?>" placeholder="Joy" required="required" onchange="">
+=======
+                                <input type="text" name="asset_contactperson" id="asset_contactperson" class="form-control" value="<?php echo set_value('asset_contactperson',$asset_location_data['contact_person']); ?>" placeholder="Enter Contact Person" required="required" onchange="Checkcontactperson(Add_Task.asset_contactperson)">
+>>>>>>> 33cad54d9e5075943e51b5d4a19ddbbd2f6d5f42
                             </div>
                               <?php if (form_error('asset_contactperson')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_contactperson'); ?></span>
@@ -74,7 +78,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact No. <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <!-- <input type="text" name="asset_contactno" id="asset_contactno" class="form-control" value="<?php echo $asset_location_data['contact_no']; ?>" placeholder="27 11 326 5900" required="required" onchange="Checkcontactno(Add_Task.asset_contactno)"> -->
-                                 <input type="tel" name="asset_contactno" value="<?php echo set_value('asset_contactno',$asset_location_data['contact_no']); ?>"   id="asset_contactno" class="form-control" minlength="10" maxlength="11" placeholder="27 11 326 5900" required="required" onchange="Checkcontactno(Add_Task.asset_contactno)">
+                                 <input type="tel" name="asset_contactno" value="<?php echo set_value('asset_contactno',$asset_location_data['contact_no']); ?>"   id="asset_contactno" class="form-control" minlength="10" maxlength="11" placeholder="Enter Contact No" required="required" onchange="Checkcontactno(Add_Task.asset_contactno)">
                             </div>
                              <?php if (form_error('asset_contactno')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_contactno'); ?></span>
@@ -85,7 +89,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <!-- <input type="text" name="asset_contactemail" id="asset_contactemail" class="form-control" value="<?php echo $asset_location_data['contact_email']; ?>" placeholder="joy@bdv.co.za"  required="required" onchange="CheckEmailvalidation(Add_Task.asset_contactemail)"> -->
 
-                                  <input type="email" name="asset_contactemail" id="asset_contactemail" value="<?php echo set_value('asset_contactemail', $asset_location_data['contact_email']); ?>" class="form-control" placeholder="joy@bdv.co.za"  required="required">
+                                  <input type="email" name="asset_contactemail" id="asset_contactemail" value="<?php echo set_value('asset_contactemail', $asset_location_data['contact_email']); ?>" class="form-control" placeholder="Enter Contact Email"  required="required">
                             </div>
                              <?php if (form_error('asset_contactemail')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('asset_contactemail'); ?></span>
