@@ -647,7 +647,7 @@ class Assets extends MY_Model {
     public function showdescription($set_rule_id=NULL,$user_id,$asset_id) {
 
         $query = "select asset.code,
-    asset.specification,
+    asset.specification,customer_business_location.location_name as `location`,
     branch_user.client_name,
     branch_user.client_username,
     asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,
@@ -666,7 +666,7 @@ class Assets extends MY_Model {
         WHERE
             `trigger`.`rule_id` = ".$set_rule_id.") AS `trigger_threshold_id_count`
 from asset  
- left join asset_location on asset_location.asset_id= asset.id 
+ left join customer_business_location on customer_business_location.id= asset.customer_locationid  
  LEFT JOIN asset_user ON asset_user.asset_id = asset.id   
  LEFT JOIN branch_user ON branch_user.id = asset_user.assetuser_id  
  

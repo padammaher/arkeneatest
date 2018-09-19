@@ -1092,6 +1092,11 @@ class AssetsManagement extends MY_Controller {
            $set_rule_id = $this->session->userdata('rule_id');             
 
            $asset_id = $this->session->userdata('asset_id');
+           if(!$asset_id)
+           {
+                $this->session->set_flashdata('note_msg', 'session was expired');
+               return redirect('Assets_list');
+           }
             $data['dataHeader'] = $this->users->get_allData($user_id);
 
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
