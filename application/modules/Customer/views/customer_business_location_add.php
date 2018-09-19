@@ -43,7 +43,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" required="required" name="country" onChange="getState(this.value);">
-                    <option value="">Select
+                    <option value="">Select Country
                     </option>
                     <?php foreach($country as $contries){ ?> 
                    <option value="<?php echo $contries->id;?>"><?php echo $contries->name;?> </option>
@@ -57,8 +57,8 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" name="state" id="State_id" onChange="getCity(this.value);">
-                    <option value="">Select
-                    </option>
+                    <option value="">Select State
+                    </option> 
                    
                   </select>
                 </div>
@@ -69,7 +69,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control"  name="city" id="City_id">
-                    <option value="">Select
+                    <option value="">Select City
                     </option>
                     
                   </select>

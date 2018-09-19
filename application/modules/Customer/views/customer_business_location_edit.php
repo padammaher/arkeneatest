@@ -16,6 +16,7 @@
           <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>Customer/update_business_location">
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Location Name
+                <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='location_name' type="text" class="form-control" placeholder="Sandton" required="required" value="<?php echo (isset($business_detail[0]->location_name))?$business_detail[0]->location_name:'';?>" >
@@ -25,6 +26,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
+                <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name='address' type="text" class="form-control" placeholder="West Road North Morningside, Sandton" required="required" value="<?php echo (isset($business_detail[0]->address))?$business_detail[0]->address:'';?>">
@@ -32,6 +34,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person Name
+                <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name='contact_person_name' type="text" class="form-control" placeholder="Mark Tayler" required="required" value="<?php echo (isset($business_detail[0]->contact_person_name))?$business_detail[0]->contact_person_name:'';?>">
@@ -39,10 +42,11 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Country
+                <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select class="form-control" required="required" name="country" onChange="getState(this.value);">
-                    <option value="">Select
+                    <option value="">Select Country
                     </option>
                     <?php  foreach($country_list as $contries){ ?> 
                    <option value="<?php echo $contries->id;?>"<?php echo ($business_detail[0]->country==$contries->id)?'selected':''; ?>><?php echo $contries->name; ?> </option>
@@ -52,10 +56,11 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">State / Province
+                <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="state" id="State_id" onChange="getCity(this.value);">
-                    <option value="">Select
+                    <option value="">Select State
                     </option>
                      <?php foreach($states_list as $stat){ ?> 
                    <option value="<?php echo $stat->id;?>"<?php echo ($business_detail[0]->state==$stat->id)?'selected':''; ?>><?php echo $stat->name; ?> </option>
@@ -66,10 +71,11 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" >City
+                <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control"  name="city" id="City_id">
-                    <option value="">Select
+                    <option value="">Select City 
                     </option>
                    <?php foreach($city_list as $city){ ?> 
                      <option value="<?php echo $city->id;?>"<?php echo ($business_detail[0]->city==$city->id)?'selected':''; ?>><?php echo $city->name; ?> </option>
@@ -80,6 +86,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
+                <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <input name='pincode' id="pincode" type="number" class="form-control" placeholder="10001" required="required" value="<?php echo (isset($business_detail[0]->pincode))?$business_detail[0]->pincode:'';?>">
@@ -103,8 +110,7 @@
               </div>
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID 
-                  <span class="required">*
-                  </span>
+                  <span class="required">* </span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <input name='email' id="customer_email" type="email" class="form-control"  placeholder="CL1@bdv.co.za" required="required" value="<?php echo (isset($business_detail[0]->email))?$business_detail[0]->email:'';?>">
@@ -190,3 +196,9 @@ $('#phone').keypress(function (event) {
     }
 });
 </script>
+
+<style> 
+.required{
+  color:red; 
+}
+</style> 

@@ -70,7 +70,7 @@
               </div>
             </div>
          
-           <?php $i=1;  foreach($client_details as $clientinfo){  ?> 
+           <?php $i=1;  if($client_details){ foreach($client_details as $clientinfo){  ?> 
             <div class="row clearfix">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="flex-container nowrap">
@@ -158,7 +158,9 @@
                         </script>
 
                         <?php $i++;
-                    } ?> 
+                    } }else{ ?>
+                        <h1> Record Not Found </h1>
+                   <?php } ?> 
                     <!-- <div class="row clearfix">
                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <ul class="flex-container nowrap">

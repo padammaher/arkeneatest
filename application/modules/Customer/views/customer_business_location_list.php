@@ -125,7 +125,7 @@
               </ul>
             </div>
           </div>
-          <?php $i=1; foreach($location_detail as $location){ ?> 
+          <?php $i=1; if($location_detail){ foreach($location_detail as $location){ ?> 
           <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <ul class="flex-container flex-item_row nowrap">
@@ -273,7 +273,9 @@
               </div>
             </div>
           </div>  
-          <?php  } ?> 
+          <?php  } }else{ ?>
+              <h1> Record Not Found </h1>
+          <?php } ?> 
           <!-- Model end  -->
           <!-- <ul class="pagination">
             <li>
