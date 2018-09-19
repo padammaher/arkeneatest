@@ -76,7 +76,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Minimum value</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" name="min_value" id="min_value" class="form-control input-number" placeholder="0" value="<?php echo isset($min_value) ? $min_value : ''; ?>" required>
+                                    <input type="number" name="min_value" id="min_value" class="form-control input-number" placeholder="Enter Minimum value" value="<?php echo isset($min_value) ? $min_value : ''; ?>" required>
                                 </div>
                                 <span class="mrtp10 text-center englable" id="min_error" style="color:#ff3333; font-size: 15px; "></span>
                                 <?php if (form_error('min_value')) { ?>
@@ -96,7 +96,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Maximum value</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" name="max_value" id="max_value" class="form-control input-number" placeholder="15" value="<?php echo isset($max_value) ? $max_value : ''; ?>" required>
+                                    <input type="number" name="max_value" id="max_value" class="form-control input-number" placeholder="Enter Maximum value" value="<?php echo isset($max_value) ? $max_value : ''; ?>" required>
                                 </div>
                                 <span class="mrtp10 text-center englable" id="max_error" style="color:#ff3333; font-size: 15px; "></span>
                                 <?php if (form_error('max_value')) { ?>
@@ -116,7 +116,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Scaling factor</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" name="scaling_factor" class="form-control input-number" placeholder="1" value="<?php echo isset($scaling_factor) ? $scaling_factor : ''; ?>" required>
+                                    <input type="number" name="scaling_factor" class="form-control input-number" placeholder="Enter Scaling factor" value="<?php echo isset($scaling_factor) ? $scaling_factor : ''; ?>" required>
                                 </div>
                                 <?php if (form_error('scaling_factor')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('scaling_factor'); ?></span>
@@ -168,7 +168,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Bits / sign</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="bits_per_sign" class="form-control" placeholder="16" pattern="[a-zA-Z0-9\s]+" value="<?php echo isset($bits_per_sign) ? $bits_per_sign : ''; ?>" required>
+                                    <input type="text" name="bits_per_sign" class="form-control" placeholder="Enter Bits / sign" pattern="[a-zA-Z0-9\s]+" value="<?php echo isset($bits_per_sign) ? $bits_per_sign : ''; ?>" required>
                                 </div>
                                 <?php if (form_error('bits_per_sign')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('bits_per_sign'); ?></span>
