@@ -37,11 +37,11 @@
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <a href="<?php echo base_url() ?>AddClient" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New
-                </a>
                 <a href="<?php echo base_url() ?>Customerinfo" class="btn btn-sm btn-primary"><i class="fa fa-users"></i> Customer Provisioning
                 </a>
                 <a href="<?php echo base_url() ?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary"> <i class="fa fa-map-marker"></i> Customer Business Location
+                </a>
+                <a href="<?php echo base_url() ?>AddClient" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New
                 </a>
             </div>
         </div>

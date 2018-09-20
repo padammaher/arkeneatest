@@ -176,29 +176,21 @@ $('#customer_email').focusout(function(){
             });
 });
 
-
-// $('#mobile').keypress(function (event) {
-//     var keycode = event.which;
-//     if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-//         event.preventDefault();
-//     }
-  
-// });
-$('#mobile').keyup(function() {
+$(document).ready(function () {  
+  $("#mobile").keypress(function (e) {
     $('span.error-keyup-3').remove();
     var inputVal = $(this).val();
-    //characterReg = /^[2-9]\d{2}-\d{3}-\d{4}$/;
-    var characterReg = /^([a-zA-Z0-9]{0,10})$/;
-    if(!characterReg.test(inputVal)) {
-      $( "#customer_businees_location" ).prop( "disabled", true );
-        $(this).after('<span class="error error-keyup-3" style="color:red">minimun 10 characters.</span>');
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+               return false;
     }else if(inputVal.length<10){
       $( "#customer_businees_location" ).prop( "disabled", true );
-      $(this).after('<span class="error error-keyup-3" style="color:red">Maximum 10 characters.</span>');
+      $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
     }
     if(inputVal.length==10){
       $( "#customer_businees_location" ).prop( "disabled", false );
     }
+   });
 });
 $('#pincode').keypress(function (event) {
     var keycode = event.which;
