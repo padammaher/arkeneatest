@@ -534,6 +534,17 @@ class Assets extends MY_Model {
             return $uom_type_data;
     }
 
+    public function get_uom_data($uom_type_id) {
+        $this->db->select('uom.id,uom.name');
+        $this->db->from('uom_type');
+        $this->db->join('uom', 'uom.id = uom_type.uom_id', 'left');
+        $this->db->where('uom_type.id', $uom_type_id);
+        $query = $this->db->get();
+        $uom_type_data = $query->result_array();
+        if ($uom_type_data)
+            return $uom_type_data;
+    }
+
     public function checkasset_locationIfExists($table = NULL, $unique_Data = array()) {
         //var_dump($table,$unique_Data);die;
         $query = $this->db->get_where($table, $unique_Data);
