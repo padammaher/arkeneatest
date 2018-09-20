@@ -302,6 +302,7 @@ class Assets extends MY_Model {
         $this->db->join('branch_user', 'branch_user.id = asset_user.assetuser_id', 'inner');
         $this->db->where('asset_user.id', $asset_user_tbl_id);
         $query = $this->db->get();
+//        echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }

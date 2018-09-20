@@ -15,13 +15,19 @@
                 <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
-                  <select class="form-control" name="assetcode" required="required">
-                    <option value="">Select Asset Code</option>
-<?php foreach ($asset_code_list as $asset_id_list) { ?>
-                                <option value="<?php echo $asset_id_list['id'];?>" <?php echo set_value('assetcode',$managedId)==$asset_id_list['id']? 'selected':'' ?> ><?php echo $asset_id_list['code'];?></option>
-
-                       
-<?php } ?>
+                       <select class="form-control" name="assetcode" required="required" <?php echo $managedId == ''?'':'readonly="readonly"';?>>
+<?php  if(empty($managedId)) {;?>                  
+                  <option value="">Select Asset Code</option>
+<?php } ?>                      
+                    
+<?php if(!empty($managedId)){
+foreach ($asset_code_list as $asset_id_list) { 
+if($managedId == $asset_id_list['id']){    ?>
+<option value="<?php echo $asset_id_list['id'];?>" <?php echo set_value('assetcode',$managedId)==$asset_id_list['id']? 'selected':'' ?> ><?php echo $asset_id_list['code'];?></option>
+<?php } } }else{ 
+foreach ($asset_code_list as $asset_id_list_2) {     ?>
+<option value="<?php echo $asset_id_list_2['id'];?>" <?php echo set_value('assetcode')==$asset_id_list_2['id']? 'selected':'' ?> ><?php echo $asset_id_list_2['code'];?></option>                       
+<?php } } ?>
                 </select>             
                 </div>
                  <?php if (form_error('assetcode')) { ?>
