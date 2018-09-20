@@ -19,14 +19,22 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Device number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
-                                <select class="form-control" name="deviceid"  required="required">
-                                    <option value="">Select Device Number</option>
-                                    <?php foreach ($device_list as $device_id_list) { ?>
-                                        <option value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid',$managed_dev_asset_Id) == $device_id_list['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list['number']; ?></option>
+<select class="form-control" name="deviceid"  required="required" <?php echo $managed_dev_asset_Id == ''?'':'readonly="readonly"';?>>
+    
+<?php  if(empty($managed_dev_asset_Id)) {;?>                                     
+        <option value="">Select Device Number</option>
+<?php } ?>                                    
+<?php if(!empty($managed_dev_asset_Id)){
+foreach ($device_list as $device_id_list) { 
+if($managed_dev_asset_Id == $device_id_list['id']){ ?>
+<option value="<?php echo $device_id_list['id'];?>" <?php echo set_value('deviceid',$managed_dev_asset_Id)==$device_id_list['id']? 'selected':'' ?> ><?php echo $device_id_list['number'];?></option>
+<?php } } } else {
+    foreach ($device_list as $device_id_list_2) { ?>
+        <option value="<?php echo $device_id_list_2['id']; ?>" <?php echo set_value('deviceid') == $device_id_list_2['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list_2['number']; ?></option>
 
 
-                                    <?php } ?>
-                                </select>             
+<?php } } ?>
+</select>             
                             </div>
                             <?php if (form_error('deviceid')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('deviceid'); ?></span>

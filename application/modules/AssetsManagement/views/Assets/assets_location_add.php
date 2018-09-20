@@ -1,4 +1,4 @@
-<?php $managedLocationId=''; $managedLocationId=$this->input->post('manage_location_add');?>			
+<?php $managedLocationId='';  $managedLocationId=$this->input->post('asset_location_post_id');?>			
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -13,14 +13,19 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">             
-                            <select class="form-control" name="assetcode" required>
-                                <option value="">Select Asset Code</option>
-                                <?php foreach ($asset_code_list as $asset_id_list) { ?>
-                                    <option value="<?php echo $asset_id_list['id']; ?>" <?php echo set_value('assetcode',$managedLocationId)?'selected':'';?> ><?php echo $asset_id_list['code']; ?></option>
-
-
-                                <?php } ?>
-                            </select>             
+                            <select class="form-control" name="assetcode" required="required" <?php echo $managedLocationId == ''?'':'readonly="readonly"';?> >
+<?php  if(empty($managedLocationId)) {;?>                  
+                  <option value="">Select Asset Code</option>
+<?php } ?>   
+<?php if(!empty($managedLocationId)){
+foreach ($asset_code_list as $asset_id_list) { 
+if($managedLocationId == $asset_id_list['id']){    ?>
+<option value="<?php echo $asset_id_list['id'];?>" <?php echo set_value('assetcode',$managedLocationId)==$asset_id_list['id']? 'selected':'' ?> ><?php echo $asset_id_list['code'];?></option>
+<?php } } } else {                 
+ foreach ($asset_code_list as $asset_id_list_2) { ?>
+    <option value="<?php echo $asset_id_list_2['id']; ?>" <?php echo set_value('assetcode')?'selected':'';?> ><?php echo $asset_id_list_2['code']; ?></option>
+<?php } } ?>
+</select>             
                         </div>
                          <?php if (form_error('assetcode')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('assetcode'); ?></span>

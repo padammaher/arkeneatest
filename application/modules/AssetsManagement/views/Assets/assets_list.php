@@ -91,7 +91,7 @@
                                         </form>
                                         
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
-                                                <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id" />
+                                                <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
                                                 <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
 
                                               <?php if (!empty($list['assetlocid'])) { ?>  
@@ -225,7 +225,7 @@
              $("#asset_user_post" + id).val('manageadd');
              
              $("#asset_user_post_id" + id).val(this.name);
-//             alert($("#asset_user_post" + id).val());
+//             alert($("#asset_user_post_id" + id).val());
              $("#asset_user" + id).attr('action', manage_user_addLink);
                 $("#asset_user" + id).submit();
             // }

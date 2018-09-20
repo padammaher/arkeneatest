@@ -697,9 +697,9 @@ class AssetsManagement extends MY_Controller {
 
                 $asset_user_post_id = $this->input->post('asset_user_post_id');
                 $asset_user_post = $this->input->post('asset_user_post');
-                // print_r($this->input->post()); exit;
+//                 print_r($this->input->post()); exit;
                 $data['asset_user_list_data'] = $this->Assets->edit_assets_user($asset_user_post_id);
-
+//                 print_r($this->input->post()); exit;
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
 

@@ -91,7 +91,8 @@
                                                     <input type="hidden" value="<?php echo $InventoryListRowData['dev_sen_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
                                                     <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
                                             <?php if (!empty($InventoryListRowData['dev_sen_id'])) { ?>   
-                                                    <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $InventoryListRowData['dev_sen_id']; ?>">
+                                                     <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $InventoryListRowData['id']; ?>'/>  
+                                                    <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $InventoryListRowData['id']; ?>">
                                                         <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                     </a><?php } else { ?>
                                                   <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add" value='dev_sen_post_add'/>  
@@ -180,7 +181,9 @@
             var id = $(this).attr('id');
 //            $("#post" + id).val('edit');
 //            alert(id);
-//            alert($("#dev_sen_post" + id).val());
+            $("#dev_sen_post_add" + id).val('dev '+this.name);
+//            alert($("#dev_sen_post_id" + id).val());
+            
             $("#device_sen" + id).submit();
         });
         
@@ -193,7 +196,7 @@
             var id = $(this).attr('id');
 //             $("#asset_user_post" + id).val('manageadd');
              
-             $("#dev_sen_post_id" + id).val(this.name);
+             $("#dev_sen_post_id" + id).val('dev '+this.name);
 //             alert($("#asset_user_post" + id).val());
              $("#device_sen" + id).attr('action', manage_dev_sen_addLink);
                 $("#device_sen" + id).submit();

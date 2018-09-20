@@ -2,7 +2,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                    <div class="x_title">
-						<h4>Edit User Asset : EPHY00589</h4>						
+						<h4>Edit User Asset </h4>						
 						<div class="clearfix"></div>
 					</div>
                   <div class="x_content">
@@ -17,17 +17,10 @@ foreach ($asset_user_list_data as $asset_user_data) { ?>
                 <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                  <select class="form-control" name="assetcode" required="required">
-                    <option value="">Select Asset Code</option>
+                  <select class="form-control" name="assetcode" required="required" readonly="readonly">
                     
-<?php foreach ($asset_code_list as $asset_id_list) { 
-                if($asset_id_list['id'] == $asset_user_data['asset_tbl_id']) {    ?>
-                <option value="<?php echo $asset_id_list['id'];?>"  <?php echo set_value('assetcode')==$asset_id_list['id'] ? 'selected':'';?> selected><?php echo $asset_id_list['code'];?></option>
-                <?php } else { ?> 
-                <option value="<?php echo $asset_id_list['id'];?>" <?php echo set_value('assetcode')==$asset_id_list['id']? 'selected':'';?>><?php echo $asset_id_list['code'];?></option>
-                  <?php } ?>
-                       
-<?php } ?>
+                <option value="<?php echo $asset_user_data['asset_tbl_id'];?>"  <?php echo set_value('assetcode')==$asset_user_data['asset_tbl_id'] ? 'selected':'';?> selected><?php echo $asset_user_data['code'];?></option>                
+
                 </select>             
                 </div>
                  <?php if (form_error('assetcode')) { ?>
