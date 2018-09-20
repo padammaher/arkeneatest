@@ -142,7 +142,6 @@ class ParameterMaster extends CI_Controller {
                 $data['param_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
-                //print_r($data); exit();
                 load_view_template($data, 'master/edit_parameter');
             } else {
                 echo "Something Went wrong";
