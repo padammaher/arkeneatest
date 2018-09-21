@@ -71,8 +71,11 @@ $route['parameterlist'] = "Master/parametermaster/parameterlist";
 $route['addParameter'] = "Master/parametermaster/add_parameter";
 $route['updateParameter'] = "Master/parametermaster/parameter_update";
 
+$route['uom_type_list'] = "Master/uommaster/uom_type_list";
 $route['uomlist'] = "Master/uommaster/uomlist";
+$route['addUomTypeList'] = "Master/uommaster/add_uomType_list";
 $route['addUomList'] = "Master/uommaster/add_uom_list";
+$route['updateUomTypeList'] = "Master/uommaster/uomtypelist_update";
 $route['updateUomList'] = "Master/uommaster/uomlist_update";
 
 

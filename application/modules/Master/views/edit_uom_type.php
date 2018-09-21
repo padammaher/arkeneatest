@@ -7,7 +7,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h4>Edit UOM </h4>						
+                    <h4>Edit UOM Type</h4>						
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -21,25 +21,7 @@
                                 <input type="text" class="form-control"  name="uom_type" value="<?php echo $result[0]['name']; ?>" required="required" pattern="[A-Za-z\s]*">
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" value="<?php echo $result[0]['uomname'] ?>" name="uom_name" required="required">
-<!--                                <select class="form-control" name="uom_id">
-    <option value="10">Pressure</option>
-                                <?php
-//                                if (isset($uom_list) && !empty($uom_list)) {
-//                                    foreach ($uom_list as $ul) {
-//                                        
-                                ?>
-                                                            <option value="//<?php echo $ul['id'] ?>" <?php echo $ul['id'] == $result[0]['uom_id'] ? "selected" : '' ?>><?php echo $ul['name']; ?></option>
-                                        //<?php
-//                                    }
-//                                }
-                                ?>
-</select>-->
-                            </div>
-                        </div>
+                      
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">

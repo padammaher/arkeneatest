@@ -53,8 +53,9 @@
                             <li><a href="<?php echo base_url() ?>assetcategory">Asset Category</a></li>
                             <li><a href="<?php echo base_url() ?>assettype">Asset Type</a></li>
                             <li><a href="<?php echo base_url() ?>sensortype">Sensor Type</a></li>
-                            <li><a href="<?php echo base_url() ?>parameterlist">Parameter</a></li>
-                            <li><a href="<?php echo base_url() ?>uomlist">UOM Type-UOM</a></li>
+                            <li><a href="<?php echo base_url() ?>parameterlist">Parameter</a></li>                            
+                            <li><a href="<?php echo base_url() ?>uom_type_list">UOM Type</a></li>
+                            <li><a href="<?php echo base_url() ?>uomlist">UOM</a></li>
                         </ul>
                     </li>
                 </ul>
