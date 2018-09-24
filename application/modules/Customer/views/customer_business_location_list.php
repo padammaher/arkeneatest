@@ -52,18 +52,18 @@
                                 foreach ($location_detail as $location) {
                                     ?> 
                                     <tr>
-                                        <td><?php echo $i; ?></td>
-                                        <td><?php echo $location->location_name; ?></td>
-                                        <td><?php echo $location->address; ?></td>
-                                        <td><?php echo $location->contact_person_name; ?></td>
-                                        <td><?php echo $location->city_name; ?></td>
-                                        <td><?php echo $location->state_name; ?></td>
-                                        <td><?php echo $location->pincode; ?></td>
-                                        <td><?php echo $location->country_name; ?></td>
-                                        <td><?php echo $location->telephone; ?></td>
-                                        <td><?php echo $location->mobile; ?></td>
-                                        <td><?php echo $location->email; ?></td>
-                                        <td><?php echo $location->isactive == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->location_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->address; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->contact_person_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->city_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->state_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->pincode; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->country_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->telephone; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->mobile; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->email; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->isactive == 0 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="action">
                                             <form action="<?php echo base_url(); ?>update_business" method="post" id="edit_update_business_location<?php echo $i; ?>"> 
                                                 <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
