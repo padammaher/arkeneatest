@@ -343,7 +343,7 @@ class Assets extends MY_Model {
         if (isset($param_range_id) && $param_range_id !== NULL) {
             $this->db->where('parameter_range.id', $param_range_id);
         }
-        $this->db->where(array('asset_id' => $asset_id, 'parameter_range.isactive' => 1));
+        $this->db->where(array('asset_id' => $asset_id, 'parameter_range.isdeleted' => 0));
         $this->db->where('parameter_range.isdeleted', 0);
         $query = $this->db->get();
         $result = $query->result_array();

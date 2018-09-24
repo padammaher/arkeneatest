@@ -38,7 +38,7 @@
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['description'] ? $r['description'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="action">
                                             <form action="<?php echo base_url(); ?>updateassettype" method="post" id="updateassettype<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>

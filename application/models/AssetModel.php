@@ -18,7 +18,7 @@ class AssetModel extends MY_Model {
     function get_AssetCategoryList($user_id) {
         $this->db->select('asset_category.id,asset_category.name,asset_category.description,asset_category.isactive');
         $this->db->from('asset_category');
-        $this->db->where(array('createdby' => $user_id));
+        $this->db->where(array('createdby' => $user_id, 'isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
 
@@ -57,7 +57,7 @@ class AssetModel extends MY_Model {
     function get_assettypeList($user_id) {
         $this->db->select('asset_type.id,asset_type.name,asset_type.description,asset_type.isactive');
         $this->db->from('asset_type');
-        $this->db->where(array('createdby' => $user_id));
+        $this->db->where(array('createdby' => $user_id, 'isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
 

@@ -12,7 +12,7 @@
                 </div>
                 <div class="x_content">
                     <?php echo validation_errors(); ?>
-                    <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>updateUomList" method="POST">
+                    <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>updateUomTypeList" method="POST">
                         <input type="hidden" name="edit_id" value="<?php echo $uom_type_id; ?>">
 
                         <div class="item form-group">
@@ -21,7 +21,7 @@
                                 <input type="text" class="form-control"  name="uom_type" value="<?php echo $result[0]['name']; ?>" required="required" pattern="[A-Za-z\s]*">
                             </div>
                         </div>
-                      
+
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">

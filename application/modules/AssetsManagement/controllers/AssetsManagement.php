@@ -918,7 +918,7 @@ class AssetsManagement extends MY_Controller {
                         'createddt' => date('Y-m-d H:i:s'),
                         'createdby' => $user_id,
                         'asset_id' => $this->session->userdata('asset_id'),
-                        'isactive' => 0
+                        'isactive' => 1
                     );
                     $count = $this->Assets->asset_parameter_add($data);
 
@@ -1005,7 +1005,7 @@ class AssetsManagement extends MY_Controller {
             } elseif ($this->input->post('post') == 'delete') {
                 //Delete the parameter range
                 $id = $this->input->post('id');
-                $data = array('isactive' => 1);
+                $data = array('isdeleted' => 1);
                 $response = $this->Assets->asset_parameter_update($data, $id, 'delete');
                 if ($response > 0) {
                     $this->session->set_flashdata('success_msg', 'Sucessfully deleted parameter range');
@@ -1029,7 +1029,9 @@ class AssetsManagement extends MY_Controller {
                         $data['uom_list'] = $this->Assets->parameter_uom($data['result'][0]['param_id']);
                     }
                     $data['param_range_id'] = $id;
-
+//                    echo "<pre>";
+//                    echo print_r($data);
+//                    exit();
                     $data['dataHeader'] = $this->users->get_allData($user_id);
                     load_view_template($data, 'assets_parameter/asset_parameter_add');
                 } else {
