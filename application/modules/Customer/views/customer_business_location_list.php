@@ -131,27 +131,27 @@
               <ul class="flex-container flex-item_row nowrap">
               <li class="flex-item<?php echo $i;?>"><?php echo $i++; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->location_name; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->location_name; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->address; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->address; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->contact_person_name; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->contact_person_name; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->city_name; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->city_name; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->state_name; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->state_name; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->pincode; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->pincode; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->country_name; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->country_name; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->telephone; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->telephone; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->mobile; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->mobile; ?>
                   </li>
-                  <li class="flex-item<?php echo $i;?>"><?php echo $location->email; ?>
+                  <li class="flex-item flex-item<?php echo $i;?>"><?php echo $location->email; ?>
                   </li>
-                <li class="flex-item">
+                <li class="flex-item flex-item">
                 <form action="<?php echo base_url(); ?>update_business" method="post" id="edit_update_business_location<?php echo $i; ?>"> 
                     <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
                     <a class="edit_location" title="Edit" id="<?php echo $i; ?>">

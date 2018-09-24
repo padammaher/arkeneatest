@@ -67,12 +67,8 @@
                                     <option value="10">Pressure</option>
                                     <?php
                                     if (isset($uom_types) && !empty($uom_types)) {
-                                        foreach ($uom_types as $ut) {
-                                            if (isset($uom_type) && $ut['id'] == $uom_type) {
-                                                $selected = "selected";
-                                            }
-                                            ?>
-                                            <option value="<?php echo $ut['id'] ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $ut['name']; ?></option>
+                                        foreach ($uom_types as $ut) { ?>
+                                            <option value="<?php echo $ut['id'] ?>" <?php if (isset($uom_type)){ echo ($ut['id'] == $uom_type) ? 'selected': ''; } ?> ><?php echo $ut['name']; ?></option>
                                             <?php
                                         }
                                     }

@@ -16,7 +16,20 @@ class UomMaster extends CI_Controller {
 //        $CI = & get_instance();
     }
 
-    public function uomlist() {
+    public function uom_type_list() {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
+            $user_id = $this->session->userdata('user_id');
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
+
+            load_view_template($data, 'master/Uom_type_List');
+        }
+    }
+    
+      public function uomlist() {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
@@ -28,6 +41,8 @@ class UomMaster extends CI_Controller {
             load_view_template($data, 'master/UomList');
         }
     }
+    
+    
 
     public function add_uom_list() {
         if (!$this->ion_auth->logged_in()) {
@@ -81,6 +96,127 @@ class UomMaster extends CI_Controller {
             $data['uom_list'] = $this->uommodel->get_uom($user_id);
 
             load_view_template($data, 'master/add_uom');
+        }
+    }
+    
+     public function add_uomType_list() {
+        if (!$this->ion_auth->logged_in()) {
+            redirect('auth', 'refresh');
+        }
+        if ($this->session->userdata('user_id'))
+            $user_id = $this->session->userdata('user_id');
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
+            $this->form_validation->set_rules('uom_name', 'uom_name', 'required');
+            if ($this->form_validation->run() == TRUE) {
+
+                $uom_data = array(
+                    'name' => $this->input->post('uom_name'),
+                    'createdat' => date('Y-m-d H:i:s'),
+                    'createdby' => $user_id,
+                    'isactive' => 1
+                );
+                $inserted_id = $this->uommodel->insert_uom($uom_data);
+                $data = array(
+                    'name' => $this->input->post('uom_type'),
+                    'uom_id' => $inserted_id,
+                    'createdat' => date('Y-m-d H:i:s'),
+                    'createdby' => $user_id,
+                    'isactive' => 1
+                );
+
+                $count = $this->uommodel->insert_uom_type($data);
+//                echo $count;
+//                exit;
+                if (is_numeric($count) && $count > 0) {
+                    $this->session->set_flashdata('success_msg', 'UOM Type added successfully');
+                    redirect('uomlist');
+                } elseif ($count == "duplicate") {
+                    $this->session->set_flashdata('error_msg', 'UOM Type already added');
+                    $data['post'] = $this->input->post();
+                    redirect('addUomList');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Failed to add UOM Type');
+                    $data['post'] = $this->input->post();
+                    redirect('addUomList');
+                }
+            } else {
+                $data['post'] = $this->input->post();
+                redirect('addUomList');
+            }
+        } else {
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+
+            load_view_template($data, 'master/add_uom_type');
+        }
+    }
+    
+     public function uomtypelist_update() {
+        if (!$this->ion_auth->logged_in()) {
+            redirect('auth', 'refresh');
+        }
+        if ($this->session->userdata('user_id'))
+            $user_id = $this->session->userdata('user_id');
+
+        if ($this->input->post('editsubmit')) {
+            $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
+            $this->form_validation->set_rules('uom_name', 'uom_name', 'required');
+            if ($this->form_validation->run() == TRUE) {
+                $id = $this->input->post('edit_id');
+
+                $uom_data = array(
+                    'name' => $this->input->post('uom_name'),
+                );
+                $um_count = $this->uommodel->update_uom($id, $uom_data);
+
+                $data = array(
+                    'name' => $this->input->post('uom_type'),
+                );
+                $count = $this->uommodel->uomtype_update($id, $data);
+
+                if ((is_numeric($count) && $count > 0) || (is_numeric($um_count) && $um_count > 0)) {
+                    $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
+                    redirect('addUomTypeList');
+                } else {
+                    $this->session->set_flashdata('error_msg', 'Failed to update UOM Type');
+                    $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
+                    $data['post'] = $this->input->post();
+                    redirect('updateUomTypeList');
+                }
+            } else {
+                $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
+                $data['post'] = $this->input->post();
+                redirect('updateUomTypeList');
+            }
+        }
+        if ($this->input->post('post') == 'delete') {
+            $id = $this->input->post('id');
+            $data = array('isactive' => 0);
+            $response = $this->uommodel->uomtype_update($id, $data);
+            if ($response > 0) {
+                $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');
+            } else {
+                $this->session->set_flashdata('error_msg', 'Failed to delete an UOM type');
+            }
+            redirect('uomlist');
+        }
+        if ($this->input->post('post') == 'edit' || $this->session->userdata('edit_uom_type')) {
+            if ($this->input->post('id')) {
+                $id = $this->input->post('id');
+                $data['uom_type_id'] = $id;
+            } elseif ($this->session->userdata('edit_uom_type')) {
+                $id = $this->session->userdata('edit_uom_type');
+                $data['uom_type_id'] = $id;
+            }
+
+//            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+            $data['result'] = $this->uommodel->get_uom_type($id);
+
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->session->unset_userdata('edit_uom_type');
+            load_view_template($data, 'master/edit_uom_type');
         }
     }
 
