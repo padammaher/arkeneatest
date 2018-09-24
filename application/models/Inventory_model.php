@@ -191,10 +191,10 @@ class Inventory_model extends MY_Model {
     public function device_list($user_id) {
         $this->db->select('id,                            
                             number,
-                            serial_no');
+                            serial_no,customer_location_id,customer_location_id');
         $this->db->from('device_inventory');
         $this->db->where('isactive', 1);
-        $this->db->where('createdby', $user_id);
+        $this->db->where(array('isdeleted'=>0,'createdby'=> $user_id));
         $this->db->group_by('id');
         $query = $this->db->get();
         $objData = $query->result_array();
@@ -202,15 +202,24 @@ class Inventory_model extends MY_Model {
     }
 
     public function sensorid_list($user_id) {
-        $this->db->select('id,                                                        
-                            sensor_no');
+//        $this->db->select('id,sensor_no');
+//        $this->db->from('sensor_inventory');
+//        $this->db->where('isactive', 1);
+//        $this->db->where(array('isdeleted'=>0,'createdby'=>$user_id));
+//        $this->db->group_by('id');
+        
+          $this->db->select('device_inventory.id as `device_inventory_id`,sensor_inventory.id,sensor_inventory.sensor_no');
         $this->db->from('sensor_inventory');
-        $this->db->where('isactive', 1);
-        $this->db->where('createdby', $user_id);
-        $this->db->group_by('id');
+        $this->db->join('device_inventory', 'device_inventory.customer_location_id=sensor_inventory.customer_location_id', 'inner');
+        $this->db->where('sensor_inventory.isactive', 1);
+        $this->db->where(array('sensor_inventory.createdby'=> $user_id,'sensor_inventory.isdeleted'=>0));        
+        $this->db->group_by('sensor_inventory.id');
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
+        
+        
+       
     }
 
     public function sensor_type_list($user_id) {
@@ -399,6 +408,41 @@ class Inventory_model extends MY_Model {
         $query = $this->db->get();
 //        echo $this->db->last_query();
         $objData = $query->result();
+        return $objData;
+    }
+    
+        function load_uomtype_by_parameter() {
+        $data = '';
+
+        $user_id = $this->session->userdata('user_id');
+        $parameter = $this->input->post('parameterid');
+        $uomtypedata = $this->Inventory_model->uomtype_list($parameter, $user_id);
+
+        echo json_encode($uomtypedata);
+    }
+    
+        public function Load_Locationwise_sensor_list($deviceid, $user_id) {       
+        
+        $this->db->select('device_inventory.id as `device_inventory_id`,sensor_inventory.id as `sensor_inventory_id`,sensor_inventory.sensor_no');
+        $this->db->from('device_inventory');
+        $this->db->join('sensor_inventory', 'sensor_inventory.customer_location_id=device_inventory.customer_location_id', 'inner');
+        $this->db->where('sensor_inventory.isactive', 1);
+        $this->db->where(array('device_inventory.id'=>$deviceid,'sensor_inventory.createdby'=> $user_id,'sensor_inventory.isdeleted'=>0));        
+        $this->db->group_by('sensor_inventory.id');
+        $query = $this->db->get();
+        $objData = $query->result_array();
+        return $objData;
+    }
+        public function Load_Locationwise_assetid_list($deviceid,$user_id) {
+        $this->db->select('device_inventory.id as `device_inventory_id`,asset.id,asset.code');
+        $this->db->from('device_inventory');
+        $this->db->join('asset', 'asset.customer_locationid=device_inventory.customer_location_id', 'inner');
+        $this->db->where('asset.isactive', 1);
+        $this->db->where(array('device_inventory.id'=>$deviceid,'asset.createdby'=> $user_id,'asset.isdeleted'=>0));        
+        $this->db->group_by('asset.id');        
+        $query = $this->db->get();
+//        echo $this->db->last_query();
+        $objData = $query->result_array();
         return $objData;
     }
 

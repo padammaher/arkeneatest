@@ -94,9 +94,9 @@ class Inventory extends MY_Controller {
                 $this->form_validation->set_rules('comm_protocol', 'Communication Protocol', 'required|alpha');
                 $this->form_validation->set_rules('stockdate', 'Stock date', 'required');
                 $this->form_validation->set_rules('oem_ser_interval_type', 'OEM Service Interval', 'required');
-                $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required');
+                $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required|alpha_numeric');
                 $this->form_validation->set_rules('service_after', 'Service after', 'required');
-                $this->form_validation->set_rules('service_type_count', 'Service Type', 'required');
+                $this->form_validation->set_rules('service_type_count', 'Service Type', 'required|alpha_numeric');
                  $this->form_validation->set_rules('Customerlocation', 'Customer location', 'required');
 
                 if ($this->form_validation->run() == TRUE) {
@@ -226,9 +226,9 @@ class Inventory extends MY_Controller {
                     $this->form_validation->set_rules('comm_protocol', 'Communication Protocol', 'required|alpha');
                     $this->form_validation->set_rules('stockdate', 'Stock date', 'required');
                     $this->form_validation->set_rules('oem_ser_interval_type', 'OEM Service Interval', 'required');
-                    $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required');
+                    $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required|alpha_numeric');
                     $this->form_validation->set_rules('service_after', 'Service after', 'required');
-                    $this->form_validation->set_rules('service_type_count', 'Service Type', 'required');
+                    $this->form_validation->set_rules('service_type_count', 'Service Type', 'required|alpha_numeric');
                     $this->form_validation->set_rules('Customerlocation', 'Customer location', 'required');
                     
                     $isUnique = $this->Inventory_model->checkUnique('device_inventory', $unique_data);
@@ -877,4 +877,24 @@ class Inventory extends MY_Controller {
         echo $data;
     }
 
+    
+    
+     function Load_Locationwise_sensor() {
+        $data = '';
+
+        $user_id = $this->session->userdata('user_id');
+        $deviceid = $this->input->post('deviceid');
+        $device_sensor_data = $this->Inventory_model->Load_Locationwise_sensor_list($deviceid, $user_id);
+
+        echo json_encode($device_sensor_data);
+    }
+         function Load_Locationwise_assetids() {
+        $data = '';
+
+        $user_id = $this->session->userdata('user_id');
+        $deviceid = $this->input->post('deviceid');
+        $device_sensor_data = $this->Inventory_model->Load_Locationwise_assetid_list($deviceid, $user_id);
+
+        echo json_encode($device_sensor_data);
+    }
 }

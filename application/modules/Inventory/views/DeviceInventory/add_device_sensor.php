@@ -20,17 +20,17 @@ if($this->input->post('dev_sen_post_id')){
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
-                                <select class="form-control" name="deviceid" required="required" <?php echo $managed_dev_sen_Id_readonly == 'dev'? 'readonly="readonly"' : '';?> >
-<?php  if($managed_dev_sen_Id[0]!="dev") {?>                                     
+                                <select class="form-control" name="deviceid" id="deviceid" required="required" <?php echo $managed_dev_sen_Id_readonly == 'dev'? 'readonly="readonly"' : '';?> >
+<?php  if($managed_dev_sen_Id_readonly!="dev") {?>                                     
                                     <option value="">Select device</option>
 <?php } ?>                                    
-<?php if($managed_dev_sen_Id[0]=="dev"){
+<?php if($managed_dev_sen_Id_readonly=="dev"){
 foreach ($device_list as $device_id_list) { 
 if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
-<option value="<?php echo $device_id_list['id'];?>" <?php echo set_value('deviceid',$managed_dev_sen_Id[1])==$device_id_list['id']? 'selected':'' ?> ><?php echo $device_id_list['number'];?></option>
+<option id="<?php echo $device_id_list['customer_location_id'];?>" value="<?php echo $device_id_list['id'];?>" <?php echo set_value('deviceid',$managed_dev_sen_Id[1])==$device_id_list['id']? 'selected':'' ?> ><?php echo $device_id_list['number'];?></option>
 <?php } } } else {                                    
  foreach ($device_list as $device_id_list_2) { ?>
-    <option value="<?php echo $device_id_list_2['id']; ?>" <?php echo set_value('deviceid') == $device_id_list_2['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list_2['number']; ?></option>
+    <option id="<?php echo $device_id_list_2['customer_location_id'];?>" value="<?php echo $device_id_list_2['id']; ?>" <?php echo set_value('deviceid') == $device_id_list_2['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list_2['number']; ?></option>
 
 
 <?php } }?>
@@ -44,7 +44,7 @@ if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
 <div class="item form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Number *</label>
     <div class="col-md-6 col-sm-6 col-xs-12">             
-    <select class="form-control" name="sensorid" <?php echo $managed_dev_sen_Id_readonly == 'sen'? 'readonly="readonly"' : '';?>>
+    <select class="form-control" name="sensorid" id="sensorid"  <?php echo $managed_dev_sen_Id_readonly == 'sen'? 'readonly="readonly"' : '';?>>
        <?php  if($managed_dev_sen_Id[0]!="sen") {?>                                     
                 <option value="">Select device</option>
         <?php } ?>   
@@ -99,3 +99,52 @@ if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
 
 
 </div>
+
+
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+
+
+
+         $("#deviceid").change(function ()
+            {
+//       alert(this.value);
+                var objdata = '';
+                var i = 0;
+                var options;
+                $("#sensorid").empty();
+                var options = '<option value="">Select Type</option>';
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Inventory/Load_Locationwise_sensor',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {deviceid: this.value},
+                    success: function (res) {
+                        var obj = $.parseJSON(res);
+                        
+                        for (i = 0; i < obj.length; i++) {
+//                            alert(obj[i]['sensor_inventory_id']);
+                            options += '<option value="' + obj[i]['sensor_inventory_id'] + '">' + obj[i]['sensor_no'] + '</option>';
+                        }
+                        $("#sensorid").html(options);
+                    }
+                });
+            });
+
+            $("#UOM").change(function ()
+            {
+//        alert(this.value);
+                if (this.value != "") {
+                    var e = document.getElementById("UOM");
+                    var strUser = e.options[e.selectedIndex].text;
+                    $("#selectuom").val(strUser);
+                }
+                else
+                {
+                    $("#selectuom").val('');
+                }
+            });
+            });
+</script>

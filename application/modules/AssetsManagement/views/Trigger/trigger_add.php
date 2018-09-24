@@ -4,7 +4,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h4>Add Trigger</h4>						
+                    <h4><?php if(!empty($trigger_edit_list)){echo "Edit Trigger"; }else{ echo "Add Trigger"; }?></h4>						
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">

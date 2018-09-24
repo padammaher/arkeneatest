@@ -65,9 +65,7 @@
                                                     <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                         <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                     </a>
-                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                    </a></form>
+                                                    </form>&nbsp;
 
                                                 <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
 
@@ -83,7 +81,7 @@
                                                             <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                         </a>
                                                     <?php } ?>
-                                                </form>
+                                                </form>&nbsp;
 
                                                 <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
                                                     <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>" />
@@ -102,7 +100,14 @@
                                                         </a>    
                                                     <?php } ?>
 
-                                                </form>   
+                                                </form> &nbsp; 
+                                                  <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
+                                                    <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
+                                                    <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                    
+                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                    </a></form>&nbsp;
                                             </div>
                                         </td>
                                     </tr>

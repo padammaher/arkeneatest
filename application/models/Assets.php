@@ -731,7 +731,7 @@ class Assets extends MY_Model {
         FROM
             `trigger`
         WHERE
-            `trigger`.`rule_id` = " . $set_rule_id . ") AS `trigger_threshold_id_count`
+            `trigger`.`rule_id` = asset_parameter_rule.id) AS `trigger_threshold_id_count`
 from asset  
  left join customer_business_location on customer_business_location.id= asset.customer_locationid  
  LEFT JOIN asset_user ON asset_user.asset_id = asset.id   
@@ -743,7 +743,7 @@ from asset
   left join asset_parameter_rule on  asset_parameter_rule.parameter_range_id=parameter_range.id    
    LEFT JOIN
     `trigger` ON `trigger`.`rule_id` = asset_parameter_rule.id
- where  asset.id=" . $asset_id . " and  asset.createdby=" . $user_id . " and asset.isactive='1' 	    
+ where  asset.id=" . $asset_id . " and  asset.createdby=" . $user_id . " and asset.isactive='1' and asset.isdeleted='0' 	    
  group by asset.id ";
         $res = $this->db->query($query);
         return $obj = $res->result_array();
