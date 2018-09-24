@@ -599,7 +599,7 @@ class Inventory extends MY_Controller {
 
                 $this->form_validation->set_rules('make', 'Make', 'required');
                 $this->form_validation->set_rules('model', 'Model', 'required');
-
+                $this->form_validation->set_rules('Customerlocation', 'Customer location', 'required');
                 $this->form_validation->set_rules('Parameter', 'Parameter', 'required');
                 $this->form_validation->set_rules('UOM', 'UOM', 'required');
 
