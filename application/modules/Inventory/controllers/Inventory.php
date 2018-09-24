@@ -65,7 +65,8 @@ class Inventory extends MY_Controller {
                     'oem_ser_interval_type' => $this->input->post('oem_ser_interval_type'),
                     'oem_ser_interval_number' => $this->input->post('oem_ser_interval_type_count'),
                     'service_after_type' => $this->input->post('service_after'),
-                    'service_after_number' => $this->input->post('service_type_count')
+                    'service_after_number' => $this->input->post('service_type_count'),
+                    'isdeleted'=>0
                 );
                 $unique_data = array(
                     'user_id' => $user_id,
@@ -306,7 +307,8 @@ class Inventory extends MY_Controller {
                     'sensor_id' => $this->input->post('sensorid'),
                     'createdat' => $todaysdate,
                     'createdby' => $user_id,
-                    'isactive' => ($this->input->post('device_sen_status')) == "on" ? '1' : '0'
+                    'isactive' => ($this->input->post('device_sen_status')) == "on" ? '1' : '0',
+                    'isdeleted'=>0
                 );
 
                 $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
@@ -455,22 +457,24 @@ class Inventory extends MY_Controller {
                     load_view_template($data, 'DeviceInventory/add_device_sensor');
                 }
 //                  $sensor_form_action=explode(" ",$this->input->post('sensor_form_action'));
-//                  print_r($sensor_form_action);
+                  
                 else if ($this->input->post('post') == 'delete') {
 //                      $form_action_type[1];
-                    $delete_sensor_data = $this->Inventory_model->Delete_sensor_inventory($sen_inv_id);
+//                    echo $sen_inv_id;
+//                    print_r( $this->input->post());exit;
+                    $delete_sensor_data = $this->Inventory_model->Delete_Device_sensor($sen_inv_id);
                     if ($delete_sensor_data) {
                         $this->session->set_flashdata('success_msg', 'Device Sensor successfully deleted');
-                        return redirect('Sensor_inventory_list', 'refresh');
+                        return redirect('Device_sensor_list', 'refresh');
                     } else {
                         $this->session->set_flashdata('error_msg', 'Device Sensor failed delete');
-                        return redirect('Sensor_inventory_list', 'refresh');
+                        return redirect('Device_sensor_list', 'refresh');
                     }
                 }
             } else {
                 $data['device_sensors_list'] = $this->Inventory_model->device_sensors_list($user_id);
 
-                load_view_template($data, 'DeviceInventory/device_sensor_list');
+                load_view_template($data, 'DeviceInventory/Device_sensor_list');
             }
         }
     }
@@ -575,7 +579,8 @@ class Inventory extends MY_Controller {
                     'uom_type_id' => $this->input->post('UOM'),
                     'createdat' => $todaysdate,
                     'createdby' => $user_id,
-                    'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0');
+                    'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
+                    'isdeleted'=>0);
 
                 $this->form_validation->set_rules('sensornum', 'Sensor number', 'required');
                 $this->form_validation->set_rules('sensortype', 'Sensor type', 'required');
@@ -701,7 +706,8 @@ class Inventory extends MY_Controller {
                     'device_id' => $this->input->post('deviceid'),
                     'asset_id' => $this->input->post('assetid'),
                     'createdate' =>  date('Y-m-d',strtotime($this->input->post('wef_date'))),
-                    'createdby' => $user_id
+                    'createdby' => $user_id,
+                    'isdeleted'=>0
                 );
                 $unique_data = array(
                     'device_id' => $this->input->post('deviceid'),

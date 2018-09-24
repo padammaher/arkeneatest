@@ -42,15 +42,18 @@ class Assets extends MY_Model {
 
     public function delete_assets($id1) {
         // var_dump($id);die;
-
-        $this->db->where('asset.id', $id1);
-        return $this->db->delete('asset');
+        $assets_data=array('isdeleted'=>1);
+        $this->db->where('asset.id', $id1);          
+        return $this->db->update('asset', $assets_data);
+//        
+//        return $this->db->delete('asset');
     }
 
     public function getCustomerLocationCount($user_id) {
         $this->db->select('count(id) as locationcount');
         $this->db->from('customer_business_location ');
         $this->db->where('user_id', $user_id);
+        $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['locationcount'];
@@ -60,6 +63,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as assetcount');
         $this->db->from('asset');
         $this->db->where('createdby', $user_id);
+        $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['assetcount'];
@@ -69,6 +73,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as devicecount');
         $this->db->from('device_inventory');
         $this->db->where('createdby', $user_id);
+        $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['devicecount'];
@@ -78,6 +83,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as sensorcount');
         $this->db->from('sensor_inventory');
         $this->db->where('createdby', $user_id);
+        $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['sensorcount'];
@@ -85,7 +91,7 @@ class Assets extends MY_Model {
 
     public function assets_list($user_id, $id = NULL) {
 
-        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,asset_location.id as assetlocid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,asset.isactive,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,asset_location.id as assetlocid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
         //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
         $this->db->from('asset');
         $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
@@ -99,7 +105,7 @@ class Assets extends MY_Model {
         if (isset($id) && $id !== NULL) {
             $this->db->where('asset.id', $id);
         }
-        $this->db->where('asset.createdby', $user_id);
+        $this->db->where(array('asset.createdby'=> $user_id,'asset.isdeleted'=>0));
         $query = $this->db->get();
         $assets_list = $query->result_array();
 
@@ -155,6 +161,7 @@ class Assets extends MY_Model {
         $this->db->from('asset_category');
         $this->db->where('isactive', 1);
         $this->db->where('createdby', $user_id);
+        $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -165,6 +172,7 @@ class Assets extends MY_Model {
         $this->db->from('asset_type');
         $this->db->where('isactive', 1);
         $this->db->where('createdby', $user_id);
+        $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -188,6 +196,7 @@ class Assets extends MY_Model {
         $this->db->join('asset_user', 'asset_user.asset_id=asset.id', 'left');
         $this->db->join('branch_user', 'branch_user.id=asset_user.assetuser_id', 'left');
         $this->db->where('asset_location.createdby', $user_id);
+        $this->db->where('asset_location.isdeleted', 0);
         $query = $this->db->get();
         // echo  $this->db->last_query();
         $objData = $query->result_array();
@@ -222,8 +231,10 @@ class Assets extends MY_Model {
     }
 
     public function Delete_asset_location($asset_loc_id) {
+        $update_data=array('isdeleted'=>1);
         $this->db->where(array('id' => $asset_loc_id));
-        return $this->db->delete('asset_location');
+        return $this->db->update('asset_location', $update_data);
+//        return $this->db->delete('asset_location');
     }
 
     public function Update_asset_location($update_data, $asset_loc_id) {
@@ -259,6 +270,7 @@ class Assets extends MY_Model {
         $this->db->from('asset');
         $this->db->where('isactive', 1);
         $this->db->where('createdby', $user_id);
+        $this->db->where('isdeleted', 0);
         $this->db->where('asset.id NOT IN (select asset_user.asset_id from asset_user where asset_user.asset_id=asset.id)', NULL, FALSE);
         $query = $this->db->get();
 //        echo $this->db->last_query();
@@ -278,6 +290,7 @@ class Assets extends MY_Model {
         $this->db->from('branch_user');
         $this->db->where('status', 1);
          $this->db->where('user_id', $user_id);
+         $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -316,8 +329,10 @@ class Assets extends MY_Model {
     }
 
     public function delete_asset_user($asset_user_id) {
+        $update_data=array('isdeleted'=>1);
         $this->db->where(array('id' => $asset_user_id));
-        return $this->db->delete('asset_user');
+         return $this->db->update('asset_user', $update_data);
+//        return $this->db->delete('asset_user');
     }
 
     public function parameter_range_list($asset_id, $param_range_id = NULL) {
@@ -329,6 +344,7 @@ class Assets extends MY_Model {
             $this->db->where('parameter_range.id', $param_range_id);
         }
         $this->db->where(array('asset_id' => $asset_id, 'parameter_range.isactive' => 1));
+        $this->db->where('parameter_range.isdeleted', 0);
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
@@ -578,7 +594,7 @@ class Assets extends MY_Model {
     }
 
     public function trigger_list($rule_id = NULL, $user_id, $asset_id) {
-
+        $deletedstatus="trigger.isdeleted!='1'";
         $this->db->select('trigger.id,
                         trigger.rule_id,
                         trigger.asset_id,
@@ -587,12 +603,13 @@ class Assets extends MY_Model {
                         trigger.email,
                         trigger.sms_contact_no,
                         trigger.createdate,
-                        trigger.createby');
+                        trigger.createby,trigger.isactive,trigger.isdeleted');
         $this->db->from('trigger');
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.createby' => $user_id,'trigger.rule_id'=>$rule_id));
-        $this->db->where('trigger.isactive', 1);
-
+//        $this->db->where('trigger.isactive', 1);
+        $this->db->where($deletedstatus);        
         $query = $this->db->get();
+//        echo $this->db->last_query();
         $result = $query->result_array();
         return $result;
     }
@@ -607,7 +624,7 @@ class Assets extends MY_Model {
                                     trigger.email,
                                     trigger.sms_contact_no,
                                     trigger.createdate,
-                                    trigger.createby');
+                                    trigger.createby,trigger.isactive');
         $this->db->from('trigger');
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.createby' => $user_id, 'trigger.id' => $trigger_post_id));
         //        $this->db->where('trigger.isactive', 1);
@@ -623,14 +640,17 @@ class Assets extends MY_Model {
     }
 
     public function delete_trigger($trigger_post_id) {
-        $this->db->where(array('id' => $trigger_post_id));
-        return $this->db->delete('trigger');
+        //$this->db->where(array('id' => $trigger_post_id));
+        //return $this->db->delete('trigger');
+        $trigger_input_data=array('isdeleted'=>1);
+        $this->db->where('id', $trigger_post_id);
+        return $this->db->update('trigger', $trigger_input_data);
     }
 
     public function Trigger_threshold($asset_id, $rule_id) {
         $this->db->select('trigger.id,trigger.trigger_threshold_id');
         $this->db->from('trigger');
-        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.rule_id' => $rule_id, 'isactive' => 1));
+        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.rule_id' => $rule_id, 'isactive' => 1,'isdeleted'=>0));
         $result = $this->db->get()->result();
 //         $result=$query->resut_array();
         return $result;

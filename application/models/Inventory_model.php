@@ -64,6 +64,7 @@ class Inventory_model extends MY_Model {
         $this->db->join('device_asset','device_asset.device_id=device_inventory.id','left');
         $this->db->join('asset','asset.id=device_asset.asset_id','left');
         $this->db->where('device_inventory.createdby',$user_id);
+        $this->db->where('device_inventory.isdeleted',0);
         $this->db->group_by('device_inventory.id');        
         $query = $this->db->get();
         $objData = $query->result_array();
@@ -112,7 +113,9 @@ class Inventory_model extends MY_Model {
 
     public function Delete_Device_inventory($dev_inv_id) {
        $this->db->where(array('id'=>$dev_inv_id));
-        return  $this->db->delete('device_inventory');
+       $insert_data=array('isdeleted'=>1);
+//        return  $this->db->delete('device_inventory');
+         return $this->db->update('device_inventory',$insert_data);
     }
     
     //------ * sensor Inventory *--------
@@ -130,6 +133,7 @@ class Inventory_model extends MY_Model {
         $this->db->join('parameter','parameter.id=sensor_inventory.parameter_id','left');
         $this->db->join('uom_type','uom_type.id=sensor_inventory.uom_type_id','left');
         $this->db->where('sensor_inventory.createdby',$user_id);
+        $this->db->where('sensor_inventory.isdeleted',0);
         $this->db->group_by('sensor_inventory.id');
         $query = $this->db->get();
 //        echo $this->db->last_query();
@@ -208,6 +212,7 @@ class Inventory_model extends MY_Model {
                             name');
         $this->db->from('sensor_type');
         $this->db->where('isactive',1);
+        $this->db->where('isdeleted',0);
         $this->db->where('createdby',$user_id);
         $this->db->group_by('id');
         $query = $this->db->get();
@@ -220,6 +225,7 @@ class Inventory_model extends MY_Model {
                             name');
         $this->db->from('parameter');
         $this->db->where('isactive',1);
+        $this->db->where('isdeleted',0);
         $this->db->where('createdby',$user_id);
         $this->db->group_by('id');
         $query = $this->db->get();
@@ -245,13 +251,14 @@ class Inventory_model extends MY_Model {
                            device_sensor_mapping.sensor_id,
                            device_sensor_mapping.createdat,
                            device_sensor_mapping.createdby,
+                           device_sensor_mapping.isactive,
                            device_inventory.id as `device_inventory_id`,device_inventory.number,
                            sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`,`device_inventory`.number AS `device_id_number`');
         $this->db->from('device_sensor_mapping');
         $this->db->join('device_inventory','device_sensor_mapping.device_id=device_inventory.id');
         $this->db->join('sensor_inventory','sensor_inventory.id=device_sensor_mapping.sensor_id');
         $this->db->where('device_sensor_mapping.createdby',$user_id);        
-        $this->db->where('device_sensor_mapping.isactive',1);        
+        $this->db->where('device_sensor_mapping.isdeleted',0);        
         $query = $this->db->get();        
 //        echo $this->db->last_query();
         $objData = $query->result_array();
@@ -292,15 +299,19 @@ class Inventory_model extends MY_Model {
 
     }
 //    Delete_sensor_inventory
-//        public function Delete_sensor_inventory($dev_sen_id) {
-//       $this->db->where(array('id'=>$dev_sen_id));
+        public function Delete_Device_sensor($dev_sen_id) {
+       $this->db->where(array('id'=>$dev_sen_id));
+       $update_data=array('isdeleted'=>1);
 //        return  $this->db->delete('device_sensor_mapping');
-//    }
+        return $this->db->update('device_sensor_mapping',$update_data);
+    }
     
     //    Delete_sensor_inventory
         public function Delete_sensor_inventory($sen_inv_id) {
        $this->db->where(array('id'=>$sen_inv_id));
-        return  $this->db->delete('sensor_inventory');
+        //return  $this->db->delete('sensor_inventory');
+        $update_data=array('isdeleted'=>1);
+        return $this->db->update('sensor_inventory',$update_data);
     }
     
         public function add_device_asset($insert_data) {
@@ -313,12 +324,13 @@ class Inventory_model extends MY_Model {
                            device_asset.device_id,
                            device_asset.asset_id,
                            device_asset.createdate,
-                           device_asset.createdby,
+                           device_asset.createdby,device_inventory.isactive,
                            device_inventory.id as `device_inventory_id`,device_inventory.number,asset.code');
         $this->db->from('device_inventory');
         $this->db->join('device_asset','device_asset.device_id=device_inventory.id');
         $this->db->join('asset','asset.id=device_asset.asset_id');
         $this->db->where('device_inventory.createdby',$user_id);
+        $this->db->where('device_asset.isdeleted',0);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -351,8 +363,10 @@ class Inventory_model extends MY_Model {
     }
     
             public function Delete_device_asset($dev_asset_id) {
+                $update_data=array('isdeleted'=>1);
        $this->db->where(array('id'=>$dev_asset_id));
-        return  $this->db->delete('device_asset');
+//        return  $this->db->delete('device_asset');
+        return $this->db->update('device_asset',$update_data);
     }
 
 

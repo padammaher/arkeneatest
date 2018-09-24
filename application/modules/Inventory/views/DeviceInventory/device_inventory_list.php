@@ -58,7 +58,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
                                          <?php $setId_to_modal=$InventoryListRowData['id'];
-                                        $modal_idand_class="data-toggle='modal' href='#device_inventory_list_modal_".$setId_to_modal."'"; ?>
+                                        $modal_idand_class="data-toggle='modal' href='#device_inv_list_modal_".$setId_to_modal."'"; ?>
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $i; ?></li>
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['number']; ?></li>
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['code']; ?></li>
@@ -139,6 +139,7 @@
 
     </div>
 </div>
+<?php $this->load->view('modal/device_invetory_list_modal'); ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

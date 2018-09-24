@@ -38,47 +38,34 @@
 </div>
 <div class="row">    
     <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-
-            <div class="x_content" id="assets-list">
-
-                <div class="row clearfix">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <ul class="flex-container flex-container-head nowrap">
-                            <li class="flex-item">Sr. No.</li>
-                            <li class="flex-item">Asset Code</li>
-
-                            <li class="flex-item">Customer Location</li>
-                            <li class="flex-item">User Name</li>
-
-                            <li class="flex-item">Parameter Count</li>
-
-                            <li class="flex-item">Actions</li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="row clearfix">
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <?php //var_dump($assetlistinfo);  
-                        if (isset($assetlist) && !empty($assetlist)) {
-                            $i = 1;
-                            foreach ($assetlist as $list) { 
-                                ?>
-
-                                <ul class="flex-container nowrap">
-
-                                    <?php // var_dump($assetlist)   ?>
-                                    <li  class="flex-item"><?php echo $i; ?></li>
-                                    <li data-toggle="modal" href="#assest_list_modal_<?php echo $list['id']; ?>" class="flex-item"><?php echo $list['code'] ?></li>
-                                    <li class="flex-item"><?php echo $list['location'] ?></li>
-                                    <li class="flex-item"><?php echo $list['client_name'] ?></li>                                    
-                                    <li class="flex-item"><?php echo count($list['parametercount']) ?></li>
-
-                                    <li class="flex-item" style="    display: -webkit-inline-box;">
-
+            <div class="x_panel">
+            <div class="x_content" >
+             <table id="datatable" class="table table-striped table-bordered item-table" >
+                      <thead>
+                        <tr>
+                          <th>Sr.No</th>
+                          <th>Asset Code</th>
+                          <th>Customer Location</th>
+                          <th>User Name</th>
+                          <th>Parameter Count</th>
+                          <th>Status</th>
+                          <th>Actions</th>                          
+                        </tr>
+                      </thead>
+                      <tbody>
+  <?php //var_dump($assetlist);  
+        $i = 1;
+        if (isset($assetlist) && !empty($assetlist)) {
+            foreach ($assetlist as $list) { ?>   
+                          <tr>
+                              <td><?php echo $i; ?></td>
+                              <td><?php echo $list['code'] ?></td>
+                              <td><?php echo $list['location'] ?></td>
+                              <td><?php echo $list['client_name'] ?></td>
+                              <td><?php echo  count($list['parametercount']) ?></td>                              
+                              <td><?php echo $list['isactive']=='1' ? "Active":"Not-active";?></td>
+                              <td >
+                               
                                         <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
                                             <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
@@ -140,26 +127,17 @@
                                             <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                 <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                             </a> 
-                                        </form>
-                                    </li>
-
-                                </ul>
-                                <?php
-                                $i++;
-                            }
-                        } else {
-                            ?>
-                            <ul class="flex-container nowrap">
-                                <li class="flex-item">No data found..!</li>
-                            </ul>
-                        <?php }
-                        ?>
-                    </div>
-
-                </div>
-
+                                        </form>   
+                              </td>
+                          </tr>          
+        <?php } } else { ?>     
+                      <td colspan="7">No data found..!</td>           
+        <?php } ?>                  
+                      </tbody>
+             </table>
             </div>
-        </div>
+            </div>    
+
     </div>
 </div>
 <?php $this->load->view('modal/asset_list_modal') ?>

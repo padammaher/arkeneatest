@@ -44,7 +44,7 @@
                     </div>
                      <div class="row clearfix">
                          
-                    <?php // echo "<pre>"; print_r($sensor_inventory_list);
+                    <?php //echo "<pre>"; print_r($sensor_inventory_list);
                     $i = 1;
                     if (!empty($sensor_inventory_list)) {
                         foreach ($sensor_inventory_list as $inventory_list) {
@@ -52,13 +52,14 @@
                            
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <ul class="flex-container nowrap">
-
-                                        <li class="flex-item"><?php echo $i; ?></li>
-                                        <li class="flex-item"><?php echo $inventory_list['sensor_no']; ?></li>                  
-                                        <li class="flex-item"><?php echo $inventory_list['device_id_number']; ?></li>
-                                        <li class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></li>                                        
-                                        <li class="flex-item"><?php echo $inventory_list['description']; ?></li>
-                                        <li class="flex-item" style="display: -webkit-inline-box;">
+                                         <?php $setId_to_modal=$inventory_list['id'];
+                                        $modal_idand_class="data-toggle='modal' href='#sensor_inv_list_modal_".$setId_to_modal."'"; ?>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $i; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['sensor_no']; ?></li>                  
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['device_id_number']; ?></li>
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></li>                                        
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['description']; ?></li>
+                                        <li  class="flex-item" style="display: -webkit-inline-box;">
 
                                             <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
@@ -132,6 +133,7 @@
         </div>
     </div>
 </div>
+<?php $this->load->view('modal/sensor_invetory_list_modal') ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

@@ -91,7 +91,8 @@ class AssetsManagement extends MY_Controller {
                             'ismovable' => $this->input->post('Movable'),
                             'createdby' => $user_id,
                             'createdat' => date('Y-m-d'),
-                            'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0'
+                            'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0',
+                            'isdeleted'=>0
                         );
                         //  echo "<pre>";
                         $insetreddata = $this->Assets->add_assets($assets_data);
@@ -411,30 +412,7 @@ class AssetsManagement extends MY_Controller {
                         }
                     } else {
                         load_view_template($data, 'Assets/assets_location_edit');
-                    }
-                } else if ($form_action == 'delete') {
-
-                    $update_data = array('location' => $this->input->post('asset_location'),
-                        'address' => $this->input->post('asset_address'),
-                        'latitude' => $this->input->post('asset_lat'),
-                        'contact_no' => $this->input->post('asset_contactno'),
-                        'longitude' => $this->input->post('asset_long'),
-                        'contact_person' => $this->input->post('asset_contactperson'),
-                        'contact_email' => $this->input->post('asset_contactemail'),
-                        'createdat' => $todaysdate,
-                        'createdby' => $user_id,
-                        'isactive' => '1',
-                        'asset_id' => $this->input->post('assetcode')
-                    );
-
-                    //                $inserteddata=$this->Assets->add_assets_location($insert_data);
-                    //                        print_r($insert_data);
-                    //                  exit;
-                    $update_asset_location = $this->Assets->Update_asset_location($update_data, $asset_loc_id);
-                    if ($update_asset_location) {
-                        $this->session->set_flashdata('success_msg', 'Asset location successfully updated');
-                        return redirect('Assets_location_list', 'refresh');
-                    }
+                    }                
                 } elseif ($form_action == 'delete') {
 
                     //                      echo "delete".$asset_loc_form_action[1]; exit;
@@ -502,6 +480,8 @@ class AssetsManagement extends MY_Controller {
                         'longitude' => $this->input->post('asset_long'),
                         'contact_person' => $this->input->post('asset_contactperson'),
                         'contact_email' => $this->input->post('asset_contactemail'),
+                        'createdby' => $user_id,
+                        'isactive' => '1',
                         'asset_id' => $this->input->post('assetcode')
                     );
                     $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
@@ -513,15 +493,7 @@ class AssetsManagement extends MY_Controller {
                         $this->session->set_flashdata('error_msg', 'Asset location is already added');
                         load_view_template($data, 'Assets/assets_location_add');
                     } else {
-                        $insert_data = array('location' => $this->input->post('asset_location'),
-                            'address' => $this->input->post('asset_address'),
-                            'latitude' => $this->input->post('asset_lat'),
-                            'contact_no' => $this->input->post('asset_contactno'),
-                            'longitude' => $this->input->post('asset_long'),
-                            'contact_person' => $this->input->post('asset_contactperson'),
-                            'contact_email' => $this->input->post('asset_contactemail'),
-                            'asset_id' => $this->input->post('assetcode')
-                        );
+                        
                         $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
                         //            print_r($isUnique);
                         //              var_dump($isUnique);
@@ -541,7 +513,8 @@ class AssetsManagement extends MY_Controller {
                                 'createdat' => $todaysdate,
                                 'createdby' => $user_id,
                                 'isactive' => '1',
-                                'asset_id' => $this->input->post('assetcode')
+                                'asset_id' => $this->input->post('assetcode'),
+                                'isdeleted'=>0
                             );
 
 
@@ -633,7 +606,8 @@ class AssetsManagement extends MY_Controller {
                         $insert_data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
                             'createdate' => $todaysdate,
-                            'createdby' => $user_id);
+                            'createdby' => $user_id,
+                            'isdeleted'=>0);
 
                         $unique_Data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
@@ -1170,7 +1144,7 @@ class AssetsManagement extends MY_Controller {
                     'trigger_threshold_id' => $this->input->post('trigger_threshold'),
                     'email' => $this->input->post('email'),
                     'sms_contact_no' => $this->input->post('contactno'),
-                    'createby' => $user_id
+                    'createby' => $user_id                    
                 );
 //             if(!empty($trigger_post_id)) 
 //                 {
@@ -1185,7 +1159,8 @@ class AssetsManagement extends MY_Controller {
                     'sms_contact_no' => $this->input->post('contactno'),
                     'createdate' => $todaysdate,
                     'createby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 1,
+                    'isdeleted'=> 0
                 );
 //              echo $trigger_form_action;
 //               $data['trigger_threshold_option']= $this->Assets->Trigger_threshold($asset_id);

@@ -1,6 +1,6 @@
-<?php  foreach ($asset_location_list as $list) {  ?>     
+<?php  $srno=1; foreach ($sensor_inventory_list as $list) {  ?>     
 <!-- Modal -->
-              <div id="device_inv_list_modal_<?php echo $list['id'] ?>" class="modal fade" role="dialog">
+              <div id="sensor_inv_list_modal_<?php echo $list['id'] ?>" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
                   <!-- Modal content-->
@@ -15,39 +15,37 @@
                       <tbody>
                        
                         <tr>
-                          <td width="" class="lft-td">Asset Code</td>
-                          <td><?php echo $list['code'] ?></td>
+                          <td width="" class="lft-td">Sr No.</td>
+                          <td><?php echo $srno;?></td>
                         </tr>
                         <tr>
-                                        <td class="lft-td">Asset Location</td>
-                                        <td><?php echo $list['location'] ?></td>
+                                        <td class="lft-td">Sensor_Number</td>
+                                        <td><?php echo $list['sensor_no'] ?></td>
                                     </tr>
                                     <tr>
-                                         <td class="lft-td">Address</td>
-                                        <td><?php echo $list['address'] ?></td>
+                                         <td class="lft-td">Sensor_Type</td>
+                                        <td><?php echo $list['sensor_type_tbl_name'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td class="lft-td">Latitude</td>
-                                        <td><?php echo $list['latitude'] ?></td>
+                                        <td class="lft-td">Make</td>
+                                        <td><?php echo $list['make'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td class="lft-td">Longitude</td>
-                                        <td><?php echo $list['longitude'] ?></td>
+                                        <td class="lft-td">Model</td>
+                                        <td><?php echo $list['model'] ?></td>
                                     </tr>
                                      <tr>
-                                        <td class="lft-td">Contact Persons</td>
-                                        <td><?php echo $list['contact_person'] ?></td>
+                                        <td class="lft-td">Description</td>
+                                        <td><?php echo $list['description'] ?></td>
                                     </tr>
                                      <tr>
-                                        <td class="lft-td">Contact Number</td>
-                                        <td><?php echo $list['contact_no'] ?></td>
+                                        <td class="lft-td">Parameter</td>
+                                        <td><?php echo $list['name'] ?></td>
                                     </tr>
                                      <tr>
-                                        <td class="lft-td">Contact Email</td>
-                                        <td><?php echo $list['contact_email'] ?></td>
-                                    </tr>                                   
-									
-							
+                                        <td class="lft-td">UOM</td>
+                                        <td><?php echo $list['uom_type_tbl_name'] ?></td>
+                                    </tr>
                       </tbody>
                     </table>
 
