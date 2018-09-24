@@ -44,6 +44,8 @@
                                             foreach ($parameter_list as $param) {
                                                 if (isset($param_id) && $param['id'] == $param_id) {
                                                     $selected = "selected";
+                                                } else {
+                                                    $selected = "";
                                                 }
                                                 ?>
                                                 <option value="<?php echo $param['id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $param['name']; ?></option>
@@ -142,6 +144,8 @@
                                             foreach ($uom_list as $uom) {
                                                 if (isset($uom) && $uom['id'] == $uom_id) {
                                                     $selected = "selected";
+                                                } else {
+                                                    $selected = "";
                                                 }
                                                 ?>
                                                 <option value="<?php echo $uom['id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $uom['name']; ?></option>

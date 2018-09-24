@@ -33,17 +33,17 @@
                                 foreach ($uom_type_list as $r) {
                                     ?>
                                     <tr>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="action">
                                             <form action="<?php echo base_url(); ?>updateUomTypeList" method="post" id="updateuomtype<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>" style="padding-left: 5%;">  
                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                 </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>" style="padding-left: 5%;">
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                 </a> 
                                             </form>
@@ -84,7 +84,7 @@
                 $("#updateuomtype" + id).submit();
             });
         });
-        $("#datatable td").click(function (e) {
+        $(".flx-item").click(function (e) {
             if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
                 if (id.length !== 0)

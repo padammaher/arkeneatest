@@ -13,7 +13,7 @@ class SensorModel extends MY_Model {
     function get_sensortypeList($user_id) {
         $this->db->select('sensor_type.id,sensor_type.name,sensor_type.description,sensor_type.isactive');
         $this->db->from('sensor_type');
-        $this->db->where(array('createdby' => $user_id));
+        $this->db->where(array('createdby' => $user_id, 'isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
 
