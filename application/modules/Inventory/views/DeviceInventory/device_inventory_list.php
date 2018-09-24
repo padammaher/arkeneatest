@@ -37,7 +37,7 @@
                                 <li class="flex-item">Serial_Num</li>
                                 <li class="flex-item">Make</li>
                                 <li class="flex-item">Model</li>
-
+                                <li class="flex-item">Location</li>
                                 <li class="flex-item">Description</li>
 
                                 <li class="flex-item">GSM Number</li>
@@ -68,6 +68,8 @@
 
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['make']; ?></li>
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['model']; ?></li>
+                                        
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['location_name']; ?></li>
 
 
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $InventoryListRowData['description']; ?></li>

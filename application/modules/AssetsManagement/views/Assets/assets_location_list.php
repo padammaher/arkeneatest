@@ -23,47 +23,43 @@
 
                 <div class="x_content" id="assets-location-list">
 
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <ul class="flex-container flex-container-head nowrap">
-                                <li class="flex-item">Sr. No.</li>
-                                <li class="flex-item">Asset Code</li>
-                                <li class="flex-item">Location</li>
-
-
-
-                                <li class="flex-item">Latitude</li>
-                                <li class="flex-item">Longitude</li>
-
-
-
-                                <li class="flex-item">Contact Person</li>
-                                <li class="flex-item">Contact Number</li>
-                                <li class="flex-item">Contact Email</li>
-                                <li class="flex-item">Actions</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <?php $i = 1; 
+                      <table id="datatable" class="table table-striped table-bordered item-table" >
+                      <thead>
+                        <tr>
+                          <th>Sr.No</th>
+                          <th>Asset Code</th>
+                          <th>Location</th>
+                          <th>Latitude</th>
+                          <th>Longitude</th>
+                          <th>Contact Person</th>
+                          <th>Contact Number</th>   
+                          <th>Contact Email</th>   
+                          <th>Status</th>   
+                          <th>Actions</th>   
+                        </tr>
+                      </thead>
+                      <tbody>
+                          
+                    <?php $i = 1; //var_dump($asset_location_list);
                     if (!empty($asset_location_list)) {
                         foreach ($asset_location_list as $asset_loc_list) { ?>
 
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <ul class="flex-container nowrap">
-                                        <li class="flex-item"><?php echo $i; ?></li>
+                         
+                          <tr>                                       
                                         <?php $setId_to_modal=$asset_loc_list['id'];
                                         $modal_idand_class="data-toggle='modal' href='#assest_list_modal_".$setId_to_modal."'"; ?>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['code']; ?></li>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['location']; ?></li>
+                                        <td class="flex-item"><?php echo $i; ?></td>
+                                        <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['code']; ?></td>
+                                        <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['location']; ?></td>
 
                                         
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['latitude']; ?></li>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['longitude']; ?></li>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['contact_person']; ?></li>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['contact_no']; ?></li>                                        
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_loc_list['contact_email']; ?></li>
-                                        <li class="flex-item" style="    display: -webkit-inline-box;">				
+                                        <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['latitude']; ?></td>
+                                        <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['longitude']; ?></td>
+                                        <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['contact_person']; ?></td>
+                                        <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['contact_no']; ?></td>                                        
+                                        <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['contact_email']; ?></td>
+                                        <td><?php echo $asset_loc_list['contact_email']=='1' ? "Active":"Not-active"; ?></td>
+                                        <td >             
 
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_loc_list['id']; ?>" name="asset_location_post_id"/>
@@ -77,7 +73,7 @@
                                             </form> 
    
                                             
-                            <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                                         <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
                                                 <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
                                                 
@@ -92,24 +88,17 @@
                                                 <i class="fa fa-group text-warning"></i> 
                                             </a>
                                         <?php } ?>
-                            </form>                                             
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                                      </form>                                             
+                                        </td>
+                      </tr>
+                                   
         <?php $i++;
     }
 } else { ?>
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <ul class="flex-container nowrap">
-                                    <li class="flex-item">No data found..!</li>
-
-                                </ul>
-                            </div>
-                        </div>
+                                        <tr><td colspan="9">No data found..!</td></tr>
 <?php } ?>
-
+  </tbody>
+</table>
 
 
 

@@ -19,39 +19,29 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-
                 <div class="x_content">
-
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <ul class="flex-container flex-container-head nowrap">
-
-                                <li class="flex-item">Sr No.</li>
-                                <li class="flex-item">Asset Code</li>
-                                <li class="flex-item">User Name</li>
-
-                                <li class="flex-item">Actions</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <?php $i = 1;
-                    if (!empty($asset_user_list)) {
-                        foreach ($asset_user_list as $k=> $asset_user_list_data) { ?>
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <ul class="flex-container nowrap">
+                <table id="datatable" class="table table-striped table-bordered item-table" >
+                      <thead>
+                        <tr>
+                          <th>Sr.No</th>
+                          <th>Asset Code</th>
+                          <th>User Name</th>
+                          
+                          <!--<th>Status</th>-->   
+                          <th>Actions</th>   
+                        </tr>
+                      </thead>
+                      <tbody>
+            <?php $i = 1; //var_dump($asset_user_list);
+            if (!empty($asset_user_list)) {
+                foreach ($asset_user_list as $k=> $asset_user_list_data) { ?> 
+                          <tr>
                                         <?php $setId_to_modal=$asset_user_list_data['id'];
                                         $modal_idand_class="data-toggle='modal' href='#user_assest_list_modal_".$setId_to_modal."'"; ?>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $k+1 ?></li>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_user_list_data['code']; ?></li>
-                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></li>
-
-
-                                        <li class="flex-item">
-
-
-
+                                        <td <?php echo $modal_idand_class;?> class="flex-item"><?php echo $k+1 ?></td>
+                                        <td <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_user_list_data['code']; ?></td>
+                                        <td <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></td>
+                                        <td>
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_user_list_data['id']; ?>" name="asset_user_post_id"/>
                                                 <input type="hidden" name="asset_user_post" id="post<?php echo $i; ?>"/>
@@ -62,25 +52,12 @@
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                 </a> 
                                             </form>   
-
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-        <?php $i++;
-    }
-} else { ?>
-
-
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <ul class="flex-container nowrap">
-                                    <li class="flex-item">No data found..!</li>
-
-                                </ul>
-                            </div>
-                        </div>  
+                                        </td>
+<?php $i++;    } } else { ?>
+                                <td colspan="4">No data found..!</td>                                                                           
 <?php } ?>					
+                                 </tbody>
+                                </table>
 
                 </div>
             </div>
@@ -89,7 +66,7 @@
 
 
 </div>
-<?php // $this->load->view('modal/user_asset_list_modal'); ?>
+<?php  $this->load->view('modal/user_asset_list_modal'); ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {

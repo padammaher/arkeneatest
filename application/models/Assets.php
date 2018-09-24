@@ -147,6 +147,7 @@ class Assets extends MY_Model {
         $this->db->select('id,location_name');
         $this->db->from('customer_business_location');
         $this->db->where('user_id', $user_id);
+        $this->db->where('isdeleted', 0);
         $this->db->group_by('id');
         $query = $this->db->get();
 //        echo $this->db->last_query();
@@ -255,6 +256,7 @@ class Assets extends MY_Model {
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('branch_user', 'branch_user.id = asset_user.assetuser_id', 'inner');
         $this->db->where('branch_user.status', 1);
+        $this->db->where('asset_user.isdeleted', 1);
         $this->db->where('asset_user.createdby', $user_id);
         $query = $this->db->get();
 
