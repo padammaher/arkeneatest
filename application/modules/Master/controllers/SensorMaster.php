@@ -47,7 +47,7 @@ class SensorMaster extends CI_Controller {
                     'name' => $this->input->post('sensor_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
                 if ($this->input->post('sensor_description')) {
                     $data['description'] = $this->input->post('sensor_description');
@@ -116,7 +116,7 @@ class SensorMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
-            $data = array('isactive' => 0);
+            $data = array('isactive' => 1);
             $response = $this->sensormodel->sensortype_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an asset type');

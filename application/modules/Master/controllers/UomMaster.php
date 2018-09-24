@@ -28,8 +28,8 @@ class UomMaster extends CI_Controller {
             load_view_template($data, 'master/Uom_type_List');
         }
     }
-    
-      public function uomlist() {
+
+    public function uomlist() {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
@@ -41,8 +41,6 @@ class UomMaster extends CI_Controller {
             load_view_template($data, 'master/UomList');
         }
     }
-    
-    
 
     public function add_uom_list() {
         if (!$this->ion_auth->logged_in()) {
@@ -61,7 +59,7 @@ class UomMaster extends CI_Controller {
                     'name' => $this->input->post('uom_name'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
                 $inserted_id = $this->uommodel->insert_uom($uom_data);
                 $data = array(
@@ -69,7 +67,7 @@ class UomMaster extends CI_Controller {
                     'uom_id' => $inserted_id,
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
 
                 $count = $this->uommodel->insert_uom_type($data);
@@ -98,8 +96,8 @@ class UomMaster extends CI_Controller {
             load_view_template($data, 'master/add_uom');
         }
     }
-    
-     public function add_uomType_list() {
+
+    public function add_uomType_list() {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
@@ -115,7 +113,7 @@ class UomMaster extends CI_Controller {
                     'name' => $this->input->post('uom_name'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
                 $inserted_id = $this->uommodel->insert_uom($uom_data);
                 $data = array(
@@ -123,7 +121,7 @@ class UomMaster extends CI_Controller {
                     'uom_id' => $inserted_id,
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
 
                 $count = $this->uommodel->insert_uom_type($data);
@@ -152,8 +150,8 @@ class UomMaster extends CI_Controller {
             load_view_template($data, 'master/add_uom_type');
         }
     }
-    
-     public function uomtypelist_update() {
+
+    public function uomtypelist_update() {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
@@ -193,7 +191,7 @@ class UomMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
-            $data = array('isactive' => 0);
+            $data = array('isactive' => 1);
             $response = $this->uommodel->uomtype_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');
@@ -260,7 +258,7 @@ class UomMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
-            $data = array('isactive' => 0);
+            $data = array('isactive' => 1);
             $response = $this->uommodel->uomtype_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');
