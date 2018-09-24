@@ -57,7 +57,8 @@
                                 </div>
                             </div>
 
-                        <?php }
+                        <?php
+                        }
                     } else {
                         ?>
 
