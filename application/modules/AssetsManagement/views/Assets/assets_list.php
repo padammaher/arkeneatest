@@ -58,12 +58,14 @@
         if (isset($assetlist) && !empty($assetlist)) {
             foreach ($assetlist as $list) { ?>   
                           <tr>
-                              <td><?php echo $i; ?></td>
-                              <td><?php echo $list['code'] ?></td>
-                              <td><?php echo $list['location'] ?></td>
-                              <td><?php echo $list['client_name'] ?></td>
-                              <td><?php echo  count($list['parametercount']) ?></td>                              
-                              <td><?php echo $list['isactive']=='1' ? "Active":"Not-active";?></td>
+                              <?php $setId_to_modal=$list['id'];
+                                        $modal_idand_class="data-toggle='modal' href='#assest_list_modal_".$setId_to_modal."'"; ?>
+                              <td <?php echo $modal_idand_class;?> ><?php echo $i; ?></td>
+                              <td <?php echo $modal_idand_class;?> ><?php echo $list['code'] ?></td>
+                              <td <?php echo $modal_idand_class;?> ><?php echo $list['location'] ?></td>
+                              <td <?php echo $modal_idand_class;?> ><?php echo $list['client_name'] ?></td>
+                              <td <?php echo $modal_idand_class;?> ><?php echo  count($list['parametercount']) ?></td>                              
+                              <td <?php echo $modal_idand_class;?> ><?php echo $list['isactive']=='1' ? "Active":"Not-active";?></td>
                               <td >
                                
                                         <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">

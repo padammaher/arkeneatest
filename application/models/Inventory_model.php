@@ -57,12 +57,13 @@ class Inventory_model extends MY_Model {
                             device_inventory.oem_ser_interval_number,
                             device_inventory.service_after_type,
                             device_inventory.service_after_number,
-
+                            device_inventory.customer_location_id,customer_business_location.location_name,
                             device_sensor_mapping.id as `dev_sen_id`,asset.id as `asset_tbl_id`, asset.code,device_asset.id as `device_asset_id`' );
         $this->db->from('device_inventory');
         $this->db->join('device_sensor_mapping','device_sensor_mapping.device_id=device_inventory.id','left');
         $this->db->join('device_asset','device_asset.device_id=device_inventory.id','left');
         $this->db->join('asset','asset.id=device_asset.asset_id','left');
+        $this->db->join('customer_business_location','customer_business_location.id=device_inventory.customer_location_id','left');
         $this->db->where('device_inventory.createdby',$user_id);
         $this->db->where('device_inventory.isdeleted',0);
         $this->db->group_by('device_inventory.id');        
@@ -92,7 +93,8 @@ class Inventory_model extends MY_Model {
                             oem_ser_interval_type,
                             oem_ser_interval_number,
                             service_after_type,
-                            service_after_number');
+                            service_after_number,
+                            customer_location_id');
         $this->db->from('device_inventory');
         $this->db->where('id',$inventoryid);
         $query = $this->db->get();
@@ -124,7 +126,7 @@ class Inventory_model extends MY_Model {
                                           sensor_inventory.createdat,sensor_inventory.createdby,
                                           sensor_type.id as `sensor_type_tbl_id`,sensor_type.name as `sensor_type_tbl_name`,
                                           parameter.id as `parameter_tbl_id`,parameter.name,
-                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`,device_sensor_mapping.id as `device_sensor_mapping_id`,device_asset.id as device_asset_tbl_id`,`device_inventory`.`id` as `device_inventory_tbl_id`,`device_inventory`.number AS `device_id_number`');
+                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`,device_sensor_mapping.id as `device_sensor_mapping_id`,device_asset.id as device_asset_tbl_id`,`device_inventory`.`id` as `device_inventory_tbl_id`,`device_inventory`.number AS `device_id_number`,sensor_inventory.customer_location_id,customer_business_location.location_name');
         $this->db->from('sensor_inventory');
         $this->db->join('sensor_type','sensor_type.id=sensor_inventory.sensor_type_id','left');
         $this->db->join('device_sensor_mapping','device_sensor_mapping.sensor_id=sensor_inventory.id','left');
@@ -132,6 +134,7 @@ class Inventory_model extends MY_Model {
         $this->db->join('device_asset','device_asset.device_id=sensor_inventory.id','left');
         $this->db->join('parameter','parameter.id=sensor_inventory.parameter_id','left');
         $this->db->join('uom_type','uom_type.id=sensor_inventory.uom_type_id','left');
+        $this->db->join('customer_business_location','customer_business_location.id=sensor_inventory.customer_location_id','left');        
         $this->db->where('sensor_inventory.createdby',$user_id);
         $this->db->where('sensor_inventory.isdeleted',0);
         $this->db->group_by('sensor_inventory.id');
@@ -146,11 +149,12 @@ class Inventory_model extends MY_Model {
                                           sensor_inventory.createdat,sensor_inventory.createdby,sensor_inventory.isactive,
                                           sensor_type.id as `sensor_type_tbl_id`,sensor_type.name as `sensor_type_tbl_name`,
                                           parameter.id as `parameter_tbl_id`,parameter.name,
-                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`');
+                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`,sensor_inventory.customer_location_id,customer_business_location.location_name');
         $this->db->from('sensor_inventory');
         $this->db->join('sensor_type','sensor_type.id=sensor_inventory.sensor_type_id','left');
         $this->db->join('parameter','parameter.id=sensor_inventory.parameter_id','left');
         $this->db->join('uom_type','uom_type.id=sensor_inventory.uom_type_id','left');
+        $this->db->join('customer_business_location','customer_business_location.id=sensor_inventory.customer_location_id','left');        
         $this->db->where('sensor_inventory.createdby',$user_id);
         $this->db->where('sensor_inventory.id',$sen_inv_id);
         $query = $this->db->get();

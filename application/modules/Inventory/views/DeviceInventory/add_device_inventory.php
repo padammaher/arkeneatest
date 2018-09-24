@@ -49,6 +49,24 @@
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('devicemodel'); ?></span>
                             <?php } ?>
           </div>
+ <!--user wise location-->        
+ <div class="item form-group">
+<label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location *</label>
+<div class="col-md-6 col-sm-6 col-xs-12">
+    <select class="form-control" id="Customerlocation" name="Customerlocation" required>
+        <option value="">Select Location</option>
+        <?php foreach ($location_list as $loc_list) { ?>
+            <option value="<?php echo $loc_list['id']; ?>" <?php echo (set_value('Customerlocation'))== $loc_list['id'] ? 'selected':''; ?> ><?php echo $loc_list['location_name']; ?></option>
+        <?php } ?>
+
+    </select>
+</div>
+<?php if (form_error('Customerlocation')) { ?>
+        <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Customerlocation'); ?></span>
+    <?php }
+    ?>
+</div>
+ <!--user wise location-->               
           <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">

@@ -8,7 +8,7 @@ class Inventory extends MY_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation'));
-        $this->load->model(array('users', 'group_model', 'country', 'Inventory_model'));
+        $this->load->model(array('users', 'group_model', 'country', 'Inventory_model','Assets'));
         // $this->load->helper(array('url', 'language'));
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
 
@@ -40,6 +40,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $todaysdate = date('Y-m-d');
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $form_action = $this->input->post('post');
@@ -51,7 +52,7 @@ class Inventory extends MY_Controller {
                     'number' => $this->input->post('devicename'),
                     'serial_no' => $this->input->post('serialnumber'),
                     'make' => $this->input->post('devicemake'),
-                    'model' => $this->input->post('devicemodel'),
+                    'model' => $this->input->post('devicemodel'),                    
                     'description' => $this->input->post('devicedescription'),
                     'communication_type' => $this->input->post('comm_type'),
                     'gsm_number' => $this->input->post('gsmnumber'),
@@ -66,7 +67,8 @@ class Inventory extends MY_Controller {
                     'oem_ser_interval_number' => $this->input->post('oem_ser_interval_type_count'),
                     'service_after_type' => $this->input->post('service_after'),
                     'service_after_number' => $this->input->post('service_type_count'),
-                    'isdeleted'=>0
+                    'isdeleted'=>0,
+                    'customer_location_id'=>$this->input->post('Customerlocation')
                 );
                 $unique_data = array(
                     'user_id' => $user_id,
@@ -78,7 +80,8 @@ class Inventory extends MY_Controller {
                     'gsm_number' => $this->input->post('gsmnumber'),
                     'communication_protocol' => $this->input->post('comm_protocol'),
                     'createdby' => $user_id,
-                    'isactive`' => $isactivestatus
+                    'isactive`' => $isactivestatus,
+                    'customer_location_id'=>$this->input->post('Customerlocation')
                 );
 
                 $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha_numeric');
@@ -94,7 +97,7 @@ class Inventory extends MY_Controller {
                 $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required');
                 $this->form_validation->set_rules('service_after', 'Service after', 'required');
                 $this->form_validation->set_rules('service_type_count', 'Service Type', 'required');
-                // $this->form_validation->set_rules('description', 'Description', 'required');
+                 $this->form_validation->set_rules('Customerlocation', 'Customer location', 'required');
 
                 if ($this->form_validation->run() == TRUE) {
                     $isUnique = $this->Inventory_model->checkUnique('device_inventory', $unique_data);
@@ -169,7 +172,7 @@ class Inventory extends MY_Controller {
                 $form_action_type = $this->input->post('post');
 //                post
                 $dev_inv_id = $this->input->post('id');
-
+                $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
                 if ($form_action_type == 'edit') {
 //                $dev_inv_id=$this->input->post('dev_inv_id');              
                     $data['Edit_deviceinventory_data'] = $this->Inventory_model->edit_deviceinventory($dev_inv_id);
@@ -196,7 +199,8 @@ class Inventory extends MY_Controller {
                         'oem_ser_interval_type' => $this->input->post('oem_ser_interval_type'),
                         'oem_ser_interval_number' => $this->input->post('oem_ser_interval_type_count'),
                         'service_after_type' => $this->input->post('service_after'),
-                        'service_after_number' => $this->input->post('service_type_count')
+                        'service_after_number' => $this->input->post('service_type_count'),
+                        'customer_location_id'=>$this->input->post('Customerlocation')    
                     );
                     $unique_data = array('id' => $this->input->post('deviceid'),
                         'user_id' => $user_id,
@@ -208,7 +212,8 @@ class Inventory extends MY_Controller {
                         'gsm_number' => $this->input->post('gsmnumber'),
                         'communication_protocol' => $this->input->post('comm_protocol'),
                         'createdby' => $user_id,
-                        'isactive`' => ($this->input->post('isactive') == "on") ? '1' : '0'
+                        'isactive`' => ($this->input->post('isactive') == "on") ? '1' : '0',
+                        'customer_location_id'=>$this->input->post('Customerlocation')
                     );
 
                     $this->form_validation->set_rules('devicename', 'Device number', 'required|alpha_numeric');
@@ -224,6 +229,8 @@ class Inventory extends MY_Controller {
                     $this->form_validation->set_rules('oem_ser_interval_type_count', 'Interval Type', 'required');
                     $this->form_validation->set_rules('service_after', 'Service after', 'required');
                     $this->form_validation->set_rules('service_type_count', 'Service Type', 'required');
+                    $this->form_validation->set_rules('Customerlocation', 'Customer location', 'required');
+                    
                     $isUnique = $this->Inventory_model->checkUnique('device_inventory', $unique_data);
                     $data['Edit_deviceinventory_data'] = $this->Inventory_model->edit_deviceinventory($dev_inv_id);
                     if ($this->form_validation->run() == TRUE) {
@@ -282,6 +289,7 @@ class Inventory extends MY_Controller {
             $data['device_list'] = $this->Inventory_model->device_list($user_id);
             $data['sensorid_list'] = $this->Inventory_model->sensorid_list($user_id);
 //             sensor_inventory
+            
             $todaysdate = date('Y-m-d');
             $user_id = $this->session->userdata('user_id');
 
@@ -505,6 +513,7 @@ class Inventory extends MY_Controller {
                 $sen_inv_id = $this->input->post('id');
                 $data['sensor_type'] = $this->Inventory_model->sensor_type_list($user_id);
                 $data['parameter_list'] = $this->Inventory_model->parameter_list($user_id);
+                $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
                 if ($this->input->post('post') == 'edit') {
                 
@@ -555,6 +564,7 @@ class Inventory extends MY_Controller {
             $todaysdate = date('Y-m-d');
             $data['sensor_type'] = $this->Inventory_model->sensor_type_list($user_id);
             $data['parameter_list'] = $this->Inventory_model->parameter_list($user_id);
+            $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $add_sen_inv_form_action = explode(" ", $this->input->post('add_sen_inv_form_action'));
@@ -568,7 +578,8 @@ class Inventory extends MY_Controller {
                     'parameter_id' => $this->input->post('Parameter'),
                     'uom_type_id' => $this->input->post('UOM'),
                     'createdby' => $user_id,
-                    'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0');
+                    'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
+                    'customer_location_id'=>$this->input->post('Customerlocation'));
 
                 $insert_data = array('sensor_no' => $this->input->post('sensornum'),
                     'sensor_type_id' => $this->input->post('sensortype'),
@@ -580,7 +591,8 @@ class Inventory extends MY_Controller {
                     'createdat' => $todaysdate,
                     'createdby' => $user_id,
                     'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
-                    'isdeleted'=>0);
+                    'isdeleted'=>0,
+                    'customer_location_id'=>$this->input->post('Customerlocation'));
 
                 $this->form_validation->set_rules('sensornum', 'Sensor number', 'required');
                 $this->form_validation->set_rules('sensortype', 'Sensor type', 'required');

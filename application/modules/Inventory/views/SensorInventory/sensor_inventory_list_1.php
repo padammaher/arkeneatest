@@ -33,7 +33,7 @@
                                 <li class="flex-item">Sensor_Number</li>
                                 <li class="flex-item">Device_Num</li>
                                 <li class="flex-item">Sensor_Type</li>
-
+                                <li class="flex-item">Location</li>
 
                                 <li class="flex-item">Description</li>
 
@@ -58,6 +58,7 @@
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['sensor_no']; ?></li>                  
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['device_id_number']; ?></li>
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></li>                                        
+                                        <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['location_name']; ?></li>                                        
                                         <li <?php echo $modal_idand_class;?> class="flex-item"><?php echo $inventory_list['description']; ?></li>
                                         <li  class="flex-item" style="display: -webkit-inline-box;">
 
