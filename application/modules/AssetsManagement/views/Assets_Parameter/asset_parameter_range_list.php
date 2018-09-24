@@ -36,36 +36,35 @@
                 <div class="clearfix"></div>
 
                 <div class="x_content" id="assets-parameter-list">
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <ul class="flex-container flex-container-head nowrap">
-                                <li class="flex-item">Sr. No.</li>
-                                <li class="flex-item">Parameter <i class="fa fa-fw fa-sort"></i></li>
-                                <li class="flex-item">Minimum value <i class="fa fa-fw fa-sort"></i></li>
-                                <li class="flex-item">Maximum value <i class="fa fa-fw fa-sort"></i></li>
-                                <li class="flex-item">Scaling factor <i class="fa fa-fw fa-sort"></i></li>
-                                <li class="flex-item">UOM <i class="fa fa-fw fa-sort"></i></li>
-                                <li class="flex-item">Bits/ sign <i class="fa fa-fw fa-sort"></i></li>
-                                <li class="flex-item">Actions <i class="fa fa-fw fa-sort"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <?php
-                    if (isset($parameter_range_info) && !empty($parameter_range_info)) {
-                        $i = 1;
-                        foreach ($parameter_range_info as $r) {
-                            ?>
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <ul class="flex-container nowrap">
-                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></li>
-                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['parameter']; ?></li>
-                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['min_value'] ? $r['min_value'] : ""; ?></li>
-                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['max_value'] ? $r['max_value'] : ''; ?></li>
-                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ''; ?></li>
-                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uom'] ? $r['uom'] : ''; ?></li>
-                                        <li class="flex-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ''; ?></li>
-                                        <li class="flex-item">
+                    <table id="datatable" class="table table-striped table-bordered item-table" >
+                        <thead>
+                            <tr><th>Sr.No</th>
+                                <th>Parameter</th>
+                                <th>Minimum value</th>
+                                <th>Maximum value</th>
+                                <th>Scaling factor</th>                          
+                                <th>UOM</th>                          
+                                <th>Bits/ sign</th>                          
+                                <th>Status</th>                          
+                                <th>Actions</th>                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (isset($parameter_range_info) && !empty($parameter_range_info)) {
+                                $i = 1;
+                                foreach ($parameter_range_info as $r) {
+                                    ?>
+                                    <tr>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['parameter']; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['min_value'] ? $r['min_value'] : ""; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['max_value'] ? $r['max_value'] : ""; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ""; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uom'] ? $r['uom'] : ""; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ""; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="action">
                                             <form action="" method="post" id="update_param_range<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
@@ -79,32 +78,25 @@
                                                     <i class="fa fa-dedent" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Rule"></i>
                                                 </a>
                                             </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <?php
-                            $i++;
-                        }
-                    } else {
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $i++;
+                                }
+                            } else {
+                                ?>
+                            <td colspan="7">No data found..!</td> 
+                        <?php }
                         ?>
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <ul class="flex-container flex-item_row nowrap">
-                                    <li class="flex-item" style="text-align: center;">No data found..!</li>                    
-                                </ul>
-                            </div>
-                        </div>
-                    <?php }
-                    ?>
-
-                    <ul class="pagination">
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
+                        </tbody>
+                    </table>
+                    <!--                    <ul class="pagination">
+                                            <li><a href="#">1</a></li>
+                                            <li class="active"><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                        </ul>-->
 
                 </div>
             </div>
@@ -139,19 +131,22 @@
             $("#update_param_range" + id).attr('action', url);
             $("#update_param_range" + id).submit();
         });
-        $(".flex-item").click(function (e) {
-            if (!$(e.target).hasClass('fa')) {
+        $("#datatable td").click(function (e) {
+            if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
-                $.ajax({
-                    url: "<?php echo base_url() . 'AssetsManagement/asset_parameter_range_details'; ?>",
-                    method: "POST",
-                    data: {param_range_id: id},
-                    dataType: "html",
-                    success: function (data) {
-                        $("#detailsModal").html(data);
-                        $('#detailsModal').modal('show');
-                    }
-                });
+                if (id.length !== 0)
+                {
+                    $.ajax({
+                        url: "<?php echo base_url() . 'AssetsManagement/asset_parameter_range_details'; ?>",
+                        method: "POST",
+                        data: {param_range_id: id},
+                        dataType: "html",
+                        success: function (data) {
+                            $("#detailsModal").html(data);
+                            $('#detailsModal').modal('show');
+                        }
+                    });
+                }
             }
         });
     });

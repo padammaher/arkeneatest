@@ -46,7 +46,7 @@ class ParameterMaster extends CI_Controller {
                     'uom_type_id' => $this->input->post('uom_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
                 if ($this->input->post('param_description')) {
                     $data['description'] = $this->input->post('param_description');
@@ -119,7 +119,7 @@ class ParameterMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
-            $data = array('isactive' => 0);
+            $data = array('isactive' => 1);
             $response = $this->parametermodel->parameter_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Sucessfully deleted an parameter');

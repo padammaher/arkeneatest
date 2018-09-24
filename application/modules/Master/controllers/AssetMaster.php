@@ -61,7 +61,7 @@ class AssetMaster extends CI_Controller {
                     'description' => $this->input->post('assetcat_description'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
 
                 $count = $this->assetmodel->insert_asset_category($data);
@@ -125,7 +125,7 @@ class AssetMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
-            $data = array('isactive' => 0);
+            $data = array('isactive' => 1);
             $response = $this->assetmodel->assetcategory_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Sucessfully deleted an asset category');
@@ -168,7 +168,7 @@ class AssetMaster extends CI_Controller {
                     'name' => $this->input->post('asset_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
+                    'isactive' => 0
                 );
                 if ($this->input->post('type_description')) {
                     $data['description'] = $this->input->post('type_description');
@@ -234,7 +234,7 @@ class AssetMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
-            $data = array('isactive' => 0);
+            $data = array('isactive' => 1);
             $response = $this->assetmodel->assettype_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an asset type');

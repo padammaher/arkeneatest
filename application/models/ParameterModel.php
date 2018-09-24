@@ -11,13 +11,13 @@ class ParameterModel extends MY_Model {
 //    protected $soft_delete_key = 'isactive';
 
     function get_parameterlist($user_id, $id = null) {
-        $this->db->select('parameter.id,parameter.name,parameter.description,uom_type.name as uomtype_name');
+        $this->db->select('parameter.id,parameter.name,parameter.description,uom_type.name as uomtype_name,parameter.isactive');
         $this->db->from('parameter');
         $this->db->join('uom_type', 'parameter.uom_type_id=uom_type.id');
         if ($id != null) {
             $this->db->where('parameter.id', $id);
         }
-        $this->db->where(array('parameter.createdby' => $user_id, 'parameter.isactive' => 1));
+        $this->db->where(array('parameter.createdby' => $user_id));
 //        $this->db->where('parameter.isactive', 1);
         $query = $this->db->get();
         $result = $query->result_array();

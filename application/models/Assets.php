@@ -42,8 +42,8 @@ class Assets extends MY_Model {
 
     public function delete_assets($id1) {
         // var_dump($id);die;
-        $assets_data=array('isdeleted'=>1);
-        $this->db->where('asset.id', $id1);          
+        $assets_data = array('isdeleted' => 1);
+        $this->db->where('asset.id', $id1);
         return $this->db->update('asset', $assets_data);
 //        
 //        return $this->db->delete('asset');
@@ -105,7 +105,7 @@ class Assets extends MY_Model {
         if (isset($id) && $id !== NULL) {
             $this->db->where('asset.id', $id);
         }
-        $this->db->where(array('asset.createdby'=> $user_id,'asset.isdeleted'=>0));
+        $this->db->where(array('asset.createdby' => $user_id, 'asset.isdeleted' => 0));
         $query = $this->db->get();
         $assets_list = $query->result_array();
 
@@ -122,14 +122,12 @@ class Assets extends MY_Model {
     public function assets_list_info($user_id, $id = NULL) {
         $assets_list[0]['customerlocationcount'] = $this->getCustomerLocationCount($user_id);
 
-                $assets_list['assetcount'] = $this->getAssetCount($user_id);
+        $assets_list['assetcount'] = $this->getAssetCount($user_id);
         $assets_list['devicecount'] = $this->getDeviceCount($user_id);
         $assets_list['sensorcount'] = $this->getSensorCount($user_id);
 
         return $assets_list;
     }
-
-    
 
     public function Asset_edit($edit_asset_list_id) {
         $this->db->select('asset.id,asset.code,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid,asset.isactive, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
@@ -231,7 +229,7 @@ class Assets extends MY_Model {
     }
 
     public function Delete_asset_location($asset_loc_id) {
-        $update_data=array('isdeleted'=>1);
+        $update_data = array('isdeleted' => 1);
         $this->db->where(array('id' => $asset_loc_id));
         return $this->db->update('asset_location', $update_data);
 //        return $this->db->delete('asset_location');
@@ -259,7 +257,7 @@ class Assets extends MY_Model {
         $this->db->where('branch_user.status', 1);
         $this->db->where('asset_user.createdby', $user_id);
         $query = $this->db->get();
-        
+
         // echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
@@ -289,8 +287,8 @@ class Assets extends MY_Model {
         $this->db->select('id,client_name');
         $this->db->from('branch_user');
         $this->db->where('status', 1);
-         $this->db->where('user_id', $user_id);
-         $this->db->where('isdeleted', 0);
+        $this->db->where('user_id', $user_id);
+        $this->db->where('isdeleted', 0);
         $query = $this->db->get();
         $objData = $query->result_array();
         return $objData;
@@ -329,14 +327,14 @@ class Assets extends MY_Model {
     }
 
     public function delete_asset_user($asset_user_id) {
-        $update_data=array('isdeleted'=>1);
+        $update_data = array('isdeleted' => 1);
         $this->db->where(array('id' => $asset_user_id));
-         return $this->db->update('asset_user', $update_data);
+        return $this->db->update('asset_user', $update_data);
 //        return $this->db->delete('asset_user');
     }
 
     public function parameter_range_list($asset_id, $param_range_id = NULL) {
-        $this->db->select('parameter_range.id,parameter.name as parameter,parameter.id as param_id,min_value,max_value,scaling_factor,uom.name as uom,uom_id,bits_per_sign');
+        $this->db->select('parameter_range.id,parameter.name as parameter,parameter.id as param_id,min_value,max_value,scaling_factor,uom.name as uom,uom_id,bits_per_sign,parameter_range.isactive');
         $this->db->from('parameter_range');
         $this->db->join('parameter', 'parameter_range.parameter_id=parameter.id');
         $this->db->join('uom', 'parameter_range.uom_id=uom.id');
@@ -376,7 +374,7 @@ class Assets extends MY_Model {
     public function update_asset_rule_detail($data, $parameter_range_id) {
         $this->db->where('id', $parameter_range_id);
         $this->db->update('asset_parameter_rule', $data);
-         return true;
+        return true;
 
         // $alreadyexist=$this->db->from('asset_parameter_rule')->where('parameter_range_id',$parameter_range_id)->get()->result();
         // if(!$alreadyexist){
@@ -388,30 +386,28 @@ class Assets extends MY_Model {
         // }
     }
 
-
-    public function get_asset_rule_list($parameter_range_id = '') { 
+    public function get_asset_rule_list($parameter_range_id = '') {
         $this->db->select('asset_parameter_rule.*, parameter.name as pararameter_name, uom.name as uom_name');
         $this->db->from('asset_parameter_rule');
         $this->db->join('uom', 'asset_parameter_rule.uom = uom.id', 'left');
         $this->db->join('parameter', 'asset_parameter_rule.parameter = parameter.id', 'left');
         $this->db->where('parameter_range_id', $parameter_range_id);
-        $query= $this->db->get();
-        $asset_data= $query->result_array();
+        $query = $this->db->get();
+        $asset_data = $query->result_array();
         if ($query->num_rows() > 0) {
-            foreach ($asset_data as $key=>$value) {
-                $asset_data[$key]['triger_count']= $this->get_triger_count($value['id']); 
-              
+            foreach ($asset_data as $key => $value) {
+                $asset_data[$key]['triger_count'] = $this->get_triger_count($value['id']);
             }
         }
 
-      //print_r($asset_data); exit;
+        //print_r($asset_data); exit;
         if ($asset_data)
             return $asset_data;
         else
             return false;
     }
-    public function get_triger_count($rule_id)
-    {
+
+    public function get_triger_count($rule_id) {
         $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where('rule_id', $rule_id)->get()->result_array();
         //print_r($asset_rule_data[0]['triger_count']); exit;
         if ($asset_rule_data) {
@@ -420,6 +416,7 @@ class Assets extends MY_Model {
             return false;
         }
     }
+
     public function get_asset_details($asset_rule_id) {
         $asset_rule_data = $this->db->from('asset_parameter_rule')->where('id', $asset_rule_id)->get()->result();
         if ($asset_rule_data) {
@@ -434,8 +431,8 @@ class Assets extends MY_Model {
         $this->db->delete('asset_parameter_rule');
         return true;
     }
-//<<<<<<< HEAD
 
+//<<<<<<< HEAD
 //    public function get_parameter_range($asset_id) {
 //        $asset_id = 63;
 //
@@ -495,7 +492,6 @@ class Assets extends MY_Model {
             }
         }
     }
- 
 
     public function get_asset_location($location_id) {
         $this->db->select('customer_business_location.location_name as location');
@@ -594,7 +590,7 @@ class Assets extends MY_Model {
     }
 
     public function trigger_list($rule_id = NULL, $user_id, $asset_id) {
-        $deletedstatus="trigger.isdeleted!='1'";
+        $deletedstatus = "trigger.isdeleted!='1'";
         $this->db->select('trigger.id,
                         trigger.rule_id,
                         trigger.asset_id,
@@ -605,9 +601,9 @@ class Assets extends MY_Model {
                         trigger.createdate,
                         trigger.createby,trigger.isactive,trigger.isdeleted');
         $this->db->from('trigger');
-        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.createby' => $user_id,'trigger.rule_id'=>$rule_id));
+        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.createby' => $user_id, 'trigger.rule_id' => $rule_id));
 //        $this->db->where('trigger.isactive', 1);
-        $this->db->where($deletedstatus);        
+        $this->db->where($deletedstatus);
         $query = $this->db->get();
 //        echo $this->db->last_query();
         $result = $query->result_array();
@@ -642,7 +638,7 @@ class Assets extends MY_Model {
     public function delete_trigger($trigger_post_id) {
         //$this->db->where(array('id' => $trigger_post_id));
         //return $this->db->delete('trigger');
-        $trigger_input_data=array('isdeleted'=>1);
+        $trigger_input_data = array('isdeleted' => 1);
         $this->db->where('id', $trigger_post_id);
         return $this->db->update('trigger', $trigger_input_data);
     }
@@ -650,7 +646,7 @@ class Assets extends MY_Model {
     public function Trigger_threshold($asset_id, $rule_id) {
         $this->db->select('trigger.id,trigger.trigger_threshold_id');
         $this->db->from('trigger');
-        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.rule_id' => $rule_id, 'isactive' => 1,'isdeleted'=>0));
+        $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.rule_id' => $rule_id, 'isactive' => 1, 'isdeleted' => 0));
         $result = $this->db->get()->result();
 //         $result=$query->resut_array();
         return $result;
@@ -695,20 +691,19 @@ class Assets extends MY_Model {
         }
     }
 
-
-    public function showdescription($set_rule_id=NULL,$user_id,$asset_id) {
+    public function showdescription($set_rule_id = NULL, $user_id, $asset_id) {
 
         $query = "select asset.code,
     asset.specification,customer_business_location.location_name as `location`,
     branch_user.client_name,
     branch_user.client_username,
     asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,
-    (SELECT asset_parameter_rule.rule_name from asset_parameter_rule where asset_parameter_rule.id=".$set_rule_id.") as `rule_name`,
-    (SELECT asset_parameter_rule.rule_des from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `rule_des`,
-    (SELECT asset_parameter_rule.green_value from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `green_value`,
-    (SELECT asset_parameter_rule.orange_value from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `orange_value`,
-    (SELECT asset_parameter_rule.red_value from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `red_value`,
-    (SELECT asset_parameter_rule.wef_date from asset_parameter_rule where  asset_parameter_rule.id=".$set_rule_id.") as `wef_date`,
+    (SELECT asset_parameter_rule.rule_name from asset_parameter_rule where asset_parameter_rule.id=" . $set_rule_id . ") as `rule_name`,
+    (SELECT asset_parameter_rule.rule_des from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `rule_des`,
+    (SELECT asset_parameter_rule.green_value from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `green_value`,
+    (SELECT asset_parameter_rule.orange_value from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `orange_value`,
+    (SELECT asset_parameter_rule.red_value from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `red_value`,
+    (SELECT asset_parameter_rule.wef_date from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `wef_date`,
     parameter.name AS `parameter_name`,
     parameter_range.id AS parameter_range_tbl_id,
     (SELECT 
@@ -716,7 +711,7 @@ class Assets extends MY_Model {
         FROM
             `trigger`
         WHERE
-            `trigger`.`rule_id` = ".$set_rule_id.") AS `trigger_threshold_id_count`
+            `trigger`.`rule_id` = " . $set_rule_id . ") AS `trigger_threshold_id_count`
 from asset  
  left join customer_business_location on customer_business_location.id= asset.customer_locationid  
  LEFT JOIN asset_user ON asset_user.asset_id = asset.id   
@@ -728,7 +723,7 @@ from asset
   left join asset_parameter_rule on  asset_parameter_rule.parameter_range_id=parameter_range.id    
    LEFT JOIN
     `trigger` ON `trigger`.`rule_id` = asset_parameter_rule.id
- where  asset.id=" . $asset_id . " and  asset.createdby=".$user_id." and asset.isactive='1' 	    
+ where  asset.id=" . $asset_id . " and  asset.createdby=" . $user_id . " and asset.isactive='1' 	    
  group by asset.id ";
         $res = $this->db->query($query);
         return $obj = $res->result_array();
