@@ -154,7 +154,12 @@ $route['Add_Business_Location']='Customer/add_customer_business_location';
 $route['update_client']='Customer/update_client_detail';
 $route['update_business']='Customer/edit_business_location';
 
+//Privileges
 
+$route['privilege'] = "Master/privilegemaster/list_privilleges";
+$route['addPrivileges/(:any)'] = "Master/privilegemaster/add_privileges/$1";
+$route['addPrivileges'] = "Master/privilegemaster/add_privileges";
+//$route['editPrivileges'] = "Master/privilegemaster/edit_privileges/$1";
 
 
 
