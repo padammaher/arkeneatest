@@ -1,33 +1,4 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<style type="text/css">
-    .flex-item:first-child {
-        width: 6%;
-    }
-
-    .flex-item:nth-child(2) {
-        width: 18%;
-    }
-
-    .flex-item:nth-child(3) {
-        width: 16%;
-    }
-
-    .flex-item:nth-child(4) {
-        width: 16%;
-    }
-
-    .flex-item:nth-child(5) {
-        width: 14%;
-    }
-
-    .flex-item:nth-child(6) {
-        width: 14%;
-    }
-
-    .flex-item:nth-child(7) {
-        width: 10%;
-    }
-</style>
 <!--<div class="right_col" role="main">-->
 <div class="">
     <div class="page-title">
@@ -49,123 +20,112 @@
     <div class="clearfix">
     </div>
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_content">
-         
-            <div class="row clearfix">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <ul class="flex-container flex-container-head nowrap">
-                  <li class="flex-item">Sr. No.
-                  </li>
-                  <li class="flex-item">Name
-                  </li>
-                  <li class="flex-item">Customer Location
-                  </li>
-                  <li class="flex-item">User Name
-                  </li>
-                  <li class="flex-item">Actions
-                  </li>
-                </ul>
-              </div>
-            </div>
-         
-           <?php $i=1;  if($client_details){ foreach($client_details as $clientinfo){  ?> 
-            <div class="row clearfix">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <ul class="flex-container nowrap">
-                  <li class="flex-item"<?php echo $i; ?>><?php echo   $i++; ?> 
-                  </li>
-                  <li class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_name; ?> 
-                  </li>
-                  <li class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_location; ?> 
-                  </li>
-                  <li class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_username; ?>
-                  </li>
-                  <li class="flex-item">
-                    <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
-                      <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                      <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                      </i>
-                      <input type="hidden" value="<?php echo $clientinfo->id; ?>" name="client_id"/>
-                      <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                    </a>
-                    <a  class="delete" id="<?php echo $i; ?>">
-                    <!-- <a href="<?php echo base_url()?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"> -->
-                      <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                      </i> 
-                    </a> 
-                </form> 
-                  </li>
-                </ul>
-              </div>
-            </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_content">
+                    <table id="datatable" class="table table-striped table-bordered item-table" >
+                        <thead>
+                            <tr><th>Sr.No</th>
+                                <th>Name</th>
+                                <th>Customer Location</th>
+                                <th>User Name</th>                          
+                                <th>Status</th>                          
+                                <th>Actions</th>                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $i = 1;
+                            if ($client_details) {
+                                foreach ($client_details as $clientinfo) {
+                                    ?> 
+                                    <tr>
+                                        <td class="flex-item"<?php echo $i; ?>><?php echo $i; ?></td>
+                                        <td class="flex-item"<?php echo $i; ?>><?php echo $clientinfo->client_name; ?></td>
+                                        <td class="flex-item"<?php echo $i; ?>><?php echo $clientinfo->client_location; ?></td>
+                                        <td class="flex-item"<?php echo $i; ?>><?php echo $clientinfo->client_username; ?></td>
+                                        <td class="flex-item"<?php echo $i; ?>><?php echo $clientinfo->isactive == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flex-item">
+                                            <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                    </i>
+                                                    <input type="hidden" value="<?php echo $clientinfo->id; ?>" name="client_id"/>
+                                                    <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                </a>
+                                                <a  class="delete" id="<?php echo $i; ?>">
+                                                <!-- <a href="<?php echo base_url() ?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"> -->
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                    </i> 
+                                                </a> 
+                                            </form> 
+                                        </td>
 
-                        <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;
-                                        </button>
-                                        <h4 class="modal-title">Details
-                                        </h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table class="table table-bordered">                      
-                                            <tbody>
-                                                <tr>
-                                                    <td width="" class="lft-td">Sr. No.
-                                                    </td>
-                                                    <td><?php echo $clientinfo->srno; ?> 
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="" class="lft-td">Name
-                                                    </td>
-                                                    <td><?php echo $clientinfo->client_name; ?> 
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="lft-td">Customer Location
-                                                    </td>
-                                                    <td><?php echo $clientinfo->client_location; ?> 
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="lft-td">User Name
-                                                    </td>
-                                                    <td><?php echo $clientinfo->client_username; ?>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  
+        <!--                                <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                 Modal content
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;
+                                                        </button>
+                                                        <h4 class="modal-title">Details
+                                                        </h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered">                      
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="" class="lft-td">Sr. No.
+                                                                    </td>
+                                                                    <td><?php echo $clientinfo->srno; ?> 
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td width="" class="lft-td">Name
+                                                                    </td>
+                                                                    <td><?php echo $clientinfo->client_name; ?> 
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="lft-td">Customer Location
+                                                                    </td>
+                                                                    <td><?php echo $clientinfo->client_location; ?> 
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="lft-td">User Name
+                                                                    </td>
+                                                                    <td><?php echo $clientinfo->client_username; ?>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  -->
 
-                        <script>
-                            $(".flex-item<?php echo $i; ?>").click(function (e) {
-                                if (!$(e.target).hasClass('fa')) {
-                                    $('#detailsModal<?php echo $i; ?>').modal('show');
+        <!--                                <script>
+                                            $(".flex-item<?php echo $i; ?>").click(function (e) {
+                                                if (!$(e.target).hasClass('fa')) {
+                                                    $('#detailsModal<?php echo $i; ?>').modal('show');
+                                                }
+                                            });
+                                        </script>-->
+                                    </tr>
+                                    <?php
+                                    $i++;
                                 }
-                            });
-                        </script>
-
-                        <?php $i++;
-                    } }else{ ?>
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <ul class="flex-container flex-item_row nowrap">
-                            <li class="flex-item" style="text-align: center;">No data found..!</li>                    
-                            </ul>
-                        </div>
-                   <?php } ?> 
+                            } else {
+                                ?>
+                            <td colspan="6">No data found..!</td>   
+                        <?php } ?> 
+                        </tbody>
+                    </table>
                     <!-- <div class="row clearfix">
                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <ul class="flex-container nowrap">

@@ -20,27 +20,30 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content">
-                <table id="datatable" class="table table-striped table-bordered item-table" >
-                      <thead>
-                        <tr>
-                          <th>Sr.No</th>
-                          <th>Asset Code</th>
-                          <th>User Name</th>
-                          
-                          <!--<th>Status</th>-->   
-                          <th>Actions</th>   
-                        </tr>
-                      </thead>
-                      <tbody>
-            <?php $i = 1; //var_dump($asset_user_list);
-            if (!empty($asset_user_list)) {
-                foreach ($asset_user_list as $k=> $asset_user_list_data) { ?> 
-                          <tr>
-                                        <?php $setId_to_modal=$asset_user_list_data['id'];
-                                        $modal_idand_class="data-toggle='modal' href='#user_assest_list_modal_".$setId_to_modal."'"; ?>
-                                        <td <?php echo $modal_idand_class;?> class="flex-item"><?php echo $k+1 ?></td>
-                                        <td <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_user_list_data['code']; ?></td>
-                                        <td <?php echo $modal_idand_class;?> class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></td>
+                    <table id="datatable" class="table table-striped table-bordered item-table" >
+                        <thead>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Asset Code</th>
+                                <th>User Name</th>
+
+<!--<th>Status</th>-->   
+                                <th>Actions</th>   
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $i = 1; //var_dump($asset_user_list);
+                            if (!empty($asset_user_list)) {
+                                foreach ($asset_user_list as $k => $asset_user_list_data) {
+                                    ?> 
+                                    <tr>
+        <?php $setId_to_modal = $asset_user_list_data['id'];
+        $modal_idand_class = "data-toggle='modal' href='#user_assest_list_modal_" . $setId_to_modal . "'";
+        ?>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $k + 1 ?></td>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['code']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></td>
                                         <td>
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_user_list_data['id']; ?>" name="asset_user_post_id"/>
@@ -53,12 +56,13 @@
                                                 </a> 
                                             </form>   
                                         </td>
-<?php $i++;    } } else { ?>
-                                <td colspan="4">No data found..!</td>                                                                           
+        <?php $i++;
+    }
+} else { ?>
+                                    <td colspan="4">No data found..!</td>                                                                           
 <?php } ?>					
-                                 </tbody>
-                                </table>
-
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -66,7 +70,7 @@
 
 
 </div>
-<?php  $this->load->view('modal/user_asset_list_modal'); ?>
+<?php $this->load->view('modal/user_asset_list_modal'); ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
