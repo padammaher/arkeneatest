@@ -116,6 +116,38 @@
                         </div>                          
                     </div>  
 
+                    
+                    <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Start Date</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                    <div class="xdisplay_inputx item form-group has-feedback">
+                                        <input type="text" class="form-control has-feedback-left" name="startdate" id="single_cal1" placeholder="Start Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" value="<?php echo set_value('startdate');?>" required="required">
+                                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                                    </div>
+
+                                </div>
+                            <?php if (form_error('startdate')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('stockdate'); ?></span>
+                            <?php } ?>
+                    </div>
+                    <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">End Date</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                    <div class="xdisplay_inputx item form-group has-feedback">
+                                        <input type="text" class="form-control has-feedback-left" name="enddate" id="single_cal3" placeholder="End Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" value="<?php echo set_value('enddate');?>" required="required">
+                                        <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                        <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                                    </div>
+
+                                </div>
+                            <?php if (form_error('enddate')) { ?>
+                                <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('stockdate'); ?></span>
+                            <?php } ?>
+                    </div> 
+
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Movable / Immovable *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -129,15 +161,15 @@
                             <?php }
                             ?>
                     </div> 
-                <div class="item form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                                                  <label><?php $isactive=set_value('isactive'); ?>                          
-                          
-                                                    <input type="checkbox" name="isactive" class="flat" <?php if(!empty($isactive)) { echo ($isactive)== "on"? 'checked': 'checked'; } else { }?>> Active
-                                                        </label>
-                                                </div>
-                                          </div>            
+                    <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                      <label><?php $isactive=set_value('isactive'); ?>                          
+
+                        <input type="checkbox" name="isactive" class="flat" <?php if(!empty($isactive)) { echo ($isactive)== "on"? 'checked': ''; } else {echo 'checked'; }?>> Active
+                            </label>
+                    </div>
+              </div> 
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -160,7 +192,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
       
-     $("#Assetcode").change(function ()
+     $("#Assetcodeold").change(function ()
             {
                    
                 var options;

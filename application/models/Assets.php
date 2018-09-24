@@ -63,7 +63,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as assetcount');
         $this->db->from('asset');
         $this->db->where('createdby', $user_id);
-        $this->db->where('isdeleted', 0);
+        $this->db->where(array('isactive'=>1,'isdeleted'=> 0));
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['assetcount'];
@@ -73,7 +73,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as devicecount');
         $this->db->from('device_inventory');
         $this->db->where('createdby', $user_id);
-        $this->db->where('isdeleted', 0);
+        $this->db->where(array('isactive'=>1,'isdeleted'=> 0));
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['devicecount'];
@@ -83,7 +83,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as sensorcount');
         $this->db->from('sensor_inventory');
         $this->db->where('createdby', $user_id);
-        $this->db->where('isdeleted', 0);
+        $this->db->where(array('isactive'=>1,'isdeleted'=> 0));
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['sensorcount'];
@@ -91,7 +91,7 @@ class Assets extends MY_Model {
 
     public function assets_list($user_id, $id = NULL) {
 
-        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,asset.isactive,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,asset_location.id as assetlocid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,asset.isactive,branch_user.client_name,branch_user.client_username,customer_business_location.id as locid,asset_location.id as assetlocid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable,asset.startdate,asset.enddate');
         //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
         $this->db->from('asset');
         $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
@@ -130,7 +130,7 @@ class Assets extends MY_Model {
     }
 
     public function Asset_edit($edit_asset_list_id) {
-        $this->db->select('asset.id,asset.code,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid,asset.isactive, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
+        $this->db->select('asset.id,asset.code,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid,asset.isactive, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable,asset.startdate,asset.enddate');
         // $this->db->select('asset.id,asset.code,asset_location.location,asset_location.id as locid,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');
         $this->db->from('asset');
         $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
@@ -353,9 +353,27 @@ class Assets extends MY_Model {
     public function checkassetcodeIfExists($table = NULL, $unique_Data = array()) {
         //var_dump($table,$unique_Data);die;
         $query = $this->db->get_where($table, $unique_Data);
-        //echo $this->db->last_query();
+//        echo $this->db->last_query();
         if ($query->num_rows() > 0) {
             return true;
+        } else {
+            return false;
+        }
+    }
+    
+      public function checkassetcodeIfExists_or_scheduled($table = NULL, $unique_Data = array()) {
+        //var_dump($table,$unique_Data);die;
+//        $query = $this->db->get_where($table, $unique_Data);
+//        echo $this->db->last_query();
+          $query=$this->db->select('id,code,startdate,enddate')
+                          ->from('asset')
+                          ->where(array('code'=>$unique_Data['code'], 'enddate>='=>$unique_Data['startdate']))
+                          ->get();
+         // $result=$query->
+//                  echo $this->db->last_query();
+          $returnvar='DateProblem';
+        if ($query->num_rows() > 0) {
+            return $returnvar;
         } else {
             return false;
         }
