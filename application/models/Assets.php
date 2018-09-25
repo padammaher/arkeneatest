@@ -414,7 +414,7 @@ class Assets extends MY_Model {
         $this->db->from('asset_parameter_rule');
         $this->db->join('uom', 'asset_parameter_rule.uom = uom.id', 'left');
         $this->db->join('parameter', 'asset_parameter_rule.parameter = parameter.id', 'left');
-        $this->db->where('parameter_range_id', $parameter_range_id);
+        $this->db->where( array('asset_parameter_rule.parameter_range_id'=> $parameter_range_id, 'asset_parameter_rule.isdeleted' => 0));
         $query = $this->db->get();
         $asset_data = $query->result_array();
         if ($query->num_rows() > 0) {

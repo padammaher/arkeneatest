@@ -5,7 +5,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h4>Add Rule & Action Master
+          <h4><?php if(isset($asset_detail[0]->id)){ echo 'Edit Rule & Action Master'; }else{ echo 'Add Rule & Action Master'; } ?>
           </h4>
           <div class="clearfix">
           </div>
@@ -127,6 +127,27 @@
 </div>
 
 <script> 
+$('#green_value').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+});
+$('#orange_value').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+});
+$('#red_value').keypress(function (event) {
+    var keycode = event.which;
+    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+    }
+});
+    
+    
+    
 function compare_rule_value() {
   var green_value = document.getElementById("green_value").value;
   var orange_value = document.getElementById("orange_value").value;
