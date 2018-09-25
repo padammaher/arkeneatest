@@ -144,6 +144,22 @@ class UomModel extends MY_Model {
         return true;
     }
 
+    public function  check_exist_uom($uom_type_id,$uom_name)
+    {
+        $this->db->select('id,name');
+        $this->db->from('uom');
+        $this->db->where(array('uom.uom_type_id' => $uom_type_id,'uom.name' => $uom_name));
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;        
+    }
+    public function update_uom_record($id,$uom_name,$data){
+        
+          $this->db->where(array('uom.uom_type_id' => $id,'uom.name' => $uom_name));
+          $this->db->update('uom', $data);
+          return $this->db->affected_rows();
+    }
+
     public function delete_uom_record($id, $data) {     //print_r($id); exit(); 
         $this->db->where('uom_type_id', $id);
         $this->db->update('uom', $data);
