@@ -17,6 +17,7 @@
                         </div>
                          <?php if (form_error('Assetcode')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetcode'); ?></span>
+                                <!--<div class="php_alert"><?php echo form_error('Assetcode'); ?></div>-->
                             <?php }
                             ?>
                       <span class="mrtp10 text-center englable assetcodeexist" style="color:#ff3333; font-size: 15px; "></span>
