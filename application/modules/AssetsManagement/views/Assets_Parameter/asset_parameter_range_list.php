@@ -38,7 +38,8 @@
                 <div class="x_content" id="assets-parameter-list">
                     <table id="datatable" class="table table-striped table-bordered item-table" >
                         <thead>
-                            <tr><th>Sr.No</th>
+                            <tr>
+                                <th>Sr.No</th>
                                 <th>Parameter</th>
                                 <th>Minimum value</th>
                                 <th>Maximum value</th>
