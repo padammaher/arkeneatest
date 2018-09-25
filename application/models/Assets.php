@@ -285,13 +285,27 @@ class Assets extends MY_Model {
         return $obj = $res->result_array();
     }
 
+//    public function asset_userid_list($user_id) {
+//        $this->db->select('id,client_name');
+//        $this->db->from('branch_user');
+////        $this->db->where('status', 1);
+//        $this->db->where('user_id', $user_id);
+//        $this->db->where('isdeleted', 0);
+//        $query = $this->db->get();
+//        $objData = $query->result_array();
+//        return $objData;
+//    }
+
     public function asset_userid_list($user_id) {
-        $this->db->select('id,client_name');
-        $this->db->from('branch_user');
-//        $this->db->where('status', 1);
-        $this->db->where('user_id', $user_id);
+        $groupid = $this->session->userdata('group_id');
+        $this->db->select('id,first_name as client_name');
+        $this->db->from('users');
+        if ($groupid == 2) {
+            $this->db->where('id', $user_id);
+        }
         $this->db->where('isdeleted', 0);
         $query = $this->db->get();
+
         $objData = $query->result_array();
         return $objData;
     }
@@ -579,10 +593,11 @@ class Assets extends MY_Model {
         $uom_type_data = $query->result_array();
         return $uom_type_data;
     }
+
     public function get_uom_list_type($uom_type_id) {
         $this->db->select('id,name');
         $this->db->from('uom');
-        $this->db->where('uom_type_id',$uom_type_id);
+        $this->db->where('uom_type_id', $uom_type_id);
         $query = $this->db->get();
         $uom_list_data = $query->result_array();
         return $uom_list_data;

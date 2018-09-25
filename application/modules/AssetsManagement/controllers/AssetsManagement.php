@@ -154,6 +154,7 @@ class AssetsManagement extends MY_Controller {
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
             $data['type_list'] = $this->Assets->AssetType_list($user_id);
+            //clear asset_id from session
             $this->session->unset_userdata('asset_id');
             load_view_template($data, 'Assets/assets_list');
         }
@@ -643,7 +644,6 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -654,9 +654,10 @@ class AssetsManagement extends MY_Controller {
 
 
             $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
-//            $data['asset_userid_list'] = $this->Assets->asset_userid_list($user_id);
-            $data['asset_userid_list'] = $this->Assets->asset_users($user_id);
+            $data['asset_userid_list'] = $this->Assets->asset_userid_list($user_id);
+//            $data['asset_userid_list'] = $this->Assets->asset_users($user_id);
             //                asset_user_form_action
+
             $data['dataHeader'] = $this->users->get_allData($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $todaysdate = date('Y-m-d');
@@ -834,7 +835,7 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function add_asset_rule() {
-        
+
         $parameter_id = $this->session->userdata('parameter_id');
         $user_id = $this->session->userdata('user_id');
 
@@ -848,7 +849,7 @@ class AssetsManagement extends MY_Controller {
 
         $this->data['param_id'] = (isset($param_data[0]['id'])) ? $param_data[0]['id'] : '';
         $this->data['parameter_name'] = (isset($param_data[0]['name'])) ? $param_data[0]['name'] : '';
-       //print_r($param_data[0]['uom_type_id']); exit(); 
+        //print_r($param_data[0]['uom_type_id']); exit(); 
         if ($param_data[0]['uom_type_id'])
             $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
         $this->data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
