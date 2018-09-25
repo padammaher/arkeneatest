@@ -12,32 +12,33 @@ class UomModel extends MY_Model {
 
 
     function get_uomtypes($user_id) {
-          $user_id = $this->session->userdata('user_id');
+        $user_id = $this->session->userdata('user_id');
         $this->db->select('uom_type.id,uom_type.name,uom_type.isactive,uom_type.createdby');
         $this->db->from('uom_type');
-       // $this->db->join('uom', 'uom_type.uom_id=uom.id');
-        $this->db->where(array('uom_type.createdby' => $user_id,'uom_type.isactive' => 1,'uom_type.isdeleted' => 0));
+        //$this->db->join('uom', 'uom_type.uom_id=uom.id');
+        $this->db->where(array('uom_type.createdby' => $user_id, 'uom_type.isactive' => 1, 'uom_type.isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
-               if($result){
-            foreach($result as $key=>$value){
-                $result[$key]['uomlist']= $this->get_uom_data($value['id']); 
+        if ($result) {
+            foreach ($result as $key => $value) {
+                $result[$key]['uomlist'] = $this->get_uom_data($value['id']);
             }
         }
         return $result;
     }
-    public  function get_uom_data($uom_type_id)
-    {
+
+    public function get_uom_data($uom_type_id) {
         $user_id = $this->session->userdata('user_id');
         $this->db->select('id,name');
         $this->db->from('uom');
-        $this->db->where(array('uom_type_id'=>$uom_type_id,'uom.createdby' => $user_id, 'uom.isdeleted' => 0));
+        $this->db->where(array('uom_type_id' => $uom_type_id, 'uom.createdby' => $user_id, 'uom.isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
     }
+
     function get_uom_list($user_id) {
-        
+
         $this->db->select('uom.id,uom_type.name,uom.name as uomname,uom_type.isactive');
         $this->db->from('uom_type');
         $this->db->where(array('uom_type.createdby' => $user_id, 'uom.isdeleted' => 0));
@@ -103,52 +104,50 @@ class UomModel extends MY_Model {
     }
 
     function uomtype_update($id, $data) {
-        $alreadyexit = $this->db->from('uom_type')->where('name', $data['name'])->get()->result();
-        if (count($alreadyexit) == 1) {
-            $this->db->where('id', $id);
-            $this->db->update('uom_type', $data);
-            return $this->db->affected_rows();
-        } else {
-            return 'duplicate';
-        }
+//        $alreadyexit = $this->db->from('uom_type')->where('name', $data['name'])->get()->result();
+//        if (count($alreadyexit) == 1) {
+        $this->db->where('id', $id);
+        $this->db->update('uom_type', $data);
+        return $this->db->affected_rows();
+//        } else {
+//            return 'duplicate';
+//        }
     }
 
     function get_uom_type($id) {
         $this->db->select('uom_type.id,uom_type.name');
         $this->db->from('uom_type');
-       // $this->db->join('uom', 'uom_type.uom_id=uom.id');
+        // $this->db->join('uom', 'uom_type.uom_id=uom.id');
         $this->db->where('uom_type.id', $id);
         $query = $this->db->get();
         $result = $query->result_array();
-         if($result){
-             foreach($result as $key=>$value){
-                $result[$key]['uomlist']= $this->get_uom_data($value['id']); 
+        if ($result) {
+            foreach ($result as $key => $value) {
+                $result[$key]['uomlist'] = $this->get_uom_data($value['id']);
             }
         }
         return $result;
     }
-    
-    
-    public function  get_uom_exitst($uom_name){
-         $result1=$this->db->from('uom')->where('name',$uom_name)->get()->result(); 
-         if($result1){
-              return $result1; 
-         }else{
-             return false; 
-         }
-                
+
+    public function get_uom_exitst($uom_name) {
+        $result1 = $this->db->from('uom')->where('name', $uom_name)->get()->result();
+        if ($result1) {
+            return $result1;
+        } else {
+            return false;
+        }
     }
-    
-    public function  delete_uom($id){
+
+    public function delete_uom($id) {
         $this->db->where('uom_type_id', $id);
-         $this->db->delete('uom'); 
-         return true; 
+        $this->db->delete('uom');
+        return true;
     }
-    public function  delete_uom_record($id,$data)
-    {     //print_r($id); exit(); 
-          $this->db->where('uom_type_id', $id);
-          $this->db->update('uom', $data);
-       return $this->db->affected_rows();
+
+    public function delete_uom_record($id, $data) {     //print_r($id); exit(); 
+        $this->db->where('uom_type_id', $id);
+        $this->db->update('uom', $data);
+        return $this->db->affected_rows();
     }
 
 }
