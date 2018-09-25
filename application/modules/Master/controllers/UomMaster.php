@@ -57,9 +57,23 @@ class UomMaster extends CI_Controller {
             $this->form_validation->set_rules('uom_name[]', 'uom_name', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $uom_name_array = $this->input->post('uom_name');
+                $uom_type_id= $this->input->post('uom_type');
+                //print_r($uom_type_id);                exit(); 
                 if (is_array($uom_name_array)) {
                     foreach ($uom_name_array as $uom_name) {
                         if ($uom_name && $uom_name != 'null') {
+                            $qmlist=$this->uommodel->get_uom_data($uom_type_id);
+                             foreach($qmlist as $qm_name){
+                               if(!in_array($qm_name['name'], $uom_name_array)){
+                                  $data = array('isdeleted' => 1);
+                                    $this->uommodel->update_uom_record($uom_type_id,$qm_name['name'],$data);  
+                               }
+                            }
+                            $alreadyexist= $this->uommodel->check_exist_uom($uom_type_id,$uom_name);
+                        
+                            if(count($alreadyexist)>0){
+                                    $update_count=1; 
+                            }else{
                             $uom_data = array(
                                 'name' => $uom_name,
                                 'createdat' => date('Y-m-d H:i:s'),
@@ -67,8 +81,9 @@ class UomMaster extends CI_Controller {
                                 'isactive' => 1,
                                 'uom_type_id' => $this->input->post('uom_type'),
                             );
+                               $count = $this->uommodel->insert_uom($uom_data);
+                            }
                         }
-                        $count = $this->uommodel->insert_uom($uom_data);
                     }
                 } else {
                     $uom_data = array(
@@ -83,7 +98,7 @@ class UomMaster extends CI_Controller {
                 if (is_numeric($count) && $count > 0) {
                     $this->session->set_flashdata('success_msg', 'UOM added successfully');
                     redirect('uomlist');
-                } elseif ($count == "duplicate") {
+                } elseif ($update_count) {
                     $this->session->set_flashdata('error_msg', 'UOM already added');
                     $data['post'] = $this->input->post();
                     redirect('addUomList');
@@ -221,6 +236,7 @@ class UomMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $update_count='';
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -230,31 +246,33 @@ class UomMaster extends CI_Controller {
             $this->form_validation->set_rules('uom_name[]', 'uom_name', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $id = $this->input->post('edit_id');
-
                 $uom_name_array = $this->input->post('uom_name');
-                //$this->uommodel->delete_uom($id);
-                ///  print_r($uom_name_array);                    exit(); 
                 if (is_array($uom_name_array)) {
-                     $data = array('isdeleted' => 1);
-                     $this->uommodel->delete_uom_record($id, $data); 
                     foreach ($uom_name_array as $uom_name) {                      
                         if ($uom_name && $uom_name != 'null') {
-                            $alreadyexist= $this->uommodel->check_exist_uom($id,$uom_name);                            
+                           $qmlist=$this->uommodel->get_uom_data($id);
+                          // print_r($qmlist);                           exit();
+                           foreach($qmlist as $qm_name){
+                               if(!in_array($qm_name['name'], $uom_name_array)){
+                                  $data = array('isdeleted' => 1);
+                                    $this->uommodel->update_uom_record($id,$qm_name['name'],$data);  
+                               }
+                            }
+                            $alreadyexist= $this->uommodel->check_exist_uom($id,$uom_name);
                             if(count($alreadyexist)>0){
-                                $data = array('isdeleted' => 0);
-                              $count= $this->uommodel->update_uom_record($id,$uom_name,$data);
+                                    $update_count=1; 
                             }else{
                                 $uom_data = array(
-                                'name' => $uom_name,
-                                'createdat' => date('Y-m-d H:i:s'),
-                                'createdby' => $user_id,
-                                'isactive' => 1,
-                                'uom_type_id' => $this->input->post('edit_id'),
-                            );
-                            $count = $this->uommodel->insert_uom($uom_data);
-                                
-                            } 
-                        }
+                                        'name' => $uom_name,
+                                        'createdat' => date('Y-m-d H:i:s'),
+                                        'createdby' => $user_id,
+                                        'isactive' => 1,
+                                        'uom_type_id' => $this->input->post('edit_id'),
+                                    );
+                                    $count = $this->uommodel->insert_uom($uom_data);
+                                        
+                                    }
+                        }                         
                     }
                 } else {
 
@@ -266,13 +284,15 @@ class UomMaster extends CI_Controller {
                     );
                     $count = $this->uommodel->insert_uom($uom_data);
                 }
-
-
-
                 if ((is_numeric($count) && $count > 0) || (is_numeric($um_count) && $um_count > 0)) {
                     $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
                     redirect('uomlist');
-                } else {
+                } else if(isset ($update_count)) {
+                     $this->session->set_flashdata('error_msg', 'Failed to update UOM Type Can not add duplicated UOM');
+                    $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
+                    $data['post'] = $this->input->post();
+                    redirect('updateUomList');
+                }else{
                     $this->session->set_flashdata('error_msg', 'Failed to update UOM Type');
                     $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
                     $data['post'] = $this->input->post();
@@ -318,7 +338,6 @@ class UomMaster extends CI_Controller {
         }
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
-
         $data['uom_list'] = $this->uommodel->get_uom($user_id, 'json');
     }
 

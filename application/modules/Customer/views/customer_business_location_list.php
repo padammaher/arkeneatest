@@ -63,7 +63,7 @@
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->telephone; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->mobile; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->email; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->isactive == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php if(isset($location->isactive)){ echo $location->isactive == 0 ? 'Active' : 'Deactive'; } ?></td>
                                         <td class="action">
                                             <form action="<?php echo base_url(); ?>update_business" method="post" id="edit_update_business_location<?php echo $i; ?>"> 
                                                 <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  

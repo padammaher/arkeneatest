@@ -154,7 +154,6 @@ class UomModel extends MY_Model {
         return $result;        
     }
     public function update_uom_record($id,$uom_name,$data){
-        
           $this->db->where(array('uom.uom_type_id' => $id,'uom.name' => $uom_name));
           $this->db->update('uom', $data);
           return $this->db->affected_rows();
