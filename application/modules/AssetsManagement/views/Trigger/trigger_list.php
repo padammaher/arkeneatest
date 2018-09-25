@@ -54,71 +54,84 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <ul class="flex-container flex-container-head nowrap">
-                                    <li class="flex-item">Sr. No.</li>
-                                    <li class="flex-item">Alarm Trigger Name <i class="fa fa-fw fa-sort"></i></li>
-                                    <li class="flex-item">Trigger Threshold <i class="fa fa-fw fa-sort"></i></li>
-                                    <li class="flex-item">Email <i class="fa fa-fw fa-sort"></i></li>
-                                    <li class="flex-item">SMS <i class="fa fa-fw fa-sort"></i></li>
-                                    <li class="flex-item">Actions</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <?php
-                        $i = 1;
-                        if (!empty($trigger_list)) {
-                            foreach ($trigger_list as $trigger_list_data) {
+                            <!--                        <div class="row clearfix">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                            <ul class="flex-container flex-container-head nowrap">
+                                                                <li class="flex-item">Sr. No.</li>
+                                                                <li class="flex-item">Alarm Trigger Name <i class="fa fa-fw fa-sort"></i></li>
+                                                                <li class="flex-item">Trigger Threshold <i class="fa fa-fw fa-sort"></i></li>
+                                                                <li class="flex-item">Email <i class="fa fa-fw fa-sort"></i></li>
+                                                                <li class="flex-item">SMS <i class="fa fa-fw fa-sort"></i></li>
+                                                                <li class="flex-item">Actions</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>-->
+                            <?php
+                            $i = 1;
+                            if (!empty($trigger_list)) {
+                                foreach ($trigger_list as $trigger_list_data) {
+                                    ?>
+                                    <tr>
+                                        <td class="flex-item"><?php echo $i; ?></td>
+                                        <td class="flex-item"><?php echo ($trigger_list_data['trigger_name']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_name']; ?></td>
+                                        <td class="flex-item"><?php echo ($trigger_list_data['trigger_threshold_id']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_threshold_id']; ?></td>
+                                        <td class="flex-item"><?php echo ($trigger_list_data['email']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['email']; ?></td>
+                                        <td class="flex-item"><?php echo ($trigger_list_data['sms_contact_no']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['sms_contact_no']; ?></td>
+                                        <td class="flex-item">
+                                            <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form<?php echo $i; ?>">
+                                                <input type="hidden" id="triggerid<?php echo $i; ?>" value="<?php echo $trigger_list_data['id']; ?>" name="trigger_post_id"/>
+                                                <input type="hidden" name="trigger_form_action" id="trigger_form_action<?php echo $i; ?>"/>
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                </a>
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                </a> 
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <!--                                <div class="row clearfix">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                            <ul class="flex-container flex-item_row nowrap">
+                                                                                <li class="flex-item"><?php echo $i; ?></li>
+                                                                                <li class="flex-item"><?php echo ($trigger_list_data['trigger_name']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_name']; ?></li>
+                                                                                <li class="flex-item"><?php echo ($trigger_list_data['trigger_threshold_id']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_threshold_id']; ?></li>
+                                                                                <li class="flex-item"><?php echo ($trigger_list_data['email']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['email']; ?> </li>
+                                                                                <li class="flex-item"><?php echo ($trigger_list_data['sms_contact_no']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['sms_contact_no']; ?></li>
+                                                                                <li class="flex-item">
+                                    
+                                                                                    <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form<?php echo $i; ?>">
+                                                                                        <input type="hidden" id="triggerid<?php echo $i; ?>" value="<?php echo $trigger_list_data['id']; ?>" name="trigger_post_id"/>
+                                                                                        <input type="hidden" name="trigger_form_action" id="trigger_form_action<?php echo $i; ?>"/>
+                                                                                        <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                                                        </a>
+                                                                                        <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                                                        </a> 
+                                                                                    </form>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>-->
+                                    <?php
+                                    $i++;
+                                }
+                            } else {
                                 ?>
-                                <div class="row clearfix">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <ul class="flex-container flex-item_row nowrap">
-                                            <li class="flex-item"><?php echo $i; ?></li>
-                                            <li class="flex-item"><?php echo ($trigger_list_data['trigger_name']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_name']; ?></li>
-                                            <li class="flex-item"><?php echo ($trigger_list_data['trigger_threshold_id']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_threshold_id']; ?></li>
-                                            <li class="flex-item"><?php echo ($trigger_list_data['email']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['email']; ?> </li>
-                                            <li class="flex-item"><?php echo ($trigger_list_data['sms_contact_no']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['sms_contact_no']; ?></li>
-                                            <li class="flex-item">
-
-                                                <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form<?php echo $i; ?>">
-                                                    <input type="hidden" id="triggerid<?php echo $i; ?>" value="<?php echo $trigger_list_data['id']; ?>" name="trigger_post_id"/>
-                                                    <input type="hidden" name="trigger_form_action" id="trigger_form_action<?php echo $i; ?>"/>
-                                                    <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                        <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                    </a>
-                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                    </a> 
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <?php
-                                $i++;
-                            }
-                        } else {
-                            ?>
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <ul class="flex-container flex-item_row nowrap">
-
-                                        <li class="flex-item">data not found..!</li>
-
-
-                                    </ul>
-                                </div>
-                            </div>
-                        <?php } ?><form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form0">
-                            <input type="hidden" name="trigger_form_action" id="trigger_form_action0"/></form>
-                        <ul class="pagination">
-                            <li><a href="#">1</a></li>
-                            <li class="active"><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                        </ul>
+                            <td colspan="6">No data found..!</td> 
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                    <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form0">
+                        <input type="hidden" name="trigger_form_action" id="trigger_form_action0"/></form>
+                    <ul class="pagination">
+                        <li><a href="#">1</a></li>
+                        <li class="active"><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
 
                 </div>
             </div>

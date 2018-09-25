@@ -75,81 +75,87 @@
                     </div>
                 </div>
                 <div class="x_content" id="rule-action-master">
-                    <div class="row clearfix">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                            <ul class="flex-container flex-container-head nowrap">
-                                <li class="flex-item">Rule No 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Rule Name 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Parameter 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Green Value 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Orange Value 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Red Value 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Wef Date 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Trigger Count 
-                                    <i class="fa fa-fw fa-sort">
-                                    </i>
-                                </li>
-                                <li class="flex-item">Actions
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <?php 
-                    if ($asset_list) { $i=1;
-                        foreach ($asset_list as $key => $asset_rule) {  
-                            ?> 
-                            <div class="row clearfix">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <ul class="flex-container flex-item_row nowrap opendialog<?php echo $i; ?>">
-                                        <li class="flex-item"><?php echo $i; ?> 
-                                        </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> 
-                                        </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['pararameter_name'])) ? $asset_rule['pararameter_name'] : ''; ?> 
-                                        </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ?'  '.$asset_rule['uom_name'] : ''; ?>
-                                        </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ?'  '.$asset_rule['uom_name'] : ''; ?>
-                                        </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  '.$asset_rule['uom_name'] : ''; ?>
-                                        </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?>
-                                        </li>
-                                        <li class="flex-item"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?>
-                                        </li>
-                                        <li class="flex-item">
+                    <table id="datatable" class="table table-striped table-bordered item-table" >
+                        <thead>
+                            <tr>
+                                <th>Rule No</th>
+                                <th>Rule Name</th>
+                                <th>Parameter</th>
+                                <th>Green Value</th>
+                                <th>Orange Value</th>                          
+                                <th>Red Value</th>                          
+                                <th>Wef Date</th>                          
+                                <th>Trigger Count</th>                          
+                                <th>Actions</th>                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--                        <div class="row clearfix">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                                                            <ul class="flex-container flex-container-head nowrap">
+                                                                <li class="flex-item">Rule No 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Rule Name 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Parameter 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Green Value 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Orange Value 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Red Value 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Wef Date 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Trigger Count 
+                                                                    <i class="fa fa-fw fa-sort">
+                                                                    </i>
+                                                                </li>
+                                                                <li class="flex-item">Actions
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>-->
+                            <?php
+                            if ($asset_list) {
+                                $i = 1;
+                                foreach ($asset_list as $key => $asset_rule) {
+                                    ?> 
+                                    <tr>
+                                        <td class="flex-item"><?php echo $i; ?></td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> </td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['pararameter_name'])) ? $asset_rule['pararameter_name'] : ''; ?></td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>
+                                        <td class="flex-item">
                                             <form name="edit_asset_rule" id="edit_asset_rule<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>Asset_Rule">
-                                            <a  class="edit_asset" id="<?php echo $i; ?>">    
-                                                <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
-                                                <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
-                                            </a>  
+                                                <a  class="edit_asset" id="<?php echo $i; ?>">    
+                                                    <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
+                                                </a>  
                                             </form> 
                                             <form name="triggerlistewrwer" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
-                                            <a class="trigger_data" id="<?php echo $i; ?>">
-                                                <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
-                                                 <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
-                                            </a>
+                                                <a class="trigger_data" id="<?php echo $i; ?>">
+                                                    <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                    <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
+                                                </a>
                                             </form> 
                                             <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
                                                 <a  class="delete_asset" id="<?php echo $i; ?>">
@@ -157,12 +163,71 @@
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i>
                                                 </a>
                                             </form> 
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <!--                                <div class="row clearfix">
+                                                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                                            <ul class="flex-container flex-item_row nowrap opendialog<?php echo $i; ?>">
+                                                                                <li class="flex-item"><?php echo $i; ?> 
+                                                                                </li>
+                                                                                <li class="flex-item"><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> 
+                                                                                </li>
+                                                                                <li class="flex-item"><?php echo (isset($asset_rule['pararameter_name'])) ? $asset_rule['pararameter_name'] : ''; ?> 
+                                                                                </li>
+                                                                                <li class="flex-item"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?>
+                                                                                </li>
+                                                                                <li class="flex-item"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?>
+                                                                                </li>
+                                                                                <li class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?>
+                                                                                </li>
+                                                                                <li class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?>
+                                                                                </li>
+                                                                                <li class="flex-item"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?>
+                                                                                </li>
+                                                                                <li class="flex-item">
+                                                                                    <form name="edit_asset_rule" id="edit_asset_rule<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>Asset_Rule">
+                                                                                        <a  class="edit_asset" id="<?php echo $i; ?>">    
+                                                                                            <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
+                                                                                        </a>  
+                                                                                    </form> 
+                                                                                    <form name="triggerlistewrwer" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
+                                                                                        <a class="trigger_data" id="<?php echo $i; ?>">
+                                                                                            <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                                                            <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
+                                                                                        </a>
+                                                                                    </form> 
+                                                                                    <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
+                                                                                        <a  class="delete_asset" id="<?php echo $i; ?>">
+                                                                                            <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i>
+                                                                                        </a>
+                                                                                    </form> 
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>-->
 
 
+
+
+
+
+                                    <?php
+                                    $i++;
+                                }
+                            } else {
+                                ?>
+                            <td colspan="9">No data found..!</td> 
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                    <?php
+                    if ($asset_list) {
+                        $i = 1;
+                        foreach ($asset_list as $key => $asset_rule) {
+                            ?> 
                             <!-- -----------------------modal //////////////////////////////-->
                             <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -239,111 +304,45 @@
                                 });
                             </script>
                             <!-- ///////////////////End Modal //////////////////////////////-->
-
-                            <?php
-                        $i++; }
-                    } else { ?>
-                    <div class="row clearfix">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <ul class="flex-container flex-item_row nowrap">
-                                <li class="flex-item" style="text-align: center;">No data found..!</li>                    
-                            </ul>
-                            </div>
-                        <?php } ?>
-                    <!-- <div class="row clearfix">
-                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <ul class="flex-container flex-item_row nowrap">
-                          <li class="flex-item">02
-                          </li>
-                          <li class="flex-item">Water Pressure
-                          </li>
-                          <li class="flex-item">Pressure
-                          </li>
-                          <li class="flex-item">11 bar
-                          </li>
-                          <li class="flex-item">20 bar
-                          </li>
-                          <li class="flex-item">19 bar
-                          </li>
-                          <li class="flex-item">09/07/2018
-                          </li>
-                          <li class="flex-item">2
-                          </li>
-                          <li class="flex-item">
-                            <a href="rule-action-master-edit.html" title="Edit">
-                              <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                              </i>
-                            </a>
-                            <a href="trigger-list.html" title="Edit">
-                              <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger">
-                              </i>
-                            </a>
-                            <a href="#" title="Delete">
-                              <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                              </i>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div> -->
-                    <!-- <ul class="pagination">
-                        <li>
-                            <a href="#">1
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="#">2
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">3
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">4
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">5
-                            </a>
-                        </li>
-                    </ul> -->
+                        <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".edit_asset").click(function () {
-            var id = $(this).attr('id');
-            $("#post" + id).val('edit');
-            $("#edit_asset_rule" + id).submit();
-        });
-        $(".delete_asset").click(function () {
-            var id = $(this).attr('id');
-            
-            $("#delete_confirmation").modal('show');
-            $(".ok").click(function () {
-               // $("#post" + id).val('delete');
-                $("#delete_asset_rule" + id).submit();
-            });
-        });
+    <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".edit_asset").click(function () {
+                                var id = $(this).attr('id');
+                                $("#post" + id).val('edit');
+                                $("#edit_asset_rule" + id).submit();
+                            });
+                            $(".delete_asset").click(function () {
+                                var id = $(this).attr('id');
 
-         $(".trigger_data").click(function () {
-            var id = $(this).attr('id');
-            $("#post" + id).val('edit');
-            $("#triggerlist" + id).submit();
-        });
+                                $("#delete_confirmation").modal('show');
+                                $(".ok").click(function () {
+                                    // $("#post" + id).val('delete');
+                                    $("#delete_asset_rule" + id).submit();
+                                });
+                            });
 
-    });
-</script>
+                            $(".trigger_data").click(function () {
+                                var id = $(this).attr('id');
+                                $("#post" + id).val('edit');
+                                $("#triggerlist" + id).submit();
+                            });
 
-<style>
-    .flex-item form {
-       float:left; 
-        
-    }
-    
-</style>
+                        });
+    </script>
+
+    <style>
+        .flex-item form {
+            float:left; 
+
+        }
+
+    </style>
