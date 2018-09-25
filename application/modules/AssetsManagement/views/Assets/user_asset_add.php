@@ -1,5 +1,9 @@
 <?php $managedId=''; $managedId=$this->input->post('asset_user_post_id');?>			
-      <div class="row">
+<?php $back_action='';
+
+ $back_action=$this->input->post('back_action');
+?>
+<div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                    <div class="x_title">
@@ -58,17 +62,21 @@ foreach ($asset_code_list as $asset_id_list_2) {     ?>
                         
                                                
 						  
-						  <div class="ln_solid"></div>
-						  <div class="item form-group">
-							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-								<button type="submit" name="add_asset_user" class="btn btn-primary">Save</button>
-							  <a href="<?php echo base_url('User_assets_list');?>" type="button" class="btn btn-default">Cancel</a>
-							  
-                                                          
-							</div>
-						  </div>
+<div class="ln_solid"></div>
+<div class="item form-group">
+      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+              <button type="submit" name="add_asset_user" class="btn btn-primary">Save</button>
+        <?php if(!empty($back_action)) {?>
+              <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
+                <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
+        <?php }else {?>
+              <a href="<?php echo base_url('User_assets_list');?>" type="button" class="btn btn-default">Cancel</a>
+        <?php }?>      
 
-						</form>					
+      </div>
+</div>
+
+</form>					
 					
                   </div>
                 </div>

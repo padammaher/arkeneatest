@@ -372,7 +372,8 @@ class Assets extends MY_Model {
          // $result=$query->
 //                  echo $this->db->last_query();
           $returnvar='DateProblem';
-        if ($query->num_rows() > 0) {
+        if ($query->num_rows() > 1) {
+            
             return $returnvar;
         } else {
             return false;

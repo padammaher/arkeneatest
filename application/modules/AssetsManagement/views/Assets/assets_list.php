@@ -82,7 +82,7 @@
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
                                                 <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-
+                                                <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
                                               <?php if (!empty($list['assetlocid'])) { ?>  
                                                 
                                                 <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
@@ -101,7 +101,7 @@
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
                                                 <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                                
+                                                 <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
                                            <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
                                               
                                                 <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
@@ -117,6 +117,7 @@
                                         <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
                                             <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
+                                            
                                             <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
                                                 <i class="fa fa-list-ul text-info"></i> 
                                             </a>
