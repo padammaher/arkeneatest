@@ -284,13 +284,27 @@ class Assets extends MY_Model {
         return $obj = $res->result_array();
     }
 
+//    public function asset_userid_list($user_id) {
+//        $this->db->select('id,client_name');
+//        $this->db->from('branch_user');
+////        $this->db->where('status', 1);
+//        $this->db->where('user_id', $user_id);
+//        $this->db->where('isdeleted', 0);
+//        $query = $this->db->get();
+//        $objData = $query->result_array();
+//        return $objData;
+//    }
+
     public function asset_userid_list($user_id) {
-        $this->db->select('id,client_name');
-        $this->db->from('branch_user');
-//        $this->db->where('status', 1);
-        $this->db->where('user_id', $user_id);
+        $groupid = $this->session->userdata('group_id');
+        $this->db->select('id,first_name as client_name');
+        $this->db->from('users');
+        if ($groupid == 2) {
+            $this->db->where('id', $user_id);
+        }
         $this->db->where('isdeleted', 0);
         $query = $this->db->get();
+
         $objData = $query->result_array();
         return $objData;
     }
@@ -371,9 +385,9 @@ class Assets extends MY_Model {
         // $result=$query->
 //                  echo $this->db->last_query();
 
-          $returnvar='DateProblem';
+        $returnvar = 'DateProblem';
         if ($query->num_rows() > 1) {
-            
+
 
             return $returnvar;
         } else {
@@ -413,7 +427,7 @@ class Assets extends MY_Model {
         $this->db->from('asset_parameter_rule');
         $this->db->join('uom', 'asset_parameter_rule.uom = uom.id', 'left');
         $this->db->join('parameter', 'asset_parameter_rule.parameter = parameter.id', 'left');
-        $this->db->where( array('asset_parameter_rule.parameter_range_id'=> $parameter_range_id, 'asset_parameter_rule.isdeleted' => 0));
+        $this->db->where(array('asset_parameter_rule.parameter_range_id' => $parameter_range_id, 'asset_parameter_rule.isdeleted' => 0));
         $query = $this->db->get();
         $asset_data = $query->result_array();
         if ($query->num_rows() > 0) {
@@ -578,10 +592,11 @@ class Assets extends MY_Model {
         $uom_type_data = $query->result_array();
         return $uom_type_data;
     }
+
     public function get_uom_list_type($uom_type_id) {
         $this->db->select('id,name');
         $this->db->from('uom');
-        $this->db->where('uom_type_id',$uom_type_id);
+        $this->db->where('uom_type_id', $uom_type_id);
         $query = $this->db->get();
         $uom_list_data = $query->result_array();
         return $uom_list_data;

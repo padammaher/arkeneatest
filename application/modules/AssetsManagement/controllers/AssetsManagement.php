@@ -154,6 +154,7 @@ class AssetsManagement extends MY_Controller {
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
             $data['type_list'] = $this->Assets->AssetType_list($user_id);
+            //clear asset_id from session
             $this->session->unset_userdata('asset_id');
             load_view_template($data, 'Assets/assets_list');
         }
@@ -228,61 +229,53 @@ class AssetsManagement extends MY_Controller {
                         'enddate' => date("Y-m-d", strtotime($this->input->post('enddate')))
                     );
 
-                    $Checkstartdate=date("Y-m-d",strtotime($this->input->post('startdate')));
-                    $CheckEnddate=date("Y-m-d",strtotime($this->input->post('enddate')));
-                    
-                    if($Checkstartdate >= $CheckEnddate)
-                    {
-                          $this->session->set_flashdata('note_msg', 'In-valid date please Check the start and end date..!');
-                            load_view_template($data, 'Assets/assets_edit');
-                    }
-                    else {
-                    $id = $edit_asset_list_id;
-                    //  var_dump($id);die;
-                    $unique_Data = array(
-                        'code' => $this->input->post('Assetcode'),
-                        'createdby' => $user_id,
-                        'startdate'=>date("Y-m-d",strtotime($this->input->post('startdate'))),
-                        'enddate'=>$CheckEnddate
-                    );
-                     $unique_Data_without_date = array(
+                    $Checkstartdate = date("Y-m-d", strtotime($this->input->post('startdate')));
+                    $CheckEnddate = date("Y-m-d", strtotime($this->input->post('enddate')));
+
+                    if ($Checkstartdate >= $CheckEnddate) {
+                        $this->session->set_flashdata('note_msg', 'In-valid date please Check the start and end date..!');
+                        load_view_template($data, 'Assets/assets_edit');
+                    } else {
+                        $id = $edit_asset_list_id;
+                        //  var_dump($id);die;
+                        $unique_Data = array(
+                            'code' => $this->input->post('Assetcode'),
+                            'createdby' => $user_id,
+                            'startdate' => date("Y-m-d", strtotime($this->input->post('startdate'))),
+                            'enddate' => $CheckEnddate
+                        );
+                        $unique_Data_without_date = array(
 //                        'code' => $this->input->post('Assetcode'),
-                        'customer_locationid' => $this->input->post('Customerlocation'),
-                        'asset_catid' => $this->input->post('Assetcategory'),
-                        'asset_typeid' => $this->input->post('Assettype'),
-                        'serial_no' => $this->input->post('Assetserialno'),
-                        'make' => $this->input->post('Make'),
-                        'model' => $this->input->post('Modelno'),
-                        'ismovable' => $this->input->post('Movable'),
-                        'createdby' => $user_id,
-                        'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0',
+                            'customer_locationid' => $this->input->post('Customerlocation'),
+                            'asset_catid' => $this->input->post('Assetcategory'),
+                            'asset_typeid' => $this->input->post('Assettype'),
+                            'serial_no' => $this->input->post('Assetserialno'),
+                            'make' => $this->input->post('Make'),
+                            'model' => $this->input->post('Modelno'),
+                            'ismovable' => $this->input->post('Movable'),
+                            'createdby' => $user_id,
+                            'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0',
 //                         'startdate'=>date("Y-m-d",strtotime($this->input->post('startdate'))),
 //                        'enddate'=>$CheckEnddate
-                    );
+                        );
 //date validation  ---------------------  
-                if ($this->form_validation->run() == TRUE) {
-                        if ($Checkstartdate != $this->input->post('oldstartdate') || $CheckEnddate != $this->input->post('oldenddate')) {
-                         $isDateUnique = $this->Assets->checkassetcodeIfExists_or_scheduled('asset', $unique_Data);
-                        }
-                        else
-                        {
-                            $isDateUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
-                        }
-                    
-                        
-                        if($isDateUnique =='DateProblem')
-                        {
-                             $this->session->set_flashdata('note_msg', 'Assets successfully updated and already schedule this..! please check the date`s');
-                             $updatedata = $this->Assets->update_assets($unique_Data_without_date, $id);
+                        if ($this->form_validation->run() == TRUE) {
+                            if ($Checkstartdate != $this->input->post('oldstartdate') || $CheckEnddate != $this->input->post('oldenddate')) {
+                                $isDateUnique = $this->Assets->checkassetcodeIfExists_or_scheduled('asset', $unique_Data);
+                            } else {
+                                $isDateUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
+                            }
+
+
+                            if ($isDateUnique == 'DateProblem') {
+                                $this->session->set_flashdata('note_msg', 'Assets successfully updated and already schedule this..! please check the date`s');
+                                $updatedata = $this->Assets->update_assets($unique_Data_without_date, $id);
 //                            load_view_template($data, 'Assets/assets_edit');
-                            redirect(base_url('Assets_list'));
-                        }
-                        elseif($isDateUnique >0 && $isDateUnique !='DateProblem')
-                        {
-                             $this->session->set_flashdata('note_msg', 'Assets Code already updated');
-                            load_view_template($data, 'Assets/assets_edit');
-                        }
-                        else{
+                                redirect(base_url('Assets_list'));
+                            } elseif ($isDateUnique > 0 && $isDateUnique != 'DateProblem') {
+                                $this->session->set_flashdata('note_msg', 'Assets Code already updated');
+                                load_view_template($data, 'Assets/assets_edit');
+                            } else {
 
 //date validation  --------------------- 
 //                         var_dump($isUnique);die;
@@ -474,14 +467,12 @@ class AssetsManagement extends MY_Controller {
                             $update_asset_location = $this->Assets->Update_asset_location($update_data, $asset_loc_id);
                             if ($update_asset_location) {
                                 $this->session->set_flashdata('success_msg', 'Asset location successfully updated');
-                                if(!empty($this->input->post('back_action'))) {
-                                                return redirect($this->input->post('back_action'), 'refresh');
-                                        }else {
-                                            return redirect('Assets_location_list', 'refresh');
-                                        }  
-                                
-                            }
-                            else{
+                                if (!empty($this->input->post('back_action'))) {
+                                    return redirect($this->input->post('back_action'), 'refresh');
+                                } else {
+                                    return redirect('Assets_location_list', 'refresh');
+                                }
+                            } else {
                                 load_view_template($data, 'Assets/assets_location_edit');
                             }
                         }
@@ -595,13 +586,12 @@ class AssetsManagement extends MY_Controller {
 
                                 if ($inserteddata) {
                                     $this->session->set_flashdata('success_msg', 'Asset location successfully added');
-                                    
-                                    if(!empty($this->input->post('back_action'))) {
-                                                return redirect($this->input->post('back_action'), 'refresh');
-                                        }else {
-                                            return redirect('Assets_location_list', 'refresh');
-                                        }     
-                                    
+
+                                    if (!empty($this->input->post('back_action'))) {
+                                        return redirect($this->input->post('back_action'), 'refresh');
+                                    } else {
+                                        return redirect('Assets_location_list', 'refresh');
+                                    }
                                 } else {
                                     load_view_template($data, 'Assets/assets_location_add');
                                 }
@@ -665,7 +655,9 @@ class AssetsManagement extends MY_Controller {
 
             $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
             $data['asset_userid_list'] = $this->Assets->asset_userid_list($user_id);
+//            $data['asset_userid_list'] = $this->Assets->asset_users($user_id);
             //                asset_user_form_action
+
             $data['dataHeader'] = $this->users->get_allData($user_id);
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $todaysdate = date('Y-m-d');
@@ -696,18 +688,18 @@ class AssetsManagement extends MY_Controller {
                             if ($isUnique) {
                                 //                
 
-                                $this->session->set_flashdata('error_msg', 'Asset user is already added');                                
+                                $this->session->set_flashdata('error_msg', 'Asset user is already added');
                                 load_view_template($data, 'Assets/user_asset_add');
                             } else {
                                 $inserteddata = $this->Assets->add_asset_user($insert_data);
 
                                 if ($inserteddata) {
                                     $this->session->set_flashdata('success_msg', 'Asset user successfully added');
-                                        if(!empty($this->input->post('back_action'))) {
-                                                return redirect($this->input->post('back_action'), 'refresh');
-                                        }else {
-                                            return redirect('User_assets_list', 'refresh');
-                                        }
+                                    if (!empty($this->input->post('back_action'))) {
+                                        return redirect($this->input->post('back_action'), 'refresh');
+                                    } else {
+                                        return redirect('User_assets_list', 'refresh');
+                                    }
                                 } else {
                                     return redirect('User_assets_list', 'refresh');
                                 }
@@ -791,12 +783,12 @@ class AssetsManagement extends MY_Controller {
 
                             if ($asset_user_list_data) {
                                 $this->session->set_flashdata('success_msg', 'Asset user successfully updated');
-                                 if(!empty($this->input->post('back_action'))) {
-                                                return redirect($this->input->post('back_action'), 'refresh');
-                                        }else {
-                                            return redirect('User_assets_list', 'refresh');
-                                        }                                
-                            }else {
+                                if (!empty($this->input->post('back_action'))) {
+                                    return redirect($this->input->post('back_action'), 'refresh');
+                                } else {
+                                    return redirect('User_assets_list', 'refresh');
+                                }
+                            } else {
                                 return redirect('User_assets_list', 'refresh');
                             }
                         }
@@ -843,7 +835,7 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function add_asset_rule() {
-        
+
         $parameter_id = $this->session->userdata('parameter_id');
         $user_id = $this->session->userdata('user_id');
 
@@ -857,7 +849,7 @@ class AssetsManagement extends MY_Controller {
 
         $this->data['param_id'] = (isset($param_data[0]['id'])) ? $param_data[0]['id'] : '';
         $this->data['parameter_name'] = (isset($param_data[0]['name'])) ? $param_data[0]['name'] : '';
-       //print_r($param_data[0]['uom_type_id']); exit(); 
+        //print_r($param_data[0]['uom_type_id']); exit(); 
         if ($param_data[0]['uom_type_id'])
             $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
         $this->data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
