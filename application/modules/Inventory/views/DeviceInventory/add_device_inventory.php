@@ -214,10 +214,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#comm_type").change(function () {
-            // $("#gsmnumber").attr('required');
-            if ($("#comm_type").val() != "") {
-//           alert($("#comm_type").val());
-                $("#gsmnumber").attr('required', '');
+            if ($("#comm_type").val() != "" && $("#comm_type").val() == "GSM") {
+                $("#gsmnumber").attr('required', 'required');
             }
             else
             {

@@ -112,7 +112,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">GSM Number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="gsmnumber" id="gsmnumber"  class="form-control" value="<?php echo set_value('gsmnumber', $deviceinventory_data['gsm_number']); ?>">
+                                <input type="text" name="gsmnumber" id="gsmnumber"  class="form-control" value="<?php echo set_value('gsmnumber', $deviceinventory_data['gsm_number']); ?>" <?php echo set_value('comm_type', $deviceinventory_data['communication_type']) == "GSM" ? 'required' : ''; ?>>
                             </div>
                             <?php if (form_error('gsmnumber')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('gsmnumber'); ?></span>
@@ -172,7 +172,7 @@
                                 <?php } ?>
                             </div>
                             <div class="col-md-2 col-sm-2 col-xs-12">
-                                <input type="text" class="form-control" name="oem_ser_interval_type_count" value="<?php echo set_value('oem_ser_interval_type_count', $deviceinventory_data['oem_ser_interval_number']); ?>" placeholder="2500" required="required">
+                                <input type="number" class="form-control" name="oem_ser_interval_type_count" value="<?php echo set_value('oem_ser_interval_type_count', $deviceinventory_data['oem_ser_interval_number']); ?>" placeholder="2500" required="required">
                             </div>
                             <?php if (form_error('oem_ser_interval_type_count')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('oem_ser_interval_type_count'); ?></span>
@@ -198,7 +198,7 @@
                                 <?php } ?>
                             </div>
                             <div class="col-md-2 col-sm-2 col-xs-12">
-                                <input type="text" class="form-control" name="service_type_count" value="<?php echo set_value('service_type_count', $deviceinventory_data['service_after_number']); ?>" placeholder="12" required="required">
+                                <input type="number" class="form-control" name="service_type_count" value="<?php echo set_value('service_type_count', $deviceinventory_data['service_after_number']); ?>" placeholder="12" required="required" >
                             </div>
                             <?php if (form_error('service_type_count')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('service_type_count'); ?></span>
@@ -246,15 +246,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#comm_type").change(function () {
-            // $("#gsmnumber").attr('required');
-            if ($("#comm_type").val() != "") {
-//           alert($("#comm_type").val());
-                $("#gsmnumber").attr('required', '');
+            if ($("#comm_type").val() != "" && $("#comm_type").val() == "GSM") {
+                $("#gsmnumber").attr('required', 'required');
             }
             else
             {
                 $("#gsmnumber").removeAttr('required');
             }
         });
+
     });
 </script>        
