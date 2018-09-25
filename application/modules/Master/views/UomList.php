@@ -29,14 +29,22 @@
                         </thead>
                         <tbody>
                             <?php
-                            if (isset($uom_list) && !empty($uom_list)) {
+                    if (isset($uom_type_list) && !empty($uom_type_list)) {
                                 $i = 1;
-                                foreach ($uom_list as $r) {
+                        foreach ($uom_type_list as $r) {
                                     ?>
                                     <tr>
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uomname']; ?></td>
+                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php if(isset($r['uomlist'])){
+                                                $j=1; 
+                                                foreach ($r['uomlist'] as $uml){
+                                                    echo $uml['name']; echo ($j<count($r['uomlist']))?',':'';  
+                                                    $j++; 
+                                                }
+                                            }
+                                             ?></td>
+					
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="action">
                                             <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">

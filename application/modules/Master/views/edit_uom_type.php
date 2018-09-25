@@ -29,7 +29,7 @@
                                 <input type="hidden" name="editsubmit" value="1">
                                 <button type="submit" class="btn btn-primary">Save</button>
                                 <!--<button type="button" class="btn btn-default">Cancel</button>-->
-                                <a href="<?php echo base_url() ?>uomlist" class="btn btn-default">Cancel</a>
+                                <a href="<?php echo base_url() ?>uom_type_list" class="btn btn-default">Cancel</a>
 
                             </div>
                         </div>
