@@ -19,6 +19,10 @@
                             <td width="" class="lft-td">UOM Type</td>
                             <td><?php echo $result[0]['name']; ?></td>
                         </tr>
+                        <tr>
+                            <td class="lft-td">UOM</td>
+                            <td><?php echo $result[0]['uomname']; ?></td>
+                        </tr>
                     </tbody>
                 </table>
 
