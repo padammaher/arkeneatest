@@ -125,13 +125,13 @@
                     </table>
                     <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form0">
                         <input type="hidden" name="trigger_form_action" id="trigger_form_action0"/></form>
-                    <ul class="pagination">
-                        <li><a href="#">1</a></li>
-                        <li class="active"><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                    </ul>
+                    <!--                    <ul class="pagination">
+                                            <li><a href="#">1</a></li>
+                                            <li class="active"><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                        </ul>-->
 
                 </div>
             </div>
