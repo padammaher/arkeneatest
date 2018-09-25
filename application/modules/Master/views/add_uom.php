@@ -14,38 +14,27 @@
                     <?php echo validation_errors(); ?>
                     <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>addUomList" method="POST">
 
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <!--<input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z\s]*">-->
-                                <?php if (isset($uom_list) && count($uom_list) > 0) { ?>
-                                    <select class="form-control" name="uom_type" required="required">
-                                        <option value="">Select UOM Type</option>
-                                        <?php
-                                        foreach ($uom_list as $ul) {
-                                            ?>
-                                            <option value="<?php echo $ul['id'] ?>"><?php echo $ul['name']; ?></option>
-                                        <?php }
-                                        ?>
-                                    </select>
-                                <?php } else {
-                                    ?>
-                                    <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "> Please add an UOM Type, before adding UOM</span>
-                                <?php }
-                                ?>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" required="required" id="uom_type" name="uom_type">
+                                        <option>Select Uom Type
+                                        </option>
+                                         <?php   foreach($uom_type_list as $um){ ?> 
+                                        <option value="<?php echo $um['id'];?>"><?php echo (isset($um['name']))?$um['name']:''; ?></option>
+                                      <?php   } ?> 
+                                    </select> 
+<!--                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z\s]*">-->
+                                </div>
                             </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" class="form-control" placeholder="UOM" required="required" name="uom_name" value="<?php echo @$post['uom_name']; ?>">
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div id="tags">
+                                    <input type="text" class="form-control" placeholder="UOM" value="" data-role="tagsinput" >
+                                    </div>
+                                </div>
                             </div>
-                            <!--                                    <div class="col-md-6 col-sm-6 col-xs-12" id="divdrpdwn">
-                                                                    <input type="text" class="form-control" placeholder="UOM" id="uom_id" name="uom_id" required="required" multiple="true">
-                                                                    <span class="text-danger" style="display:none;color:#FB3A3A;font-weight:bold" id="fse_type_error">Please select uom</span>
-                                                                </div>-->
-
-                        </div>
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">
@@ -58,12 +47,42 @@
 
                     </form>					
 
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
+
     </div>
 </div>
-<!--</div>-->
+<script type="text/javascript">
+$('form input'). keydown(function (e) {
+if (e. keyCode == 13) {
+e. preventDefault();
+return false;
+}
+});
+
+$(function(){
+
+  $('#tags input').on('focusout', function(){    
+    var txt= this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,''); // allowed characters list
+    if(txt) $(this).before('<span class="tag"><input type="hidden" class="form-control" placeholder="UOM" name="uom_name[]" value="'+txt+'">'+ txt +'</span>');
+    this.value="";
+    this.focus();
+  }).on('keyup',function( e ){
+    // comma|enter (add more keyCodes delimited with | pipe)
+    if(/(188|13)/.test(e.which)) $(this).focusout();
+  });
+
+  $('#tags').on('click','.tag',function(){
+     if( confirm("Really delete this tag?") ) $(this).remove(); 
+  });
+
+});
+</script>
 <!--<script type="text/javascript">
     $(document).ready(function () {
         var jsonData = [];
@@ -86,3 +105,41 @@
 
     });
 </script>-->
+
+<style>
+    #tags{
+  float:left;
+  border:1px solid #ccc;
+  padding:4px;
+  font-family:Arial;
+}
+#tags span.tag{
+  cursor:pointer;
+  display:block;
+  float:left;
+  color:#555;
+  background:#add;
+  padding:5px 10px;
+  padding-right:30px;
+  margin:4px;
+}
+#tags span.tag:hover{
+  opacity:0.7;
+}
+#tags span.tag:after{
+ position:absolute;
+ content:"×";
+ border:1px solid;
+ border-radius:10px;
+ padding:0 4px;
+ margin:3px 0 10px 7px;
+ font-size:10px;
+}
+#tags input{
+  background:#eee;
+  border:0;
+  margin:4px;
+  padding:7px;
+  width:auto;
+}
+</style>
