@@ -862,8 +862,11 @@ class AssetsManagement extends MY_Controller {
         $this->data['parameter_name'] = (isset($param_data[0]['name'])) ? $param_data[0]['name'] : '';
         //print_r($param_data[0]['uom_type_id']); exit(); 
         if ($param_data[0]['uom_type_id'])
-            $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
+        $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
         $this->data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
+        
+       $parameter_range= $this->Assets->get_parameter_range_limits($parameter_id); 
+       $this->data['paramete_limit']= $parameter_range; 
         // if(isset($uom_data[0]['name']))   
         // $this->data['uom_name'] = $uom_data[0]['name'];
         // if(isset($uom_data[0]['id'])) 

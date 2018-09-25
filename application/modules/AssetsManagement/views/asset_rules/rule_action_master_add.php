@@ -145,16 +145,26 @@ $('#red_value').keypress(function (event) {
         event.preventDefault();
     }
 });
-    
-    
-    
 function compare_rule_value() {
+    
   var green_value = document.getElementById("green_value").value;
   var orange_value = document.getElementById("orange_value").value;
   var red_value = document.getElementById("red_value").value;
-
-      if(green_value&&orange_value&&red_value){
-
+  
+ var min_limit= '<?php if(isset($paramete_limit)){ echo $paramete_limit[0]['min_value']; }else{ echo 1; } ?>'; 
+ var max_limit='<?php if(isset($paramete_limit)){ echo $paramete_limit[0]['max_value']; }else{ echo 1; } ?>'; 
+       if(parseInt(green_value)<min_limit||parseInt(green_value)>max_limit){
+            $('#green_error').html('please add value between limitatin'); 
+            $("#submit_asset_rule" ).prop( "disabled", true );
+       }else if(parseInt(orange_value)<min_limit||parseInt(orange_value)>max_limit){
+            $('#green_error').html('');
+            $('#orange_error').html('please add value between limitatin'); 
+            $("#submit_asset_rule" ).prop( "disabled", true );
+       }else if(parseInt(red_value)<min_limit||parseInt(red_value)>max_limit){
+            $('#orange_error').html('');
+            $('#red_error').html('please add value between limitatin'); 
+            $("#submit_asset_rule" ).prop( "disabled", true );
+       }else if(green_value&&orange_value&&red_value){
           if(parseInt(green_value)>=parseInt(orange_value)){           
             $('#orange_error').html('please add value greter than green value '); 
             $("#submit_asset_rule" ).prop( "disabled", true );
@@ -181,6 +191,9 @@ function compare_rule_value() {
       }else if(red_value){
         $( "#submit_asset_rule" ).prop( "disabled", true );
         $('#red_error').html('please add green value,orange value then add red value ');
+      }else if(green_value){
+          $( "#submit_asset_rule" ).prop( "disabled", false );
+        $('#green_error').html('');
       }
   }
    

@@ -48,10 +48,13 @@ class UomModel extends MY_Model {
         return $result;
     }
 
-    public function get_uom($id, $type = "normal") {
+    public function get_uom($id, $type = "normal",$type_id='') {
         $this->db->select('uom.id,uom.name');
         $this->db->from('uom');
         $this->db->where(array('createdby' => $id, 'isactive' => 1));
+        if($type_id){
+             $this->db->where('uom_type_id',$type_id); 
+        }
         $query = $this->db->get();
 
         if ($type == "json") {
@@ -144,17 +147,16 @@ class UomModel extends MY_Model {
         return true;
     }
 
-    public function  check_exist_uom($uom_type_id,$uom_name)
+    public function check_exist_uom($uom_type_id,$uom_name)
     {
         $this->db->select('id,name');
         $this->db->from('uom');
-        $this->db->where(array('uom.uom_type_id' => $uom_type_id,'uom.name' => $uom_name));
+        $this->db->where(array('uom.uom_type_id' => $uom_type_id,'uom.name' => $uom_name,'isdeleted'=>0,'isactive'=>1));
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;        
     }
     public function update_uom_record($id,$uom_name,$data){
-        
           $this->db->where(array('uom.uom_type_id' => $id,'uom.name' => $uom_name));
           $this->db->update('uom', $data);
           return $this->db->affected_rows();
