@@ -25,9 +25,11 @@
         }
         ?> 
         <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php if (isset($login_flag) && $login_flag == 0) {
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php
+        if (isset($login_flag) && $login_flag == 0) {
             echo 'cursor-notallowed';
-        } ?>">
+        }
+        ?>">
 
             <div class="menu_section">
                 <h3>Home</h3>
@@ -48,15 +50,23 @@
                             <li><a href="<?php echo base_url('Sensor_inventory_list'); ?>">Sensor Inventory</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-desktop"></i> Masters <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="<?php echo base_url() ?>assetcategory">Asset Category</a></li>
-                            <li><a href="<?php echo base_url() ?>assettype">Asset Type</a></li>
-                            <li><a href="<?php echo base_url() ?>sensortype">Sensor Type</a></li>
-                            <li><a href="<?php echo base_url() ?>parameterlist">Parameter</a></li>                            
-                            <li><a href="<?php echo base_url() ?>uom_type_list">UOM Type</a></li>
-                            <li><a href="<?php echo base_url() ?>uomlist">UOM</a></li>
-                        </ul>
+                    <li>
+                        <a <?php
+                        if ($this->session->userdata('group_id') == 2) {
+                            echo 'class="not-allowed"';
+                        }
+                        ?>><i class="fa fa-desktop"></i> Masters <span class="fa fa-chevron-down"></span></a>
+                            <?php if ($this->session->userdata('group_id') == 1) { ?>
+                            <ul class="nav child_menu">
+                                <li><a href="<?php echo base_url() ?>assetcategory">Asset Category</a></li>
+                                <li><a href="<?php echo base_url() ?>assettype">Asset Type</a></li>
+                                <li><a href="<?php echo base_url() ?>sensortype">Sensor Type</a></li>
+                                <li><a href="<?php echo base_url() ?>parameterlist">Parameter</a></li>                            
+                                <li><a href="<?php echo base_url() ?>uom_type_list">UOM Type</a></li>
+                                <li><a href="<?php echo base_url() ?>uomlist">UOM</a></li>
+                            </ul>
+                        <?php }
+                        ?>
                     </li>
                 </ul>
             </div>
@@ -101,7 +111,7 @@ if ($login_flag == 0 && $login_flag != '') {
             $("#sidebar-menu a").removeAttr("href");
             $("#sidebar-menu a").css("cursor", "not-allowed");
             $("#sidebar-menu a").addClass('not-allowed');
-         });
+        });
     </script>
 <?php } ?> 
 

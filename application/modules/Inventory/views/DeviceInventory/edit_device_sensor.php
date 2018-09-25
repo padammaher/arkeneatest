@@ -127,7 +127,8 @@ if ( $sensorid_list_data['id'] == $Edit_device_sensors_data['sensor_id']) { ?>
                   </div>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
-$(document).ready(function () {
+<?php if($managed_dev_sen_Id_readonly == 'dev' ) {?>
+    $(document).ready(function () {
     $("#deviceid").change(function ()
             {
 //       alert(this.value);
@@ -153,4 +154,5 @@ $(document).ready(function () {
                 });
             });
 });
+<?php } ?>
 </script>

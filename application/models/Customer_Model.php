@@ -12,6 +12,8 @@ class Customer_Model extends CI_Model {
         $this->load->helper('cookie');
         $this->load->helper('date');
         $this->lang->load('ion_auth');
+        
+        
     }
      public function update_login_flag($user_id){
         $data['login_flag']=1; 
@@ -46,19 +48,19 @@ class Customer_Model extends CI_Model {
     }
 
     public function get_client_list($user_id){
-        $client_data=$this->db->from('branch_user')->where('user_id',$user_id)->get()->result();
+        $client_data=$this->db->from('users')->where('id',$user_id)->get()->result();
         return $client_data; 
 
     }
     public function add_client_detail($data) {
         $user_id = $this->session->userdata('user_id');
-        $where= array('client_username' =>  $data['client_username'], 'user_id' => $user_id);
-        $alreadyexit = $this->db->select('id')->from('branch_user')->where($where)->get()->result();
+        $where= array('username' =>  $data['username'], 'id' => $user_id);
+        $alreadyexit = $this->db->select('id')->from('users')->where($where)->get()->result();
       //  print_r($alreadyexit); exit;
         if (count($alreadyexit) > 0) {
             return 2;
         } else {
-            $this->db->insert('branch_user', $data);
+            $this->db->insert('users', $data);
             return 1;
         }
 
@@ -67,7 +69,7 @@ class Customer_Model extends CI_Model {
 
 
     public function get_client_detail($user_id) {
-        $client_data = $this->db->from('branch_user')->where('id', $user_id)->get()->result();
+        $client_data = $this->db->from('users')->where('id', $user_id)->get()->result();
         return $client_data;
     }
 

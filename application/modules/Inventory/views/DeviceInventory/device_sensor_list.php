@@ -27,8 +27,8 @@
                       <thead>
                         <tr>
                           <th>Sr.No</th>
-                          <th>Device ID</th>
-                          <th>Sensor ID</th>
+                          <th>Device_Num</th>
+                          <th>Sensor Number</th>
                           <th>Action</th>
                           
                         </tr>
@@ -76,7 +76,8 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+        
+          $('body').on('click', '.edit', function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
 //            alert(id);
@@ -92,7 +93,8 @@
 //            }
 //        });
      var actionUrl = "<?php echo base_url('Device_sensor_list');?>";
-        $(".delete").click(function () {
+        
+            $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#confirmmodal_Box").modal();
             $(".ok").click(function () {

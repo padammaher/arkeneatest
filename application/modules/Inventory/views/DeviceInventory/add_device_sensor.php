@@ -104,9 +104,7 @@ if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-      
-
-
+    <?php if($managed_dev_sen_Id_readonly != 'sen' ) {?>
 
          $("#deviceid").change(function ()
             {
@@ -132,7 +130,7 @@ if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
                     }
                 });
             });
-
+    <?php } ?>
             $("#UOM").change(function ()
             {
 //        alert(this.value);
