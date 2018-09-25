@@ -71,6 +71,7 @@
 
                                                     <input type="hidden" value="<?php echo $inventory_list['device_sensor_mapping_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
                                                     <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
+                                                     <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
                                                     <?php if (!empty($inventory_list['device_sensor_mapping_id'])) { ?>   
                                                         <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $InventoryListRowData['id']; ?>'/>  
                                                         <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $inventory_list['id']; ?>">
@@ -86,6 +87,7 @@
                                                 <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
                                                     <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>" />
                                                     <input type="hidden" name="dev_asset_post" id="dev_asset_post<?php echo $i; ?>" value='edit'/>
+                                                     <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
                                                     <?php if (!empty($inventory_list['device_asset_tbl_id'])) { ?>    
                                                         <a title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
                                                             <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 

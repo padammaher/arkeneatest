@@ -39,7 +39,7 @@
                     <option>Select Customer Location
                     </option>
                      <?php  foreach($client_location as $Location){ ?> 
-                    <option value="<?php echo $Location->location_name;?>"<?php if(isset($client_details[0]->client_location)){ echo ($Location->location_name==$client_details[0]->client_location)?'selected':''; } ?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
+                    <option value="<?php echo $Location->location_name;?>"<?php if(isset($client_details[0]->customer_address)){ echo ($Location->location_name==$client_details[0]->customer_address)?'selected':''; } ?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
                   <?php   } ?> 
                 </select>
                 </div>

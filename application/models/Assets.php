@@ -411,11 +411,26 @@ class Assets extends MY_Model {
             return false;
         }
     }
+ public function checkassetcodeIfExists_or_scheduled_for_add($table = NULL, $unique_Data = array()) {
 
+        $query = $this->db->select('id,code,startdate,enddate')
+                ->from('asset')
+                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate']))
+                ->get();
+        // $result=$query->
+//                  echo $this->db->last_query();
+
+        $returnvar = 'DateProblem';
+        if ($query->num_rows() > 0) {
+
+
+            return $returnvar;
+        } else {
+            return false;
+        }
+    }
     public function checkassetcodeIfExists_or_scheduled($table = NULL, $unique_Data = array()) {
-        //var_dump($table,$unique_Data);die;
-//        $query = $this->db->get_where($table, $unique_Data);
-//        echo $this->db->last_query();
+
         $query = $this->db->select('id,code,startdate,enddate')
                 ->from('asset')
                 ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate']))

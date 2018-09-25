@@ -3,6 +3,9 @@ if($this->input->post('dev_sen_post_id')){
     $managed_dev_sen_Id=explode(" ",$this->input->post('dev_sen_post_id'));
     $managed_dev_sen_Id_readonly=$managed_dev_sen_Id[0];
 }?>
+<?php $back_action='';
+ $back_action=$this->input->post('back_action');
+?>
 <div class="">
 
     <div class="clearfix"></div>
@@ -83,8 +86,12 @@ if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <button type="submit" name="add_sensor_int_button" class="btn btn-primary">Save</button>
+                                 <?php if(!empty($back_action)) {?>
+                             <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
+                                <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
+                                <?php }else {?>
                                 <a href="<?php echo base_url('Device_sensor_list'); ?>" type="button" class="btn btn-default">Cancel</a>
-
+                            <?php }?>
                             </div>
                         </div>
 
