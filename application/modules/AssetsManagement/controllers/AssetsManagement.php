@@ -834,7 +834,7 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function add_asset_rule() {
-
+        
         $parameter_id = $this->session->userdata('parameter_id');
         $user_id = $this->session->userdata('user_id');
 
@@ -848,11 +848,10 @@ class AssetsManagement extends MY_Controller {
 
         $this->data['param_id'] = (isset($param_data[0]['id'])) ? $param_data[0]['id'] : '';
         $this->data['parameter_name'] = (isset($param_data[0]['name'])) ? $param_data[0]['name'] : '';
-
+       //print_r($param_data[0]['uom_type_id']); exit(); 
         if ($param_data[0]['uom_type_id'])
-            $uom_data = $this->Assets->get_uom_data($param_data[0]['uom_type_id']);
+            $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
         $this->data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
-        // print_r($uom_data); exit;
         // if(isset($uom_data[0]['name']))   
         // $this->data['uom_name'] = $uom_data[0]['name'];
         // if(isset($uom_data[0]['id'])) 

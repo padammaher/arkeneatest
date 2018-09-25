@@ -1,3 +1,37 @@
+<style>
+/*    .php_alert {
+    float: left;
+    margin: 0 0 0 20px;
+    padding: 3px 10px;
+    color: #FFF;
+    border-radius: 3px 4px 4px 3px;
+    background-color: #CE5454;
+    min-width: 170px;
+    white-space: pre;
+    position: relative;
+    left: -15px;
+    opacity: 1;
+    z-index: 1;
+    transition: 0.15s ease-out;
+    background-color: #CE5454;
+
+}
+.php_alert{
+    border: 1px solid transparent;
+}
+.item .php_alert::after {
+    content: '';
+    display: block;
+    height: 0;
+    width: 0;
+    border-color: transparent #CE5454 transparent transparent;
+    border-style: solid;
+    border-width: 11px 7px;
+    position: absolute;
+    left: -13px;
+    top: 1px;
+}*/
+</style>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -18,9 +52,7 @@
                          <?php if (form_error('Assetcode')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Assetcode'); ?></span>
                                 <!--<div class="php_alert"><?php echo form_error('Assetcode'); ?></div>-->
-                            <?php }
-                            ?>
-                      <span class="mrtp10 text-center englable assetcodeexist" style="color:#ff3333; font-size: 15px; "></span>
+                            <?php }?>                      
                     </div>
 
                     <div class="item form-group">

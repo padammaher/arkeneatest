@@ -54,7 +54,7 @@ class UomMaster extends CI_Controller {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
-            // $this->form_validation->set_rules('uom_name', 'uom_name', 'required');
+            $this->form_validation->set_rules('uom_name[]', 'uom_name', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $uom_name_array = $this->input->post('uom_name');
                 if (is_array($uom_name_array)) {
@@ -227,18 +227,24 @@ class UomMaster extends CI_Controller {
         if ($this->input->post('editsubmit')) {
             // print_r($_POST); exit;
             $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
-            //$this->form_validation->set_rules('uom_name', 'uom_name', 'required');
+            $this->form_validation->set_rules('uom_name[]', 'uom_name', 'required');
             if ($this->form_validation->run() == TRUE) {
                 $id = $this->input->post('edit_id');
 
                 $uom_name_array = $this->input->post('uom_name');
-                $this->uommodel->delete_uom($id);
+                //$this->uommodel->delete_uom($id);
                 ///  print_r($uom_name_array);                    exit(); 
                 if (is_array($uom_name_array)) {
-                    foreach ($uom_name_array as $uom_name) {
+                     $data = array('isdeleted' => 1);
+                     $this->uommodel->delete_uom_record($id, $data); 
+                    foreach ($uom_name_array as $uom_name) {                      
                         if ($uom_name && $uom_name != 'null') {
-                            $uom_data = array('name' => $uom_name);
-                            $uom_data = array(
+                            $alreadyexist= $this->uommodel->check_exist_uom($id,$uom_name);                            
+                            if(count($alreadyexist)>0){
+                                $data = array('isdeleted' => 0);
+                              $count= $this->uommodel->update_uom_record($id,$uom_name,$data);
+                            }else{
+                                $uom_data = array(
                                 'name' => $uom_name,
                                 'createdat' => date('Y-m-d H:i:s'),
                                 'createdby' => $user_id,
@@ -246,6 +252,8 @@ class UomMaster extends CI_Controller {
                                 'uom_type_id' => $this->input->post('edit_id'),
                             );
                             $count = $this->uommodel->insert_uom($uom_data);
+                                
+                            } 
                         }
                     }
                 } else {
@@ -296,9 +304,8 @@ class UomMaster extends CI_Controller {
                 $data['uom_type_id'] = $id;
             }
 
-//            $data['uom_list'] = $this->uommodel->get_uom($user_id);
+            $data['uom_list'] = $this->uommodel->get_uomtypes($user_id);
             $data['result'] = $this->uommodel->get_uom_type($id);
-
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $this->session->unset_userdata('edit_uom_type');
             load_view_template($data, 'master/edit_uom');

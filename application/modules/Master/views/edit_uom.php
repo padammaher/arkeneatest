@@ -25,7 +25,7 @@
                                     if (isset($uom_list) && !empty($uom_list)) {
                                         foreach ($uom_list as $ul) {
                                             ?>
-                                            <option value="<?php echo $ul['id'] ?>" <?php echo $ul['id'] == $result[0]['uomtype_id'] ? "selected" : '' ?>><?php echo $ul['name']; ?></option>
+                                            <option value="<?php echo $ul['id'] ?>" <?php echo $ul['id'] == $result[0]['id'] ? "selected" : '' ?>><?php echo $ul['name']; ?></option>
                                             <?php
                                         }
                                     }
@@ -115,7 +115,7 @@ $(function(){
 }
 #tags span.tag:after{
  position:absolute;
- content:"×";
+ content:"ï¿½";
  border:1px solid;
  border-radius:10px;
  padding:0 4px;
