@@ -18,7 +18,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" required="required" id="uom_type" name="uom_type">
-                                        <option>Select Uom Type
+                                        <option value="">Select Uom Type
                                         </option>
                                          <?php   foreach($uom_type_list as $um){ ?> 
                                         <option value="<?php echo $um['id'];?>"><?php echo (isset($um['name']))?$um['name']:''; ?></option>
@@ -128,7 +128,7 @@ $(function(){
 }
 #tags span.tag:after{
  position:absolute;
- content:"×";
+ content:"ï¿½";
  border:1px solid;
  border-radius:10px;
  padding:0 4px;
