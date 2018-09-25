@@ -21,10 +21,12 @@
                 </div>
                 <div class="x_content">
                     <?php if (isset($edit_id) && !empty($edit_id)) { ?>
-                        <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>asset_parameter_update" method="POST">
+                        <form class="form-horizontal form-label-left" id="parameter_range_form" action="<?php echo base_url() ?>asset_parameter_update"  method="POST">
                             <input type="hidden" name="edit_id" value="<?php echo isset($edit_id) ? $edit_id : ''; ?>">
+                            <!--<input type="hidden" name="formaction" value="<?php echo base_url() ?>asset_parameter_update">-->
                         <?php } else { ?>
-                            <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>asset_parameter_add" method="POST">
+                            <form class="form-horizontal form-label-left" id="parameter_range_form" action="<?php echo base_url() ?>asset_parameter_add" method="POST">
+                                <!--<input type="hidden" name="formaction" value="<?php echo base_url() ?>asset_parameter_add">-->
                             <?php } ?> <?php
                             if (isset($result[0]['param_id'])) {
                                 $param_id = $result[0]['param_id'];
@@ -118,7 +120,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Scaling factor  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" name="scaling_factor" class="form-control input-number" placeholder="Enter Scaling factor" min="1"  value="<?php echo isset($scaling_factor) ? $scaling_factor : ''; ?>" required>
+                                    <input type="number" name="scaling_factor" id="scaling_factor" class="form-control input-number" placeholder="Enter Scaling factor" min="1"  value="<?php echo isset($scaling_factor) ? $scaling_factor : ''; ?>" required>
                                 </div>
                                 <?php if (form_error('scaling_factor')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('scaling_factor'); ?></span>
@@ -172,7 +174,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Bits / sign  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="bits_per_sign" class="form-control" placeholder="Enter Bits / sign" pattern="[a-zA-Z0-9\s]+" value="<?php echo isset($bits_per_sign) ? $bits_per_sign : ''; ?>" required>
+                                    <input type="text" name="bits_per_sign" id="bits_per_sign" class="form-control" placeholder="Enter Bits / sign" pattern="[a-zA-Z0-9\s]+" value="<?php echo isset($bits_per_sign) ? $bits_per_sign : ''; ?>" required>
                                 </div>
                                 <?php if (form_error('bits_per_sign')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('bits_per_sign'); ?></span>
@@ -183,7 +185,7 @@
                             <div class="ln_solid"></div>
                             <div class="item form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary" id="save" >Save</button>
+                                    <a class="btn btn-primary" id="save" >Save</a>
                                     <a href="<?php echo base_url() ?>asset_parameter_range_list" class="btn btn-default">Cancel</a>
 
                                 </div>
@@ -216,6 +218,42 @@
                 });
             }
         }
+        $("#save").click(function () {
+            var param = $("#parameter").val();
+            var uom = $("#uom").val();
+            var min = $("#min_value").val();
+            var max = $("#max_value").val();
+            var scaling = $("#scaling_factor").val();
+            var bits = $("#bits_per_sign").val();
+
+            if (param.length == 0) {
+                $("#parameter").css('border', '1px solid #CE5454');
+            }
+            if (min.length == 0 || parseInt(min) == 0) {
+                $("#min_value").css('border', '1px solid #CE5454');
+                if (parseInt(min) == 0) {
+                    $("#min_error").html('Minimum value should be greater or equal to 1');
+                }
+            }
+            if (max.length == 0 || parseInt(max) == 0) {
+                $("#max_value").css('border', '1px solid #CE5454');
+                if (parseInt(max) == 0) {
+                    $("#max_error").html('Maximum value should be greater than minimum value');
+                }
+            }
+            if (scaling.length == 0 && scaling == 0) {
+                $("#scaling_factor").css('border', '1px solid #CE5454');
+            }
+            if (uom.length == 0) {
+                $("#uom").css('border', '1px solid #CE5454');
+            }
+            if (bits.length == 0) {
+                $("#bits_per_sign").css('border', '1px solid #CE5454');
+            }
+            if ((param.length !== 0) && (min.length !== 0 && parseInt(min) !== 0) && (max.length !== 0 && parseInt(max) !== 0) && (scaling.length !== 0) && (uom.length !== 0) && (bits.length !== 0) && (parseInt(min) < parseInt(max))) {
+                $("#parameter_range_form").submit();
+            }
+        });
         $("#parameter").change(function () {
             var param_id = $(this).val();
             $.ajax({
@@ -235,13 +273,18 @@
                 if (parseInt(min) >= parseInt(max)) {
                     $("#min_value").focus();
                     $("#max_error").html('');
+                    $("#min_value").css('border', '1px solid #CE5454');
                     $("#min_error").html('Minimum value should be less than maximum value');
-                    $("#save").attr('disabled', 'disabled');
-                    setTimeout(function () {
-                        $('#min_error').html('');
-                    }, 3000);
+//                    $("#save").attr('disabled', 'disabled');
+//                    setTimeout(function () {
+//                        $('#min_error').html('');
+//                    }, 3000);
                 } else {
-                    $("#save").removeAttr('disabled');
+                    $("#min_error").html('');
+                    $("#min_value").css('border', '1px solid #CCD0D7');
+                    if (parseInt(max) > parseInt(min)) {
+                        $("#max_value").css('border', '1px solid #CCD0D7');
+                    }
                 }
             }
 
@@ -253,13 +296,19 @@
                 if (parseInt(max) <= parseInt(min)) {
                     $("#max_value").focus();
                     $("#min_error").html('');
+                    $("#max_value").css('border', '1px solid #CE5454');
                     $("#max_error").html('Maximum value should be greater than minimum value');
-                    $("#save").attr('disabled', 'disabled');
-                    setTimeout(function () {
-                        $('#max_error').html('');
-                    }, 3000);
+//                    $("#save").attr('disabled', 'disabled');
+//                    setTimeout(function () {
+//                        $('#max_error').html('');
+//                    }, 3000);
                 } else {
-                    $("#save").removeAttr('disabled');
+                    $("#max_error").html('');
+                    $("#max_value").css('border', '1px solid #CCD0D7');
+                    if (parseInt(min) < parseInt(max)) {
+                        $("#min_value").css('border', '1px solid #CCD0D7');
+                    }
+
                 }
             }
         });

@@ -414,7 +414,7 @@ class Assets extends MY_Model {
         $this->db->from('asset_parameter_rule');
         $this->db->join('uom', 'asset_parameter_rule.uom = uom.id', 'left');
         $this->db->join('parameter', 'asset_parameter_rule.parameter = parameter.id', 'left');
-        $this->db->where('parameter_range_id', $parameter_range_id);
+        $this->db->where( array('asset_parameter_rule.parameter_range_id'=> $parameter_range_id, 'asset_parameter_rule.isdeleted' => 0));
         $query = $this->db->get();
         $asset_data = $query->result_array();
         if ($query->num_rows() > 0) {
@@ -577,8 +577,15 @@ class Assets extends MY_Model {
         $this->db->where('uom_type.id', $uom_type_id);
         $query = $this->db->get();
         $uom_type_data = $query->result_array();
-        if ($uom_type_data)
-            return $uom_type_data;
+        return $uom_type_data;
+    }
+    public function get_uom_list_type($uom_type_id) {
+        $this->db->select('id,name');
+        $this->db->from('uom');
+        $this->db->where('uom_type_id',$uom_type_id);
+        $query = $this->db->get();
+        $uom_list_data = $query->result_array();
+        return $uom_list_data;
     }
 
     public function checkasset_locationIfExists($table = NULL, $unique_Data = array()) {
