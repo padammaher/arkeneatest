@@ -227,7 +227,7 @@
             var bits = $("#bits_per_sign").val();
 
             if (param.length == 0) {
-                $("#parameter").css('border', '1px solid #CE5454;');
+                $("#parameter").css('border', '1px solid #CE5454');
             }
             if (min.length == 0 || parseInt(min) == 0) {
                 $("#min_value").css('border', '1px solid #CE5454');
@@ -242,13 +242,13 @@
                 }
             }
             if (scaling.length == 0 && scaling == 0) {
-                $("#scaling_factor").css('border', '1px solid #CE5454;');
+                $("#scaling_factor").css('border', '1px solid #CE5454');
             }
             if (uom.length == 0) {
-                $("#uom").css('border', '1px solid #CE5454;');
+                $("#uom").css('border', '1px solid #CE5454');
             }
             if (bits.length == 0) {
-                $("#bits_per_sign").css('border', '1px solid #CE5454;');
+                $("#bits_per_sign").css('border', '1px solid #CE5454');
             }
             if ((param.length !== 0) && (min.length !== 0 && parseInt(min) !== 0) && (max.length !== 0 && parseInt(max) !== 0) && (scaling.length !== 0) && (uom.length !== 0) && (bits.length !== 0) && (parseInt(min) < parseInt(max))) {
                 $("#parameter_range_form").submit();
