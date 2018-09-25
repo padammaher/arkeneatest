@@ -142,7 +142,7 @@
                                         <input type="text" class="form-control has-feedback-left" name="startdate" id="single_cal1" placeholder="Start Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" value="<?php echo set_value('startdate',date("m-d-Y",  strtotime($list['startdate'])));?>" required="required">
                                         <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="inputSuccess2Status" class="sr-only">(success)</span>
-                                        <input type="text" name="oldstartdate" id="oldstartdate" value="<?php echo set_value('oldstartdate',$list['startdate']);?>">
+                                        <input type="hidden" name="oldstartdate" id="oldstartdate" value="<?php echo set_value('oldstartdate',$list['startdate']);?>">
                                     </div>
 
                                 </div>
@@ -158,7 +158,7 @@
                                         <input type="text" class="form-control has-feedback-left" name="enddate" id="single_cal3" placeholder="End Date" aria-describedby="inputSuccess2Status" data-inputmask="'mask': '99/99/9999'" value="<?php echo set_value('enddate',date("m-d-Y",  strtotime($list['enddate'])));?>" required="required">
                                         <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                         <span id="inputSuccess2Status" class="sr-only">(success)</span>
-                                        <input type="text" name="oldenddate" id="oldenddate" value="<?php echo set_value('oldenddate',$list['enddate']);?>">
+                                        <input type="hidden" name="oldenddate" id="oldenddate" value="<?php echo set_value('oldenddate',$list['enddate']);?>">
                                     </div>
 
                                 </div>

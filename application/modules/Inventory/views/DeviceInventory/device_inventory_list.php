@@ -70,11 +70,8 @@
                                                     <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                                                     <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                         <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                    </a>
-                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                    </a> 
-                                                </form>
+                                                    </a>                                                   
+                                                </form>&nbsp;
 
                                                 <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
                                                     <input type="hidden" value="<?php echo $InventoryListRowData['dev_sen_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
@@ -89,7 +86,7 @@
                                                             <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                         </a>
                                                     <?php } ?>
-                                                </form>        
+                                                </form>&nbsp;        
 
                                                 <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
                                                     <input type="hidden" value="<?php echo $InventoryListRowData['device_asset_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>"/>
@@ -104,8 +101,15 @@
                                                             <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
                                                         </a>
                                                     <?php } ?>
-
-                                                </form> 
+                                                </form> &nbsp;
+                                                 <form action="<?php echo base_url(); ?>Device_inventory_edit" method="post" id="updateasset<?php echo $i; ?>">
+                                                    <input type="hidden" value="<?php echo $InventoryListRowData['id']; ?>" name="id"/>
+                                                    <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                    
+                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                    </a> 
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>

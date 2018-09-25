@@ -19,7 +19,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Device number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
-<select class="form-control" name="deviceid"  required="required" <?php echo $managed_dev_asset_Id == ''?'':'readonly="readonly"';?>>
+                                <select class="form-control" name="deviceid" id="deviceid"  required="required" <?php echo $managed_dev_asset_Id == ''?'':'readonly="readonly"';?>>
     
 <?php  if(empty($managed_dev_asset_Id)) {;?>                                     
         <option value="">Select Device Number</option>
@@ -46,7 +46,7 @@ if($managed_dev_asset_Id == $device_id_list['id']){ ?>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
-                                <select class="form-control" name="assetid" required="required">
+                                <select class="form-control" name="assetid" id="assetid" required="required">
                                     <option value="">Select Asset Code</option>
                                     <?php foreach ($assetcode_list as $assetcode_list_data) { ?>
                                         <option value="<?php echo $assetcode_list_data['id']; ?>" <?php echo (set_value('assetid') == $assetcode_list_data['id']) ? 'selected' : ''; ?> ><?php echo $assetcode_list_data['code']; ?></option>
@@ -99,3 +99,39 @@ if($managed_dev_asset_Id == $device_id_list['id']){ ?>
 
 
 </div>
+
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+
+
+
+         $("#deviceid").change(function ()
+            {
+//       alert(this.value);
+                var objdata = '';
+                var i = 0;
+                var options;
+                $("#assetid").empty();
+                var options = '<option value="">Select Type</option>';
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Inventory/Load_Locationwise_assetids',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {deviceid: this.value},
+                    success: function (res) {
+                        var obj = $.parseJSON(res);
+                        
+                        for (i = 0; i < obj.length; i++) {
+//                            alert(obj[i]['sensor_inventory_id']);
+                            options += '<option value="' + obj[i]['id'] + '">' + obj[i]['code'] + '</option>';
+                        }
+                        $("#assetid").html(options);
+                    }
+                });
+            });
+
+          
+            });
+</script>

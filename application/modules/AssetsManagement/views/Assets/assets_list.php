@@ -67,7 +67,7 @@
                               <td <?php echo $modal_idand_class;?> ><?php echo  count($list['parametercount']) ?></td>                              
                               <td <?php echo $modal_idand_class;?> ><?php echo $list['isactive']=='1' ? "Active":"Not-active";?></td>
                               <td >
-                               
+                                <div style="display: -webkit-inline-box;">
                                         <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
                                             <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
@@ -77,7 +77,7 @@
         <!--                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                 <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                             </a> -->
-                                        </form>
+                                        </form>&nbsp;
                                         
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
@@ -96,7 +96,7 @@
                                                     
                                                 </a> 
                                             <?php } ?>
-                                            </form>    
+                                            </form>  &nbsp;  
                                         
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
@@ -113,14 +113,14 @@
                                                 <i class="fa fa-group text-warning"></i> 
                                             </a>
                                         <?php } ?>
-                                        </form> 
+                                        </form> &nbsp;
                                         <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
                                             <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
                                             <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
                                                 <i class="fa fa-list-ul text-info"></i> 
                                             </a>
-                                        </form>
+                                        </form>&nbsp;
 
                                         <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                             <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
@@ -129,7 +129,8 @@
                                             <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                 <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                             </a> 
-                                        </form>   
+                                        </form>&nbsp;   
+                                </div>
                               </td>
                           </tr>          
         <?php $i++;} } else { ?>     

@@ -60,17 +60,15 @@
                                         <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['contact_email']; ?></td>
                                         <td><?php echo $asset_loc_list['contact_email']=='1' ? "Active":"Not-active"; ?></td>
                                         <td >             
-
+                                            <div style="display: -webkit-inline-box;">
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_loc_list['id']; ?>" name="asset_location_post_id"/>
                                                 <input type="hidden" name="asset_location_post" id="post<?php echo $i; ?>"/>
                                                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                 </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                </a> 
-                                            </form> 
+                                               
+                                            </form> &nbsp;
    
                                             
                                          <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
@@ -88,7 +86,16 @@
                                                 <i class="fa fa-group text-warning"></i> 
                                             </a>
                                         <?php } ?>
-                                      </form>                                             
+                                      </form>  &nbsp;
+                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $asset_loc_list['id']; ?>" name="asset_location_post_id"/>
+                                                <input type="hidden" name="asset_location_post" id="post<?php echo $i; ?>"/>
+                                                
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                </a> 
+                                            </form> 
+                                          </div>
                                         </td>
                       </tr>
                                    

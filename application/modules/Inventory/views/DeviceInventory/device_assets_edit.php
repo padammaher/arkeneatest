@@ -12,7 +12,7 @@
 <div class="item form-group">
 <label class="control-label col-md-3 col-sm-3 col-xs-12">Device ID</label>
 <div class="col-md-6 col-sm-6 col-xs-12">             
-<select class="form-control" name="deviceid"  required="required" readonly>                                                  
+    <select class="form-control" name="deviceid" id="deviceid"  required="required" readonly>                                                  
             <option value="<?php echo $dev_asset_data['device_inventory_id'];?>" selected><?php echo $dev_asset_data['number'];?></option>
 
 </select>             
@@ -25,7 +25,7 @@
                 <div class="item form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset ID</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
-                  <select class="form-control" name="assetid" required="required">
+                  <select class="form-control" name="assetid" id="assetid" required="required">
                     <option value="">Select device</option>
                     <option value="<?php echo $dev_asset_data['asset_id']; ?>" selected><?php echo $dev_asset_data['code']; ?></option>
 <?php foreach ($assetcode_list as $assetcode_list_data) { 
@@ -77,4 +77,38 @@
                 </div>
               </div>
             </div>
-					 
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+      
+
+
+
+         $("#deviceid").change(function ()
+            {
+//       alert(this.value);
+                var objdata = '';
+                var i = 0;
+                var options;
+                $("#assetid").empty();
+                var options = '<option value="">Select Type</option>';
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Inventory/Load_Locationwise_assetids',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {deviceid: this.value},
+                    success: function (res) {
+                        var obj = $.parseJSON(res);
+                        
+                        for (i = 0; i < obj.length; i++) {
+//                            alert(obj[i]['sensor_inventory_id']);
+                            options += '<option value="' + obj[i]['id'] + '">' + obj[i]['code'] + '</option>';
+                        }
+                        $("#assetid").html(options);
+                    }
+                });
+            });
+
+          
+            });
+</script>					 

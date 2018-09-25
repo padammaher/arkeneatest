@@ -26,7 +26,7 @@ if($this->input->post('dev_sen_post_add')){
                     <div class="item form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Device ID</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">             
-                    <select class="form-control" name="deviceid" required="required" <?php echo $managed_dev_sen_Id_readonly == 'dev'? 'readonly="readonly"' : '';?>>                                                  
+                        <select class="form-control" name="deviceid" id="deviceid" required="required" <?php if(!empty($managed_dev_sen_Id_readonly)){ echo $managed_dev_sen_Id_readonly == 'dev'? 'readonly="readonly"' : '';} else {echo 'readonly="readonly"';}?>>                                                  
                    
 <?php  if($managed_dev_sen_Id_readonly=="sen") {?>                                     
  <option value="">Select device</option>
@@ -43,7 +43,7 @@ elseif($managed_dev_sen_Id_readonly=="sen"){
 
         <?php } }
 else {   ?>
-     <option value="">Select device</option>       
+     <!--<option value="">Select device</option>-->       
     <option value="<?php echo $Edit_device_sensors_data['device_id']; ?>" <?php echo set_value('deviceid',$Edit_device_sensors_data['device_id']) == $Edit_device_sensors_data['device_id'] ? 'selected' : ''; ?> ><?php echo $Edit_device_sensors_data['number']; ?></option>
 <?php  } ?>
                     </select>             
@@ -58,7 +58,7 @@ else {   ?>
                   <div class="item form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID *</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">             
-<select class="form-control" name="sensorid" <?php echo $managed_dev_sen_Id_readonly == 'sen'? 'readonly="readonly"' : '';?>>
+                      <select class="form-control" name="sensorid" id="sensorid" <?php echo $managed_dev_sen_Id_readonly == 'sen'? 'readonly="readonly"' : '';?>>
   <?php  if($managed_dev_sen_Id_readonly=="dev") {?>                                     
                 <option value="">Select Sensor</option>
         <?php } ?>   
@@ -91,8 +91,8 @@ if ( $sensorid_list_data['id'] == $Edit_device_sensors_data['sensor_id']) { ?>
                   <div class="item form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                   <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                  <label><?php $isactive=set_value('isactive'); ?> 
-                  <input type="checkbox" name="isactive" class="flat" <?php echo isset($isactive) == "on"? 'checked': ($sensorid_list_data['isactive'])=="1"?'checked':''; ?>> Active
+                  <label><?php  $isactive=set_value('isactive');$Edit_device_sensors_data['isactive']; ?> 
+                  <input type="checkbox" name="isactive" class="flat" <?php echo $isactive == "on"? 'checked': ($Edit_device_sensors_data['isactive'])=="1"?'checked':''; ?>> Active
                   </label>
 
                   <label>                         
@@ -125,4 +125,32 @@ if ( $sensorid_list_data['id'] == $Edit_device_sensors_data['sensor_id']) { ?>
 
 
                   </div>
-
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#deviceid").change(function ()
+            {
+//       alert(this.value);
+                var objdata = '';
+                var i = 0;
+                var options;
+                $("#sensorid").empty();
+                var options = '<option value="">Select Type</option>';
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Inventory/Load_Locationwise_sensor',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {deviceid: this.value},
+                    success: function (res) {
+                        var obj = $.parseJSON(res);
+                        
+                        for (i = 0; i < obj.length; i++) {
+//                            alert(obj[i]['sensor_inventory_id']);
+                            options += '<option value="' + obj[i]['sensor_inventory_id'] + '">' + obj[i]['sensor_no'] + '</option>';
+                        }
+                        $("#sensorid").html(options);
+                    }
+                });
+            });
+});
+</script>
