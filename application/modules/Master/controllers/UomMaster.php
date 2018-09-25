@@ -24,7 +24,9 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
-
+//            echo "<pre>";
+//            echo print_r($data['uom_type_list']);
+//            exit();
             load_view_template($data, 'master/Uom_type_List');
         }
     }
