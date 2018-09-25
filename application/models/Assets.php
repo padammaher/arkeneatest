@@ -63,7 +63,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as assetcount');
         $this->db->from('asset');
         $this->db->where('createdby', $user_id);
-        $this->db->where(array('isactive'=>1,'isdeleted'=> 0));
+        $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['assetcount'];
@@ -73,7 +73,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as devicecount');
         $this->db->from('device_inventory');
         $this->db->where('createdby', $user_id);
-        $this->db->where(array('isactive'=>1,'isdeleted'=> 0));
+        $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['devicecount'];
@@ -83,7 +83,7 @@ class Assets extends MY_Model {
         $this->db->select('count(id) as sensorcount');
         $this->db->from('sensor_inventory');
         $this->db->where('createdby', $user_id);
-        $this->db->where(array('isactive'=>1,'isdeleted'=> 0));
+        $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['sensorcount'];
@@ -360,20 +360,22 @@ class Assets extends MY_Model {
             return false;
         }
     }
-    
-      public function checkassetcodeIfExists_or_scheduled($table = NULL, $unique_Data = array()) {
+
+    public function checkassetcodeIfExists_or_scheduled($table = NULL, $unique_Data = array()) {
         //var_dump($table,$unique_Data);die;
 //        $query = $this->db->get_where($table, $unique_Data);
 //        echo $this->db->last_query();
-          $query=$this->db->select('id,code,startdate,enddate')
-                          ->from('asset')
-                          ->where(array('code'=>$unique_Data['code'], 'enddate>='=>$unique_Data['startdate']))
-                          ->get();
-         // $result=$query->
+        $query = $this->db->select('id,code,startdate,enddate')
+                ->from('asset')
+                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate']))
+                ->get();
+        // $result=$query->
 //                  echo $this->db->last_query();
+
           $returnvar='DateProblem';
         if ($query->num_rows() > 1) {
             
+
             return $returnvar;
         } else {
             return false;
@@ -592,12 +594,14 @@ class Assets extends MY_Model {
     }
 
     public function parameter_uom($param_id) {
+        if ($this->session->userdata('user_id'))
+            $user_id = $this->session->userdata('user_id');
         $this->db->select('uom.id,uom.name,parameter.id as paramid');
         $this->db->from('parameter');
-        $this->db->join('uom_type', 'uom_type.id=parameter.uom_type_id');
-        $this->db->join('uom', 'uom_type.uom_id=uom.id');
+        $this->db->join('uom_type', 'parameter.uom_type_id=uom_type.id');
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
         $this->db->where('parameter.id', $param_id);
-        $this->db->where('uom.isactive', 1);
+        $this->db->where(array('uom.isactive' => 1, 'uom.isdeleted' => 0, 'uom.createdby' => $user_id));
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
@@ -695,21 +699,24 @@ class Assets extends MY_Model {
         }
     }
 
-    public function asset_parameter_update($data, $id, $type) {
-        if ($type == 'edit') {
-            $alreadyexit = $this->db->from('parameter_range')->where(array('parameter_id' => $data['parameter_id'], 'uom_id' => $data['uom_id'], 'isactive' => 1))->get()->result();
-            if (count($alreadyexit) == 1 && $alreadyexit[0]->id == $id) {
-                $this->db->where('id', $id);
-                $this->db->update('parameter_range', $data);
-                return $this->db->affected_rows();
-            } else {
-                return 'duplicate';
-            }
-        } elseif ($type == 'delete') {
-            $this->db->where('id', $id);
-            $this->db->update('parameter_range', $data);
-            return $this->db->affected_rows();
-        }
+    public function asset_parameter_update($data, $id) {
+        $this->db->where('id', $id);
+        $this->db->update('parameter_range', $data);
+        return $this->db->affected_rows();
+//        if ($type == 'edit') {
+//            $alreadyexit = $this->db->from('parameter_range')->where(array('parameter_id' => $data['parameter_id'], 'uom_id' => $data['uom_id'], 'isactive' => 1))->get()->result();
+//            if (count($alreadyexit) == 1 && $alreadyexit[0]->id == $id) {
+//                $this->db->where('id', $id);
+//                $this->db->update('parameter_range', $data);
+//                return $this->db->affected_rows();
+//            } else {
+//                return 'duplicate';
+//            }
+//        } elseif ($type == 'delete') {
+//            $this->db->where('id', $id);
+//            $this->db->update('parameter_range', $data);
+//            return $this->db->affected_rows();
+//        }
     }
 
     public function showdescription($set_rule_id = NULL, $user_id, $asset_id) {
