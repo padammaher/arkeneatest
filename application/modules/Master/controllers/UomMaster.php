@@ -52,13 +52,15 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
             $this->form_validation->set_rules('uom_type', 'uom_type', 'required');
+            if($this->input->post('uom_name')){
             $this->form_validation->set_rules('uom_name[]', 'uom_name', 'required');
+            }else{
+                 $this->form_validation->set_rules('uom_name_input', 'uom_name', 'required');
+            }
             if ($this->form_validation->run() == TRUE) {
                 $uom_name_array = $this->input->post('uom_name');
                 $uom_type_id= $this->input->post('uom_type');
-                //print_r($uom_type_id);                exit(); 
                 if (is_array($uom_name_array)) {
                     foreach ($uom_name_array as $uom_name) {
                         if ($uom_name && $uom_name != 'null') {
@@ -336,11 +338,26 @@ class UomMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $type_id=''; 
         if ($this->session->userdata('user_id'))
-            $user_id = $this->session->userdata('user_id');
-        $data['uom_list'] = $this->uommodel->get_uom($user_id, 'json');
+        $user_id = $this->session->userdata('user_id');
+        $data['uom_list'] = $this->uommodel->get_uom($user_id, 'json',$type_id);
+        
     }
-
+    public function get_uom_list_data(){
+         if($this->input->post('type_id')){
+            $type_id= $this->input->post('type_id'); 
+        }
+         $data='';
+          $uom_list = $this->uommodel->get_uom_data($type_id); 
+        if($uom_list){
+         foreach ($uom_list as $uml){ 
+             
+          $data.='<span class="tag"><input type="hidden" class="form-control" placeholder="UOM" name="uom_name[]" value="'.$uml['name'].'">'.$uml['name'].'</span>';
+            } 
+            echo $data;
+         }
+    }
     public function getuom_autocomplete_c() {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');

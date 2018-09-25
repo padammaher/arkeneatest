@@ -16,7 +16,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" required="required" id="uom_type" name="uom_type">
+                                <select class="form-control" onchange="get_uom_list(this.value);" required="required" id="uom_type" name="uom_type">
                                     <option value="">Select Uom Type
                                     </option>
                                     <?php foreach ($uom_type_list as $um) { ?> 
@@ -30,7 +30,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div id="tags">
-                                    <input type="text" class="form-control" placeholder="UOM" value="" data-role="tagsinput" >
+                                    <input type="text" id="uom_id" class="form-control" placeholder="UOM" name="uom_name_input" data-role="tagsinput" >
                                 </div>
                             </div>
                         </div>
@@ -80,6 +80,19 @@
         });
 
     });
+    
+    
+    function get_uom_list(id){
+        $.ajax({
+           type: "POST",
+           url: "<?php echo base_url(); ?>Master/uommaster/get_uom_list_data",
+           data: {type_id: id},
+           success: function(result) {
+               console.log(result);
+               $('#uom_id').before(result);
+           }
+       });
+    }
 </script>
 <!--<script type="text/javascript">
     $(document).ready(function () {
