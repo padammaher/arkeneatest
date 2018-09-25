@@ -239,6 +239,35 @@ class Ion_auth_model extends CI_Model {
         $this->trigger_events('model_constructor');
     }
 
+    
+        public function add_client_detail($additional_data) {
+        $user_id = $this->session->userdata('user_id');
+        $where= array('username' =>  $additional_data['username'], 'id' => $user_id);
+        $alreadyexit = $this->db->select('id')->from('users')->where($where)->get()->result();
+      //  print_r($alreadyexit); exit;
+        if (count($alreadyexit) > 0) {
+            return 2;
+        } else {
+            $salt = $this->store_salt ? $this->salt() : FALSE;
+            $password = $this->hash_password($additional_data['password'], $salt);            
+            $Add_user_data= array(  'group_id'=>2,'ip_address'=>'127.0.0.1',
+                                    'username'=>$additional_data['username'],
+                                    'company_name'=>$additional_data['first_name'],
+                                    'password'=>$password,
+                                    'email'=>$additional_data['email'],
+                                    'first_name'=>$additional_data['first_name'],
+                                    'active'=>$additional_data['active'],
+                                    'login_flag'=>0,
+                                    'customer_address'=>$additional_data['customer_address'],
+                                    'isdeleted'=>0 
+                                 );   
+                    
+//              exit;          
+            $this->db->insert('users', $Add_user_data);
+            return 1;
+        }
+
+    }
     /**
      * Misc functions
      *
@@ -900,7 +929,7 @@ class Ion_auth_model extends CI_Model {
         }
 
         $this->trigger_events('extra_where');
-        $this->db->select($this->identity_column . ', email, id, password, active, last_login,login_flag'); 
+        $this->db->select($this->identity_column . ', email, id, password, active, last_login,login_flag,group_id,first_name'); 
         $this->db->from($this->tables['users']);
         $this->db->where($this->identity_column, $identity); 
         $this->db->limit(1);
@@ -1507,6 +1536,7 @@ class Ion_auth_model extends CI_Model {
         if (array_key_exists($this->identity_column, $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) {
             if (array_key_exists('password', $data)) {
                 if (!empty($data['password'])) {
+                    
                     $data['password'] = $this->hash_password($data['password'], $user->salt);
                 } else {
                     // unset password so it doesn't effect database entry if no password passed
@@ -1628,6 +1658,8 @@ class Ion_auth_model extends CI_Model {
             'old_last_login' => $user->last_login,
             'login_flag' => $user->login_flag,
             'last_check' => time(),
+            'group_id'=>$user->group_id,
+            'first_name'=>$user->first_name        
         );
 
         $this->session->set_userdata($session_data);

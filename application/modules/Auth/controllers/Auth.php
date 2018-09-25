@@ -504,6 +504,7 @@ class Auth extends MY_Controller {
         }
     }
 
+    
     // activate the user
     public function activate($id, $code = false) {
         if ($code !== false) {

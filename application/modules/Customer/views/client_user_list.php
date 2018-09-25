@@ -34,17 +34,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
+                            <?php // print_r($this->session->all_userdata());
                             $i = 1;
                             if ($client_details) {
                                 foreach ($client_details as $clientinfo) {
                                     ?> 
                                     <tr>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_name; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_location; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->client_username; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->isactive == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->first_name." ".$clientinfo->last_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->customer_address; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->username; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 0 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="flex-item">
                                             <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
                                                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  

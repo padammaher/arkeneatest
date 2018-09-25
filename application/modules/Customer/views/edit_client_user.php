@@ -27,7 +27,7 @@
                 </label>
                 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="client_name" type="text" class="form-control" placeholder="Enter Name" required="required"  value="<?php echo (isset($client_details[0]->client_name))?$client_details[0]->client_name:''; ?>" >
+                <input name="client_name" type="text" class="form-control" placeholder="Enter Name" required="required"  value="<?php echo (isset($client_details[0]->first_name))?$client_details[0]->first_name:''; ?>" >
                 </div>
               </div>
               <div class="item form-group">
@@ -49,7 +49,7 @@
                 <span> *</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="client_username" id="client_username" type="text" class="form-control" placeholder="Enter Email" required="required"  value="<?php echo (isset($client_details[0]->client_username))?$client_details[0]->client_username:''; ?>" >
+                <input name="client_username" id="client_username" type="text" class="form-control" placeholder="Enter Email" required="required"  value="<?php echo (isset($client_details[0]->email))?$client_details[0]->email:''; ?>" >
                 <div id="email_error" style="color:red"> </div>
                 </div>
               </div>

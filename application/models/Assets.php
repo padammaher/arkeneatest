@@ -256,7 +256,7 @@ class Assets extends MY_Model {
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('branch_user', 'branch_user.id = asset_user.assetuser_id', 'inner');
 //        $this->db->where('branch_user.status', 1);
-        $this->db->where('asset_user.isdeleted', 1);
+        $this->db->where('asset_user.isdeleted', 0);
         $this->db->where('asset_user.createdby', $user_id);
         $query = $this->db->get();
 
