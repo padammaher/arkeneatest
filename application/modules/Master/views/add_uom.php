@@ -13,16 +13,16 @@
                 <div class="x_content">
                     <?php echo validation_errors(); ?>
                     <form class="form-horizontal form-label-left" id="Uom_add" id="Uom_add" action="<?php echo base_url() ?>addUomList" method="POST">
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control" required="required" id="uom_type" name="uom_type">
-                                        <option value="">Select Uom Type
-                                        </option>
-                                         <?php   foreach($uom_type_list as $um){ ?> 
-                                        <option value="<?php echo $um['id'];?>"><?php echo (isset($um['name']))?$um['name']:''; ?></option>
-                                      <?php   } ?> 
-                                    </select> 
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select class="form-control" required="required" id="uom_type" name="uom_type">
+                                    <option value="">Select Uom Type
+                                    </option>
+                                    <?php foreach ($uom_type_list as $um) { ?> 
+                                        <option value="<?php echo $um['id']; ?>"><?php echo (isset($um['name'])) ? $um['name'] : ''; ?></option>
+                                    <?php } ?> 
+                                </select> 
 <!--                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z\s]*">-->
                             </div>
                         </div>
@@ -106,7 +106,6 @@
 
 <style>
     #tags{
-
         float:left;
         border:1px solid #ccc;
         padding:4px;

@@ -35,11 +35,11 @@
                                 foreach ($parameter_list as $r) {
                                     ?>
                                     <tr>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uomtype_name'] ? $r['uomtype_name'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['description'] ? $r['description'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uomtype_name'] ? $r['uomtype_name'] : ""; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['description'] ? $r['description'] : ""; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="action">
                                             <form action="<?php echo base_url(); ?>updateParameter" method="post" id="updateparam<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
@@ -73,12 +73,12 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+        $('body').on('click', '.edit', function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
             $("#updateparam" + id).submit();
         });
-        $(".delete").click(function () {
+        $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#delete_confirmation").modal();
             $(".ok").click(function () {
@@ -86,7 +86,7 @@
                 $("#updateparam" + id).submit();
             });
         });
-        $("#datatable td").click(function (e) {
+        $('body').on('click', '.flx-item', function (e) {
             if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
                 if (id.length !== 0)
