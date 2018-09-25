@@ -78,7 +78,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Minimum value  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" name="min_value" id="min_value" class="form-control input-number" placeholder="Enter Minimum value" value="<?php echo isset($min_value) ? $min_value : ''; ?>" required>
+                                    <input type="number" name="min_value" id="min_value" class="form-control input-number" placeholder="Enter Minimum value" min="1" value="<?php echo isset($min_value) ? $min_value : ''; ?>" required>
                                 </div>
                                 <span class="mrtp10 text-center englable" id="min_error" style="color:#ff3333; font-size: 15px; "></span>
                                 <?php if (form_error('min_value')) { ?>
@@ -98,7 +98,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Maximum value  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" name="max_value" id="max_value" class="form-control input-number" placeholder="Enter Maximum value" value="<?php echo isset($max_value) ? $max_value : ''; ?>" required>
+                                    <input type="number" name="max_value" id="max_value" class="form-control input-number" placeholder="Enter Maximum value" min="1" value="<?php echo isset($max_value) ? $max_value : ''; ?>" required>
                                 </div>
                                 <span class="mrtp10 text-center englable" id="max_error" style="color:#ff3333; font-size: 15px; "></span>
                                 <?php if (form_error('max_value')) { ?>
@@ -118,7 +118,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Scaling factor  <span>*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="number" name="scaling_factor" class="form-control input-number" placeholder="Enter Scaling factor" value="<?php echo isset($scaling_factor) ? $scaling_factor : ''; ?>" required>
+                                    <input type="number" name="scaling_factor" class="form-control input-number" placeholder="Enter Scaling factor" min="1"  value="<?php echo isset($scaling_factor) ? $scaling_factor : ''; ?>" required>
                                 </div>
                                 <?php if (form_error('scaling_factor')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('scaling_factor'); ?></span>
@@ -183,7 +183,7 @@
                             <div class="ln_solid"></div>
                             <div class="item form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary" >Save</button>
+                                    <button type="submit" class="btn btn-primary" id="save" >Save</button>
                                     <a href="<?php echo base_url() ?>asset_parameter_range_list" class="btn btn-default">Cancel</a>
 
                                 </div>
@@ -228,30 +228,38 @@
                 }
             });
         });
-        $("#min_value").blur(function () {
+        $("#min_value").bind('keyup mouseup', function () {
             var max = $("#max_value").val();
             var min = $("#min_value").val();
             if (max.length !== 0 && min.length !== 0) {
-                if (parseInt(min) > parseInt(max)) {
+                if (parseInt(min) >= parseInt(max)) {
                     $("#min_value").focus();
+                    $("#max_error").html('');
                     $("#min_error").html('Minimum value should be less than maximum value');
+                    $("#save").attr('disabled', 'disabled');
                     setTimeout(function () {
                         $('#min_error').html('');
                     }, 3000);
+                } else {
+                    $("#save").removeAttr('disabled');
                 }
             }
 
         });
-        $("#max_value").blur(function () {
+        $("#max_value").bind('keyup mouseup', function () {
             var min = $("#min_value").val();
             var max = $("#max_value").val();
             if (min.length !== 0 && max.length !== 0) {
-                if (parseInt(max) < parseInt(min)) {
+                if (parseInt(max) <= parseInt(min)) {
                     $("#max_value").focus();
+                    $("#min_error").html('');
                     $("#max_error").html('Maximum value should be greater than minimum value');
+                    $("#save").attr('disabled', 'disabled');
                     setTimeout(function () {
                         $('#max_error').html('');
                     }, 3000);
+                } else {
+                    $("#save").removeAttr('disabled');
                 }
             }
         });

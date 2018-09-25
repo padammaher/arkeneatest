@@ -57,14 +57,14 @@
                                 foreach ($parameter_range_info as $r) {
                                     ?>
                                     <tr>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['parameter']; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['min_value'] ? $r['min_value'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['max_value'] ? $r['max_value'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uom'] ? $r['uom'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ""; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['parameter']; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['min_value'] ? $r['min_value'] : ""; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['max_value'] ? $r['max_value'] : ""; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ""; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uom'] ? $r['uom'] : ""; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ""; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="action">
                                             <form action="" method="post" id="update_param_range<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
@@ -117,7 +117,7 @@
         });
         $(".delete").click(function () {
             var id = $(this).attr('id');
-            $(".modal").modal();
+            $("#delete_confirmation").modal();
             $(".ok").click(function () {
                 $("#post" + id).val('delete');
                 $("#update_param_range" + id).attr('action', update_url);
@@ -132,7 +132,7 @@
             $("#update_param_range" + id).attr('action', url);
             $("#update_param_range" + id).submit();
         });
-        $("#datatable td").click(function (e) {
+        $("#flx-item").click(function (e) {
             if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
                 if (id.length !== 0)
