@@ -74,14 +74,14 @@
                                          <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
                                                 <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                                
+                                                <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_location_list" />       
                                            <?php if (!empty($asset_loc_list['asset_user_tbl_id'])) { ?>  
                                               
                                                 <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                     <i class="fa fa-group text-warning"></i> 
                                                 </a>
                                            <?php } else { ?>
-                                               <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />        
+                                               <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />                                                       
                                             <a  title="Manage Users" class="manage_user_add" name="<?php echo $asset_loc_list['asset_tbl_id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                 <i class="fa fa-group text-warning"></i> 
                                             </a>
