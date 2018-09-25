@@ -255,7 +255,7 @@ class Assets extends MY_Model {
         $this->db->from('asset_user');
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('branch_user', 'branch_user.id = asset_user.assetuser_id', 'inner');
-        $this->db->where('branch_user.status', 1);
+//        $this->db->where('branch_user.status', 1);
         $this->db->where('asset_user.isdeleted', 1);
         $this->db->where('asset_user.createdby', $user_id);
         $query = $this->db->get();
@@ -268,7 +268,7 @@ class Assets extends MY_Model {
     public function assetcode_list($user_id) {
         $this->db->select('id,code');
         $this->db->from('asset');
-        $this->db->where('isactive', 1);
+//        $this->db->where('isactive', );
         $this->db->where('createdby', $user_id);
         $this->db->where('isdeleted', 0);
         $this->db->where('asset.id NOT IN (select asset_user.asset_id from asset_user where asset_user.asset_id=asset.id)', NULL, FALSE);
@@ -288,7 +288,7 @@ class Assets extends MY_Model {
     public function asset_userid_list($user_id) {
         $this->db->select('id,client_name');
         $this->db->from('branch_user');
-        $this->db->where('status', 1);
+//        $this->db->where('status', 1);
         $this->db->where('user_id', $user_id);
         $this->db->where('isdeleted', 0);
         $query = $this->db->get();
