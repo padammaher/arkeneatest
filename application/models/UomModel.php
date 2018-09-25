@@ -29,7 +29,7 @@ class UomModel extends MY_Model {
 
     public function get_uom_data($uom_type_id) {
         $user_id = $this->session->userdata('user_id');
-        $this->db->select('id,name');
+        $this->db->select('id,name,isactive,isdeleted');
         $this->db->from('uom');
         $this->db->where(array('uom_type_id' => $uom_type_id, 'uom.createdby' => $user_id, 'uom.isdeleted' => 0));
         $query = $this->db->get();

@@ -31,13 +31,13 @@
                             <?php
                     if (isset($uom_type_list) && !empty($uom_type_list)) {
                                 $i = 1;
-                        foreach ($uom_type_list as $r) {
+                        foreach ($uom_type_list as $r) { if(isset($r['uomlist'][0]['name'])){
                                     ?>
                                     <tr>
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
                                         <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php if(isset($r['uomlist'])){
-                                                $j=1; 
+                                                $j=1;  
                                                 foreach ($r['uomlist'] as $uml){
                                                     echo $uml['name']; echo ($j<count($r['uomlist']))?',':'';  
                                                     $j++; 
@@ -60,7 +60,7 @@
                                         </td>
                                     </tr>
                                     <?php
-                                    $i++;
+                              } $i++;
                                 }
                             } else {
                                 ?>
