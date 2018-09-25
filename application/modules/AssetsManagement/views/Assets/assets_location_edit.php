@@ -1,3 +1,6 @@
+<?php $back_action='';
+$back_action=$this->input->post('back_action');
+?>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -99,8 +102,12 @@
                             <input type="hidden" value="<?php echo $asset_location_data['id']; ?>" name="asset_location_post_id"/>
                             <input type="hidden" name="asset_location_post" id="asset_user_post" value="update"/>       
                                 <button type="submit" name="asset_loc_edit_button" class="btn btn-primary">Save</button>
+                                <?php if(!empty($back_action)) {?>
+                                 <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
+                                <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
+                                <?php }else {?>
                                 <a href="<?php echo base_url('Assets_location_list'); ?>" type="button" class="btn btn-default">Cancel</a>
-
+                                <?php } ?>
 
 
                             </div>

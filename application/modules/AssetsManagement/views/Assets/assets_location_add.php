@@ -1,4 +1,7 @@
 <?php $managedLocationId='';  $managedLocationId=$this->input->post('asset_location_post_id');?>			
+<?php $back_action='';
+ $back_action=$this->input->post('back_action');
+?>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -100,8 +103,12 @@ if($managedLocationId == $asset_id_list['id']){    ?>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <button type="submit" name="asset_loc_add_button" class="btn btn-primary">Save</button>
+                            <?php if(!empty($back_action)) {?>
+                             <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
+                                <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
+                                <?php }else {?>
                             <a href="<?php echo base_url('Assets_location_list'); ?>" type="button" class="btn btn-default">Cancel</a>
-
+                                <?php }?>
 
 
                         </div>

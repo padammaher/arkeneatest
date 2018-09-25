@@ -27,15 +27,15 @@
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="assetid" id="assetid" required="required">
                     <option value="">Select device</option>
-                    <option value="<?php echo $dev_asset_data['asset_id']; ?>" selected><?php echo $dev_asset_data['code']; ?></option>
+                   
 <?php foreach ($assetcode_list as $assetcode_list_data) { 
-                    if($assetcode_list_data['id'] == $dev_asset_data['asset_id']){ ?>
-                    <option value="<?php echo $assetcode_list_data['id'];?>" <?php echo set_value('assetid')== $assetcode_list_data['id']? 'selected':'';?> selected><?php echo $assetcode_list_data['code'];?></option>          
-                    <?php }else { ?>
-                    <option value="<?php echo $assetcode_list_data['id'];?>"><?php echo $assetcode_list_data['code'];?></option>
+//                    if($assetcode_list_data['id'] == $dev_asset_data['asset_id']){ ?>
+                    <option value="<?php echo $assetcode_list_data['id'];?>" <?php echo set_value('assetid',$dev_asset_data['asset_id'])== $assetcode_list_data['id']? 'selected':'';?> ><?php echo $assetcode_list_data['code'];?></option>          
+                    <?php // }else { ?>
+                   
                     
                        
-<?php } } ?>
+<?php }  ?>
                 </select>             
                 </div>
                  <?php if (form_error('assetid')) { ?>
