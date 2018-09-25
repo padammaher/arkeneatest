@@ -37,7 +37,7 @@
                                     <?php foreach ($location_list as $loc_list) {
                                         if($list['locid'] == $loc_list['id']){ } else {
                                         ?>
-                                        <option value="<?php echo $loc_list['id']; ?>"><?php echo $loc_list['location']; ?></option>
+                                        <option value="<?php echo $loc_list['id']; ?>"><?php echo $loc_list['location_name']; ?></option>
                                     <?php } }?>
 
                                 </select>

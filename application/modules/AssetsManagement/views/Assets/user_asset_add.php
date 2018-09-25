@@ -64,8 +64,7 @@ $back_action = $this->input->post('back_action');
                                 <option value="">Select User Name</option>
                                 <?php
                                 foreach ($asset_userid_list as $asset_user_id_list) {
-                                    if (!empty($asset_user_id_list['client_name'])) {
-                                        ?>
+                                    if (!empty($asset_user_id_list['client_name'])) { ?>
                                         <option value="<?php echo $asset_user_id_list['id']; ?>" <?php echo set_value('assetuserid') == $asset_user_id_list['id'] ? 'selected' : $asset_user_id_list['id']; ?>><?php echo $asset_user_id_list['client_name']; ?></option>
                                     <?php }
                                 }

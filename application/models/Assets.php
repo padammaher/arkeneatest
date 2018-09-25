@@ -268,12 +268,12 @@ class Assets extends MY_Model {
         $this->db->select('asset_user.id,
                                     asset.id as `asset_tbl_id`,
                                     asset.`code`,
-                                    branch_user.id as `branch_user_tbl_id`,
-                                    branch_user.client_name,
+                                    users.id as `branch_user_tbl_id`,
+                                    users.first_name as `client_name`,
                                     asset_user.createdate');
         $this->db->from('asset_user');
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
-        $this->db->join('branch_user', 'branch_user.id = asset_user.assetuser_id', 'inner');
+        $this->db->join('users', 'users.id = asset_user.assetuser_id', 'left');
 //        $this->db->where('branch_user.status', 1);
         $this->db->where('asset_user.isdeleted', 0);
         
@@ -294,7 +294,7 @@ class Assets extends MY_Model {
         $this->db->from('asset');
         $this->db->where('isactive', 1);        
         $this->db->where('isdeleted', 0);
-        $this->db->where('asset.id NOT IN (select asset_user.asset_id from asset_user where asset_user.asset_id=asset.id)', NULL, FALSE);
+        $this->db->where('asset.id NOT IN (select asset_user.asset_id from asset_user where isdeleted=0 and asset_user.asset_id=asset.id)', NULL, FALSE);
         if($group_id =='2'){
         $this->db->where('createdby', $user_id);
         } 
@@ -305,10 +305,21 @@ class Assets extends MY_Model {
     }
 
     public function assetcode_list_for_asset_location($user_id) {
-        $query = "SELECT asset.id,asset.code FROM asset
-                where asset.isactive='1' and isdeleted='0' and asset.createdby=" . $user_id . " and id not in(select asset_id from asset_location)";
-        $res = $this->db->query($query);
-        return $obj = $res->result_array();
+        $group_id = $this->session->userdata('group_id');
+        $this->db->select('asset.id,asset.code');
+        $this->db->from('asset');
+        $this->db->where('asset.isactive', 1);        
+        $this->db->where('asset.isdeleted', 0);
+        $this->db->where('asset.id NOT IN (select asset_id from asset_location where asset_location.isdeleted=0)');
+//        $query = "SELECT asset.id,asset.code FROM asset
+//                where asset.isactive='1' and isdeleted='0' 
+//                and asset.createdby=" . $user_id . " and id not in(select asset_id from asset_location)";
+        if($group_id =='2'){
+        $this->db->where('createdby', $user_id);
+        }        
+//        $res = $this->db->query($query);
+        $query = $this->db->get();
+        return $obj = $query->result_array();
     }
 
 //    public function asset_userid_list($user_id) {

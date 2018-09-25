@@ -134,7 +134,8 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+        $('body').on('click', '.edit', function () {
+//        $(".edit").click(function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
 //            alert(id);
@@ -151,8 +152,7 @@
 //                $("#updateasset" + id).submit();
 //            }
 //        });
-
-        $(".delete").click(function () {
+           $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#confirmmodal_Box").modal();
             $(".ok").click(function () {
@@ -162,14 +162,16 @@
             });
         });
 
-        $(".dev_assets").click(function () {
+        
+            $('body').on('click', '.dev_assets', function () {
             var id = $(this).attr('id');
 //            $("#post" + id).val('edit');
 //            alert(id);
             $("#dev_asset" + id).submit();
         });
 
-        $(".dev_sensor").click(function () {
+        
+              $('body').on('click', '.dev_sensor', function () {
             var id = $(this).attr('id');
 //            $("#post" + id).val('edit');
 //            alert(id);
@@ -182,7 +184,8 @@
 
 
         var manage_dev_sen_addLink = "<?php echo base_url('Add_device_sensors'); ?>";
-        $(".dev_sensor_add").click(function () {
+        
+            $('body').on('click', '.dev_sensor_add', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
@@ -197,7 +200,8 @@
 
 
         var manage_dev_asset_addLink = "<?php echo base_url('Device_assets_add'); ?>";
-        $(".dev_assets_add").click(function () {
+        
+            $('body').on('click', '.dev_assets_add', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');

@@ -148,7 +148,8 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+        $('body').on('click', '.edit', function () {
+//        $(".edit").click(function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
 //            alert(id);
@@ -164,7 +165,7 @@
 //            }
 //        });
 
-        $(".delete").click(function () {
+ $('body').on('click', '.delete', function () {        
             var id = $(this).attr('id');
             $("#confirmmodal_Box").modal();
             $(".ok").click(function () {
@@ -174,7 +175,8 @@
             });
         });
 
-        $(".manage_user").click(function () {
+        
+            $('body').on('click', '.manage_user', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
@@ -182,7 +184,8 @@
             $("#asset_user" + id).submit();
             // }
         });
-        $(".manage_location").click(function () {
+        
+            $('body').on('click', '.manage_location', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
@@ -190,7 +193,8 @@
             $("#asset_location" + id).submit();
             // }
         });
-        $(".asset_para_range").click(function () {
+        
+                $('body').on('click', '.asset_para_range', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
@@ -200,7 +204,8 @@
         });
         
         var manage_user_addLink="<?php echo base_url('User_asset_add'); ?>";
-        $(".manage_user_add").click(function () {
+        
+                    $('body').on('click', '.manage_user_add', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
@@ -216,7 +221,8 @@
         
 //        manage_location_add
           var manage_location_addLink="<?php echo base_url('Assets_location_add'); ?>";
-        $(".manage_location_add").click(function () {
+        
+            $('body').on('click', '.manage_location_add', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');

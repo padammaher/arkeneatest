@@ -120,7 +120,7 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+         $('body').on('click', '.edit', function () {        
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
 //            alert(id);
@@ -135,8 +135,8 @@
 //                $("#Assets_location_list" + id).submit();
 //            }
 //        });
-
-        $(".delete").click(function () {
+        
+         $('body').on('click', '.delete', function () {   
             var id = $(this).attr('id');
             $("#confirmmodal_Box").modal();
             $(".ok").click(function () {
@@ -147,7 +147,8 @@
         });
 
 
-        $(".manage_user").click(function () {
+        
+    $('body').on('click', '.manage_user', function () {       
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
@@ -156,7 +157,8 @@
             // }
         });
         var manage_user_addLink="<?php echo base_url('User_asset_add'); ?>";
-        $(".manage_user_add").click(function () {
+        
+        $('body').on('click', '.manage_user_add', function () {     
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
