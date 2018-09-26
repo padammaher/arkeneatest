@@ -37,6 +37,7 @@ class UomMaster extends CI_Controller {
             redirect('auth/login', 'refresh');
         } else {
             $user_id = $this->session->userdata('user_id');
+
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
 
@@ -397,8 +398,9 @@ class UomMaster extends CI_Controller {
         if ($this->input->post('uom_id')) {
             $id = explode('_', $this->input->post('uom_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->uommodel->get_uom_type($id[0]);
-
+//            $data['result'] = $this->uommodel->get_uom_type($id[0]);
+            $data['result'] = $this->uommodel->get_uomlistrecords($id[0]);
+//            $response = $this->uommodel->get_uomlistrecords('user_id');
             $view = $this->load->view('master/modal/uom', $data);
             echo $view;
         }
