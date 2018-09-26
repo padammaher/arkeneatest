@@ -47,7 +47,7 @@
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->location_name; ?></td>
 
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->username; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 1 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td class="flex-item">
                                             <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
                                                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  

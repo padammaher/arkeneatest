@@ -31,7 +31,7 @@ if($this->input->post('dev_sen_post_add')){
                     <div class="col-md-6 col-sm-6 col-xs-12">             
                         <select class="form-control" name="deviceid" id="deviceid" required="required" <?php if(!empty($managed_dev_sen_Id_readonly)){ echo $managed_dev_sen_Id_readonly == 'dev'? 'readonly="readonly"' : '';} else {echo 'readonly="readonly"';}?>>                                                  
                    
-<?php  if($managed_dev_sen_Id_readonly=="sen") {?>                                     
+<?php  if($managed_dev_sen_Id_readonly!="sen") {?>                                     
  <option value="">Select device</option>
 <?php } ?>                                    
 <?php if($managed_dev_sen_Id_readonly=="dev"){
@@ -62,7 +62,7 @@ else {   ?>
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID *</label>
                   <div class="col-md-6 col-sm-6 col-xs-12">             
                       <select class="form-control" name="sensorid" id="sensorid" <?php echo $managed_dev_sen_Id_readonly == 'sen'? 'readonly="readonly"' : '';?>>
-  <?php  if($managed_dev_sen_Id_readonly=="dev") {?>                                     
+  <?php  if($managed_dev_sen_Id_readonly!="dev") {?>                                     
                 <option value="">Select Sensor</option>
         <?php } ?>   
         <?php if($managed_dev_sen_Id_readonly=="sen"){

@@ -35,7 +35,7 @@
                                     <tr>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
-                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td class="action">
                                             <form action="<?php echo base_url(); ?>updateUomTypeList" method="post" id="updateuomtype<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
@@ -71,12 +71,12 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+        $('body').on('click', '.edit', function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
             $("#updateuomtype" + id).submit();
         });
-        $(".delete").click(function () {
+        $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#delete_confirmation").modal();
             $(".ok").click(function () {
@@ -84,13 +84,13 @@
                 $("#updateuomtype" + id).submit();
             });
         });
-        $(".flx-item").click(function (e) {
+        $('body').on('click', '.flx-item', function (e) {
             if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
                 if (id.length !== 0)
                 {
                     $.ajax({
-                        url: "<?php echo base_url() . 'Master/uommaster/uom_details'; ?>",
+                        url: "<?php echo base_url() . 'Master/uommaster/uom_type_details'; ?>",
                         method: "POST",
                         data: {uom_id: id},
                         dataType: "html",

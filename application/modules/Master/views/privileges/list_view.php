@@ -30,7 +30,7 @@
                                         <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $k + 1; ?></td>
                                         <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->rolename; ?></td>
                                         <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->roledescription ? $data->roledescription : ""; ?></td>
-                                        <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->isactive == 1 ? 'Active' : 'Deactive'; ?></td>
+                                        <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->isactive == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td class="action">
                                             <a title="Add Privelege" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
                                                 <i class="fa fa-cog blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add"></i>
