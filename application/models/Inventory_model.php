@@ -257,7 +257,7 @@ class Inventory_model extends MY_Model {
         }
         $this->db->group_by('id');
         $query = $this->db->get();
-        echo $this->db->last_query();
+//        echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
@@ -271,7 +271,7 @@ class Inventory_model extends MY_Model {
         $this->db->where('isdeleted', 0);
         
         if($group_id =='2'){
-        $this->db->where('createdby', $user_id);
+//        $this->db->where('createdby', $user_id);
         }
         $this->db->group_by('id');
         $query = $this->db->get();
@@ -288,7 +288,7 @@ class Inventory_model extends MY_Model {
        
         $this->db->where('parameter.id', $parameter);
         if($group_id =='2'){
-         $this->db->where('parameter.createdby', $user_id);
+//         $this->db->where('parameter.createdby', $user_id);
         }
         $this->db->group_by('parameter.id');
         $query = $this->db->get();
