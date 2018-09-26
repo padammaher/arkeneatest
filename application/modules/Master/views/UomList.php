@@ -29,44 +29,47 @@
                         </thead>
                         <tbody>
                             <?php
-                    if (isset($uom_type_list) && !empty($uom_type_list)) {
+                            if (isset($uom_type_list) && !empty($uom_type_list)) {
                                 $i = 1;
-                        foreach ($uom_type_list as $r) { if(isset($r['uomlist'][0]['name'])){
-                                    ?>
-                                    <tr>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php if(isset($r['uomlist'])){
-                                                $j=1;  
-                                                foreach ($r['uomlist'] as $uml){
-                                                    echo $uml['name']; echo ($j<count($r['uomlist']))?',':'';  
-                                                    $j++; 
+                                foreach ($uom_type_list as $r) {
+                                    if (isset($r['uomlist'][0]['name'])) {
+                                        ?>
+                                        <tr>
+                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
+                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
+                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php
+                                                if (isset($r['uomlist'])) {
+                                                    $j = 1;
+                                                    foreach ($r['uomlist'] as $uml) {
+                                                        echo $uml['name'];
+                                                        echo ($j < count($r['uomlist'])) ? ',' : '';
+                                                        $j++;
+                                                    }
                                                 }
-                                            }
-                                             ?></td>
-					
-                                        <td data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
-                                        <td class="action">
-                                            <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
-                                                <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
-                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                </a> 
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <?php
-                              } $i++;
+                                                ?></td>
+
+                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
+                                            <td  class="action">
+                                                <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
+                                                    <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
+                                                    <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                    <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                        <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                    </a>
+                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                    </a> 
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    } $i++;
                                 }
                             } else {
                                 ?>
                             <td colspan="7">No data found..!</td>       
-                        <?php }
-                        ?>
+<?php }
+?>
                         </tbody>
                     </table>
                 </div>
@@ -81,7 +84,7 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".edit").click(function () {
+        $('body').on('click', '.edit', function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
             $("#updateuomtype" + id).submit();
@@ -94,7 +97,7 @@
                 $("#updateuomtype" + id).submit();
             });
         });
-        $("#datatable td").click(function (e) {
+        $('body').on('click', '.flx-item', function (e) {
             if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
                 if (id.length !== 0)
