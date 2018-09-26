@@ -1,11 +1,11 @@
 <!-- <div class="right_col" role="main"> -->
-  <div class="">
+<div class="">
     <div class="clearfix">
     </div>
     <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
             <h4> <?php echo (isset($client_details[0]->id))?'Edit Client User':'Add Client User'; ?>
             </h4>						
             <div class="clearfix">
@@ -78,17 +78,17 @@
                   <a href="<?php echo base_url()?>ManageUsers">
                   <button type="button" class="btn btn-default">Cancel
                   </button> </a>
+                          </div>
+                            </div>
+                    </form>					
                 </div>
-              </div>
-            </form>					
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 <!-- </div> -->
-<script> 
-$(document).ready(function() {
+<script>
+    $(document).ready(function () {
 
 $('#client_username').focusout(function(){
                 $('#client_username').filter(function(){
@@ -99,39 +99,39 @@ $('#client_username').focusout(function(){
                   $( "#submit_client_info" ).prop( "disabled", true );
                 } else {
                   $("#email_error").html("");  
-                  $( "#submit_client_info" ).prop( "disabled", false );
+                   $('#submit_client_info').prop('disable',false)
                 }
-                })
-            });
-});
+            })
+        });
+    });
 </script> 
 <style>
-.list-group{
-    z-index:10;display:none; 
-	position:absolute; 
-    color:red;
-}
-.msg
-{
-	position:absolute; 
-    color:red;
-}
-/* .form-group .control-label:after {
-  content:"*";color:red;
-} */
+    .list-group{
+        z-index:10;display:none; 
+        position:absolute; 
+        color:red;
+    }
+    .msg
+    {
+        position:absolute; 
+        color:red;
+    }
+    /* .form-group .control-label:after {
+      content:"*";color:red;
+    } */
 </style> 
 
 <script>
-$(document).ready(function() {
+    $(document).ready(function () {
 ////////////////////
-$('#client_password').focusout(function(){
-var str=$('#client_password').val();
-var upper_text= new RegExp('[A-Z]');
-var lower_text= new RegExp('[a-z]');
-var number_check=new RegExp('[0-9]');
-var special_char= new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
+        $('#client_password').focusout(function () {
+            var str = $('#client_password').val();
+            var upper_text = new RegExp('[A-Z]');
+            var lower_text = new RegExp('[a-z]');
+            var number_check = new RegExp('[0-9]');
+            var special_char = new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
 
-var flag='T';
+            var flag = 'T';
 
 if(str.match(upper_text)&&str.match(lower_text)&&str.match(special_char)&&str.match(number_check)&&str.length>7){
 $('#errorpassword').html("");
@@ -147,6 +147,6 @@ $('#errorpassword').css("color", "red");
 });
 </script>
 
-  
 
-  
+
+

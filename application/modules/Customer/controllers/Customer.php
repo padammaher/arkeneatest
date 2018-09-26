@@ -221,13 +221,13 @@ class Customer extends MY_Controller {
 
                 if ($this->input->post('password'))
                     $additional_data['password'] = $this->input->post('password');
-                if ($this->input->post('status')) {
+
+                if ($this->input->post('status') == 'on') {
                     $additional_data['active'] = 1;
+                } else {
+                    $additional_data['active'] = 0;
                 }
 
-
-
-//                 print_r($additional_data); exit();
                 if ($id) {
 //                    $update_record = $this->ion_auth->add_client_detail($additional_data, $id);
                     $update_record = $this->ion_auth->update_client_detail($additional_data, $id);
