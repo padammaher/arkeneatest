@@ -374,7 +374,7 @@ class UomMaster extends CI_Controller {
         if($uom_list){
          foreach ($uom_list as $uml){ 
              
-          $data.='<span class="tag"><input type="hidden" class="form-control" placeholder="UOM" name="uom_name[]" value="'.$uml['name'].'">'.$uml['name'].'</span>';
+          $data.='<span class="tag"><input type="hidden" class="form-control" id="uom_name" placeholder="UOM" name="uom_name[]" value="'.$uml['name'].'">'.$uml['name'].'</span>';
             } 
             echo $data;
          }

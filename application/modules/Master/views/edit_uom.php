@@ -19,7 +19,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <!--<input type="text" class="form-control"  name="uom_type" value="<?php echo $result[0]['name']; ?>" required="required" pattern="[A-Za-z\s]*">-->
-                                <select class="form-control" name="uom_type" required="required">
+                                <select class="form-control" name="uom_type" required="required" style="pointer-events: none;cursor: not-allowed;">
                                     <option value="">Select UOM Type</option>
                                     <?php
                                     if (isset($uom_list) && !empty($uom_list)) {
