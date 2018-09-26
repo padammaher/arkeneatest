@@ -62,7 +62,7 @@
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $InventoryListRowData['location_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $InventoryListRowData['description']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $InventoryListRowData['gsm_number']; ?></td>
-                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $InventoryListRowData['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $InventoryListRowData['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td class="action">
                                             <div style="display: -webkit-inline-box;">
                                                 <form action="<?php echo base_url(); ?>Device_inventory_edit" method="post" id="updateasset<?php echo $i; ?>">
