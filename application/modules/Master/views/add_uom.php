@@ -88,6 +88,7 @@
            url: "<?php echo base_url(); ?>Master/uommaster/get_uom_list_data",
            data: {type_id: id},
            success: function(result) {
+                $('#uom_id').html('');
                console.log(result);
                $('#uom_id').before(result);
            }

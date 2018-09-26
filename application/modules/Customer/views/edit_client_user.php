@@ -73,7 +73,7 @@
               </div>
               <div class="item form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary"><?php echo (isset($client_details[0]->id))?'Update':'Save'; ?>
+                    <button type="submit" id="submit_client_info" class="btn btn-primary"><?php echo (isset($client_details[0]->id))?'Update':'Save'; ?>
                   </button>
                   <a href="<?php echo base_url()?>ManageUsers">
                   <button type="button" class="btn btn-default">Cancel
@@ -96,10 +96,10 @@ $('#client_username').focusout(function(){
               var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             if( !emailReg.test( emil ) ) {
                    $("#email_error").html('Please enter valid email'); 
+                  $( "#submit_client_info" ).prop( "disabled", true );
                 } else {
-                  $("#email_error").html("");
-                 
-               // alert('Thank you for your valid email');
+                  $("#email_error").html("");  
+                  $( "#submit_client_info" ).prop( "disabled", false );
                 }
                 })
             });
@@ -135,10 +135,13 @@ var flag='T';
 
 if(str.match(upper_text)&&str.match(lower_text)&&str.match(special_char)&&str.match(number_check)&&str.length>7){
 $('#errorpassword').html("");
+$( "#submit_client_info" ).prop( "disabled", false );
 //$('#errorpassword').css("color", "green");
 }else{$('#d12').css("color", "red");
 $('#errorpassword').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> add atleast one upper,lower,special character, one number, and minimum 8 character length");
 $('#errorpassword').css("color", "red");
+
+ $( "#submit_client_info" ).prop( "disabled", true );
 }
 });
 });
