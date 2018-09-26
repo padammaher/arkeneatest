@@ -3,7 +3,10 @@ if($this->input->post('dev_sen_post_add')){
     $managed_dev_sen_Id=explode(" ",$this->input->post('dev_sen_post_add'));
     $managed_dev_sen_Id_readonly=$managed_dev_sen_Id[0];
     
-}?>	
+}?>
+<?php $back_action='';
+ $back_action=$this->input->post('back_action');
+?>
 <div class="">
 
                   <div class="clearfix"></div>
@@ -110,7 +113,13 @@ if ( $sensorid_list_data['id'] == $Edit_device_sensors_data['sensor_id']) { ?>
                   <!--<input type="hidden" name="sensor_form_action" id="sensor_form_action" value="update <?php echo $Edit_device_sensors_data['id']; ?>" >-->    
 
                   <button type="submit" class="btn btn-primary" name="update_dev_sen_button" id="edit_inventory_button" >Update</button>
-                  <a href="<?php echo base_url('Device_sensor_list');?>" type="button" class="btn btn-default">Cancel</a> 
+                  
+                  <?php if(!empty($back_action)) {?>
+                             <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
+                                <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
+                                <?php }else {?>
+                    <a href="<?php echo base_url('Device_sensor_list');?>" type="button" class="btn btn-default">Cancel</a> 
+                    <?php }?>
                   </div>
                   </div>
         <?php } ?>

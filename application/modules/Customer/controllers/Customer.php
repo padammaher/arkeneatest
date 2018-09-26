@@ -126,7 +126,7 @@ class Customer extends MY_Controller {
     public function client_user_list() {
         $user_id = $this->session->userdata('user_id');
         $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
-        $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
+        //$this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
     }
@@ -175,6 +175,7 @@ class Customer extends MY_Controller {
         $client_id = $this->input->get('client_id');
         $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
+//        echo "<pre>";print_r($this->data['client_location']);
         load_view_template($this->data, 'edit_client_user');
     }
 
@@ -200,7 +201,7 @@ class Customer extends MY_Controller {
                 $client_id = $this->input->post('client_id');
                 $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
                 $this->data['dataHeader'] = $this->users->get_allData($user_id);
-                //  print_r( $this->data['client_details']); exit();
+//                  print_r( $this->data['client_details']); exit();
                 load_view_template($this->data, 'edit_client_user');
             } else if ($this->input->post('post') == 'delete') {
                 $client_id = $this->input->post('client_id');
@@ -212,7 +213,7 @@ class Customer extends MY_Controller {
                 if ($this->input->post('client_name'))
                     $additional_data['first_name'] = $this->input->post('client_name');
                 if ($this->input->post('client_location'))
-                    $additional_data['customer_address'] = $this->input->post('client_location');
+                    $additional_data['location_id'] = $this->input->post('client_location');
                 if ($this->input->post('client_username'))
                     $additional_data['username'] = $this->input->post('client_username');
 
@@ -229,8 +230,13 @@ class Customer extends MY_Controller {
                 }
 
                 if ($id) {
+
+//                   // $update_record = $this->ion_auth->add_client_detail($additional_data);
+                    $update_record = $this->Customer_Model->update_client_detail($additional_data, $id);
+
 //                    $update_record = $this->ion_auth->add_client_detail($additional_data, $id);
-                    $update_record = $this->ion_auth->update_client_detail($additional_data, $id);
+                    //$update_record = $this->ion_auth->update_client_detail($additional_data, $id);
+
 //                     $change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
                 } else {
 //                    $additional_data['id'] = $user_id;
@@ -314,6 +320,7 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
+                $additional_data['isactive'] = 1;
             $additional_data['user_id'] = $this->session->userdata('user_id');
 
             $this->Customer_Model->add_business_location($additional_data);

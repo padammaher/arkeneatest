@@ -42,8 +42,10 @@
                                     ?> 
                                     <tr>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->first_name . " " . $clientinfo->last_name; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->customer_address; ?></td>
+
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->first_name." ".$clientinfo->last_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->location_name; ?></td>
+
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->username; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="flex-item">
@@ -92,25 +94,25 @@
                                                     <tr>
                                                         <td width="" class="lft-td">Sr. No.
                                                         </td>
-                                                        <td><?php echo $clientinfo->srno; ?> 
+                                                        <td><?php echo $i; ?> 
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Name
                                                         </td>
-                                                        <td><?php echo $clientinfo->client_name; ?> 
+                                                        <td><?php echo $clientinfo->first_name; ?> 
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="lft-td">Customer Location
                                                         </td>
-                                                        <td><?php echo $clientinfo->client_location; ?> 
+                                                        <td><?php echo $clientinfo->location_name; ?> 
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="lft-td">User Name
                                                         </td>
-                                                        <td><?php echo $clientinfo->client_username; ?>
+                                                        <td><?php echo $clientinfo->username; ?>
                                                         </td>
                                                     </tr>
                                                 </tbody>

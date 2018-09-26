@@ -732,6 +732,7 @@ class Inventory extends MY_Controller {
                     $unique_data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'asset_id' => $this->input->post('assetid'),
+                        'createdate' => date('Y-m-d', strtotime($this->input->post('wef_date'))),
                         'createdby' => $user_id
                     );
 
@@ -747,8 +748,14 @@ class Inventory extends MY_Controller {
                             $inserteddata = $this->Inventory_model->add_device_asset($insert_data);
                             if ($inserteddata) {
                                 $this->session->set_flashdata('success_msg', 'Device asset successfully added');
-                                return redirect('Device_assets_list');
+                               if (!empty($this->input->post('back_action'))) {
+                                    return redirect($this->input->post('back_action'), 'refresh');
+                                } else {
+                                     return redirect('Device_assets_list');
+                                }
+                               
                             } else {
+                                $this->session->set_flashdata('error_msg', 'Device asset failed to added');
                                 return redirect('Device_assets_list');
                             }
                         }
@@ -808,6 +815,7 @@ class Inventory extends MY_Controller {
                     $unique_data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'asset_id' => $this->input->post('assetid'),
+                        'createdate' => date('Y-m-d', strtotime($this->input->post('wef_date'))),
                         'createdby' => $user_id
                     );
                     if ($this->form_validation->run() == TRUE) {
@@ -824,7 +832,12 @@ class Inventory extends MY_Controller {
 
                             if ($update_device_asset_data) {
                                 $this->session->set_flashdata('success_msg', 'Device asset successfully updated');
-                                return redirect('Device_assets_list');
+                                if (!empty($this->input->post('back_action'))) {
+                                    return redirect($this->input->post('back_action'), 'refresh');
+                                } else {
+                                     return redirect('Device_assets_list');
+                                }
+                                
                             }
                         }
                     } else {

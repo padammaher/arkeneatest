@@ -248,18 +248,20 @@ class Ion_auth_model extends CI_Model {
             return 2;
         } else {
             $salt = $this->store_salt ? $this->salt() : FALSE;
-            $password = $this->hash_password($additional_data['password'], $salt);
-            $Add_user_data = array('group_id' => 2, 'ip_address' => '127.0.0.1',
-                'username' => $additional_data['username'],
-                'company_name' => $additional_data['first_name'],
-                'password' => $password,
-                'email' => $additional_data['email'],
-                'first_name' => $additional_data['first_name'],
-                'active' => $additional_data['active'],
-                'login_flag' => 0,
-                'customer_address' => $additional_data['customer_address'],
-                'isdeleted' => 0
-            );
+
+            $password = $this->hash_password($additional_data['password'], $salt);            
+            $Add_user_data= array(  'group_id'=>2,'ip_address'=>'127.0.0.1',
+                                    'username'=>$additional_data['username'],
+                                    'company_name'=>$additional_data['first_name'],
+                                    'password'=>$password,
+                                    'email'=>$additional_data['email'],
+                                    'first_name'=>$additional_data['first_name'],
+                                    'active'=>$additional_data['active'],
+                                    'login_flag'=>0,
+                                    'location_id'=>$additional_data['location_id'],
+                                    'isdeleted'=>0 
+                                 );   
+                    
 
 //              exit;          
             $this->db->insert('users', $Add_user_data);
