@@ -728,7 +728,7 @@ class Assets extends MY_Model {
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.rule_id' => $rule_id));
 //        $this->db->where('trigger.isactive', 1);
         if($groupid == '2'){
-        $this->db->where('trigger.createby', 1);            
+        $this->db->where('trigger.createby', $user_id);            
         }
         $this->db->where('trigger.isdeleted',0);
         $query = $this->db->get();
