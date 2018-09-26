@@ -334,7 +334,12 @@ class Inventory extends MY_Controller {
                             $inserteddata = $this->Inventory_model->add_devicesensor($insert_data);
                             if ($inserteddata) {
                                 $this->session->set_flashdata('success_msg', 'Device sensor successfully added');
-                                return redirect('Device_sensor_list');
+                                                               
+                                if (!empty($this->input->post('back_action'))) {
+                                    return redirect($this->input->post('back_action'), 'refresh');
+                                } else {
+                                    return redirect('Device_sensor_list', 'refresh');
+                                }
                             } else {
                                 return redirect('Device_sensor_list');
                             }
@@ -415,6 +420,16 @@ class Inventory extends MY_Controller {
                             $update_device_sensors_data = $this->Inventory_model->Update_device_sensors_model($update_data, $sen_inv_id);
                             if ($update_device_sensors_data) {
                                 $this->session->set_flashdata('success_msg', 'Device sensor successfully updated');
+                                
+                                if (!empty($this->input->post('back_action'))) {
+                                    return redirect($this->input->post('back_action'), 'refresh');
+                                } else {
+                                    return redirect('Device_sensor_list', 'refresh');
+                                }
+                            }
+                            else
+                            {
+                                $this->session->set_flashdata('success_msg', 'Device sensor failed to update');
                                 return redirect('Device_sensor_list');
                             }
                         }

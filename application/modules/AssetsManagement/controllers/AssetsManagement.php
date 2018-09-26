@@ -45,6 +45,14 @@ class AssetsManagement extends MY_Controller {
             $data['type_list'] = $this->Assets->AssetType_list($user_id);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+               
+                $unique_Data_with_date = array(
+                            'code' => $this->input->post('Assetcode'),
+                            'createdby' => $user_id,
+                            'startdate' => date("Y-m-d", strtotime($this->input->post('startdate'))),
+                            'enddate' =>  date("Y-m-d", strtotime($this->input->post('enddate')))
+                        );
+                
                 $unique_Data = array(
                     'code' => $this->input->post('Assetcode'),
 //                    'customer_locationid' => $this->input->post('Customerlocation'),
@@ -72,7 +80,8 @@ class AssetsManagement extends MY_Controller {
                 $this->form_validation->set_rules('Movable', 'Movable / Immovable', 'required');
                 $this->form_validation->set_rules('startdate', 'Start date', 'required');
                 $this->form_validation->set_rules('enddate', 'End date', 'required');
-                $isUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
+                
+               // $isUnique = $this->Assets->checkassetcodeIfExists('asset', $unique_Data);
 
                 if ($this->form_validation->run() == TRUE) {
                     // var_dump($isUnique);die;
@@ -85,7 +94,8 @@ class AssetsManagement extends MY_Controller {
                         load_view_template($data, 'Assets/assets_add');
                     } else {
 
-                        $isDateUnique = $this->Assets->checkassetcodeIfExists_or_scheduled('asset', $unique_Data);
+                        $isDateUnique = $this->Assets->checkassetcodeIfExists_or_scheduled_for_add('asset', $unique_Data_with_date);
+                        
                         if ($isDateUnique) {
                             $this->session->set_flashdata('note_msg', 'Assets Code already schedule..! please check start & end date');
                             load_view_template($data, 'Assets/assets_add');

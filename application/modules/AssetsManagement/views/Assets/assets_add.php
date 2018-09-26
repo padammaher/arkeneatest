@@ -186,8 +186,8 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="form-control" id="Movable" name="Movable" required>
                                 <option value="">Select Type</option>
-                                <option value="1">Movable</option>
-                                <option value="2">Immovable</option>
+                                <option value="1" <?php echo set_value('Movable')==1? 'selected':'';?> >Movable</option>
+                                <option value="2" <?php echo set_value('Movable')==2? 'selected':'';?>>Immovable</option>
                             </select>
                         </div>
                         <?php if (form_error('Movable')) { ?>

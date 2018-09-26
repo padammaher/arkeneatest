@@ -48,11 +48,20 @@ class Customer_Model extends CI_Model {
     }
 
     public function get_client_list($user_id){
-        $client_data=$this->db->from('users')->where('id',$user_id)->get()->result();
-        return $client_data; 
+        $group_id = $this->session->userdata('group_id');
+        $client_data=$this->db->select('*');
+                     $this->db->from('users');
+                    
+                if($group_id ==2) {
+                        $this->db->where('id',$user_id);
+                }                                     
+                 $query = $this->db->get();
+                 $objData = $query->result();
+        return $objData; 
 
     }
     public function add_client_detail($data) {
+//        $group_id = $this->session->userdata('group_id');
         $user_id = $this->session->userdata('user_id');
         $where= array('username' =>  $data['username'], 'id' => $user_id);
         $alreadyexit = $this->db->select('id')->from('users')->where($where)->get()->result();
@@ -102,7 +111,8 @@ class Customer_Model extends CI_Model {
     }*/
 
     public function get_business_list($user_id) {
-
+        $group_id = $this->session->userdata('group_id');
+        
         $this->db->select('customer_business_location.*,city.name as city_name,country.name as country_name,state.name as state_name');
         $this->db->from('customer_business_location');
 
@@ -112,7 +122,9 @@ class Customer_Model extends CI_Model {
         //$this->db->order_by("customer_business_location.id", "desc");
        // $query= $this->db->get();
         //$business_data=  $query->result();
-        $this->db->where('user_id', $user_id);        
+        if($group_id =='2'){
+        $this->db->where('user_id', $user_id);  
+        }
        // $this->db->order_by("customer_business_location.id", "desc");
         $query = $this->db->get();
         $business_data = $query->result();
@@ -156,8 +168,14 @@ class Customer_Model extends CI_Model {
     }
 
     public function get_customer_location($user_id) {
-        $location_data = $this->db->select('DISTINCT(location_name)')->from('customer_business_location')->where('user_id', $user_id)->get()->result();
-        return $location_data;
+         $group_id = $this->session->userdata('group_id');
+        $location_data = $this->db->select('DISTINCT(location_name),id');
+                         $this->db->from('customer_business_location');
+                         if($group_id=='2'){
+                         $this->db->where('user_id', $user_id);}
+                         $query=$this->db->get();
+                  $data = $query->result();
+        return $data;
     }
 
 }

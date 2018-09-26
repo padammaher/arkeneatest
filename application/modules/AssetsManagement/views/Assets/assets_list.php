@@ -48,6 +48,8 @@
                           <th>Customer Location</th>
                           <th>User Name</th>
                           <th>Parameter Count</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
                           <th>Status</th>
                           <th>Actions</th>                          
                         </tr>
@@ -65,6 +67,8 @@
                               <td <?php echo $modal_idand_class;?> ><?php echo $list['location'] ?></td>
                               <td <?php echo $modal_idand_class;?> ><?php echo $list['client_name'] ?></td>
                               <td <?php echo $modal_idand_class;?> ><?php echo  count($list['parametercount']) ?></td>                              
+                              <td <?php echo $modal_idand_class;?> ><?php echo $list['startdate'] ?></td>
+                              <td <?php echo $modal_idand_class;?> ><?php echo $list['enddate'] ?></td>
                               <td <?php echo $modal_idand_class;?> ><?php echo $list['isactive']=='1' ? "Active":"Not-active";?></td>
                               <td >
                                 <div style="display: -webkit-inline-box;">
