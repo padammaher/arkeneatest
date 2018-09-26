@@ -50,10 +50,17 @@ class Assets extends MY_Model {
     }
 
     public function getCustomerLocationCount($user_id) {
-        $this->db->select('count(id) as locationcount');
+         $group_id = $this->session->userdata('group_id');
+        $this->db->select('count(customer_business_location.id) as locationcount');
         $this->db->from('customer_business_location ');
-        $this->db->where('user_id', $user_id);
-        $this->db->where('isdeleted', 0);
+        if($group_id=='2'){        
+        $this->db->join('users','users.location_id=customer_business_location.id','left');
+        $this->db->where('users.id', $user_id);
+        $this->db->where(array('users.active'=>1,'users.isdeleted'=> 0));
+        }else {
+           // 
+        }
+        $this->db->where(array('customer_business_location.isactive'=>1,'customer_business_location.isdeleted'=> 0));
         $query = $this->db->get();
         $obj = $query->result_array();
         return $obj[0]['locationcount'];
@@ -150,14 +157,17 @@ class Assets extends MY_Model {
          $group_id = $this->session->userdata('group_id');
         $this->db->select('customer_business_location.id,customer_business_location.location_name');
         $this->db->from('customer_business_location');        
-        $this->db->join('users','users.location_id=customer_business_location.id');
-        $this->db->where('users.isdeleted', 0);
+       
+        
         if($group_id =='2'){
-        $this->db->where('user_id', $user_id);
+        $this->db->join('users','users.location_id=customer_business_location.id');    
+        $this->db->where('users.id', $user_id);
+        $this->db->where('users.isdeleted', 0);
         }
-        $this->db->group_by('users.id');
+        
+//        $this->db->group_by('users.id');
         $query = $this->db->get();
-//        echo $this->db->last_query();
+        //echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
@@ -169,7 +179,7 @@ class Assets extends MY_Model {
         $this->db->where('isactive', 1);        
         $this->db->where('isdeleted', 0);
         if($group_id =='2'){
-        $this->db->where('createdby', $user_id);
+        //$this->db->where('createdby', $user_id);
         }
         $query = $this->db->get();
         $objData = $query->result_array();
@@ -184,7 +194,7 @@ class Assets extends MY_Model {
         $this->db->where('isdeleted', 0);
         
          if($group_id =='2'){
-        $this->db->where('createdby', $user_id);
+       // $this->db->where('createdby', $user_id);
         }
         $query = $this->db->get();
         $objData = $query->result_array();
@@ -300,7 +310,7 @@ class Assets extends MY_Model {
         $this->db->where('createdby', $user_id);
         } 
         $query = $this->db->get();
-//        echo $this->db->last_query();
+       // echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
@@ -338,9 +348,11 @@ class Assets extends MY_Model {
         $groupid = $this->session->userdata('group_id');
         $this->db->select('id,first_name as client_name');
         $this->db->from('users');
+       
         if ($groupid == 2) {
             $this->db->where('id', $user_id);
         }
+        
         $this->db->where(array('active'=>1,'isdeleted'=> 0));
         $query = $this->db->get();
 
@@ -359,12 +371,12 @@ class Assets extends MY_Model {
         $this->db->select('asset_user.id,
                                     asset.id as `asset_tbl_id`,
                                     asset.`code`,
-                                    branch_user.id as `branch_user_tbl_id`,
-                                    branch_user.client_name,
+                                    users.id as `branch_user_tbl_id`,
+                                    users.first_name as `client_name`,
                                     asset_user.createdate');
         $this->db->from('asset_user');
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
-        $this->db->join('branch_user', 'branch_user.id = asset_user.assetuser_id', 'inner');
+        $this->db->join('users', 'users.id = asset_user.assetuser_id', 'inner');
         $this->db->where('asset_user.id', $asset_user_tbl_id);
         $query = $this->db->get();
 //        echo $this->db->last_query();

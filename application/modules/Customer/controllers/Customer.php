@@ -318,6 +318,7 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
+                $additional_data['isactive'] = 1;
             $additional_data['user_id'] = $this->session->userdata('user_id');
 
             $this->Customer_Model->add_business_location($additional_data);
