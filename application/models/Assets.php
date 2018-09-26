@@ -67,9 +67,12 @@ class Assets extends MY_Model {
     }
 
     public function getAssetCount($user_id) {
+        $group_id = $this->session->userdata('group_id');
         $this->db->select('count(id) as assetcount');
         $this->db->from('asset');
+        if($group_id=='2'){
         $this->db->where('createdby', $user_id);
+        }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
         $obj = $query->result_array();
@@ -77,9 +80,12 @@ class Assets extends MY_Model {
     }
 
     public function getDeviceCount($user_id) {
+         $group_id = $this->session->userdata('group_id');
         $this->db->select('count(id) as devicecount');
         $this->db->from('device_inventory');
+        if($group_id=='2'){
         $this->db->where('createdby', $user_id);
+        }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
         $obj = $query->result_array();
@@ -87,9 +93,12 @@ class Assets extends MY_Model {
     }
 
     public function getSensorCount($user_id) {
+         $group_id = $this->session->userdata('group_id');
         $this->db->select('count(id) as sensorcount');
         $this->db->from('sensor_inventory');
+         if($group_id=='2'){
         $this->db->where('createdby', $user_id);
+         }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
         $obj = $query->result_array();
