@@ -64,7 +64,7 @@
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['scaling_factor'] ? $r['scaling_factor'] : ""; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uom'] ? $r['uom'] : ""; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ""; ?></td>
-                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td class="action">
                                             <form action="" method="post" id="update_param_range<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>

@@ -48,7 +48,7 @@
                                                 }
                                                 ?></td>
 
-                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
+                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
                                             <td  class="action">
                                                 <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
                                                     <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
