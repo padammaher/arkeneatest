@@ -58,7 +58,7 @@
                                         <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['contact_person']; ?></td>
                                         <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['contact_no']; ?></td>                                        
                                         <td <?php echo $modal_idand_class;?> ><?php echo $asset_loc_list['contact_email']; ?></td>
-                                        <td><?php echo $asset_loc_list['contact_email']=='1' ? "Active":"Not-active"; ?></td>
+                                        <td><?php echo $asset_loc_list['isactive']=='1' ? "Active":"Deactive"; ?></td>
                                         <td >             
                                             <div style="display: -webkit-inline-box;">
                                             <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">

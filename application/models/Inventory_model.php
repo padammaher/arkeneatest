@@ -161,7 +161,7 @@ class Inventory_model extends MY_Model {
         $this->db->join('parameter', 'parameter.id=sensor_inventory.parameter_id', 'left');
         $this->db->join('uom_type', 'uom_type.id=sensor_inventory.uom_type_id', 'left');
         $this->db->join('customer_business_location', 'customer_business_location.id=sensor_inventory.customer_location_id', 'left');
-        $this->db->where('sensor_inventory.createdby', $user_id);
+//        $this->db->where('sensor_inventory.createdby', $user_id);
         $this->db->where('sensor_inventory.id', $sen_inv_id);
         $query = $this->db->get();
         $objData = $query->result_array();
@@ -205,7 +205,7 @@ class Inventory_model extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         $this->db->select('id,                            
                             number,
-                            serial_no,customer_location_id,customer_location_id');
+                            serial_no,customer_location_id');
         $this->db->from('device_inventory');
         $this->db->where('isactive', 1);
         $this->db->where(array('isdeleted'=>0));
@@ -214,6 +214,7 @@ class Inventory_model extends MY_Model {
         }
         $this->db->group_by('id');
         $query = $this->db->get();
+//        echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
