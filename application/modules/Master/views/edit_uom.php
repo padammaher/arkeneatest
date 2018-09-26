@@ -20,7 +20,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <!--<input type="text" class="form-control"  name="uom_type" value="<?php echo $result[0]['name']; ?>" required="required" pattern="[A-Za-z\s]*">-->
                                 <select class="form-control" name="uom_type" required="required">
-                                    <option value="10">Pressure</option>
+                                    <option value="">Select UOM Type</option>
                                     <?php
                                     if (isset($uom_list) && !empty($uom_list)) {
                                         foreach ($uom_list as $ul) {
