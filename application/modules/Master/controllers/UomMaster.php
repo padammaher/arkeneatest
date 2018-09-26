@@ -366,11 +366,13 @@ class UomMaster extends CI_Controller {
         
     }
     public function get_uom_list_data(){
+        $data='';
+         $type_id='';
+         $uom_list='';
          if($this->input->post('type_id')){
             $type_id= $this->input->post('type_id'); 
         }
-         $data='';
-         $type_id='';
+         
          if($type_id)
           $uom_list = $this->uommodel->get_uom_data($type_id); 
          
