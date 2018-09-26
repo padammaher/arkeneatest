@@ -1,6 +1,6 @@
 <?php foreach ($list_main_category as $list) { ?>
-    <?php //var_dump($list_main_category);  ?>
-    <?php // echo form_open_multipart('assetsmanagement/assets_main_category/' . $list['id'], array('id' => 'form_edit_ast_main_cat_id' . $list['id'], 'class' => 'form_edit_ast_main_cat_id' . $list['id']));  ?>
+    <?php //var_dump($list_main_category);   ?>
+    <?php // echo form_open_multipart('assetsmanagement/assets_main_category/' . $list['id'], array('id' => 'form_edit_ast_main_cat_id' . $list['id'], 'class' => 'form_edit_ast_main_cat_id' . $list['id']));   ?>
     <?php echo form_open_multipart('assetsmanagement/assets_main_category/' . $list['id'], array('id' => 'form_edit_ast_main_cat_id', 'class' => 'form_edit_ast_main_cat_id')); ?>  
     <!-- Modal -->
     <div class="modal fade" id="edit_category<?php echo $list['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ultraModal-Label" aria-hidden="true">
@@ -64,12 +64,13 @@
                     </div>                                        
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
-                            <button type="submit" name="main_cat_id" value="<?php echo $list['id'] ?>" class="btn btn-warning2 btn-sm">Submit</button>
+                            <button type="submit" name="main_cat_id" value="<?php echo $list['id'] ?>" class="btn btn-warning2 btn-sm">Update</button>
                         </div> 
                     </div>
                 </div>            
             </div>
-        </form>
+            </form>
         </div>
     </div>
-<?php }?>
+<?php
+}?>
