@@ -56,7 +56,7 @@
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['location_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['description']; ?></td>
-                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['isactive'] == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['isactive'] == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="action">
                                             <div style="display: -webkit-inline-box;">
                                                 <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
