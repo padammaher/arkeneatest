@@ -34,17 +34,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php // print_r($this->session->all_userdata());
+                            <?php
+                            // print_r($this->session->all_userdata());
                             $i = 1;
                             if ($client_details) {
                                 foreach ($client_details as $clientinfo) {
                                     ?> 
                                     <tr>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->first_name." ".$clientinfo->last_name; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->first_name . " " . $clientinfo->last_name; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->customer_address; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->username; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 0 ? 'Active' : 'Deactive'; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 1 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="flex-item">
                                             <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
                                                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  
@@ -67,7 +68,7 @@
                             } else {
                                 ?>
                             <td colspan="6">No data found..!</td>   
-                        <?php } ?> 
+<?php } ?> 
                         </tbody>
                     </table>
                     <?php
@@ -210,13 +211,13 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         $('body').on('click', '.edit', function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
             $("#update_client" + id).submit();
         });
-        
+
         $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#delete_confirmation").modal('show');
