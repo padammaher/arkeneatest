@@ -25,7 +25,7 @@ if($this->input->post('dev_sen_post_id')){
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="deviceid" id="deviceid" required="required" <?php echo $managed_dev_sen_Id_readonly == 'dev'? 'readonly="readonly"' : '';?> >
 <?php  if($managed_dev_sen_Id_readonly!="dev") {?>                                     
-                                    <option value="">Select Device Number</option>
+    <option value="">Select Device Number</option>
 <?php } ?>                                    
 <?php if($managed_dev_sen_Id_readonly=="dev"){
 foreach ($device_list as $device_id_list) { 
@@ -48,10 +48,10 @@ if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
     <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Number *</label>
     <div class="col-md-6 col-sm-6 col-xs-12">             
     <select class="form-control" name="sensorid" id="sensorid"  <?php echo $managed_dev_sen_Id_readonly == 'sen'? 'readonly="readonly"' : '';?>>
-       <?php  if($managed_dev_sen_Id[0]!="sen") {?>                                     
+       <?php  if($managed_dev_sen_Id_readonly!="sen") {?>                                     
                 <option value="">Select Sensor Number</option>
         <?php } ?>   
-        <?php if($managed_dev_sen_Id[0]=="sen"){
+        <?php if($managed_dev_sen_Id_readonly=="sen"){
         foreach ($sensorid_list as $sensorid_list_data) { 
         if($managed_dev_sen_Id[1] == $sensorid_list_data['id']){ ?>
         <option value="<?php echo $sensorid_list_data['id'];?>" <?php echo set_value('sensorid',$managed_dev_sen_Id[1])==$sensorid_list_data['id']? 'selected':'' ?> ><?php echo $sensorid_list_data['sensor_no'];?></option>
