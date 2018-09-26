@@ -908,13 +908,13 @@ class AssetsManagement extends MY_Controller {
         if ($this->input->post('wef_date'))
             $data['wef_date'] = $this->input->post('wef_date');
         if ($this->input->post('rule_status')) {
-            if ($this->input->post('rule_status') == 'on')
+            if ($this->input->post('rule_status') == 'on'){
                 $data['rule_status'] = 1;
-            else
+            }else{
                 $data['rule_status'] = 0;
-        }
-
-
+            }
+        }else{  $data['rule_status'] = 0; }
+      
         if (!$asset_rule_id) {
             $insert_id = $this->Assets->add_asset_rule_detail($data, $parameter_range_id);
             if ($insert_id) {
