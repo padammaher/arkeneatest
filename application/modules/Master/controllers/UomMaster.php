@@ -370,7 +370,10 @@ class UomMaster extends CI_Controller {
             $type_id= $this->input->post('type_id'); 
         }
          $data='';
+         $type_id='';
+         if($type_id)
           $uom_list = $this->uommodel->get_uom_data($type_id); 
+         
         if($uom_list){
          foreach ($uom_list as $uml){ 
              
