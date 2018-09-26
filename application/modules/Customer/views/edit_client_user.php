@@ -3,7 +3,6 @@
     <div class="clearfix">
     </div>
     <div class="row">
-<<<<<<< HEAD
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -11,47 +10,6 @@
                     </h4>						
                     <div class="clearfix">
                     </div>
-=======
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h4> <?php echo (isset($client_details[0]->id))?'Edit Client User':'Add Client User'; ?>
-            </h4>						
-            <div class="clearfix">
-            </div>
-          </div>
-          <div class="x_content">
-          <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url()?>update_client">
-              <!-- <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.
-                </label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="srno" type="text"  class="form-control" value="<?php echo (isset($client_details[0]->srno))?$client_details[0]->srno:''; ?>" >
-                
-                </div>
-              </div> -->
-              <input name="id" type="hidden"  class="form-control"  value="<?php echo (isset($client_details[0]->id))?$client_details[0]->id:''; ?>" >
-              <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name<span> *</span>
-                </label>
-                
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                <input name="client_name" type="text" class="form-control" placeholder="Enter Name" required="required"  value="<?php echo (isset($client_details[0]->first_name))?$client_details[0]->first_name:''; ?>" >
-                </div>
-              </div>
-              <div class="item form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location
-                <span> *</span>
-                </label>                
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                <select class="form-control" required="required" name="client_location">
-                    <option value="">Select Customer Location
-                    </option>
-                     <?php  foreach($client_location as $Location){ ?> 
-                    <option value="<?php echo $Location->location_name;?>"<?php if(isset($client_details[0]->customer_address)){ echo ($Location->location_name==$client_details[0]->customer_address)?'selected':''; } ?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
-                  <?php   } ?> 
-                </select>
->>>>>>> 02c2fd6fb483ce5efa21cd24d217534423cca075
                 </div>
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url() ?>update_client">
