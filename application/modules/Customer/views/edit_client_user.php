@@ -36,7 +36,7 @@
                 </label>                
                 <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" required="required" name="client_location">
-                    <option>Select Customer Location
+                    <option value="">Select Customer Location
                     </option>
                      <?php  foreach($client_location as $Location){ ?> 
                     <option value="<?php echo $Location->location_name;?>"<?php if(isset($client_details[0]->customer_address)){ echo ($Location->location_name==$client_details[0]->customer_address)?'selected':''; } ?>><?php echo (isset($Location->location_name))?$Location->location_name:''; ?></option>
