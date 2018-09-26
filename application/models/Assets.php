@@ -838,8 +838,8 @@ class Assets extends MY_Model {
         
         $query = "select asset.code,
     asset.specification,customer_business_location.location_name as `location`,
-    branch_user.client_name,
-    branch_user.client_username,
+    users.first_name as `client_name`,
+    users.username as `client_username`,
     asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,
     (SELECT asset_parameter_rule.rule_name from asset_parameter_rule where asset_parameter_rule.id=" . $set_rule_id . ") as `rule_name`,
     (SELECT asset_parameter_rule.rule_des from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `rule_des`,
@@ -858,7 +858,7 @@ class Assets extends MY_Model {
 from asset  
  left join customer_business_location on customer_business_location.id= asset.customer_locationid  
  LEFT JOIN asset_user ON asset_user.asset_id = asset.id   
- LEFT JOIN branch_user ON branch_user.id = asset_user.assetuser_id  
+ LEFT JOIN users ON users.id = asset_user.assetuser_id  
  
  left join parameter_range ON parameter_range.asset_id = asset.id
   LEFT JOIN

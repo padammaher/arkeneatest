@@ -258,17 +258,20 @@ class AssetsManagement extends MY_Controller {
                         $unique_Data_without_date = array(
 //                        'code' => $this->input->post('Assetcode'),
                             'customer_locationid' => $this->input->post('Customerlocation'),
-                            'asset_catid' => $this->input->post('Assetcategory'),
-                            'asset_typeid' => $this->input->post('Assettype'),
-                            'serial_no' => $this->input->post('Assetserialno'),
-                            'make' => $this->input->post('Make'),
-                            'model' => $this->input->post('Modelno'),
-                            'ismovable' => $this->input->post('Movable'),
-                            'createdby' => $user_id,
-                            'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0',
+                        'asset_catid' => $this->input->post('Assetcategory'),
+                        'asset_typeid' => $this->input->post('Assettype'),
+                        'specification' => $this->input->post('assetspecification'),
+                        'serial_no' => $this->input->post('Assetserialno'),
+                        'make' => $this->input->post('Make'),
+                        'model' => $this->input->post('Modelno'),
+                        'description' => $this->input->post('Description'),
+                        'ismovable' => $this->input->post('Movable'),
+                        'serial_no' => $this->input->post('Assetserialno'),
+                        'createdby' => $user_id,                        
+                        'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0',
 //                         'startdate'=>date("Y-m-d",strtotime($this->input->post('startdate'))),
 //                        'enddate'=>$CheckEnddate
-                        );
+                     );
 //date validation  ---------------------  
                         if ($this->form_validation->run() == TRUE) {
                             if ($Checkstartdate != $this->input->post('oldstartdate') || $CheckEnddate != $this->input->post('oldenddate')) {
