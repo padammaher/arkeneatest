@@ -69,7 +69,7 @@
                               <td <?php echo $modal_idand_class;?> ><?php echo  count($list['parametercount']) ?></td>                              
                               <td <?php echo $modal_idand_class;?> ><?php echo $list['startdate'] ?></td>
                               <td <?php echo $modal_idand_class;?> ><?php echo $list['enddate'] ?></td>
-                              <td <?php echo $modal_idand_class;?> ><?php echo $list['isactive']=='1' ? "Active":"Not-active";?></td>
+                              <td <?php echo $modal_idand_class;?> ><?php echo $list['isactive']=='1' ? "Active":"In-active";?></td>
                               <td >
                                 <div style="display: -webkit-inline-box;">
                                         <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
