@@ -241,7 +241,7 @@ class Ion_auth_model extends CI_Model {
 
     public function add_client_detail($additional_data) {
         $user_id = $this->session->userdata('user_id');
-        $where = array('username' => $additional_data['username'], 'id' => $user_id);
+        $where = array('email' => $additional_data['email']);
         $alreadyexit = $this->db->select('id')->from('users')->where($where)->get()->result();
         //  print_r($alreadyexit); exit;
         if (count($alreadyexit) > 0) {
