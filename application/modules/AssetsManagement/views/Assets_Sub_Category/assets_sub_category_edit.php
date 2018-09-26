@@ -1,5 +1,5 @@
 <?php foreach ($list_sub_category as $list) { ?>
-    <?php  echo form_open('assetsmanagement/assets_sub_category/' . $list['id'], array('id' => 'form_assets_main_category_id' . $list['id'], 'class' => 'form_assets_main_category_id' . $list['id'])); ?>
+    <?php echo form_open('assetsmanagement/assets_sub_category/' . $list['id'], array('id' => 'form_assets_main_category_id' . $list['id'], 'class' => 'form_assets_main_category_id' . $list['id'])); ?>
     <div id="edit_category-<?php echo $list['id'] ?>" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -31,7 +31,7 @@
 
                         <div class="col-sm-12">
                             <div class="input-field">
-    <!--                                <input type="hidden" name="hid" value="<?php //echo $list['id']     ?>">-->
+    <!--                                <input type="hidden" name="hid" value="<?php //echo $list['id']      ?>">-->
                                 <?php echo form_label(lang(), 'ast_sub_cat_name'); ?>
                                 <?php
                                 echo form_input(array(
@@ -50,7 +50,7 @@
                     </div>                                        
                     <div class="form-group">
                         <div class="col-sm-12 text-right">
-                            <button type="submit" class="btn btn-warning2 btn-sm">Submit</button>
+                            <button type="submit" class="btn btn-warning2 btn-sm">Update</button>
                         </div> 
                     </div>
                 </div>            

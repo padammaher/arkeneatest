@@ -229,7 +229,7 @@
                                 <input type="hidden" value="<?php echo $deviceinventory_data['id']; ?>" name="id"/>
                                 <input type="hidden" name="post" id="post" value="update" />
                               <!--<input type="hidden" name="form_action_type" value="update_action">-->
-                                <button type="submit" name="update_dev_inv_button" id="update_dev_inv_button" class="btn btn-primary">Save</button>
+                                <button type="submit" name="update_dev_inv_button" id="update_dev_inv_button" class="btn btn-primary">Update</button>
                                 <a href="<?php echo base_url('Device_inventory_list'); ?>" type="button" class="btn btn-default">Cancel</a>
 
                             </div>
