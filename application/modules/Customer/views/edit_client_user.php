@@ -63,7 +63,7 @@
                                 <span > *</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input name="password" type="text" id="client_password" class="form-control" placeholder="Enter Password" required="required"  value="<?php echo (isset($client_details[0]->password)) ? $client_details[0]->password : ''; ?>" >
+                                <input name="password" type="password" id="client_password" class="form-control" placeholder="Enter Password" required="required"  value="<?php echo (isset($client_details[0]->password)) ? $client_details[0]->password : ''; ?>" >
                                 <div id="errorpassword"> </div>
                             </div>
 
