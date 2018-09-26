@@ -253,10 +253,11 @@ class Inventory_model extends MY_Model {
         $this->db->where('isdeleted', 0);
         
         if($group_id =='2'){
-        $this->db->where('createdby', $user_id);
+//        $this->db->where('createdby', $user_id);
         }
         $this->db->group_by('id');
         $query = $this->db->get();
+        echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
