@@ -145,7 +145,7 @@
                                         <td class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
                                         <td class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
                                         <td class="flex-item"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['rule_status'])) ? ($asset_rule['rule_status']==1)?'Active':'': ''; ?></td>
+                                        <td class="flex-item"><?php echo (isset($asset_rule['rule_status'])) ? ($asset_rule['rule_status']==1)?'Active':'Deactive': ''; ?></td>
                                         <td class="flex-item">
                                             <form name="edit_asset_rule" id="edit_asset_rule<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>Asset_Rule">
                                                 <a  class="edit_asset" id="<?php echo $i; ?>">    

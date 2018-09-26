@@ -88,7 +88,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='telephone' id="phone" type="number" class="form-control" placeholder="Enter Land line Number " required="required">
+                  <input name='telephone' id="phone" type="number" class="form-control" placeholder="Enter Telephone Number " required="required">
                 </div>
               </div>
               <div class="item form-group">
