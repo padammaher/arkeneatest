@@ -61,10 +61,20 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable(this);" name="check_email" id="<?php echo isset($trigger_edit_data['email']) ? $trigger_edit_data['email'] : $header_desc[0]['client_username']; ?>" <?php echo (set_value('check_email')) == 'on' ? 'checked' : ''; ?> > Email</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable(this);" name="check_email" id="<?php  if(!empty($trigger_edit_data['email'])) {echo $trigger_edit_data['email'];} else { echo $header_desc[0]['client_username'];} ?>" <?php echo (set_value('check_email')) == 'on' ? 'checked' : ''; ?> > Email</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-<?php ?>
-                                <input type="text" name="email" id="email" value="<?php echo isset($header_desc[0]['client_username']) ? $header_desc[0]['client_username'] : set_value('email', $trigger_edit_data['email']); ?>" class="form-control" placeholder="Enter Email" <?php if (!empty(set_value('check_email'))) {
+<?php ?> 
+   <?php $emailfielddata='';
+        if(!empty($trigger_edit_data['email']))
+            {
+            $emailfielddata=$trigger_edit_data['email'];            
+            }
+            else
+            {
+            $emailfielddata=$header_desc[0]['client_username'];
+            }
+   ?>
+                                <input type="text" name="email" id="email" value="<?php  echo set_value('email',$emailfielddata)== $emailfielddata ? $emailfielddata :$trigger_edit_data['email']; ?>" class="form-control" placeholder="Enter Email" <?php if (!empty(set_value('check_email'))) {
     echo (set_value('check_email')) == 'on' ? '' : 'readonly';
 } else {
     echo 'readonly';
@@ -110,6 +120,7 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
                                 function undisable(vall) {
+//                                    alert(vall.id);
                                     if (vall.checked == true) {
                                         $("#email").attr("readonly", false);
 
