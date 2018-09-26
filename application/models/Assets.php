@@ -752,7 +752,7 @@ class Assets extends MY_Model {
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.id' => $trigger_post_id));
         //        $this->db->where('trigger.isactive', 1);
         if($groupid=='2'){
-          $this->db->where('trigger.user_id', $user_id);   
+//          $this->db->where('trigger.user_id', $user_id);   
         }
         $query = $this->db->get();
         $result = $query->result_array();
