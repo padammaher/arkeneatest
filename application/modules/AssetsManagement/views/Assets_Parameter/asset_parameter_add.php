@@ -8,7 +8,7 @@
         $edit_id = $param_range_id;
     } elseif (set_value('edit_id')) {
         $edit_id = set_value('edit_id');
-    } elseif (isset($post) && !empty($post)) {
+    } elseif (isset($post['edit_id']) && !empty($post['edit_id'])) {
         $edit_id = $post['edit_id'];
     }
     ?>
