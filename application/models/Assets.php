@@ -148,13 +148,14 @@ class Assets extends MY_Model {
 
     public function CustomerLocation_list($user_id) {
          $group_id = $this->session->userdata('group_id');
-        $this->db->select('id,location_name');
+        $this->db->select('customer_business_location.id,customer_business_location.location_name');
         $this->db->from('customer_business_location');        
-        $this->db->where('isdeleted', 0);
+        $this->db->join('users','users.location_id=customer_business_location.id');
+        $this->db->where('users.isdeleted', 0);
         if($group_id =='2'){
         $this->db->where('user_id', $user_id);
         }
-        $this->db->group_by('id');
+        $this->db->group_by('users.id');
         $query = $this->db->get();
 //        echo $this->db->last_query();
         $objData = $query->result_array();

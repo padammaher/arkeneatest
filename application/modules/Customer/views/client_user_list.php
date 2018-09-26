@@ -42,7 +42,7 @@
                                     <tr>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->first_name." ".$clientinfo->last_name; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->customer_address; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->location_name; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->username; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 0 ? 'Active' : 'Deactive'; ?></td>
                                         <td class="flex-item">

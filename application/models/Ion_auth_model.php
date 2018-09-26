@@ -258,7 +258,7 @@ class Ion_auth_model extends CI_Model {
                                     'first_name'=>$additional_data['first_name'],
                                     'active'=>$additional_data['active'],
                                     'login_flag'=>0,
-                                    'customer_address'=>$additional_data['customer_address'],
+                                    'location_id'=>$additional_data['location_id'],
                                     'isdeleted'=>0 
                                  );   
                     

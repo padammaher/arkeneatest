@@ -1,4 +1,7 @@
-			<div class="row">
+<?php $back_action='';
+ $back_action=$this->input->post('back_action');
+?>
+<div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                    <div class="x_title">
@@ -61,17 +64,22 @@
 
 							  					  
 						  
-						  <div class="ln_solid"></div>
-						  <div class="item form-group">
-							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                            <input type="hidden" name="post" id="asset_form_action" value="update" >    
-                                                            <input type="hidden" name="id" id="id" value="<?php echo $dev_asset_data['id']; ?>" >        
-                                                            <button type="submit" class="btn btn-primary" name="edit_dev_asset_button" id="edit_dev_asset_button" >Update</button>
-							 <a href="<?php echo base_url('Device_assets_list');?>" type="button" class="btn btn-default">Cancel</a> 
-							</div>
-						  </div>
+                <div class="ln_solid"></div>
+                <div class="item form-group">
+                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <input type="hidden" name="post" id="asset_form_action" value="update" >    
+                          <input type="hidden" name="id" id="id" value="<?php echo $dev_asset_data['id']; ?>" >        
+                          <button type="submit" class="btn btn-primary" name="edit_dev_asset_button" id="edit_dev_asset_button" >Update</button>
+                       <?php if(!empty($back_action)) {?>
+                  <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
+                  <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
+                    <?php }else {?>
+                          <a href="<?php echo base_url('Device_assets_list');?>" type="button" class="btn btn-default">Cancel</a> 
+                    <?php }?>        
+                      </div>
+                </div>
 <?php } ?>
-						</form>					
+    </form>					
 					
                   </div>
                 </div>

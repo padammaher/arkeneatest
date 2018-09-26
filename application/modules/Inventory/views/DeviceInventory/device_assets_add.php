@@ -1,4 +1,7 @@
 <?php $managed_dev_asset_Id='';$managed_dev_asset_Id=$this->input->post('dev_asset_id');?>	
+<?php $back_action='';
+ $back_action=$this->input->post('back_action');
+?>
 <div class="">
 
     <div class="clearfix"></div>
@@ -83,8 +86,12 @@ if($managed_dev_asset_Id == $device_id_list['id']){ ?>
                                 <input type="hidden" name="post" id="asset_form_action" value="add" >    
                                     <!--<input type="hidden" name="id" id="id" value="" >-->                                                                    
                                 <button type="submit" name="add_dev_asset_button" class="btn btn-primary">Save</button>
+                                <?php if(!empty($back_action)) {?>
+                             <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
+                                <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
+                                <?php }else {?>
                                 <a href="<?php echo base_url('Device_assets_list'); ?>" type="button" class="btn btn-default">Cancel</a>
-
+                                <?php }?>
                             </div>
                         </div>
 

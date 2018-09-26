@@ -37,9 +37,11 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Location
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
+                    
                     <select class="form-control" name="client_location" required="required" name="country_id">
                     <option>Select Customer Location </option>
-                      <?php foreach($client_location as $location){ ?> 
+                      <?php 
+                      foreach($client_location as $location){ ?> 
                       <option value="<?php echo  $location->location_name;?>"><?php echo $location->location_name;?> </option>
                       <?php } ?> 
                    </select>

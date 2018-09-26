@@ -49,14 +49,15 @@ class Customer_Model extends CI_Model {
 
     public function get_client_list($user_id){
         $group_id = $this->session->userdata('group_id');
-        $client_data=$this->db->select('*');
+        $client_data=$this->db->select('users.*,customer_business_location.location_name,customer_business_location.id as `customer_business_location_id`');
                      $this->db->from('users');
-                    
+                     $this->db->join('customer_business_location','customer_business_location.id=users.location_id','left');
                 if($group_id ==2) {
                         $this->db->where('id',$user_id);
                 }                                     
-                 $query = $this->db->get();
+                 $query = $this->db->get();                 
                  $objData = $query->result();
+//                 var_dump($objData);die;
         return $objData; 
 
     }
@@ -169,8 +170,9 @@ class Customer_Model extends CI_Model {
 
     public function get_customer_location($user_id) {
          $group_id = $this->session->userdata('group_id');
-        $location_data = $this->db->select('DISTINCT(location_name),id');
+        $location_data = $this->db->select('customer_business_location.location_name,customer_business_location.id');
                          $this->db->from('customer_business_location');
+//                         $this->db->join('users','customer_business_location.id=users.location_id','left');
                          if($group_id=='2'){
                          $this->db->where('user_id', $user_id);}
                          $query=$this->db->get();
