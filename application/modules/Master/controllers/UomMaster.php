@@ -80,6 +80,7 @@ class UomMaster extends CI_Controller {
                                         $this->uommodel->update_uom_record($uom_type_id, $qm_name['name'], $data);
                                     }
                                 }
+
                                 $alreadyexist = $this->uommodel->check_exist_uom($uom_type_id, $uom_name);
 
                                 if (count($alreadyexist) > 0) {
@@ -286,28 +287,38 @@ class UomMaster extends CI_Controller {
                         foreach ($uom_name_array as $uom_name) {
                             if ($uom_name && $uom_name != 'null') {
                                 $qmlist = $this->uommodel->get_uom_data($id);
-                                // print_r($qmlist);                           exit();
+
                                 foreach ($qmlist as $qm_name) {
                                     if (!in_array($qm_name['name'], $uom_name_array)) {
                                         $data = array('isdeleted' => 1);
                                         $this->uommodel->update_uom_record($id, $qm_name['name'], $data);
                                     }
                                 }
+                                if ($this->input->post('status') == 'on') {
+                                    $isactive = 1;
+                                } else {
+                                    $isactive = 0;
+                                }
                                 $alreadyexist = $this->uommodel->check_exist_uom($id, $uom_name);
+//                                echo "<pre>";
+//                                echo print_r($alreadyexist);
+//                                exit();
                                 if (count($alreadyexist) > 0) {
                                     $count = 1;
+                                    $uom_data = array(
+                                        'isactive' => $isactive
+                                    );
+
+                                    $count = $this->uommodel->update_uom($alreadyexist[0]['id'], $uom_data);
                                 } else {
                                     $uom_data = array(
                                         'name' => $uom_name,
                                         'createdat' => date('Y-m-d H:i:s'),
                                         'createdby' => $user_id,
                                         'uom_type_id' => $this->input->post('edit_id'),
+                                        'isactive' => $isactive
                                     );
-                                    if ($this->input->post('status') == 'on') {
-                                        $uom_data['isactive'] = 1;
-                                    } else {
-                                        $uom_data['isactive'] = 0;
-                                    }
+
                                     $count = $this->uommodel->insert_uom($uom_data);
                                 }
                             }

@@ -68,8 +68,8 @@
                             } else {
                                 ?>
                             <td colspan="7">No data found..!</td>       
-<?php }
-?>
+                        <?php }
+                        ?>
                         </tbody>
                     </table>
                 </div>

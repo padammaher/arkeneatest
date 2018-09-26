@@ -86,14 +86,11 @@ class UomModel extends MY_Model {
     }
 
     function update_uom($id, $uom_data) {
-        $uomtype = $this->db->from('uom')->where('id', $id)->get()->result();
-        if (count($uomtype) == 1) {
-            $this->db->where('uom.id', $id);
-            $this->db->update('uom', $uom_data);
-            return $this->db->affected_rows();
-        } else {
-            return 0;
-        }
+//        $uomtype = $this->db->from('uom')->where('id', $id)->get()->result();
+//        if (count($uomtype) == 1) {
+        $this->db->where('uom.id', $id);
+        $this->db->update('uom', $uom_data);
+        return $this->db->affected_rows();
     }
 
     function insert_uom_type($data) {
@@ -148,9 +145,9 @@ class UomModel extends MY_Model {
     }
 
     public function check_exist_uom($uom_type_id, $uom_name) {
-        $this->db->select('id,name');
+        $this->db->select('id,name,isactive');
         $this->db->from('uom');
-        $this->db->where(array('uom.uom_type_id' => $uom_type_id, 'uom.name' => $uom_name, 'isdeleted' => 0, 'isactive' => 1));
+        $this->db->where(array('uom.uom_type_id' => $uom_type_id, 'uom.name' => $uom_name, 'isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
