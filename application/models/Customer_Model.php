@@ -50,7 +50,6 @@ class Customer_Model extends CI_Model {
 
     public function get_client_list($user_id) {
         $group_id = $this->session->userdata('group_id');
-
         $client_data=$this->db->select('users.*,customer_business_location.location_name,customer_business_location.id as `customer_business_location_id`');
                      $this->db->from('users');
                      $this->db->join('customer_business_location','customer_business_location.id=users.location_id','left');
@@ -86,7 +85,7 @@ class Customer_Model extends CI_Model {
     public function update_client_detail($data, $id) {
         //print_r($id); exit();
         $this->db->where('id', $id);
-        $this->db->update('branch_user', $data);
+        $this->db->update('users', $data);
         if ($this->db->affected_rows() == '1') {
             return TRUE;
         } else {
