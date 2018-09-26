@@ -27,7 +27,7 @@
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <input type="hidden" name="editsubmit" value="1">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                                 <!--<button type="button" class="btn btn-default">Cancel</button>-->
                                 <a href="<?php echo base_url() ?>uom_type_list" class="btn btn-default">Cancel</a>
 

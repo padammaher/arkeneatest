@@ -63,7 +63,7 @@
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <input type="hidden" name="editsubmit" value="1">
-                                <input type="submit" class="btn btn-primary" name="edit" value="Save">
+                                <input type="submit" class="btn btn-primary" name="edit" value="Update">
                                 <a href="<?php echo base_url() ?>assettype" class="btn btn-default">Cancel</a>
                             </div>
                         </div>
