@@ -185,7 +185,13 @@
                             <div class="ln_solid"></div>
                             <div class="item form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <a class="btn btn-primary" id="save" >Save</a>
+                                    <a class="btn btn-primary" id="save" ><?php
+                                        if (isset($edit_id) && !empty($edit_id)) {
+                                            echo "Update";
+                                        } else {
+                                            echo "Save";
+                                        }
+                                        ?></a>
                                     <a href="<?php echo base_url() ?>asset_parameter_range_list" class="btn btn-default">Cancel</a>
 
                                 </div>

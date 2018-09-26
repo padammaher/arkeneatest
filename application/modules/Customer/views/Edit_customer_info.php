@@ -65,7 +65,7 @@
                                             foreach ($state as $stateid) {
                                                 ?> 
                                                 <option value="<?php echo $stateid->id; ?>" <?php echo ($stateid->id == $user->state_id) ? 'selected' : ''; ?>><?php echo $stateid->name; ?> </option>
-                                            <?php
+                                                <?php
                                             }
                                         }
                                         ?> 
@@ -83,10 +83,10 @@
                                             foreach ($city as $cityid) {
                                                 ?> 
                                                 <option value="<?php echo $cityid->id; ?>" <?php echo ($cityid->id == $user->city_id) ? 'selected' : ''; ?>><?php echo $cityid->name; ?> </option>
-        <?php
-        }
-    }
-    ?> 
+                                                <?php
+                                            }
+                                        }
+                                        ?> 
                                     </select>
                                 </div>
                             </div>
@@ -121,17 +121,16 @@
                             </div>
                             <div class="ln_solid">
                             </div>
-<?php } ?> 
+                        <?php } ?> 
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button id="customer_info_submit" type="submit" class="btn btn-primary">Save
+                                <button id="customer_info_submit" type="submit" class="btn btn-primary">Update
                                 </button>
                                 <a href="<?php echo base_url() ?>Customerinfo">
                                     <button type="button" class="btn btn-default">Cancel
                                     </button></a>
                             </div>
                         </div>
-
                     </form>	
                 </div>
             </div>
