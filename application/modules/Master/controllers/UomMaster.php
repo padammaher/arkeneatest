@@ -89,9 +89,13 @@ class UomMaster extends CI_Controller {
                                         'name' => $uom_name,
                                         'createdat' => date('Y-m-d H:i:s'),
                                         'createdby' => $user_id,
-                                        'isactive' => 1,
                                         'uom_type_id' => $this->input->post('uom_type'),
                                     );
+                                    if ($this->input->post('status') == 'on') {
+                                        $uom_data['isactive'] = 1;
+                                    } else {
+                                        $uom_data['isactive'] = 0;
+                                    }
                                     $count = $this->uommodel->insert_uom($uom_data);
                                 }
                             }
@@ -101,8 +105,12 @@ class UomMaster extends CI_Controller {
                             'name' => $this->input->post('uom_name'),
                             'createdat' => date('Y-m-d H:i:s'),
                             'createdby' => $user_id,
-                            'isactive' => 1
                         );
+                        if ($this->input->post('status') == 'on') {
+                            $uom_data['isactive'] = 1;
+                        } else {
+                            $uom_data['isactive'] = 0;
+                        }
                         $count = $this->uommodel->insert_uom($uom_data);
                     }
                 }
@@ -149,9 +157,12 @@ class UomMaster extends CI_Controller {
                     'name' => $this->input->post('uom_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
                 );
-
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
                 $count = $this->uommodel->insert_uom_type($data);
 
                 if (is_numeric($count) && $count > 0) {
@@ -193,6 +204,11 @@ class UomMaster extends CI_Controller {
                 $data = array(
                     'name' => $this->input->post('uom_type'),
                 );
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
                 $count = $this->uommodel->uomtype_update($id, $data);
 
                 if ((is_numeric($count) && $count > 0)) {
@@ -285,9 +301,13 @@ class UomMaster extends CI_Controller {
                                         'name' => $uom_name,
                                         'createdat' => date('Y-m-d H:i:s'),
                                         'createdby' => $user_id,
-                                        'isactive' => 1,
                                         'uom_type_id' => $this->input->post('edit_id'),
                                     );
+                                    if ($this->input->post('status') == 'on') {
+                                        $uom_data['isactive'] = 1;
+                                    } else {
+                                        $uom_data['isactive'] = 0;
+                                    }
                                     $count = $this->uommodel->insert_uom($uom_data);
                                 }
                             }
@@ -298,8 +318,12 @@ class UomMaster extends CI_Controller {
                             'name' => $this->input->post('uom_name'),
                             'createdat' => date('Y-m-d H:i:s'),
                             'createdby' => $user_id,
-                            'isactive' => 1
                         );
+                        if ($this->input->post('status') == 'on') {
+                            $uom_data['isactive'] = 1;
+                        } else {
+                            $uom_data['isactive'] = 0;
+                        }
                         $count = $this->uommodel->insert_uom($uom_data);
                     }
                 }
