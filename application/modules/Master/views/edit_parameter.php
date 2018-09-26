@@ -67,18 +67,23 @@
                                     <option value="10">Pressure</option>
                                     <?php
                                     if (isset($uom_types) && !empty($uom_types)) {
-                                        foreach ($uom_types as $ut) { ?>
-                                            <option value="<?php echo $ut['id'] ?>" <?php if (isset($uom_type)){ echo ($ut['id'] == $uom_type) ? 'selected': ''; } ?> ><?php echo $ut['name']; ?></option>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                                        foreach ($uom_types as $ut) {
+                                            ?>
+                                            <option value="<?php echo $ut['id'] ?>" <?php
+                                            if (isset($uom_type)) {
+                                                echo ($ut['id'] == $uom_type) ? 'selected' : '';
+                                            }
+                                            ?> ><?php echo $ut['name']; ?></option>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                 </select>
                             </div>
                             <?php if (form_error('uom_type')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('uom_type'); ?></span>
-                            <?php }
-                            ?>
+                        <?php }
+                        ?>
                         </div>	
                         <?php
                         if (isset($result[0]['description'])) {
@@ -102,7 +107,7 @@
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <input type="hidden" name="editsubmit" value="1">
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                                 <a href="<?php echo base_url() ?>parameterlist" class="btn btn-default">Cancel</a>
                                 <!--<button type="button" class="btn btn-default">Cancel</button>-->
                             </div>
