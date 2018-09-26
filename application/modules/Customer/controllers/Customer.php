@@ -13,8 +13,6 @@ class Customer extends MY_Controller {
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->lang->load('auth');
-        
-        
     }
 
     public function index() {
@@ -192,7 +190,7 @@ class Customer extends MY_Controller {
     public function update_client_detail() {
         // print_r($_POST); exit();
         $user_id = $this->session->userdata('user_id');
-        $salt='';
+        $salt = '';
         $id = '';
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
@@ -217,32 +215,31 @@ class Customer extends MY_Controller {
                     $additional_data['customer_address'] = $this->input->post('client_location');
                 if ($this->input->post('client_username'))
                     $additional_data['username'] = $this->input->post('client_username');
-                
+
                 if ($this->input->post('client_username'))
                     $additional_data['email'] = $this->input->post('client_username');
 
                 if ($this->input->post('password'))
                     $additional_data['password'] = $this->input->post('password');
-                if ($this->input->post('status')){
-                    $additional_data['active'] = 1;                   
+                if ($this->input->post('status')) {
+                    $additional_data['active'] = 1;
                 }
-                   
-              
-                 
+
+
+
 //                 print_r($additional_data); exit();
                 if ($id) {
-                    $update_record = $this->ion_auth->add_client_detail($additional_data);
-//                    $update_record = $this->Customer_Model->update_client_detail($additional_data, $id);
+//                    $update_record = $this->ion_auth->add_client_detail($additional_data, $id);
+                    $update_record = $this->ion_auth->update_client_detail($additional_data, $id);
 //                     $change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
                 } else {
 //                    $additional_data['id'] = $user_id;
 //                    $alreadyexist = $this->Customer_Model->add_client_detail($additional_data);
-                     $alreadyexist = $this->ion_auth->add_client_detail($additional_data);
-                    
+                    $alreadyexist = $this->ion_auth->add_client_detail($additional_data);
+
                     if ($alreadyexist == 2) {
                         $this->session->set_flashdata('error_msg', 'This user name already Exist');
-                        redirect('ManageUsers','refresh');
-                       
+                        redirect('ManageUsers', 'refresh');
                     } else {
                         $this->session->set_flashdata('success_msg', 'Client added sucessfully');
                         redirect('ManageUsers', 'refresh');
