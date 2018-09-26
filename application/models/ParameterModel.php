@@ -17,7 +17,7 @@ class ParameterModel extends MY_Model {
         if ($id != null) {
             $this->db->where('parameter.id', $id);
         }
-        $this->db->where(array('parameter.createdby' => $user_id, 'parameter.isdeleted' => 0, 'parameter.isactive' => 1));
+        $this->db->where(array('parameter.isdeleted' => 0, 'parameter.isactive' => 1));
 //        $this->db->where('parameter.isactive', 1);
         $query = $this->db->get();
         $result = $query->result_array();
