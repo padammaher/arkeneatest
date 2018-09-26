@@ -48,6 +48,7 @@ class UomMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $update_count='';
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -61,6 +62,14 @@ class UomMaster extends CI_Controller {
             if ($this->form_validation->run() == TRUE) {
                 $uom_name_array = $this->input->post('uom_name');
                 $uom_type_id= $this->input->post('uom_type');
+                 $dummyvalue=  array_count_values($uom_name_array);                   
+                          foreach ($dummyvalue AS $values_key)
+                          {
+                              if($values_key==2){
+                                   $update_count=1; 
+                              }
+                          }
+                if(!$update_count){
                 if (is_array($uom_name_array)) {
                     foreach ($uom_name_array as $uom_name) {
                         if ($uom_name && $uom_name != 'null') {
@@ -74,7 +83,7 @@ class UomMaster extends CI_Controller {
                             $alreadyexist= $this->uommodel->check_exist_uom($uom_type_id,$uom_name);
                         
                             if(count($alreadyexist)>0){
-                                    $update_count=1; 
+                                    $count=1; 
                             }else{
                             $uom_data = array(
                                 'name' => $uom_name,
@@ -95,6 +104,7 @@ class UomMaster extends CI_Controller {
                         'isactive' => 1
                     );
                     $count = $this->uommodel->insert_uom($uom_data);
+                }
                 }
 
                 if (is_numeric($count) && $count > 0) {
@@ -249,6 +259,14 @@ class UomMaster extends CI_Controller {
             if ($this->form_validation->run() == TRUE) {
                 $id = $this->input->post('edit_id');
                 $uom_name_array = $this->input->post('uom_name');
+                 $dummyvalue=  array_count_values($uom_name_array);                   
+                          foreach ($dummyvalue AS $values_key)
+                          {
+                              if($values_key==2){
+                                   $update_count=1; 
+                              }
+                          }
+                if(!$update_count){         
                 if (is_array($uom_name_array)) {
                     foreach ($uom_name_array as $uom_name) {                      
                         if ($uom_name && $uom_name != 'null') {
@@ -262,7 +280,7 @@ class UomMaster extends CI_Controller {
                             }
                             $alreadyexist= $this->uommodel->check_exist_uom($id,$uom_name);
                             if(count($alreadyexist)>0){
-                                    $update_count=1; 
+                                    $count=1; 
                             }else{
                                 $uom_data = array(
                                         'name' => $uom_name,
@@ -285,7 +303,10 @@ class UomMaster extends CI_Controller {
                         'isactive' => 1
                     );
                     $count = $this->uommodel->insert_uom($uom_data);
+                } 
                 }
+                
+                
                 if ((is_numeric($count) && $count > 0) || (is_numeric($um_count) && $um_count > 0)) {
                     $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
                     redirect('uomlist');
@@ -345,15 +366,20 @@ class UomMaster extends CI_Controller {
         
     }
     public function get_uom_list_data(){
-         if($this->input->post('type_id')){
+        $data='';
+//        $type_id='';
+//        $uom_list='';
+        if($this->input->post('type_id')){
             $type_id= $this->input->post('type_id'); 
         }
-         $data='';
+         
+         if(isset($type_id))
           $uom_list = $this->uommodel->get_uom_data($type_id); 
-        if($uom_list){
+         
+        if(isset($uom_list)){
          foreach ($uom_list as $uml){ 
              
-          $data.='<span class="tag"><input type="hidden" class="form-control" placeholder="UOM" name="uom_name[]" value="'.$uml['name'].'">'.$uml['name'].'</span>';
+          $data.='<span class="tag"><input type="hidden" class="form-control" id="uom_name" placeholder="UOM" name="uom_name[]" value="'.$uml['name'].'">'.$uml['name'].'</span>';
             } 
             echo $data;
          }

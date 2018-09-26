@@ -65,7 +65,7 @@
         $('#tags input').on('focusout', function () {
             var txt = this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g, ''); // allowed characters list
             if (txt)
-                $(this).before('<span class="tag"><input type="hidden" class="form-control" placeholder="UOM" name="uom_name[]" value="' + txt + '">' + txt + '</span>');
+                $(this).before('<span class="tag"><input type="hidden" class="form-control" id="uom_name" placeholder="UOM" name="uom_name[]" value="' + txt + '">' + txt + '</span>');
             this.value = "";
             this.focus();
         }).on('keyup', function (e) {
@@ -88,8 +88,9 @@
            url: "<?php echo base_url(); ?>Master/uommaster/get_uom_list_data",
            data: {type_id: id},
            success: function(result) {
-               console.log(result);
-               $('#uom_id').before(result);
+             $( ".tag" ).remove(); 
+            //$('input:hidden','#mydiv').remove();
+            $('#uom_id').before(result);
            }
        });
     }
