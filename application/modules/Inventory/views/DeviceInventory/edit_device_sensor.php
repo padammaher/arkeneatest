@@ -32,21 +32,27 @@ if($this->input->post('dev_sen_post_add')){
                         <select class="form-control" name="deviceid" id="deviceid" required="required" <?php if(!empty($managed_dev_sen_Id_readonly)){ echo $managed_dev_sen_Id_readonly == 'dev'? 'readonly="readonly"' : '';} else {echo 'readonly="readonly"';}?>>                                                  
                    
 <?php  if($managed_dev_sen_Id_readonly!="sen") {?>                                     
- <option value="">Select device</option>
-<?php } ?>                                    
-<?php if($managed_dev_sen_Id_readonly=="dev"){
+ 
+<?php } ?>   
+                            
+<?php if($managed_dev_sen_Id_readonly=="dev"){?>
+                            
+    <option value="">Select device Number</option> <?php
 foreach ($device_list as $device_id_list) { 
 if($managed_dev_sen_Id[1] == $device_id_list['id']){ ?>
 <option value="<?php echo $device_id_list['id'];?>" <?php echo set_value('deviceid',$managed_dev_sen_Id[1])==$device_id_list['id']? 'selected':'' ?> ><?php echo $device_id_list['number'];?></option>
 <?php } } }
-elseif($managed_dev_sen_Id_readonly=="sen"){ 
+
+elseif($managed_dev_sen_Id_readonly=="sen"){  ?>
+    <option value="">Select device Number</option> <?php
         foreach ($device_list as $device_list_2) { ?>
 
             <option value="<?php echo $device_list_2['id']; ?>" <?php echo set_value('deviceid',$Edit_device_sensors_data['device_id']) == $device_list_2['id'] ? 'selected' : ''; ?> >  <?php echo $device_list_2['number']; ?></option>
 
         <?php } }
+        
 else {   ?>
-     <!--<option value="">Select device</option>-->       
+     <option value="">Select device</option>       
     <option value="<?php echo $Edit_device_sensors_data['device_id']; ?>" <?php echo set_value('deviceid',$Edit_device_sensors_data['device_id']) == $Edit_device_sensors_data['device_id'] ? 'selected' : ''; ?> ><?php echo $Edit_device_sensors_data['number']; ?></option>
 <?php  } ?>
                     </select>             
@@ -63,19 +69,26 @@ else {   ?>
                   <div class="col-md-6 col-sm-6 col-xs-12">             
                       <select class="form-control" name="sensorid" id="sensorid" <?php echo $managed_dev_sen_Id_readonly == 'sen'? 'readonly="readonly"' : '';?>>
   <?php  if($managed_dev_sen_Id_readonly!="dev") {?>                                     
-                <option value="">Select Sensor</option>
-        <?php } ?>   
-        <?php if($managed_dev_sen_Id_readonly=="sen"){
+                <!--<option value="">Select Sensor</option>-->
+        <?php } ?>  
+                
+        <?php if($managed_dev_sen_Id_readonly=="sen"){?>
+                
+    <option value="">Select Sensor</option> <?php
         foreach ($sensorid_list as $sensorid_list_data) { 
         if($managed_dev_sen_Id[1] == $sensorid_list_data['id']){ ?>
         <option value="<?php echo $sensorid_list_data['id'];?>" <?php echo set_value('sensorid',$managed_dev_sen_Id[1])==$sensorid_list_data['id']? 'selected':'' ?> ><?php echo $sensorid_list_data['sensor_no'];?></option>
-        <?php } } } elseif($managed_dev_sen_Id_readonly=="dev"){ 
+       
+     <?php } } } elseif($managed_dev_sen_Id_readonly=="dev"){ ?>
+   
+        <option value="">Select Sensor Number</option> <?php
         foreach ($sensorid_list as $sensorid_list_data_2) { ?>
 
             <option value="<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid',$Edit_device_sensors_data['sensor_inventory_tbl_id']) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?> >  <?php echo $sensorid_list_data_2['sensor_no']; ?></option>
 
         <?php } } else { ?>
-<option value="">Select Sensor</option>             
+            
+<option value="">Select Sensor Number</option>             
 <?php     foreach ($sensorid_list as $sensorid_list_data) { 
 if ( $sensorid_list_data['id'] == $Edit_device_sensors_data['sensor_id']) { ?>
 <option value="<?php echo $sensorid_list_data['id'];?>" <?php echo (set_value('sensorid')== $sensorid_list_data['id'])? 'selected':'selected';?> ><?php echo $sensorid_list_data['sensor_no'];?></option>

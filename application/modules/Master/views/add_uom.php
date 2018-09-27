@@ -34,6 +34,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                <label>
+                                    <input type="checkbox" name="status" class="flat" checked="checked"> Active
+                                </label>
+                            </div>
+                        </div>	
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">
@@ -80,19 +88,19 @@
         });
 
     });
-    
-    
-    function get_uom_list(id){
+
+
+    function get_uom_list(id) {
         $.ajax({
-           type: "POST",
-           url: "<?php echo base_url(); ?>Master/uommaster/get_uom_list_data",
-           data: {type_id: id},
-           success: function(result) {
-             $( ".tag" ).remove(); 
-            //$('input:hidden','#mydiv').remove();
-            $('#uom_id').before(result);
-           }
-       });
+            type: "POST",
+            url: "<?php echo base_url(); ?>Master/uommaster/get_uom_list_data",
+            data: {type_id: id},
+            success: function (result) {
+                $(".tag").remove();
+                //$('input:hidden','#mydiv').remove();
+                $('#uom_id').before(result);
+            }
+        });
     }
 </script>
 <!--<script type="text/javascript">
