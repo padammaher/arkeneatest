@@ -48,32 +48,31 @@
                         $main_menu_tab = explode(',', $menu_name['nav_ids']);
                         if ($menu_name['parent'] == 0) {
                             ?>
+
                             <?php if ($menu_name['menuName'] == 'Dashboard') { ?>
+
+                                <!--<ul class="nav side-menu">-->
                                 <li>
-                                    <a href="<?php
-                                    echo base_url();
-                                    echo (isset($menu_name['url'])) ? $menu_name['url'] : '';
-                                    ?>">
-                                        <i class="fa fa-home">
-                                        </i> 
-                                        <?php echo $menu_name['menuName']; ?> 
+                                    <a href="<?php echo base_url() . (isset($menu_name['url'])) ? $menu_name['url'] : ''; ?>">
+                                        <i class="fa fa-home"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
                                 </li>
-                            <?php } else if ($menu_name['menuName'] == 'Stats/Report') { ?>
-                                <li>
-                                    <a>
-                                        <i class="fa fa-bar-chart-o">
-                                        </i> Stats/Report 
-                                    </a>
-                                </li>
-                            <?php } else if ($menu_name['menuName'] == 'Configuration') { ?>
+                                <!--</ul>-->
+
+                            <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
+                                <!--<div class="menu_section">-->
+                                <!--<h3>General</h3>-->
+                                <!--<ul class="nav side-menu">-->
                                 <li>
                                     <a>
-                                        <i class="fa fa-table">
-                                        </i> Configuration 
+                                        <i class="fa fa-bar-chart-o"></i><?php echo $menu_name['menuName']; ?>  
                                     </a>
                                 </li>
+                                <!--</ul>-->
+                                <!--</div>-->
                             <?php } else { ?>
+
+                                <!--<ul class="nav side-menu">-->
                                 <li>
                                     <a 
                                     <?php
@@ -128,12 +127,15 @@
                                             }
                                             ?>
                                         </ul> 
-                                        <?php
-                                    }
-                                }
+                                    <?php }
+                                    ?>
+                                </li>
+                                <!--</ul>-->
+                                <?php
                             }
                         }
-                        ?>
+                    }
+                    ?>
                 </ul>
             </div>
 
