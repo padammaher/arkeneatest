@@ -26,7 +26,7 @@ class AssetModel extends MY_Model {
     }
 
     public function get_asset_category($id) {
-        $this->db->select('asset_category.id,asset_category.name,asset_category.description');
+        $this->db->select('asset_category.id,asset_category.name,asset_category.description,asset_category.isactive');
         $this->db->from('asset_category');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -65,7 +65,7 @@ class AssetModel extends MY_Model {
     }
 
     public function get_asset_type($id) {
-        $this->db->select('asset_type.id,asset_type.name,asset_type.description');
+        $this->db->select('asset_type.id,asset_type.name,asset_type.description,asset_type.isactive');
         $this->db->from('asset_type');
         $this->db->where('id', $id);
         $query = $this->db->get();

@@ -39,16 +39,36 @@
 <!--                                <input type="text" class="form-control" value="<?php echo $result[0]['uomname'] ?>" name="uom_name" required="required">-->
                                 <div id="tags">
 
-                                    <?php if (isset($result[0]['uomlist'])) {
+                                    <?php
+                                    if (isset($result[0]['uomlist'])) {
                                         foreach ($result[0]['uomlist'] as $uml) {
                                             ?>
                                             <span class="tag"><input type="hidden" class="form-control" placeholder="UOM" name="uom_name[]" value="<?php echo $uml['name']; ?>"><?php echo $uml['name']; ?></span>
-    <?php }
-} ?> 
+                                        <?php
+                                        }
+                                    }
+                                    ?> 
                                     <input type="text" class="form-control" placeholder="UOM" value="" data-role="tagsinput" >
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        if (isset($result[0]['isactive']) && $result[0]['isactive'] == 1) {
+                            $checked = "checked";
+                        } elseif (set_value('status')) {
+                            $checked = "checked";
+                        } elseif (isset($post['status']) && !empty($post['status'])) {
+                            $checked = "checked";
+                        }
+                        ?>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                <label>
+                                    <input type="checkbox" name="status" class="flat" <?php echo isset($checked) ? $checked : ''; ?>> Active
+                                </label>
+                            </div>
+                        </div>	
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">

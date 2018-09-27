@@ -21,7 +21,7 @@ class SensorModel extends MY_Model {
     }
 
     public function get_sensor_type($id) {
-        $this->db->select('sensor_type.id,sensor_type.name,sensor_type.description');
+        $this->db->select('sensor_type.id,sensor_type.name,sensor_type.description,sensor_type.isactive');
         $this->db->from('sensor_type');
         $this->db->where('id', $id);
         $query = $this->db->get();

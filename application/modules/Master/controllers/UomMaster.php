@@ -24,9 +24,7 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
-//            echo "<pre>";
-//            echo print_r($data['uom_type_list']);
-//            exit();
+
             load_view_template($data, 'master/Uom_type_List');
         }
     }
@@ -39,7 +37,8 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
+//            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
+            $data['uom_type_list'] = $this->uommodel->get_uomlistrecords();
 
             load_view_template($data, 'master/UomList');
         }
@@ -80,6 +79,7 @@ class UomMaster extends CI_Controller {
                                         $this->uommodel->update_uom_record($uom_type_id, $qm_name['name'], $data);
                                     }
                                 }
+
                                 $alreadyexist = $this->uommodel->check_exist_uom($uom_type_id, $uom_name);
 
                                 if (count($alreadyexist) > 0) {
@@ -89,9 +89,13 @@ class UomMaster extends CI_Controller {
                                         'name' => $uom_name,
                                         'createdat' => date('Y-m-d H:i:s'),
                                         'createdby' => $user_id,
-                                        'isactive' => 1,
                                         'uom_type_id' => $this->input->post('uom_type'),
                                     );
+                                    if ($this->input->post('status') == 'on') {
+                                        $uom_data['isactive'] = 1;
+                                    } else {
+                                        $uom_data['isactive'] = 0;
+                                    }
                                     $count = $this->uommodel->insert_uom($uom_data);
                                 }
                             }
@@ -101,8 +105,12 @@ class UomMaster extends CI_Controller {
                             'name' => $this->input->post('uom_name'),
                             'createdat' => date('Y-m-d H:i:s'),
                             'createdby' => $user_id,
-                            'isactive' => 1
                         );
+                        if ($this->input->post('status') == 'on') {
+                            $uom_data['isactive'] = 1;
+                        } else {
+                            $uom_data['isactive'] = 0;
+                        }
                         $count = $this->uommodel->insert_uom($uom_data);
                     }
                 }
@@ -149,9 +157,12 @@ class UomMaster extends CI_Controller {
                     'name' => $this->input->post('uom_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
                 );
-
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
                 $count = $this->uommodel->insert_uom_type($data);
 
                 if (is_numeric($count) && $count > 0) {
@@ -193,6 +204,11 @@ class UomMaster extends CI_Controller {
                 $data = array(
                     'name' => $this->input->post('uom_type'),
                 );
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
                 $count = $this->uommodel->uomtype_update($id, $data);
 
                 if ((is_numeric($count) && $count > 0)) {
@@ -270,24 +286,38 @@ class UomMaster extends CI_Controller {
                         foreach ($uom_name_array as $uom_name) {
                             if ($uom_name && $uom_name != 'null') {
                                 $qmlist = $this->uommodel->get_uom_data($id);
-                                // print_r($qmlist);                           exit();
+
                                 foreach ($qmlist as $qm_name) {
                                     if (!in_array($qm_name['name'], $uom_name_array)) {
                                         $data = array('isdeleted' => 1);
                                         $this->uommodel->update_uom_record($id, $qm_name['name'], $data);
                                     }
                                 }
+                                if ($this->input->post('status') == 'on') {
+                                    $isactive = 1;
+                                } else {
+                                    $isactive = 0;
+                                }
                                 $alreadyexist = $this->uommodel->check_exist_uom($id, $uom_name);
+//                                echo "<pre>";
+//                                echo print_r($alreadyexist);
+//                                exit();
                                 if (count($alreadyexist) > 0) {
                                     $count = 1;
+                                    $uom_data = array(
+                                        'isactive' => $isactive
+                                    );
+
+                                    $count = $this->uommodel->update_uom($alreadyexist[0]['id'], $uom_data);
                                 } else {
                                     $uom_data = array(
                                         'name' => $uom_name,
                                         'createdat' => date('Y-m-d H:i:s'),
                                         'createdby' => $user_id,
-                                        'isactive' => 1,
                                         'uom_type_id' => $this->input->post('edit_id'),
+                                        'isactive' => $isactive
                                     );
+
                                     $count = $this->uommodel->insert_uom($uom_data);
                                 }
                             }
@@ -298,8 +328,12 @@ class UomMaster extends CI_Controller {
                             'name' => $this->input->post('uom_name'),
                             'createdat' => date('Y-m-d H:i:s'),
                             'createdby' => $user_id,
-                            'isactive' => 1
                         );
+                        if ($this->input->post('status') == 'on') {
+                            $uom_data['isactive'] = 1;
+                        } else {
+                            $uom_data['isactive'] = 0;
+                        }
                         $count = $this->uommodel->insert_uom($uom_data);
                     }
                 }
@@ -345,7 +379,7 @@ class UomMaster extends CI_Controller {
                 $data['uom_type_id'] = $id;
             }
 
-            $data['uom_list'] = $this->uommodel->get_uomtypes($user_id);
+            $data['uom_list'] = $this->uommodel->uom_types($user_id);
             $data['result'] = $this->uommodel->get_uom_type($id);
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $this->session->unset_userdata('edit_uom_type');

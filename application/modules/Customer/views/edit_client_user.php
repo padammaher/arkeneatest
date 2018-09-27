@@ -4,15 +4,15 @@
     </div>
     <div class="row">
 
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h4> <?php echo (isset($client_details[0]->id))?'Edit Client User':'Add Client User'; ?>
-            </h4>						
-            <div class="clearfix">
-            </div>
-          </div>
-            <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h4> <?php echo (isset($client_details[0]->id)) ? 'Edit Client User' : 'Add Client User'; ?>
+                    </h4>						
+                    <div class="clearfix">
+                    </div>
+                </div>
+                <div class="x_content">
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url() ?>update_client">
                         <!-- <div class="item form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Sr. No.
