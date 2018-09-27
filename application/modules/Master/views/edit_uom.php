@@ -44,7 +44,7 @@
                                         foreach ($result[0]['uomlist'] as $uml) {
                                             ?>
                                             <span class="tag"><input type="hidden" class="form-control" placeholder="UOM" name="uom_name[]" value="<?php echo $uml['name']; ?>"><?php echo $uml['name']; ?></span>
-                                        <?php
+                                            <?php
                                         }
                                     }
                                     ?> 
@@ -112,8 +112,14 @@
         });
 
         $('#tags').on('click', '.tag', function () {
-            if (confirm("Really delete this tag?"))
-                $(this).remove();
+            var current = $(this);
+            $("#delete_confirmation").modal();
+            $(".ok").click(function () {
+                $("#delete_confirmation").modal('hide');
+                current.remove();
+            });
+//            if (confirm("Really delete this tag?"))
+//                $(this).remove();
         });
 
     });
