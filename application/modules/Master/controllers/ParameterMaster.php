@@ -74,12 +74,12 @@ class ParameterMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
-                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+                $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
                 load_view_template($data, 'master/add_parameter');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+            $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
 
             load_view_template($data, 'master/add_parameter');
         }
@@ -148,7 +148,7 @@ class ParameterMaster extends CI_Controller {
 
             if (isset($id)) {
                 $data['result'] = $this->parametermodel->get_parameter($id);
-                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+                $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
                 $data['param_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
