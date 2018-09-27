@@ -38,6 +38,9 @@ class Users extends MY_Model {
         $this->db->where('id', $user_id);
         $query = $this->db->get();
         $objData = $query->result_array();
+        if($objData){
+           $objData[0]['menulist']=$this->get_menu_list(); 
+        }
         return $objData[0];
     }
 
@@ -66,6 +69,18 @@ class Users extends MY_Model {
             return FALSE;
         else
             return TRUE;
+        
+    }
+    
+    public function get_menu_list(){
+        $group_id=$this->session->userdata('group_id'); 
+        $this->db->select('menu.id,menu.menuName,menu.url,menu.parent,menu.nav_ids,groups.name,groups.id as group_id');
+        $this->db->from('menu'); 
+       $this->db->join('groups', 'groups.id=menu.group_id');
+        $this->db->where('menu.group_id',$group_id); 
+        $query = $this->db->get();
+        $data = $query->result_array();
+        return $data; 
         
     }
 
