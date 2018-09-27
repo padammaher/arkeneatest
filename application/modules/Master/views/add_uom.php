@@ -83,8 +83,15 @@
         });
 
         $('#tags').on('click', '.tag', function () {
-            if (confirm("Really delete this tag?"))
-                $(this).remove();
+            var current = $(this);
+            $("#delete_confirmation").modal();
+            $(".ok").click(function () {
+                $("#delete_confirmation").modal('hide');
+                current.remove();
+
+            });
+//            if (confirm("Really delete this tag?"))
+//                $(this).remove();
         });
 
     });
