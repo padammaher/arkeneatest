@@ -13,9 +13,9 @@ class UomModel extends MY_Model {
 
     function get_uomtypes($user_id) {
         $user_id = $this->session->userdata('user_id');
-        $this->db->select('uom_type.id,uom_type.name,uom_type.isactive,uom_type.createdby');
+        $this->db->select('uom_type.id,uom_type.name,uom.isactive,uom_type.createdby');
         $this->db->from('uom_type');
-        //$this->db->join('uom', 'uom_type.uom_id=uom.id');
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
         $this->db->where(array('uom_type.createdby' => $user_id, 'uom_type.isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
@@ -115,9 +115,9 @@ class UomModel extends MY_Model {
     }
 
     function get_uom_type($id) {
-        $this->db->select('uom_type.id,uom_type.name,uom_type.isactive');
+        $this->db->select('uom_type.id,uom_type.name,uom.isactive');
         $this->db->from('uom_type');
-        // $this->db->join('uom', 'uom_type.uom_id=uom.id');
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
         $this->db->where('uom_type.id', $id);
         $query = $this->db->get();
         $result = $query->result_array();
@@ -165,13 +165,16 @@ class UomModel extends MY_Model {
         return $this->db->affected_rows();
     }
 
-    function get_uomlistrecords($id) {
-        $this->db->select("uom_type.id,uom_type.name,uom_type.isactive,uom_type.createdby,GROUP_CONCAT(uom.name) as uomnames");
+    function get_uomlistrecords($id = null) {
+        $user_id = $this->session->userdata('user_id');
+        $this->db->select("uom_type.id,uom_type.name,uom_type.isactive,uom.isactive as active,uom_type.createdby,GROUP_CONCAT(uom.name) as uomnames");
 //        $this->db->select("uom_type.id,uom_type.name,uom_type.isactive,uom_type.createdby,GROUP_CONCAT(uom.name,':',uom.id) as uomnames");
         $this->db->from('uom_type');
         $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
-        $this->db->where('uom_type.id', $id);
-        $this->db->where(array('uom.isactive' => 1, 'uom.isdeleted' => 0));
+        $this->db->where(array('uom_type.isactive' => 1, 'uom.isdeleted' => 0, 'uom.createdby' => $user_id));
+        if ($id) {
+            $this->db->where('uom_type.id', $id);
+        }
         $this->db->group_by('uom_type.id');
         $query = $this->db->get();
         $result = $query->result_array();

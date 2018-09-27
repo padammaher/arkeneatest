@@ -32,38 +32,40 @@
                             if (isset($uom_type_list) && !empty($uom_type_list)) {
                                 $i = 1;
                                 foreach ($uom_type_list as $r) {
-                                    if (isset($r['uomlist'][0]['name'])) {
-                                        ?>
-                                        <tr>
-                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
-                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
-                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php
-                                                if (isset($r['uomlist'])) {
-                                                    $j = 1;
-                                                    foreach ($r['uomlist'] as $uml) {
-                                                        echo $uml['name'];
-                                                        echo ($j < count($r['uomlist'])) ? ',' : '';
-                                                        $j++;
-                                                    }
-                                                }
-                                                ?></td>
+//                                    if (isset($r['uomlist'][0]['name'])) {
+                                    ?>
+                                    <tr>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php
+                                            echo $r['uomnames'];
+//                                            if (isset($r['uomlist'])) {
+//                                                $j = 1;
+//                                                foreach ($r['uomlist'] as $uml) {
+//                                                    echo $uml['name'];
+//                                                    echo ($j < count($r['uomlist'])) ? ',' : '';
+//                                                    $j++;
+//                                                }
+//                                            }
+                                            ?></td>
 
-                                            <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
-                                            <td  class="action">
-                                                <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
-                                                    <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
-                                                    <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                    <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                        <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                    </a>
-                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                    </a> 
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    } $i++;
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['active'] == 1 ? 'Active' : 'In-active'; ?></td>
+                                        <td  class="action">
+                                            <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
+                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                </a>
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                </a> 
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php
+//                                    } 
+                                    $i++;
                                 }
                             } else {
                                 ?>
