@@ -13,10 +13,10 @@ class UomModel extends MY_Model {
 
     function get_uomtypes($user_id) {
         $user_id = $this->session->userdata('user_id');
-        $this->db->select('uom_type.id,uom_type.name,uom_type.isactive,uom_type.createdby');
+        $this->db->select('uom_type.id,uom_type.name,uom.isactive,uom_type.createdby');
         $this->db->from('uom_type');
-        //$this->db->join('uom', 'uom_type.uom_id=uom.id');
-        $this->db->where(array('uom_type.createdby' => $user_id, 'uom_type.isactive' => 1, 'uom_type.isdeleted' => 0));
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
+        $this->db->where(array('uom_type.createdby' => $user_id, 'uom_type.isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
         if ($result) {
@@ -48,12 +48,12 @@ class UomModel extends MY_Model {
         return $result;
     }
 
-    public function get_uom($id, $type = "normal",$type_id='') {
+    public function get_uom($id, $type = "normal", $type_id = '') {
         $this->db->select('uom.id,uom.name');
         $this->db->from('uom');
         $this->db->where(array('createdby' => $id, 'isactive' => 1));
-        if($type_id){
-             $this->db->where('uom_type_id',$type_id); 
+        if ($type_id) {
+            $this->db->where('uom_type_id', $type_id);
         }
         $query = $this->db->get();
 
@@ -86,14 +86,11 @@ class UomModel extends MY_Model {
     }
 
     function update_uom($id, $uom_data) {
-        $uomtype = $this->db->from('uom')->where('id', $id)->get()->result();
-        if (count($uomtype) == 1) {
-            $this->db->where('uom.id', $id);
-            $this->db->update('uom', $uom_data);
-            return $this->db->affected_rows();
-        } else {
-            return 0;
-        }
+//        $uomtype = $this->db->from('uom')->where('id', $id)->get()->result();
+//        if (count($uomtype) == 1) {
+        $this->db->where('uom.id', $id);
+        $this->db->update('uom', $uom_data);
+        return $this->db->affected_rows();
     }
 
     function insert_uom_type($data) {
@@ -118,9 +115,9 @@ class UomModel extends MY_Model {
     }
 
     function get_uom_type($id) {
-        $this->db->select('uom_type.id,uom_type.name');
+        $this->db->select('uom_type.id,uom_type.name,uom.isactive');
         $this->db->from('uom_type');
-        // $this->db->join('uom', 'uom_type.uom_id=uom.id');
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
         $this->db->where('uom_type.id', $id);
         $query = $this->db->get();
         $result = $query->result_array();
@@ -147,25 +144,42 @@ class UomModel extends MY_Model {
         return true;
     }
 
-    public function check_exist_uom($uom_type_id,$uom_name)
-    {
-        $this->db->select('id,name');
+    public function check_exist_uom($uom_type_id, $uom_name) {
+        $this->db->select('id,name,isactive');
         $this->db->from('uom');
-        $this->db->where(array('uom.uom_type_id' => $uom_type_id,'uom.name' => $uom_name,'isdeleted'=>0,'isactive'=>1));
+        $this->db->where(array('uom.uom_type_id' => $uom_type_id, 'uom.name' => $uom_name, 'isdeleted' => 0));
         $query = $this->db->get();
         $result = $query->result_array();
-        return $result;        
+        return $result;
     }
-    public function update_uom_record($id,$uom_name,$data){
-          $this->db->where(array('uom.uom_type_id' => $id,'uom.name' => $uom_name));
-          $this->db->update('uom', $data);
-          return $this->db->affected_rows();
+
+    public function update_uom_record($id, $uom_name, $data) {
+        $this->db->where(array('uom.uom_type_id' => $id, 'uom.name' => $uom_name));
+        $this->db->update('uom', $data);
+        return $this->db->affected_rows();
     }
 
     public function delete_uom_record($id, $data) {     //print_r($id); exit(); 
         $this->db->where('uom_type_id', $id);
         $this->db->update('uom', $data);
         return $this->db->affected_rows();
+    }
+
+    function get_uomlistrecords($id = null) {
+        $user_id = $this->session->userdata('user_id');
+        $this->db->select("uom_type.id,uom_type.name,uom_type.isactive,uom.isactive as active,uom_type.createdby,GROUP_CONCAT(uom.name) as uomnames");
+//        $this->db->select("uom_type.id,uom_type.name,uom_type.isactive,uom_type.createdby,GROUP_CONCAT(uom.name,':',uom.id) as uomnames");
+        $this->db->from('uom_type');
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
+        $this->db->where(array('uom_type.isactive' => 1, 'uom.isdeleted' => 0, 'uom.createdby' => $user_id));
+        if ($id) {
+            $this->db->where('uom_type.id', $id);
+        }
+        $this->db->group_by('uom_type.id');
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        return $result;
     }
 
 }

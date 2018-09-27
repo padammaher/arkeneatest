@@ -32,14 +32,14 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="customer_address" type="text" class="form-control" placeholder="Enter Address" value="<?php echo $user->customer_address; ?>">
+                                    <input name="customer_address" required="required" type="text" class="form-control" placeholder="Enter Address" value="<?php echo $user->customer_address; ?>">
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="contact_person" type="text" class="form-control" placeholder="Enter Contact Person Name" value="<?php echo $user->contact_person; ?>">
+                                    <input name="contact_person" required="required" type="text" class="form-control" placeholder="Enter Contact Person Name" value="<?php echo $user->contact_person; ?>">
                                 </div>
                             </div>
                             <div class="item form-group">

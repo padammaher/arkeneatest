@@ -57,7 +57,24 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <textarea class="form-control" rows="2" placeholder="Description.." name="sensor_description" style="resize: vertical;"><?php echo isset($sens_desc) ? $sens_desc : ""; ?></textarea>
                             </div>
-                        </div>														
+                        </div>	
+                        <?php
+                        if (isset($result[0]['isactive']) && $result[0]['isactive'] == 1) {
+                            $checked = "checked";
+                        } elseif (set_value('status')) {
+                            $checked = "checked";
+                        } elseif (isset($post['status']) && !empty($post['status'])) {
+                            $checked = "checked";
+                        }
+                        ?>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                <label>
+                                    <input type="checkbox" name="status" class="flat" <?php echo isset($checked) ? $checked : ''; ?>> Active
+                                </label>
+                            </div>
+                        </div>	
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">

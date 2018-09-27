@@ -21,16 +21,7 @@
                         </tr>
                         <tr>
                             <td class="lft-td">UOM</td>
-                            <td><?php
-                                if (isset($result[0]['uomlist'])) {
-                                    $j = 1;
-                                    foreach ($result[0]['uomlist'] as $uml) {
-                                        echo $uml['name'];
-                                        echo ($j < count($result[0]['uomlist'])) ? ',' : '';
-                                        $j++;
-                                    }
-                                }
-                                ?></td>
+                            <td><?php echo $result[0]['uomnames']; ?></td>
                         </tr>
                     </tbody>
                 </table>

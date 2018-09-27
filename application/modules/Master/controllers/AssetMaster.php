@@ -56,13 +56,18 @@ class AssetMaster extends CI_Controller {
 
             $this->form_validation->set_rules('assetcat_name', 'Asset Category', 'required');
             if ($this->form_validation->run() == TRUE) {
+
                 $data = array(
                     'name' => $this->input->post('assetcat_name'),
                     'description' => $this->input->post('assetcat_description'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
                 );
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
 
                 $count = $this->assetmodel->insert_asset_category($data);
 
@@ -105,6 +110,12 @@ class AssetMaster extends CI_Controller {
                     'name' => $this->input->post('asset_category'),
                     'description' => $this->input->post('asset_description'),
                 );
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
+
                 $response = $this->assetmodel->assetcategory_update($id, $data);
 
                 if ($response > 0) {
@@ -168,11 +179,16 @@ class AssetMaster extends CI_Controller {
                     'name' => $this->input->post('asset_type'),
                     'createdat' => date('Y-m-d H:i:s'),
                     'createdby' => $user_id,
-                    'isactive' => 1
                 );
                 if ($this->input->post('type_description')) {
                     $data['description'] = $this->input->post('type_description');
                 }
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
+
 
                 $count = $this->assetmodel->insert_asset_type($data);
 
@@ -215,6 +231,11 @@ class AssetMaster extends CI_Controller {
                     'name' => $this->input->post('asset_type'),
                     'description' => $this->input->post('type_description')
                 );
+                if ($this->input->post('status') == 'on') {
+                    $data['isactive'] = 1;
+                } else {
+                    $data['isactive'] = 0;
+                }
 
                 $response = $this->assetmodel->assettype_update($id, $data);
 
