@@ -16,9 +16,14 @@ class Customer extends MY_Controller {
     }
 
     public function index() {
-        $user_id = $this->session->userdata('user_id');
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'add_customer');
+         if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
+            $user_id = $this->session->userdata('user_id');
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            load_view_template($this->data, 'add_customer');
+        }
     }
 
     // public function AddCustomer() {
@@ -68,8 +73,11 @@ class Customer extends MY_Controller {
     //     }
     // }
 
-    public function edit_customer_detail() {
-
+    public function edit_customer_detail() {    
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $user_id = $this->session->userdata('user_id');
         $this->data['user_detail'] = $user_data = $this->Customer_Model->get_customer_detail($user_id);
         $this->data['country'] = $country = $this->Customer_Model->get_country();
@@ -80,6 +88,7 @@ class Customer extends MY_Controller {
         $this->data['user_id'] = $user_id;
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'Edit_customer_info');
+        }
     }
 
     public function update_cutomer_info() {
@@ -117,18 +126,28 @@ class Customer extends MY_Controller {
     }
 
     public function customer_info() {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $user_id = $this->session->userdata('user_id');
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
         load_view_template($this->data, 'customer_info');
+        }
     }
 
     public function client_user_list() {
+         if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $user_id = $this->session->userdata('user_id');
         $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
         //$this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'client_user_list');
+        }
     }
 
     // public function client_user_add() {
@@ -169,6 +188,10 @@ class Customer extends MY_Controller {
     // }
 
     public function edit_client_user() {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $user_id = $this->session->userdata('user_id');
         $this->data['user_id'] = $user_id;
         $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
@@ -178,6 +201,7 @@ class Customer extends MY_Controller {
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
 //        echo "<pre>";print_r($this->data['client_location']);
         load_view_template($this->data, 'edit_client_user');
+        }
     }
 
     // public function delete_client_user() {
@@ -280,18 +304,28 @@ class Customer extends MY_Controller {
       } */
 
     public function customer_business_location_list() {
+         if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $user_id = $this->session->userdata('user_id');
         $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);
 
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'customer_business_location_list');
+        }
     }
 
     public function add_customer_business_location() {
+         if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $this->data['country'] = $country = $this->Customer_Model->get_country();
         $user_id = $this->session->userdata('user_id');
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'customer_business_location_add');
+        }
     }
 
     public function add_business_location() {
@@ -332,6 +366,10 @@ class Customer extends MY_Controller {
     }
 
     public function edit_business_location() {
+         if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $business_id = $this->input->post('business_id');
         $this->data['business_detail'] = $business_data = $this->Customer_Model->get_business_detail($business_id);
         $this->data['country_list'] = $country = $this->Customer_Model->get_country();
@@ -340,6 +378,7 @@ class Customer extends MY_Controller {
         $user_id = $this->session->userdata('user_id');
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
         load_view_template($this->data, 'customer_business_location_edit');
+        }
     }
 
     public function update_business_location() {
@@ -502,6 +541,10 @@ class Customer extends MY_Controller {
       } */
 
     public function delete_business_location() {
+         if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $user_id = $this->session->userdata('user_id');
         $business_id = $this->input->post('business_id');
         $this->Customer_Model->delete_business_location_data($business_id);
@@ -509,6 +552,7 @@ class Customer extends MY_Controller {
         $this->session->set_flashdata('success_msg', 'Business location deleted sucessfully');
         //exit;
         redirect('ManageBusinessLoacaiton', 'refresh');
+        }
         // $this->template->set_master_template('template.php');
         // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
         // $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
