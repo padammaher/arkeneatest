@@ -71,7 +71,7 @@ class UomModel extends MY_Model {
 
     public function uom_types($id) {
         $this->db->distinct();
-        $this->db->select('uom_type.id,uom_type.name');
+        $this->db->select('uom_type.id,uom_type.name,uom_type.isactive');
         $this->db->from('uom_type');
         $this->db->where(array('uom_type.isactive' => 1, 'isdeleted' => 0, 'uom_type.createdby' => $id));
         $query = $this->db->get();
