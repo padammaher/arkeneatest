@@ -172,6 +172,7 @@ class Customer extends MY_Controller {
         $user_id = $this->session->userdata('user_id');
         $this->data['user_id'] = $user_id;
         $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
+
         $client_id = $this->input->get('client_id');
         $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
         $this->data['dataHeader'] = $this->users->get_allData($user_id);
@@ -236,7 +237,6 @@ class Customer extends MY_Controller {
 
 //                    $update_record = $this->ion_auth->add_client_detail($additional_data, $id);
                     //$update_record = $this->ion_auth->update_client_detail($additional_data, $id);
-
 //                     $change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
                 } else {
 //                    $additional_data['id'] = $user_id;
@@ -320,7 +320,7 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
-                $additional_data['isactive'] = 1;
+            $additional_data['isactive'] = 1;
             $additional_data['user_id'] = $this->session->userdata('user_id');
 
             $this->Customer_Model->add_business_location($additional_data);
