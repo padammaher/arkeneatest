@@ -171,8 +171,7 @@ class Customer_Model extends CI_Model {
         $group_id = $this->session->userdata('group_id');
         $location_data = $this->db->select('customer_business_location.location_name,customer_business_location.id');
         $this->db->from('customer_business_location');
-        $this->db->join('users', 'customer_business_location.id!=users.location_id');
-//        $this->db->join('users', 'customer_business_location.id=users.location_id', 'left');
+//        $this->db->join('users', 'customer_business_location.id!=users.location_id');
         if ($group_id == '2') {
             $this->db->where('user_id', $user_id);
         }
