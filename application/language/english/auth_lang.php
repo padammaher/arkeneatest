@@ -27,7 +27,7 @@ $lang['login_identity_label']  = 'Email/Username:';
 $lang['login_password_label']  = 'Password:';
 $lang['login_remember_label']  = 'Remember Me:';
 $lang['login_submit_btn']      = 'Login';
-$lang['login_forgot_password'] = 'Forgot your password?';
+$lang['login_forgot_password'] = 'Lost your password?';
 
 // Dashboard
 $lang['dashboard_heading']           = 'Dashboard';
