@@ -20,6 +20,10 @@ class AssetMaster extends CI_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Asset Category');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view');
+
             $this->session->unset_userdata('assetcat_post');
             $this->session->unset_userdata('assetcate_post');
             $user_id = $this->session->userdata('user_id');
@@ -35,6 +39,10 @@ class AssetMaster extends CI_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Asset type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view');
+
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['asset_type'] = $this->assetmodel->get_assettypeList($user_id);
@@ -49,6 +57,10 @@ class AssetMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $data['permission'] = $this->users->get_permissions('Asset Category');
+        //check user Permission
+        userPermissionCheck($data['permission'], 'add');
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -98,6 +110,7 @@ class AssetMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -145,6 +158,10 @@ class AssetMaster extends CI_Controller {
             }
             redirect('assetcategory');
         } elseif ($this->input->post('post') == 'edit' || $this->session->userdata('assetcate_post')) {
+            $data['permission'] = $this->users->get_permissions('Asset Category');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             if ($this->input->post('id')) {
                 $id = $this->input->post('id');
             } elseif ($this->session->userdata('assetcate_post')) {
@@ -168,6 +185,10 @@ class AssetMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $data['permission'] = $this->users->get_permissions('Asset type');
+        //check user Permission
+        userPermissionCheck($data['permission'], 'add');
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -219,6 +240,7 @@ class AssetMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -264,6 +286,10 @@ class AssetMaster extends CI_Controller {
             }
             redirect('assettype');
         } elseif ($this->input->post('post') == 'edit' || $this->session->userdata('assettypee_post')) {
+            $data['permission'] = $this->users->get_permissions('Asset type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             if ($this->input->post('id')) {
                 $id = $this->input->post('id');
             } elseif ($this->session->userdata('assettypee_post')) {

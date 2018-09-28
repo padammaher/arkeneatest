@@ -13,7 +13,6 @@ class ParameterMaster extends CI_Controller {
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
-        $CI = & get_instance();
     }
 
     public function parameterlist() {
@@ -21,6 +20,10 @@ class ParameterMaster extends CI_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Parameter');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view');
+
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['parameter_list'] = $this->parametermodel->get_parameterlist($user_id);
@@ -34,6 +37,10 @@ class ParameterMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $data['permission'] = $this->users->get_permissions('Parameter');
+        //check user Permission
+        userPermissionCheck($data['permission'], 'add');
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -74,12 +81,12 @@ class ParameterMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
-                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+                $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
                 load_view_template($data, 'master/add_parameter');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+            $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
 
             load_view_template($data, 'master/add_parameter');
         }
@@ -90,6 +97,7 @@ class ParameterMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -139,6 +147,10 @@ class ParameterMaster extends CI_Controller {
             redirect('parameterlist');
         }
         if ($this->input->post('post') == 'edit' || $this->session->userdata('parame_post')) {
+            $data['permission'] = $this->users->get_permissions('Parameter');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             if ($this->input->post('id')) {
                 $id = $this->input->post('id');
             } elseif ($this->session->userdata('parame_post')) {
@@ -148,7 +160,7 @@ class ParameterMaster extends CI_Controller {
 
             if (isset($id)) {
                 $data['result'] = $this->parametermodel->get_parameter($id);
-                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
+                $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
                 $data['param_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
