@@ -31,54 +31,113 @@
         }
         ?>">
 
-            <div class="menu_section">
-                <h3>Home</h3>
-                <ul class="nav side-menu">
-                    <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
-                </ul>
-            </div>
-
-
-            <div class="menu_section">
-                <h3>Main Pages</h3>
-                <ul class="nav side-menu">                  
-                    <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="<?php echo base_url(); ?>Customerinfo">Customer Provisioning</a></li>
-                            <li> <a class="" href="<?php echo base_url(); ?>Assets_list">Asset Management</a></li>
-                            <li><a href="<?php echo base_url('Device_inventory_list'); ?>">Device Inventory</a></li>
-                            <li><a href="<?php echo base_url('Sensor_inventory_list'); ?>">Sensor Inventory</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a <?php
-                        if ($this->session->userdata('group_id') == 2) {
-                            echo 'class="not-allowed"';
-                        }
-                        ?>><i class="fa fa-desktop"></i> Masters <span class="fa fa-chevron-down"></span></a>
-                            <?php if ($this->session->userdata('group_id') == 1) { ?>
-                            <ul class="nav child_menu">
-                                <li><a href="<?php echo base_url() ?>assetcategory">Asset Category</a></li>
-                                <li><a href="<?php echo base_url() ?>assettype">Asset Type</a></li>
-                                <li><a href="<?php echo base_url() ?>sensortype">Sensor Type</a></li>
-                                <li><a href="<?php echo base_url() ?>parameterlist">Parameter</a></li>                            
-                                <li><a href="<?php echo base_url() ?>uom_type_list">UOM Type</a></li>
-                                <li><a href="<?php echo base_url() ?>uomlist">UOM</a></li>
+            <!--            <div class="menu_section">
+                            <h3>Home</h3>
+                            <ul class="nav side-menu">
+                                <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
                             </ul>
-                        <?php }
-                        ?>
-                    </li>
-                </ul>
-            </div>
+                        </div>-->
+
 
             <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                    <li><a><i class="fa fa-bar-chart-o"></i> Stats/Report </a></li>
-                    <li><a><i class="fa fa-table"></i> Configuration </a></li>
+                <h3>Main Pages
+                </h3>
+                <ul class="nav side-menu">  
+                    <?php
+                    foreach ($dataHeader['menulist'] as $menu_name) {
+                        $main_menu_tab = explode(',', $menu_name['nav_ids']);
+                        if ($menu_name['parent'] == 0) {
+                            ?>
+
+                            <?php if ($menu_name['menuName'] == 'Dashboard') { ?>
+
+                                <!--<ul class="nav side-menu">-->
+                                <li>
+                                    <a href="<?php echo base_url() . (isset($menu_name['url'])) ? $menu_name['url'] : ''; ?>">
+                                        <i class="fa fa-home"></i><?php echo $menu_name['menuName']; ?> 
+                                    </a>
+                                </li>
+                                <!--</ul>-->
+
+                            <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
+                                <!--<div class="menu_section">-->
+                                <!--<h3>General</h3>-->
+                                <!--<ul class="nav side-menu">-->
+                                <li>
+                                    <a>
+                                        <i class="fa fa-bar-chart-o"></i><?php echo $menu_name['menuName']; ?>  
+                                    </a>
+                                </li>
+                                <!--</ul>-->
+                                <!--</div>-->
+                            <?php } else { ?>
+
+                                <!--<ul class="nav side-menu">-->
+                                <li>
+                                    <a 
+                                    <?php
+                                    if ($menu_name['menuName'] == 'Masters' && $this->session->userdata('group_id') != 1) {
+                                        echo 'class="not-allowed"';
+                                    }
+                                    ?>>
+                                        <i class="fa fa-edit">
+                                        </i>
+                                        <?php echo $menu_name['menuName']; ?> 
+                                        <span class="fa fa-chevron-down">
+                                        </span>
+                                    </a>
+                                    <?php if ($menu_name['menuName'] != 'Masters' && $this->session->userdata('group_id') != 1) { ?>
+                                        <ul class="nav child_menu">
+                                            <?php
+                                            foreach ($dataHeader['menulist'] as $sub_menu) {
+                                                $nav_ids_value = explode(',', $sub_menu['nav_ids']);
+                                                if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
+                                                    ?>                              
+                                                    <li>
+                                                        <a href="<?php
+                                                        echo base_url();
+                                                        echo ($sub_menu['url']) ? $sub_menu['url'] : '';
+                                                        ?>">
+                                                               <?php echo $sub_menu['menuName']; ?>
+                                                        </a>
+                                                    </li>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </ul> 
+                                    <?php } elseif ($this->session->userdata('group_id') == 1) {
+                                        ?>
+                                        <ul class="nav child_menu">
+                                            <?php
+                                            foreach ($dataHeader['menulist'] as $sub_menu) {
+                                                $nav_ids_value = explode(',', $sub_menu['nav_ids']);
+                                                if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
+                                                    ?>                              
+                                                    <li>
+                                                        <a href="<?php
+                                                        echo base_url();
+                                                        echo ($sub_menu['url']) ? $sub_menu['url'] : '';
+                                                        ?>">
+                                                               <?php echo $sub_menu['menuName']; ?>
+                                                        </a>
+                                                    </li>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </ul> 
+                                    <?php }
+                                    ?>
+                                </li>
+                                <!--</ul>-->
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
                 </ul>
             </div>
-
 
         </div>
         <!-- /sidebar menu -->

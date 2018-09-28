@@ -23,7 +23,7 @@ class UomMaster extends CI_Controller {
         } else {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
+            $data['uom_type_list'] = $this->uommodel->uom_types($user_id);
 
             load_view_template($data, 'master/Uom_type_List');
         }
@@ -252,7 +252,7 @@ class UomMaster extends CI_Controller {
             }
 
 //           $data['uom_list'] = $this->uommodel->get_uom($user_id);
-            $data['result'] = $this->uommodel->get_uom_type($id);
+            $data['result'] = $this->uommodel->uom_types($user_id, $id);
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $this->session->unset_userdata('edit_uom_type');
@@ -442,9 +442,10 @@ class UomMaster extends CI_Controller {
 
     public function uom_type_details() {
         if ($this->input->post('uom_id')) {
+            $user_id = $this->session->userdata('user_id');
             $id = explode('_', $this->input->post('uom_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->uommodel->get_uom_type($id[0]);
+            $data['result'] = $this->uommodel->uom_types($user_id, $id[0]);
 
             $view = $this->load->view('master/modal/uom_type', $data);
             echo $view;

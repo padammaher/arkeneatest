@@ -69,11 +69,14 @@ class UomModel extends MY_Model {
         }
     }
 
-    public function uom_types($id) {
+    public function uom_types($user_id, $id = null) {
         $this->db->distinct();
-        $this->db->select('uom_type.id,uom_type.name');
+        $this->db->select('uom_type.id,uom_type.name,uom_type.isactive');
         $this->db->from('uom_type');
-        $this->db->where(array('uom_type.isactive' => 1, 'isdeleted' => 0, 'uom_type.createdby' => $id));
+        $this->db->where(array('isdeleted' => 0, 'uom_type.createdby' => $user_id));
+        if ($id) {
+            $this->db->where('uom_type.id', $id);
+        }
         $query = $this->db->get();
         $result = $query->result_array();
 
@@ -171,7 +174,7 @@ class UomModel extends MY_Model {
 //        $this->db->select("uom_type.id,uom_type.name,uom_type.isactive,uom_type.createdby,GROUP_CONCAT(uom.name,':',uom.id) as uomnames");
         $this->db->from('uom_type');
         $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
-        $this->db->where(array('uom_type.isactive' => 1, 'uom.isdeleted' => 0, 'uom.createdby' => $user_id));
+        $this->db->where(array('uom.isdeleted' => 0, 'uom.createdby' => $user_id));
         if ($id) {
             $this->db->where('uom_type.id', $id);
         }
@@ -179,6 +182,21 @@ class UomModel extends MY_Model {
         $query = $this->db->get();
         $result = $query->result_array();
 
+        return $result;
+    }
+
+    function uom_type($id) {
+        $this->db->select('uom_type.id,uom_type.name,uom.isactive');
+        $this->db->from('uom_type');
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
+        $this->db->where('uom_type.id', $id);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        if ($result) {
+            foreach ($result as $key => $value) {
+                $result[$key]['uomlist'] = $this->get_uom_data($value['id']);
+            }
+        }
         return $result;
     }
 

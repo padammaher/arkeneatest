@@ -54,8 +54,15 @@ class ParameterModel extends MY_Model {
         return $this->db->affected_rows();
     }
 
-    function get_uomtype($user_id) {
-//        $this->db->select('')
+    function get_uomtypes($user_id) {
+        $this->db->distinct();
+        $this->db->select('uom_type.id,uom_type.name');
+        $this->db->from('uom_type');
+        $this->db->where(array('uom_type.isactive' => 1, 'isdeleted' => 0, 'uom_type.createdby' => $user_id));
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        return $result;
     }
 
 }
