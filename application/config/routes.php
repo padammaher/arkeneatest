@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['acces_forbidden'] = "Welcome/accessDenied";
 
 //Masters
 $route['assetcategory'] = "Master/AssetMaster/assetcategory";
@@ -134,25 +135,25 @@ $route['Sensor_inventory_list'] = 'Inventory/Sensor_inventory_list';
 
 ///////////////////////////////Asset Rules 
 
-$route['Asset_Rule']='AssetsManagement/add_asset_rule'; 
-$route['Add_Asset_Rule']='AssetsManagement/add_asset_rule_detail'; 
-$route['Delete_Rule']='AssetsManagement/delete_asset_rule'; 
-$route['Asset_Rule_list']='assetsManagement/asset_rule_list';
+$route['Asset_Rule'] = 'AssetsManagement/add_asset_rule';
+$route['Add_Asset_Rule'] = 'AssetsManagement/add_asset_rule_detail';
+$route['Delete_Rule'] = 'AssetsManagement/delete_asset_rule';
+$route['Asset_Rule_list'] = 'assetsManagement/asset_rule_list';
 
 
 ///////////////////// customer information /////////
-$route['Customerinfo']= 'Customer/customer_info'; 
-$route['Dashboard']='Auth/dashboard';
-$route['Editcustomerinfo']='Customer/edit_customer_detail'; 
-$route['UpdateInfo']='Customer/update_cutomer_info';
-$route['ManageUsers']='Customer/client_user_list'; 
-$route['ManageBusinessLoacaiton']='Customer/customer_business_location_list';
+$route['Customerinfo'] = 'Customer/customer_info';
+$route['Dashboard'] = 'Auth/dashboard';
+$route['Editcustomerinfo'] = 'Customer/edit_customer_detail';
+$route['UpdateInfo'] = 'Customer/update_cutomer_info';
+$route['ManageUsers'] = 'Customer/client_user_list';
+$route['ManageBusinessLoacaiton'] = 'Customer/customer_business_location_list';
 //$route['AddClient']='Customer/client_user_add'; 
-$route['AddClient']='Customer/edit_client_user';
-$route['Add_Business_Location']='Customer/add_customer_business_location';
+$route['AddClient'] = 'Customer/edit_client_user';
+$route['Add_Business_Location'] = 'Customer/add_customer_business_location';
 
-$route['update_client']='Customer/update_client_detail';
-$route['update_business']='Customer/edit_business_location';
+$route['update_client'] = 'Customer/update_client_detail';
+$route['update_business'] = 'Customer/edit_business_location';
 
 //Privileges
 
