@@ -30,13 +30,13 @@
                             <?php echo form_input($password); ?>
                             <div class="lgnErorr2"></div>
                         </div>
-                        <div class="col-sm-12">
+<!--                        <div class="col-sm-12">
                             <label class="checkbox">
                                 <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"'); ?> <?php echo lang('login_remember_label', 'remember'); ?>
                             </label>
-                        </div>
+                        </div>-->
                         <div>
-                            <button class="btn btn-default submit" type="submit">Login</button> 
+                            <button class="btn btn-default submit" type="submit">LOGIN</button> 
                             <?php echo form_close(); ?>
                             <a class="reset_pass" href="forgot_password"><?php echo lang('login_forgot_password'); ?></a>
                         </div>
