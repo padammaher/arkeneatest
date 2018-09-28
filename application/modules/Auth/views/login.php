@@ -18,7 +18,16 @@
             <a class="hiddenanchor" id="signin"></a>
 
             <div class="login_wrapper">
+                  
                 <div class="animate form login_form">
+                    <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <strong>Error !</strong> <?php
+                                if ($this->session->flashdata('message')) {
+                                    echo $this->session->flashdata('message');
+                                }
+                                ?>
+                            </div>
                     <section class="login_content">
                         <?php echo form_open("auth/login", array('id' => 'login_form')); ?> 
                         <h1>Login Form</h1>
@@ -97,4 +106,5 @@
             </div>
         </div>
     </body>
+   
 </html>

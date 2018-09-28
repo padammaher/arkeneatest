@@ -36,7 +36,7 @@ class PrivilegeMaster extends CI_Controller {
                 $post_array = $_POST;
                 $groupid_and_roleid=explode("_",$_POST['id_and_groupid']);
 
-               
+               $menucount=0;
                 $objects = $this->privilegemodel->getMenuList();
                 foreach($objects as $k=> $data)
                 {
@@ -69,34 +69,21 @@ class PrivilegeMaster extends CI_Controller {
                             $data_insert[$k]['viewpermission']=1;
                     else
                          $data_insert[$k]['viewpermission']=0;
+                    $menucount++;
                 }
-//                var_dump($data_insert);die;
-                 $isUnique = $this->privilegemodel->checkIfExists('privileges', $groupid_and_roleid[1]);
-                 if($isUnique)
-                 {
-//                     echo $isUnique;                     
-//                   exit;  
+
                    $asset_user_list_data = $this->privilegemodel->update_Privileges('privileges',$data_insert, $groupid_and_roleid);
 //                   echo $asset_user_list_data;
                    if($asset_user_list_data){
                    $this->session->set_flashdata('success_msg', 'Privilleges successfully updated');
-                    redirect('privilege','refresh');
-                   //exit;
+                    redirect('privilege','refresh');                   
                    }
-                 }
-                 else
-                 {
-                 
-                  $AddPrivileges = $this->privilegemodel->AddPrivileges('privileges',$data_insert,$groupid_and_roleid);   
-//                  echo $AddPrivileges;
-                  if($AddPrivileges){
-                  $this->session->set_flashdata('success_msg', 'Privilleges successfully added');
-                  redirect('privilege','refresh');
-                 }
-                 
-                 }
-                
-                //die;
+                   else
+                   {
+                       $this->session->set_flashdata('error_msg', 'Privilleges failed to updat');
+                    redirect('privilege','refresh');                   
+                   }
+                   
             }else{
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);

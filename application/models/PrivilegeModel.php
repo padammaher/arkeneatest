@@ -49,13 +49,15 @@ public function getMenuList()
 }
 
     public function checkIfExists($table = NULL, $groupid_and_roleid = array()) {        
-         $this->db->select('role');
+                
+                $this->db->select('object');
                 $this->db->from($table);
-                $this->db->where('role',$groupid_and_roleid);
-              $query= $this->db->get();
+                $this->db->where(array('role'=>$groupid_and_roleid[1],'group_id'=>$groupid_and_roleid[0]));
+                $query= $this->db->get();
+//                  $this->db->last_query();
 //                $this->db->get_where($table, $unique_Data);        
         if ($query->num_rows() > 0) {
-            return true;
+            return $query->num_rows();
         } else {
             return false;
         }
@@ -68,11 +70,26 @@ public function AddPrivileges($table,$data_insert,$id_and_groupid)
 
     public function update_Privileges($table,$update_data, $groupid_and_roleid) {        
         $returnVal='';
+        
         foreach ($update_data as $update_data_value) {
-        $this->db->where(array('role'=> $groupid_and_roleid[1],'group_id'=>$groupid_and_roleid[1],'object'=>$update_data_value['object']));
+         
+                $this->db->select('object');
+                $this->db->from($table);
+                $this->db->where(array('role'=>$groupid_and_roleid[1],'group_id'=>$groupid_and_roleid[0],'object'=>$update_data_value['object']));
+                $query= $this->db->get();
+        if ($query->num_rows() > 0) {     
+        $this->db->where(array('role'=> $groupid_and_roleid[1],'group_id'=>$groupid_and_roleid[0],'object'=>$update_data_value['object']));
         $returnVa= $this->db->update($table, $update_data_value);
+//        if(!$returnVa){
+//         $this->db->insert_batch($table, $update_data_value);    
+        }
+        else
+        {
+             $this->db->insert($table, $update_data_value); 
+        }
         $returnVal++;
         }
+        
         return $returnVal;
 //        }
     }
