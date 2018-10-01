@@ -27,10 +27,10 @@
                                     ?>
                     <div class="row">
                         <div class="col-md-4"><?php echo $data->menuName ?></div>
-                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"  <?php if($user_privilege_data)echo $user_privilege_data[$k]->addpermission =='1'? 'checked':'';?>></label></div>
-                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" <?php if($user_privilege_data)echo $user_privilege_data[$k]->editpermission =='1'? 'checked':'';?>></label></div>
-                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]" <?php if($user_privilege_data)echo $user_privilege_data[$k]->deletepermission =='1'? 'checked':'';?>></label></div>
-                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]" <?php if($user_privilege_data)echo $user_privilege_data[$k]->viewpermission =='1'? 'checked':'';?>></label></div>
+                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"  <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->addpermission =='1'? 'checked':'';?>></label></div>
+                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->editpermission =='1'? 'checked':'';?>></label></div>
+                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->deletepermission =='1'? 'checked':'';?>></label></div>
+                        <div class="col-md-2"><label><input type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->viewpermission =='1'? 'checked':'';?>></label></div>
 
                     </div>
                             <?php } } ?>
