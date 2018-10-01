@@ -327,7 +327,7 @@ class Inventory extends MY_Controller {
 
                     $unique_Data = array(
                         'device_id' => $this->input->post('deviceid'),
-                        'sensor_id' => $this->input->post('sensorid'),
+                        'sensor_id' => implode(',', $arr),
                         'createdby' => $user_id,
                         'isactive' => ($this->input->post('device_sen_status')) == "on" ? '1' : '0'
                     );
@@ -344,7 +344,7 @@ class Inventory extends MY_Controller {
                     $this->form_validation->set_rules('sensorid', 'Sensor ID', 'required');
 
                     $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
-                    // exit;
+
                     if ($this->form_validation->run() == TRUE) {
                         if ($isUnique) {
                             $this->session->set_flashdata('error_msg', 'Device sensor already added!');
