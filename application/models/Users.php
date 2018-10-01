@@ -78,7 +78,7 @@ class Users extends MY_Model {
         $this->db->from('menu'); 
         //$this->db->join('groups', 'groups.id=menu.group_id');
         //$this->db->where('menu.group_id',$group_id); 
-        $this->db->where('isactive',1);  
+        $this->db->where(array('isactive'=>1,'sidebar_flag'=>1));  
         $query = $this->db->get();
         $data = $query->result_array();
         return $data; 
