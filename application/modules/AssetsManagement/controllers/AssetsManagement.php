@@ -1020,9 +1020,9 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Asset Parameter Range');
+            $data['permission'] = $this->users->get_permissions(['Asset Parameter Range', 'Asset Rule']);
             //check user Permission
-            userPermissionCheck($data['permission'], 'view');
+            userPermissionCheck($data['permission'], 'view', 'Asset Parameter Range');
 
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
