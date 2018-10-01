@@ -310,7 +310,7 @@ class Inventory extends MY_Controller {
                      
                     $unique_Data = array(
                         'device_id' => $this->input->post('deviceid'),
-                        'sensor_id' => implode(',', $arr),
+                        'sensor_id' => $this->input->post('sensorid'),
                         'createdby' => $user_id,
                         'isactive' => ($this->input->post('device_sen_status')) == "on" ? '1' : '0'
                     );
