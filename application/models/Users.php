@@ -18,9 +18,6 @@ class Users extends MY_Model {
     public $_table = 'users';
     public $primary_key = 'id';
 
-
-   
-
     function get_slug_by_id($id) {
         if ($id != null) {
             $obj = $this->db->select('salt')->get_where('main_users', array('id' => $id))->row();
@@ -31,15 +28,15 @@ class Users extends MY_Model {
 
         return null;
     }
-    
-    public function get_allData($user_id){
+
+    public function get_allData($user_id) {
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('id', $user_id);
         $query = $this->db->get();
         $objData = $query->result_array();
-        if($objData){
-           $objData[0]['menulist']=$this->get_menu_list(); 
+        if ($objData) {
+            $objData[0]['menulist'] = $this->get_menu_list();
         }
         return $objData[0];
     }
@@ -61,28 +58,42 @@ class Users extends MY_Model {
             return false;
         }
     }
-    
+
     public function check_email($email_id) {
 
-        $result =  $this->db->select('email')->get_where('main_users', array('email' => $email_id))->row();
-        if(isset($result))
+        $result = $this->db->select('email')->get_where('main_users', array('email' => $email_id))->row();
+        if (isset($result))
             return FALSE;
         else
             return TRUE;
-        
     }
-    
-    public function get_menu_list(){
-        $group_id=$this->session->userdata('group_id'); 
-        $this->db->select('menu.id,menu.menuName,menu.url,menu.parent,menu.nav_ids');//,groups.name,groups.id as group_id
-        $this->db->from('menu'); 
-        //$this->db->join('groups', 'groups.id=menu.group_id');
-        //$this->db->where('menu.group_id',$group_id); 
-        $this->db->where(array('isactive'=>1,'sidebar_flag'=>1));  
+  
+
+    public function get_menu_list() {
+        $group_id = $this->session->userdata('group_id');
+        $this->db->select('menu.id,menu.menuName,menu.url,menu.parent,menu.nav_ids'); //,groups.name,groups.id as group_id
+        $this->db->from('menu');
+        $this->db->where('menu.sidebar_flag', 1);
+        $this->db->where('isactive', 1);
         $query = $this->db->get();
         $data = $query->result_array();
-        return $data; 
-        
+        return $data;
+    }
+
+    public function get_permissions($menu) {
+        $group_id = $this->session->userdata('group_id');
+        if ($group_id == 1) {
+            $role_id = 1;
+        } else {
+            $role_id = 2;
+        }
+        $this->db->select('privileges.id,role,privileges.group_id,object,addpermission,editpermission,deletepermission,'
+                . 'viewpermission,privileges.isactive,menu.menuName');
+        $this->db->join('menu', 'privileges.object=menu.id');
+        $this->db->where(array('privileges.isactive' => 1, 'privileges.group_id' => $group_id, 'privileges.role' => $role_id,
+            'menu.menuName' => $menu));
+        $result = $this->db->get('privileges')->result();
+        return $result;
     }
 
 }

@@ -13,7 +13,6 @@ class SensorMaster extends CI_Controller {
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
-        $CI = & get_instance();
     }
 
     public function sensortype() {
@@ -21,6 +20,10 @@ class SensorMaster extends CI_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Sensor Type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view');
+
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['sensor_type_details'] = $this->sensormodel->get_sensortypeList($user_id);
@@ -36,6 +39,10 @@ class SensorMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $data['permission'] = $this->users->get_permissions('Sensor Type');
+        //check user Permission
+        userPermissionCheck($data['permission'], 'add');
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -130,6 +137,10 @@ class SensorMaster extends CI_Controller {
             }
             redirect('sensortype');
         } elseif ($this->input->post('post') == 'edit' || $this->session->userdata('sensore_post')) {
+            $data['permission'] = $this->users->get_permissions('Sensor Type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             if ($this->input->post('id')) {
                 $id = $this->input->post('id');
             } elseif ($this->session->userdata('sensore_post')) {

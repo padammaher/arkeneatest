@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
+                            <?php //echo "<pre>";print_r($user_type);
                             if (isset($user_type) && !empty($user_type)) {
                                 foreach ($user_type as $k => $data) {
                                     ?>
@@ -35,12 +35,12 @@
                                             <a title="Add Privelege" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
                                                 <i class="fa fa-cog blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add"></i>
                                             </a>
-                                            <a title="Edit" class="edit" id="<?php echo $k + 1; ?>">  
+                                            <a title="Edit" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
                                                 <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                             </a>
-                                            <a title="Delete" class="delete" id="<?php echo $k + 1; ?>">
-                                                <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                            </a>
+                                            <!--<a title="Delete" class="delete" id="<?php echo $k + 1; ?>" name="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>">-->
+                                                <!--<i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i>--> 
+                                            <!--</a>-->
                                         </td>
                                     </tr>
                                     <?php
@@ -58,3 +58,21 @@
     </div>
 
 </div>
+<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+//        $('body').on('click', '.delete', function () {        
+//            var id = $(this).attr('id');
+//            var action_url = $(this).attr('name');
+//            var action = 'delete';
+//            alert(action_url+'_'+action);
+//            window.location.href(action_url+'_'+action);
+//            $("#confirmmodal_Box").modal();
+//            $(".ok").click(function () {
+                //$("#post" + id).val('delete');
+//                $("#update_param_range" + id).attr('action', update_url);
+//                $("#Assets_edit" + id).submit();
+//            });
+//        });
+    });
+</script>

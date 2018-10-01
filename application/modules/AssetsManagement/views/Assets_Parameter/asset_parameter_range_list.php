@@ -28,8 +28,15 @@
                     <div class="title_right">
                         <div class="pull-right">
                             <a href="<?php echo base_url() . 'Assets_list'; ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Management</a>
-
-                            <a href="<?php echo base_url() . 'asset_parameter_add'; ?>" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Add Parameter Range</a>
+                            <?php
+                            if (isset($permission) && !empty($permission)) {
+                                if ($permission[0]->addpermission == 1) {
+                                    ?>
+                                    <a href="<?php echo base_url() . 'asset_parameter_add'; ?>" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Add Parameter Range</a>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -69,15 +76,31 @@
                                             <form action="" method="post" id="update_param_range<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>" >
-                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                </a> 
+                                                <?php
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->editpermission == 1) {
+                                                        ?>
+                                                        <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                        </a>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
                                                 <a title="Edit" class="manage" id="<?php echo $i; ?>">
                                                     <i class="fa fa-dedent" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Rule"></i>
                                                 </a>
+                                                <?php
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->deletepermission == 1) {
+                                                        ?>
+                                                        <a title="Delete" class="delete" id="<?php echo $i; ?>" >
+                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                        </a> 
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
                                             </form>
                                         </td>
                                     </tr>

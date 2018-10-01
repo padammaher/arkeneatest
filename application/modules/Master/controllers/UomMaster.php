@@ -13,7 +13,6 @@ class UomMaster extends CI_Controller {
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
-//        $CI = & get_instance();
     }
 
     public function uom_type_list() {
@@ -21,6 +20,10 @@ class UomMaster extends CI_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('UOM Type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view');
+
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['uom_type_list'] = $this->uommodel->uom_types($user_id);
@@ -34,8 +37,11 @@ class UomMaster extends CI_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $user_id = $this->session->userdata('user_id');
+            $data['permission'] = $this->users->get_permissions('UOM');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view');
 
+            $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
 //            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
             $data['uom_type_list'] = $this->uommodel->get_uomlistrecords();
@@ -48,6 +54,10 @@ class UomMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $data['permission'] = $this->users->get_permissions('UOM');
+        //check user Permission
+        userPermissionCheck($data['permission'], 'add');
+
         $update_count = '';
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
@@ -145,6 +155,10 @@ class UomMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         }
+        $data['permission'] = $this->users->get_permissions('UOM Type');
+        //check user Permission
+        userPermissionCheck($data['permission'], 'add');
+
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
 
@@ -243,6 +257,10 @@ class UomMaster extends CI_Controller {
             redirect('uom_type_list');
         }
         if ($this->input->post('post') == 'edit' || $this->session->userdata('edit_uom_type')) {
+            $data['permission'] = $this->users->get_permissions('UOM Type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             if ($this->input->post('id')) {
                 $id = $this->input->post('id');
                 $data['uom_type_id'] = $id;
@@ -371,6 +389,9 @@ class UomMaster extends CI_Controller {
             redirect('uomlist');
         }
         if ($this->input->post('post') == 'edit' || $this->session->userdata('edit_uom_type')) {
+            $data['permission'] = $this->users->get_permissions('UOM');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
             if ($this->input->post('id')) {
                 $id = $this->input->post('id');
                 $data['uom_type_id'] = $id;

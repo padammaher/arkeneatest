@@ -15,10 +15,18 @@
                     <i class="fa fa-user">
                     </i> User Management
                 </a>
-                <a href="<?php echo base_url() ?>Add_Business_Location" class="btn btn-sm btn-primary"> 
-                    <i class="fa fa-plus">
-                    </i> Add New
-                </a>
+                <?php
+                if (isset($permission) && !empty($permission)) {
+                    if ($permission[0]->addpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>Add_Business_Location" class="btn btn-sm btn-primary"> 
+                            <i class="fa fa-plus">
+                            </i> Add New
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -63,22 +71,42 @@
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->telephone; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->mobile; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->email; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php if(isset($location->isactive)){ echo $location->isactive == 1 ? 'Active' : 'In-active'; } ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php
+                                            if (isset($location->isactive)) {
+                                                echo $location->isactive == 1 ? 'Active' : 'In-active';
+                                            }
+                                            ?></td>
                                         <td class="action">
-                                            <form action="<?php echo base_url(); ?>update_business" method="post" id="edit_update_business_location<?php echo $i; ?>"> 
-                                                <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
-                                                <a class="edit_location" title="Edit" id="<?php echo $i; ?>">
-                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                    </i>
-                                                </a>
-                                            </form> 
-                                            <form action="<?php echo base_url(); ?>Customer/delete_business_location" method="post" id="delete_update_business_location<?php echo $i; ?>"> 
-                                                <a class="delete_location" title="Delete" id="<?php echo $i; ?>">
-                                                    <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
-                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                    </i> 
-                                                </a> 
-                                            </form>
+                                            <?php
+                                            if (isset($permission) && !empty($permission)) {
+                                                if ($permission[0]->editpermission == 1) {
+                                                    ?>
+                                                    <form action="<?php echo base_url(); ?>update_business" method="post" id="edit_update_business_location<?php echo $i; ?>"> 
+                                                        <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
+                                                        <a class="edit_location" title="Edit" id="<?php echo $i; ?>">
+                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                            </i>
+                                                        </a>
+                                                    </form> 
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                            <?php
+                                            if (isset($permission) && !empty($permission)) {
+                                                if ($permission[0]->deletepermission == 1) {
+                                                    ?>
+                                                    <form action="<?php echo base_url(); ?>Customer/delete_business_location" method="post" id="delete_update_business_location<?php echo $i; ?>"> 
+                                                        <a class="delete_location" title="Delete" id="<?php echo $i; ?>">
+                                                            <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
+                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                            </i> 
+                                                        </a> 
+                                                    </form>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
                                         </td>
                                     </tr>
                                     <?php
@@ -209,20 +237,20 @@
 </div>
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
-                        $(document).ready(function () {
-                            $('body').on('click', '.edit_location', function () {  
-//                            $(".edit_location").click(function () {
-                                var id = $(this).attr('id');
-                                $("#edit_update_business_location" + id).submit();
-                            });
-//                            $(".delete_location").click(function () {
-                                 $('body').on('click', '.delete_location', function () {
-                                var id = $(this).attr('id');
-                                $("#delete_confirmation").modal('show');
-                                $(".ok").click(function () {
-                                    // $("#post" + id).val('delete');
-                                    $("#delete_update_business_location" + id).submit();
+                                $(document).ready(function () {
+                                    $('body').on('click', '.edit_location', function () {
+                                        var id = $(this).attr('id');
+                                        $("#edit_update_business_location" + id).submit();
+                                    });
+
+                                    $('body').on('click', '.delete_location', function () {
+                                        var id = $(this).attr('id');
+                                        $("#delete_confirmation").modal('show');
+                                        $(".ok").click(function () {
+                                            // $("#post" + id).val('delete');
+                                            $("#delete_update_business_location" + id).submit();
+
+                                        });
+                                    });
                                 });
-                            });
-                        });
 </script>
