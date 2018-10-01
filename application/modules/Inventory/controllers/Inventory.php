@@ -266,12 +266,11 @@ class Inventory extends MY_Controller {
     }
 
 //------------------sensor inventpry---------------------
-
+    function string_sanitize($s) {
+        $result = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($s, ENT_QUOTES));
+        return $result;
+    }
     public function Add_device_sensors() {
-
-//                 $form_action_type=$this->input->post('add_sensor_int_button');                
-
-
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
@@ -296,12 +295,19 @@ class Inventory extends MY_Controller {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //                  $add_sen_inv_form_action=explode(" ",$this->input->post('add_sen_inv_form_action'));
 //               if() 
-
+                //print_r($_POST);                exit(); 
                 if ($this->input->post('dev_sen_post_add') == 'dev_sen_post_add') {
 //                    print_r($this->input->post());
 //                    exit;
                     load_view_template($data, 'DeviceInventory/add_device_sensor');
                 } else {
+                    $sensor_input = $this->input->post("sensorid");
+                     $sensor_input_arr = explode(',', $sensor_input);
+                      $k = count($sensor_input_arr);
+                        for ($i = 0; $i < $k; $i++) {
+                            $arr[$i] = $this->string_sanitize($sensor_input_arr[$i]);
+                        }
+                     
                     $unique_Data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'sensor_id' => $this->input->post('sensorid'),
@@ -316,25 +322,20 @@ class Inventory extends MY_Controller {
                         'isactive' => ($this->input->post('device_sen_status')) == "on" ? '1' : '0',
                         'isdeleted' => 0
                     );
-
+                    
                     $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
                     $this->form_validation->set_rules('sensorid', 'Sensor ID', 'required');
-//                echo $form_action_type ; 
-//                print_r($this->input->post());
-//                exit;
+                    
                     $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
-
+                   // exit;
                     if ($this->form_validation->run() == TRUE) {
                         if ($isUnique) {
-                            //                $data['error'] = 'Category name is already existed!';
                             $this->session->set_flashdata('error_msg', 'Device sensor already added!');
                             load_view_template($data, 'DeviceInventory/add_device_sensor');
                         } else {
-
                             $inserteddata = $this->Inventory_model->add_devicesensor($insert_data);
                             if ($inserteddata) {
                                 $this->session->set_flashdata('success_msg', 'Device sensor successfully added');
-                                                               
                                 if (!empty($this->input->post('back_action'))) {
                                     return redirect($this->input->post('back_action'), 'refresh');
                                 } else {
@@ -917,5 +918,11 @@ class Inventory extends MY_Controller {
 
         echo json_encode($device_sensor_data);
     }
-
+    
+    public function getsensor_data(){
+        $user_id = $this->session->userdata('user_id');
+        $deviceid = 43; 
+       $data['device_sensor_data']= $this->Inventory_model->getsensor_data($deviceid,$user_id);
+      // echo json_encode($device_sensor_data); 
+    }
 }

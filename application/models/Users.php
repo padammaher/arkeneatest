@@ -67,6 +67,7 @@ class Users extends MY_Model {
         else
             return TRUE;
     }
+  
 
     public function get_menu_list() {
         $group_id = $this->session->userdata('group_id');

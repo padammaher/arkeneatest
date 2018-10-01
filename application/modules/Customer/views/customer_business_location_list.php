@@ -238,16 +238,18 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
                                 $(document).ready(function () {
-                                    $(".edit_location").click(function () {
+                                    $('body').on('click', '.edit_location', function () {
                                         var id = $(this).attr('id');
                                         $("#edit_update_business_location" + id).submit();
                                     });
-                                    $(".delete_location").click(function () {
+
+                                    $('body').on('click', '.delete_location', function () {
                                         var id = $(this).attr('id');
                                         $("#delete_confirmation").modal('show');
                                         $(".ok").click(function () {
                                             // $("#post" + id).val('delete');
                                             $("#delete_update_business_location" + id).submit();
+
                                         });
                                     });
                                 });

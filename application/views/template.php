@@ -184,7 +184,8 @@
         <!-- NProgress -->
         <script src="<?php echo base_url('assets/css/nprogress/nprogress.js'); ?>" type="text/javascript"></script>
 
-        
+        <link href="<?php echo base_url(); ?>assets/css/tag.css" rel="stylesheet">
+<script src="<?php echo base_url(); ?>assets/js/taginput.js"></script>
         <!----data tables js-->
              <script src="<?php echo base_url('assets/css/datatables.net/js/jquery.dataTables.min.js');?>"></script>
     <script src="<?php echo base_url('assets/css/datatables.net-bs/js/dataTables.bootstrap.min.js');?>"></script>
