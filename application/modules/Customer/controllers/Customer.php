@@ -20,9 +20,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Customer Provisioning');
+            $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
             //check user Permission
-            userPermissionCheck($data['permission'], 'add');
+            userPermissionCheck($this->data['permission'], 'add');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
@@ -82,9 +82,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Customer Provisioning');
+            $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
             //check user Permission
-            userPermissionCheck($data['permission'], 'update');
+            userPermissionCheck($this->data['permission'], 'update');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['user_detail'] = $user_data = $this->Customer_Model->get_customer_detail($user_id);
@@ -142,9 +142,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Customer Provisioning');
+            $this->data['permission'] = $this->users->get_permissions(['Customer Provisioning', 'Client User', 'Customer Business Location']);
             //check user Permission
-            userPermissionCheck($data['permission'], 'view');
+            userPermissionCheck($this->data['permission'], 'view', 'Customer Provisioning');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
@@ -158,9 +158,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Client User');
+            $this->data['permission'] = $this->users->get_permissions(['Client User', 'Customer Provisioning', 'Customer Business Location']);
             //check user Permission
-            userPermissionCheck($data['permission'], 'view');
+            userPermissionCheck($this->data['permission'], 'view', 'Client User');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
@@ -336,9 +336,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Customer Business Location');
+            $this->data['permission'] = $this->users->get_permissions(['Customer Business Location', 'Client User', 'Customer Provisioning']);
             //check user Permission
-            userPermissionCheck($data['permission'], 'view');
+            userPermissionCheck($this->data['permission'], 'view', 'Customer Business Location');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);

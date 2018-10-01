@@ -1,3 +1,18 @@
+<?php
+if (isset($permission) && !empty($permission)) {
+    foreach ($permission as $key => $value) {
+        if ($value->menuName == 'Sensor Inventory') {
+            $sensor_in_index = $key;
+        } elseif ($value->menuName == 'Device Sensor') {
+            $sensor_index = $key;
+        } elseif ($value->menuName == 'Device Asset') {
+            $asset_index = $key;
+        } elseif ($value->menuName == 'Device Inventory') {
+            $device_index = $key;
+        }
+    }
+}
+?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -6,13 +21,36 @@
 
         <div class="title_right">
             <div class="pull-right">
-
-                <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
-                <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-tachometer"></i> Device Sensor</a>
-                <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>   
                 <?php
-                if (isset($permission) && !empty($permission)) {
-                    if ($permission[0]->addpermission == 1) {
+                if (isset($device_index)) {
+                    if ($permission[$device_index]->viewpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($sensor_index)) {
+                    if ($permission[$sensor_index]->viewpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-tachometer"></i> Device Sensor</a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($asset_index)) {
+                    if ($permission[$asset_index]->viewpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>   
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($sensor_in_index)) {
+                    if ($permission[$sensor_in_index]->addpermission == 1) {
                         ?>
                         <a href="<?php echo base_url('Add_sensor_inventory'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
                         <?php
@@ -41,8 +79,15 @@
                                 <th>Sensor_Type</th>                          
                                 <th>Location</th>                                                                         
                                 <th>Description</th>                                                                       
-                                <th>Status</th>                          
-                                <th>Actions</th>                          
+                                <th>Status</th> 
+                                <?php
+                                if (isset($sensor_in_index) || isset($asset_index) || isset($sensor_index)) {
+                                    if ($permission[$sensor_in_index]->editpermission == 1 || $permission[$sensor_in_index]->deletepermission == 1 || $permission[$asset_index]->editpermission == 1 || $permission[$sensor_index]->editpermission == 1) {
+                                        echo "<th>Actions</th>";
+                                    }
+                                }
+                                ?>
+                                <!--<th>Actions</th>-->                          
                             </tr>
                         </thead>
                         <tbody>
@@ -65,77 +110,115 @@
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['location_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['description']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
-                                        <td class="action">
-                                            <div style="display: -webkit-inline-box;">
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->editpermission == 1) {
+                                        <?php
+                                        if (isset($sensor_in_index) || isset($asset_index) || isset($sensor_index)) {
+                                            if ($permission[$sensor_in_index]->editpermission == 1 || $permission[$sensor_in_index]->deletepermission == 1 || $permission[$asset_index]->editpermission == 1 || $permission[$sensor_index]->editpermission == 1) {
+                                                ?>
+                                                <td class="action">
+                                                    <div style="display: -webkit-inline-box;">
+                                                        <?php
+                                                        if (isset($sensor_in_index)) {
+                                                            if ($permission[$sensor_in_index]->editpermission == 1) {
+                                                                ?>
+                                                                <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
+                                                                    <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
+                                                                    <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                                    <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                                        <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                                    </a>
+                                                                </form>&nbsp;
+                                                                <?php
+                                                            }
+                                                        }
                                                         ?>
-                                                        <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
-                                                            <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
-                                                            <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                            <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                                <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                            </a>
+
+                                                        <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
+
+                                                            <input type="hidden" value="<?php echo $inventory_list['device_sensor_mapping_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
+                                                            <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
+                                                            <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Sensor_inventory_list" />       
+                                                            <?php if (!empty($inventory_list['device_sensor_mapping_id'])) { ?>   
+                                                                <?php
+                                                                if (isset($sensor_index)) {
+                                                                    if ($permission[$sensor_index]->editpermission == 1) {
+                                                                        ?>    
+                                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $InventoryListRowData['id']; ?>'/>  
+                                                                        <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $inventory_list['id']; ?>">
+                                                                            <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+                                                                        </a>
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            <?php } else { ?> 
+                                                                <?php
+                                                                if (isset($sensor_index)) {
+                                                                    if ($permission[$sensor_index]->addpermission == 1) {
+                                                                        ?>
+                                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add" value='dev_sen_post_add'/>  
+                                                                        <a  title="Device Sensor" class="dev_sensor_add" name="<?php echo $inventory_list['id']; ?>" id="<?php echo $i; ?>">
+                                                                            <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+                                                                        </a>
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            <?php } ?>
                                                         </form>&nbsp;
+
+                                                        <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
+                                                            <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>" />
+                                                            <input type="hidden" name="dev_asset_post" id="dev_asset_post<?php echo $i; ?>" value='edit'/>
+                                                            <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Sensor_inventory_list" />       
+                                                            <?php if (!empty($inventory_list['device_asset_tbl_id'])) { ?>    
+                                                                <?php
+                                                                if (isset($asset_index)) {
+                                                                    if ($permission[$asset_index]->editpermission == 1) {
+                                                                        ?>    
+                                                                        <a title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
+                                                                            <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
+                                                                        </a>
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            <?php } else { ?>
+                                                                <?php
+                                                                if (isset($asset_index)) {
+                                                                    if ($permission[$asset_index]->addpermission == 1) {
+                                                                        ?>
+                                                                        <input type="hidden" name="dev_asset_post_add" id="dev_asset_post_add" value='dev_asset_post_add'/>  
+                                                                        <a  title="Device Assets" class="dev_assets_add" name="<?php echo $inventory_list['device_inventory_tbl_id']; ?>"  id="<?php echo $i; ?>">
+                                                                            <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i>  
+                                                                        </a>    
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            <?php } ?>
+
+                                                        </form> &nbsp; 
                                                         <?php
-                                                    }
-                                                }
-                                                ?>
+                                                        if (isset($sensor_in_index)) {
+                                                            if ($permission[$sensor_in_index]->deletepermission == 1) {
+                                                                ?>
+                                                                <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
+                                                                    <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
+                                                                    <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
 
-                                                <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
-
-                                                    <input type="hidden" value="<?php echo $inventory_list['device_sensor_mapping_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
-                                                    <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
-                                                    <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Sensor_inventory_list" />       
-                                                    <?php if (!empty($inventory_list['device_sensor_mapping_id'])) { ?>   
-                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $InventoryListRowData['id']; ?>'/>  
-                                                        <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $inventory_list['id']; ?>">
-                                                            <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                                                        </a><?php } else { ?>                                             
-                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add" value='dev_sen_post_add'/>  
-                                                        <a  title="Device Sensor" class="dev_sensor_add" name="<?php echo $inventory_list['id']; ?>" id="<?php echo $i; ?>">
-                                                            <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                                                        </a>
-                                                    <?php } ?>
-                                                </form>&nbsp;
-
-                                                <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
-                                                    <input type="hidden" value="<?php echo $inventory_list['device_asset_tbl_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>" />
-                                                    <input type="hidden" name="dev_asset_post" id="dev_asset_post<?php echo $i; ?>" value='edit'/>
-                                                    <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Sensor_inventory_list" />       
-                                                    <?php if (!empty($inventory_list['device_asset_tbl_id'])) { ?>    
-                                                        <a title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
-                                                            <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
-                                                        </a>
-
-                                                    <?php } else { ?>
-
-
-                                                        <input type="hidden" name="dev_asset_post_add" id="dev_asset_post_add" value='dev_asset_post_add'/>  
-                                                        <a  title="Device Assets" class="dev_assets_add" name="<?php echo $inventory_list['device_inventory_tbl_id']; ?>"  id="<?php echo $i; ?>">
-                                                            <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i>  
-                                                        </a>    
-                                                    <?php } ?>
-
-                                                </form> &nbsp; 
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->deletepermission == 1) {
+                                                                    <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                                        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                                    </a></form>&nbsp;
+                                                                <?php
+                                                            }
+                                                        }
                                                         ?>
-                                                        <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
-                                                            <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
-                                                            <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-
-                                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                                <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                            </a></form>&nbsp;
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </div>
-                                        </td>
+                                                    </div>
+                                                </td>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </tr>
 
                                     <?php

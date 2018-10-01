@@ -154,9 +154,9 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Asset Management');
+            $data['permission'] = $this->users->get_permissions(['Asset Management', 'Asset Location', 'Asset User', 'Asset Parameter Range']);
             //check user Permission
-            userPermissionCheck($data['permission'], 'view');
+            userPermissionCheck($data['permission'], 'view', 'Asset Management');
 
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');

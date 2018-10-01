@@ -31,6 +31,10 @@ class Inventory extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Device Inventory');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'add');
+
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -130,6 +134,10 @@ class Inventory extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions(['Device Inventory', 'Device Sensor', 'Device Asset']);
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view', 'Device Inventory');
+
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -158,6 +166,10 @@ class Inventory extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Device Inventory');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -270,11 +282,16 @@ class Inventory extends MY_Controller {
         $result = preg_replace("/[^a-zA-Z0-9]+/", "", html_entity_decode($s, ENT_QUOTES));
         return $result;
     }
+
     public function Add_device_sensors() {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Device Sensor');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'add');
+
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -302,12 +319,12 @@ class Inventory extends MY_Controller {
                     load_view_template($data, 'DeviceInventory/add_device_sensor');
                 } else {
                     $sensor_input = $this->input->post("sensorid");
-                     $sensor_input_arr = explode(',', $sensor_input);
-                      $k = count($sensor_input_arr);
-                        for ($i = 0; $i < $k; $i++) {
-                            $arr[$i] = $this->string_sanitize($sensor_input_arr[$i]);
-                        }
-                     
+                    $sensor_input_arr = explode(',', $sensor_input);
+                    $k = count($sensor_input_arr);
+                    for ($i = 0; $i < $k; $i++) {
+                        $arr[$i] = $this->string_sanitize($sensor_input_arr[$i]);
+                    }
+
                     $unique_Data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'sensor_id' => $this->input->post('sensorid'),
@@ -322,12 +339,12 @@ class Inventory extends MY_Controller {
                         'isactive' => ($this->input->post('device_sen_status')) == "on" ? '1' : '0',
                         'isdeleted' => 0
                     );
-                    
+
                     $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
                     $this->form_validation->set_rules('sensorid', 'Sensor ID', 'required');
-                    
+
                     $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
-                   // exit;
+                    // exit;
                     if ($this->form_validation->run() == TRUE) {
                         if ($isUnique) {
                             $this->session->set_flashdata('error_msg', 'Device sensor already added!');
@@ -363,6 +380,10 @@ class Inventory extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Device Sensor');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -421,15 +442,13 @@ class Inventory extends MY_Controller {
                             $update_device_sensors_data = $this->Inventory_model->Update_device_sensors_model($update_data, $sen_inv_id);
                             if ($update_device_sensors_data) {
                                 $this->session->set_flashdata('success_msg', 'Device sensor successfully updated');
-                                
+
                                 if (!empty($this->input->post('back_action'))) {
                                     return redirect($this->input->post('back_action'), 'refresh');
                                 } else {
                                     return redirect('Device_sensor_list', 'refresh');
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 $this->session->set_flashdata('success_msg', 'Device sensor failed to update');
                                 return redirect('Device_sensor_list');
                             }
@@ -456,8 +475,6 @@ class Inventory extends MY_Controller {
             redirect('auth/login', 'refresh');
         } else {
             // set the flash data error message if there is one
-
-
             $user_id = $this->session->userdata('user_id');
 
 
@@ -475,11 +492,17 @@ class Inventory extends MY_Controller {
                 $data['parameter_list'] = $this->Inventory_model->parameter_list($user_id);
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
                 if ($this->input->post('post') == 'edit') {
+                    $data['permission'] = $this->users->get_permissions('Device Sensor');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'update');
 
                     load_view_template($data, 'DeviceInventory/add_device_sensor');
                 }
 //                  $sensor_form_action=explode(" ",$this->input->post('sensor_form_action'));
                 else if ($this->input->post('post') == 'delete') {
+                    $data['permission'] = $this->users->get_permissions('Device Sensor');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'delete');
 //                      $form_action_type[1];
 //                    echo $sen_inv_id;
 //                    print_r( $this->input->post());exit;
@@ -493,6 +516,10 @@ class Inventory extends MY_Controller {
                     }
                 }
             } else {
+                $data['permission'] = $this->users->get_permissions(['Device Sensor', 'Device Inventory', 'Device Asset']);
+                //check user Permission
+                userPermissionCheck($data['permission'], 'view', 'Device Sensor');
+
                 $data['device_sensors_list'] = $this->Inventory_model->device_sensors_list($user_id);
 
                 load_view_template($data, 'DeviceInventory/Device_sensor_list');
@@ -529,12 +556,19 @@ class Inventory extends MY_Controller {
                 $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
                 if ($this->input->post('post') == 'edit') {
+                    $data['permission'] = $this->users->get_permissions('Sensor Inventory');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'update');
 
                     load_view_template($data, 'SensorInventory/edit_sensor_inventory_1');
                 }
 //                  $sensor_form_action=explode(" ",$this->input->post('sensor_form_action'));
 //                  print_r($sensor_form_action);
                 else if ($this->input->post('post') == 'delete') {
+                    $data['permission'] = $this->users->get_permissions('Sensor Inventory');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'delete');
+
 //                      $form_action_type[1];
                     $delete_sensor_data = $this->Inventory_model->Delete_sensor_inventory($sen_inv_id);
                     if ($delete_sensor_data) {
@@ -546,6 +580,10 @@ class Inventory extends MY_Controller {
                     }
                 }
             } else {
+                $data['permission'] = $this->users->get_permissions(['Sensor Inventory', 'Device Sensor', 'Device Asset', 'Device Inventory']);
+                //check user Permission
+                userPermissionCheck($data['permission'], 'view', 'Sensor Inventory');
+
                 $data['sensor_inventory_list'] = $this->Inventory_model->sensor_inventory_list($user_id);
 
                 load_view_template($data, 'SensorInventory/sensor_inventory_list_1');
@@ -558,6 +596,10 @@ class Inventory extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Sensor Inventory');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'add');
+
             // set the flash data error message if there is one
 
 
@@ -671,6 +713,10 @@ class Inventory extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions(['Device Asset', 'Device Sensor', 'Device Inventory']);
+            //check user Permission
+            userPermissionCheck($data['permission'], 'view', 'Device Asset');
+
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -697,6 +743,10 @@ class Inventory extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Device Asset');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'add');
+
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -749,12 +799,11 @@ class Inventory extends MY_Controller {
                             $inserteddata = $this->Inventory_model->add_device_asset($insert_data);
                             if ($inserteddata) {
                                 $this->session->set_flashdata('success_msg', 'Device asset successfully added');
-                               if (!empty($this->input->post('back_action'))) {
+                                if (!empty($this->input->post('back_action'))) {
                                     return redirect($this->input->post('back_action'), 'refresh');
                                 } else {
-                                     return redirect('Device_assets_list');
+                                    return redirect('Device_assets_list');
                                 }
-                               
                             } else {
                                 $this->session->set_flashdata('error_msg', 'Device asset failed to added');
                                 return redirect('Device_assets_list');
@@ -798,6 +847,10 @@ class Inventory extends MY_Controller {
                 $sen_inv_id = ($this->input->post('id')) == '' ? $this->input->post('dev_asset_id') : $this->input->post('id');
                 $data['Edit_device_asset_data'] = $this->Inventory_model->Edit_device_asset_model($sen_inv_id);
                 if ($form_action == 'edit') {
+                    $data['permission'] = $this->users->get_permissions('Device Asset');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'update');
+
                     // echo $form_action;
                     // print_r($this->input->post());exit;
                     load_view_template($data, 'DeviceInventory/device_assets_edit');
@@ -836,15 +889,18 @@ class Inventory extends MY_Controller {
                                 if (!empty($this->input->post('back_action'))) {
                                     return redirect($this->input->post('back_action'), 'refresh');
                                 } else {
-                                     return redirect('Device_assets_list');
+                                    return redirect('Device_assets_list');
                                 }
-                                
                             }
                         }
                     } else {
                         load_view_template($data, 'DeviceInventory/device_assets_edit');
                     }
                 } else if ($form_action == 'delete') {
+                    $data['permission'] = $this->users->get_permissions('Device Asset');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'delete');
+
 //                      $form_action_type[1];
                     $delete_dev_asset_data = $this->Inventory_model->Delete_device_asset($sen_inv_id);
                     if ($delete_dev_asset_data) {
@@ -918,11 +974,12 @@ class Inventory extends MY_Controller {
 
         echo json_encode($device_sensor_data);
     }
-    
-    public function getsensor_data(){
+
+    public function getsensor_data() {
         $user_id = $this->session->userdata('user_id');
-        $deviceid = 43; 
-       $data['device_sensor_data']= $this->Inventory_model->getsensor_data($deviceid,$user_id);
-      // echo json_encode($device_sensor_data); 
+        $deviceid = 43;
+        $data['device_sensor_data'] = $this->Inventory_model->getsensor_data($deviceid, $user_id);
+        // echo json_encode($device_sensor_data); 
     }
+
 }

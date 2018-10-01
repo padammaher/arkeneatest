@@ -67,7 +67,6 @@ class Users extends MY_Model {
         else
             return TRUE;
     }
-  
 
     public function get_menu_list() {
         $group_id = $this->session->userdata('group_id');
@@ -84,14 +83,19 @@ class Users extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         if ($group_id == 1) {
             $role_id = 1;
-        } else {
+        } elseif ($group_id == 2) {
             $role_id = 2;
         }
+
         $this->db->select('privileges.id,role,privileges.group_id,object,addpermission,editpermission,deletepermission,'
                 . 'viewpermission,privileges.isactive,menu.menuName');
         $this->db->join('menu', 'privileges.object=menu.id');
-        $this->db->where(array('privileges.isactive' => 1, 'privileges.group_id' => $group_id, 'privileges.role' => $role_id,
-            'menu.menuName' => $menu));
+        $this->db->where(array('privileges.isactive' => 1, 'privileges.group_id' => $group_id, 'privileges.role' => $role_id));
+        if (is_array($menu) && !empty($menu)) {
+            $this->db->where_in('menu.menuName', $menu);
+        } else {
+            $this->db->where('menu.menuName', $menu);
+        }
         $result = $this->db->get('privileges')->result();
         return $result;
     }
