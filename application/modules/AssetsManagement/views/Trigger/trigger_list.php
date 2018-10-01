@@ -34,9 +34,15 @@
                             <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Management</a>
                             <a href="<?php echo base_url('asset_parameter_range_list'); ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Parameter Range List</a>
                             <a href="<?php echo base_url('AssetsManagement/asset_rule_list'); ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Rule & Action Master List</a>
-
-                            <a class="btn btn-sm btn-primary trigger_add"> <i class="fa fa-plus"></i> Add Trigger</a>
-
+                            <?php
+                            if (isset($permission) && !empty($permission)) {
+                                if ($permission[0]->addpermission == 1) {
+                                    ?>
+                                    <a class="btn btn-sm btn-primary trigger_add"> <i class="fa fa-plus"></i> Add Trigger</a>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -54,46 +60,64 @@
                             </tr>
                         </thead>
                         <tbody>
-                         
+
                             <?php
                             $i = 1;
                             if (!empty($trigger_list)) {
                                 foreach ($trigger_list as $trigger_list_data) {
                                     ?>
                                     <tr>
-                                         <?php $setId_to_modal=$trigger_list_data['id'];
-                                        $modal_idand_class="data-toggle='modal' href='#trigger_list_modal_".$setId_to_modal."'"; ?>
-                                        <td <?php echo $modal_idand_class;?> ><?php echo $i; ?></td>
-                                        <td <?php echo $modal_idand_class;?>><?php echo ($trigger_list_data['trigger_name']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_name']; ?></td>
-                                        <td <?php echo $modal_idand_class;?>><?php echo ($trigger_list_data['trigger_threshold_id']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_threshold_id']; ?></td>
-                                        <td <?php echo $modal_idand_class;?>><?php echo ($trigger_list_data['email']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['email']; ?></td>
-                                        <td <?php echo $modal_idand_class;?>><?php echo ($trigger_list_data['sms_contact_no']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['sms_contact_no']; ?></td>
+                                        <?php
+                                        $setId_to_modal = $trigger_list_data['id'];
+                                        $modal_idand_class = "data-toggle='modal' href='#trigger_list_modal_" . $setId_to_modal . "'";
+                                        ?>
+                                        <td <?php echo $modal_idand_class; ?> ><?php echo $i; ?></td>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo ($trigger_list_data['trigger_name']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_name']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo ($trigger_list_data['trigger_threshold_id']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_threshold_id']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo ($trigger_list_data['email']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['email']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo ($trigger_list_data['sms_contact_no']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['sms_contact_no']; ?></td>
                                         <td class="flex-item">
                                             <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form<?php echo $i; ?>">
                                                 <input type="hidden" id="triggerid<?php echo $i; ?>" value="<?php echo $trigger_list_data['id']; ?>" name="trigger_post_id"/>
                                                 <input type="hidden" name="trigger_form_action" id="trigger_form_action<?php echo $i; ?>"/>
-                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                </a> 
+                                                <?php
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->editpermission == 1) {
+                                                        ?>
+                                                        <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                        </a>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                                <?php
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->deletepermission == 1) {
+                                                        ?>
+                                                        <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                        </a> 
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
                                             </form>
                                         </td>
                                     </tr>
-                                  
+
                                     <?php
                                     $i++;
                                 }
                             } else {
                                 ?>
                             <td colspan="6">No data found..!</td> 
-                        <?php } ?>
+<?php } ?>
                         </tbody>
                     </table>
                     <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form0">
                         <input type="hidden" name="trigger_form_action" id="trigger_form_action0"/></form>
-                   
+
 
                 </div>
             </div>
@@ -107,7 +131,7 @@
 <script type="text/javascript">
     var update_url = "<?php echo base_url() . 'trigger_form'; ?>";
     $(document).ready(function () {
-         $('body').on('click', '.edit', function () {
+        $('body').on('click', '.edit', function () {
 //        $(".edit").click(function () {
             var id = $(this).attr('id');
             $("#trigger_form_action" + id).val('edit');
@@ -124,8 +148,8 @@
 //            }
 //        });
 
-        
-            $('body').on('click', '.delete', function () {
+
+        $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#confirmmodal_Box").modal();
             $(".ok").click(function () {
@@ -136,8 +160,8 @@
         });
 
 
-        
-            $('body').on('click', '.trigger_add', function () {
+
+        $('body').on('click', '.trigger_add', function () {
 //             alert("sdsf");
             var id = 0;
             $("#trigger_form_action" + id).val('addNew');

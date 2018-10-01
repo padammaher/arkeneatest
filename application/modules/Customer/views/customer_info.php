@@ -1,4 +1,4 @@
-<?php //print_r($user_detail[0]->customer_name); exit();              ?> 
+<?php //print_r($user_detail[0]->customer_name); exit();               ?> 
 <!-- <div class="right_col" role="main"> -->
 <div class="">
     <div class="page-title">
@@ -9,8 +9,16 @@
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <a href="<?php echo base_url() ?>Editcustomerinfo" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit Customer Information
-                </a>
+                <?php
+                if (isset($permission) && !empty($permission)) {
+                    if ($permission[0]->editpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>Editcustomerinfo" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit Customer Information
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
                 <!--- <a href="assets-location-list.html" class="btn btn-sm btn-primary">Asset Location</a>
       <a href="user-assets-list.html" class="btn btn-sm btn-primary">Asset User</a>--->
             </div>

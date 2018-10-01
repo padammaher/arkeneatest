@@ -72,8 +72,7 @@ class Users extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         $this->db->select('menu.id,menu.menuName,menu.url,menu.parent,menu.nav_ids'); //,groups.name,groups.id as group_id
         $this->db->from('menu');
-        //$this->db->join('groups', 'groups.id=menu.group_id');
-        //$this->db->where('menu.group_id',$group_id); 
+        $this->db->where('menu.sidebar_flag', 1);
         $this->db->where('isactive', 1);
         $query = $this->db->get();
         $data = $query->result_array();
