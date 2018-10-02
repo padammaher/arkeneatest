@@ -34,6 +34,21 @@ class Inventory_model extends MY_Model {
             return false;
         }
     }
+     public function get_sensor_map_id($where = array()) {
+       
+         $this->db->select('id'); 
+         $this->db->from('device_sensor_mapping');
+         $this->db->where($where); 
+        $query = $this->db->get();
+       //   echo $this->db->last_query(); exit;
+        $objData = $query->result_array();
+        
+        if ($objData) {
+            return $objData[0]['id'];
+        } else {
+            return false;
+        }
+    }
     
 //     public function checkUnique($table = NULL, $data = array()) {
 //        $query = $this->db->get_where($table, $data);
@@ -228,16 +243,20 @@ class Inventory_model extends MY_Model {
         $objData = $query->result_array();
         return $objData;
     }
+    
+    public function sensor_list_on_divice($device_id){
+         $this->db->select('id,sensor_id'); 
+         $this->db->from('device_sensor_mapping');
+         $this->db->where(array('device_id'=>$device_id,'isdeleted'=>0));
+         $query = $this->db->get();
+        $result = $query->result_array();
+        return $result;
+         
+    }
 
     public function sensorid_list($user_id) {
         $group_id = $this->session->userdata('group_id');
-//        $this->db->select('id,sensor_no');
-//        $this->db->from('sensor_inventory');
-//        $this->db->where('isactive', 1);
-//        $this->db->where(array('isdeleted'=>0,'createdby'=>$user_id));
-//        $this->db->group_by('id');
-        
-          $this->db->select('device_inventory.id as `device_inventory_id`,sensor_inventory.id,sensor_inventory.sensor_no');
+        $this->db->select('device_inventory.id as `device_inventory_id`,sensor_inventory.id,sensor_inventory.sensor_no');
         $this->db->from('sensor_inventory');
         $this->db->join('device_inventory', 'device_inventory.customer_location_id=sensor_inventory.customer_location_id', 'inner');
         $this->db->where('sensor_inventory.isactive', 1);
@@ -316,17 +335,17 @@ class Inventory_model extends MY_Model {
                            device_sensor_mapping.createdby,
                            device_sensor_mapping.isactive,
                            device_inventory.id as `device_inventory_id`,device_inventory.number,
-                           sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`,`device_inventory`.number AS `device_id_number`');
+                           GROUP_CONCAT(sensor_inventory.id) as sensor_id,GROUP_CONCAT(sensor_inventory.sensor_no) as sensor_no,`device_inventory`.number AS `device_id_number`');
         $this->db->from('device_sensor_mapping');
         $this->db->join('device_inventory', 'device_sensor_mapping.device_id=device_inventory.id');
         $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
-        
         $this->db->where('device_sensor_mapping.isdeleted', 0);
         if($group_id =='2'){
          $this->db->where('device_sensor_mapping.createdby', $user_id);        
         }
+         $this->db->group_by('device_sensor_mapping.device_id'); 
         $query = $this->db->get();
-//        echo $this->db->last_query();
+      //  echo $this->db->last_query();        exit();
         $objData = $query->result_array();
 
         return $objData;
@@ -525,13 +544,29 @@ class Inventory_model extends MY_Model {
         }
 
         echo json_encode($row_set);
+
+    }
+    
+    
+    public function  get_devive_sesor_list($device_id)
+    { 
+        $user_id = $this->session->userdata('user_id');
+        $this->db->select('sensor_id'); 
+        $this->db->from('device_sensor_mapping');
+        $this->db->where(array('device_id'=>$device_id,'isdeleted'=>0));
+        $query = $this->db->get();
+        $obj = $query->result_array();
+        if ($obj){
+        $n = count($obj);
+        for ($i = 0; $i < $n; $i++) {
+            $string[$i] = implode(',', $obj[$i]);
+        }
+        if(count($string)==1){ $string_versio= implode(',', $string); $string_version=$string_versio.',';}else{
+        $string_version = implode(',', $string);}
+        return $string_version;
+        }else 
+            return "";
         
-//        $objData = $query->result_array();
-//         foreach ($objData as $k => $row) {
-//            $objData[$k]['sensorid'] = htmlentities(stripslashes($row['sensor_inventory_id']));
-//            $objData[$k]['sensorno'] = htmlentities(stripslashes($row['sensor_no']));
-//        }
-//        echo json_encode($objData);
     }
 
 }

@@ -52,9 +52,6 @@ if (isset($permission) && !empty($permission)) {
     <div class="clearfix"></div>
 
     <div class="row">
-
-
-
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_content" >
@@ -78,27 +75,25 @@ if (isset($permission) && !empty($permission)) {
                         <tbody >
                             <?php
                             $i = 1;
-                            if (!empty($device_sensors_list)) {
+                            if (!empty($device_sensors_list)) {                                //print_r($device_sensors_list);  
                                 foreach ($device_sensors_list as $device_sen_list) {
                                     ?>
-
                                     <tr >
                                         <?php
                                         $setId_to_modal = $device_sen_list['id'];
                                         $modal_idand_class = "data-toggle='modal' href='#device_sensor_list_modal_" . $setId_to_modal . "'";
-                                        ?>                           
-
+                                        ?> 
                                         <td <?php echo $modal_idand_class; ?>><?php echo $i; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['number']; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['sensor_no']; ?></td>
-                                        <?php
+                                         <?php
                                         if (isset($sensor_index)) {
                                             if ($permission[$sensor_index]->editpermission == 1 || $permission[$sensor_index]->deletepermission == 1) {
                                                 ?>
                                                 <td>
-
                                                     <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="dev_sen<?php echo $i; ?>">
                                                         <input type="hidden" value="<?php echo $device_sen_list['id']; ?>" name="id" id="dev_id<?php echo $i; ?>" />
+                                                        <input type="hidden" value="<?php echo $device_sen_list['device_id']; ?>" name="device_id" >
                                                         <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                                                         <?php
                                                         if (isset($sensor_index)) {
@@ -128,19 +123,20 @@ if (isset($permission) && !empty($permission)) {
                                             }
                                         }
                                         ?>
-                                    </tr>
 
-                                    <?php
-                                    $i++;
-                                }
-                            } else {
-                                ?>                      
-
-                                <tr>                          
-                                    <td colspan="4">data not found..!</td>
                                 </tr>
 
-                            <?php } ?>                      
+                                <?php
+                                $i++;
+                            }
+                        } else {
+                            ?>                      
+
+                            <tr>                          
+                                <td colspan="4">data not found..!</td>
+                            </tr>
+
+                        <?php } ?>                      
                         </tbody>
                     </table>
                 </div>   </div>
