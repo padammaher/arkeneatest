@@ -214,7 +214,7 @@ class Inventory_model extends MY_Model {
         $this->db->select('id,code');
         $this->db->from('asset');
         $this->db->where('isactive', 1);
-
+        $this->db->where('asset.id NOT IN (select asset_id from device_asset where device_asset.isdeleted=0)');    
         $this->db->group_by('id');
         
         if($group_id =='2'){
@@ -228,12 +228,12 @@ class Inventory_model extends MY_Model {
 
     public function device_list($user_id) {
         $group_id = $this->session->userdata('group_id');
-        $this->db->select('id,                            
-                            number,
-                            serial_no,customer_location_id');
+        $this->db->select('id,number,serial_no,customer_location_id');
         $this->db->from('device_inventory');
         $this->db->where('isactive', 1);
         $this->db->where(array('isdeleted'=>0));
+        $this->db->where('device_inventory.id NOT IN (select device_id from device_asset where device_asset.isdeleted=0)');    
+                            
         if($group_id =='2'){
         $this->db->where('createdby', $user_id);
         }
@@ -516,7 +516,7 @@ class Inventory_model extends MY_Model {
         $this->db->join('asset', 'asset.customer_locationid=device_inventory.customer_location_id', 'inner');
         $this->db->where('asset.isactive', 1);
         $this->db->where(array('device_inventory.id'=>$deviceid,'asset.isdeleted'=>0));  
-        
+        $this->db->where('asset.id NOT IN (select asset_id from device_asset where device_asset.isdeleted=0)');    
          if($group_id =='2'){
          $this->db->where('asset.createdby', $user_id);
         }
