@@ -720,14 +720,16 @@ class AssetsManagement extends MY_Controller {
                     $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
 
                     if ($this->form_validation->run() == TRUE) {
-
+                       
                         $asset_user_form_action = explode(" ", $this->input->post('asset_user_form_action'));
                         if ($asset_user_form_action[0] == 'add') {
                             $insert_data = array('asset_id' => $this->input->post('assetcode'),
                                 'assetuser_id' => $this->input->post('assetuserid'),
                                 'createdate' => $todaysdate,
                                 'createdby' => $user_id,
-                                'isdeleted' => 0);
+                                'isdeleted' => 0,
+                                'isactive' => ($this->input->post('status')=='on')?1:0
+                                );
 
                             $unique_Data = array('asset_id' => $this->input->post('assetcode'),
                                 'assetuser_id' => $this->input->post('assetuserid'),
@@ -807,8 +809,6 @@ class AssetsManagement extends MY_Controller {
 
 
                 if ($asset_user_post == 'edit') {
-
-
                     load_view_template($data, 'Assets/user_assets_edit');
                 } else if ($asset_user_post == 'update') {
                     $todaysdate = date('Y-m-d');
@@ -818,11 +818,15 @@ class AssetsManagement extends MY_Controller {
                         $update_data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
                             'createdate' => $todaysdate,
-                            'createdby' => $user_id);
+                            'createdby' => $user_id,
+                            'isactive' => ($this->input->post('status')=='on')?1:0
+                            );
+                            
 
                         $unique_Data = array('asset_id' => $this->input->post('assetcode'),
                             'assetuser_id' => $this->input->post('assetuserid'),
-                            'createdby' => $user_id);
+                            'createdby' => $user_id,
+                            'isactive' => ($this->input->post('status')=='on')?1:0);
 
                         $isUnique = $this->Assets->checkasset_locationIfExists('asset_user', $unique_Data);
                         // echo $isUnique;

@@ -73,13 +73,15 @@ $back_action = $this->input->post('back_action');
                         </div>
                         <?php if (form_error('assetuserid')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('assetuserid'); ?></span>
-<?php }
-?>
+                    <?php }
+                    ?>
                     </div> 
-
-
-
-
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                            <input type="checkbox" name="status" id="status" class="flat"> Active
+                        </div>
+                    </div>	
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -89,7 +91,7 @@ $back_action = $this->input->post('back_action');
                                 <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
                             <?php } else { ?>
                                 <a href="<?php echo base_url('User_assets_list'); ?>" type="button" class="btn btn-default">Cancel</a>
-<?php } ?>      
+                            <?php } ?>      
 
                         </div>
                     </div>
