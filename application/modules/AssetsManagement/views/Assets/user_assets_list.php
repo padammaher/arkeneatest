@@ -7,7 +7,7 @@
         <div class="title_right">
             <div class="pull-right">
 
-                <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Management</a>
+                <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa fa-arrow-left"></i> Asset Management</a>
                 <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
                 <?php
                 if (isset($permission) && !empty($permission)) {

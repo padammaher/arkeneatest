@@ -41,6 +41,7 @@ class AssetsManagement extends MY_Controller {
             $this->session->unset_userdata('rule_id');
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Asset";
 
 
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
@@ -167,6 +168,8 @@ class AssetsManagement extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Asset Management";
+
             $data['assetlist'] = $this->Assets->assets_list($user_id);
             $data['assetlistinfo'] = $this->Assets->assets_list_info($user_id);
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
