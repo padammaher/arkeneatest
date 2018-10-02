@@ -117,6 +117,12 @@
                                 <div id="email_error" style="color:red"></div>  
                             </div>
                         </div>
+                         <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                 <input type="checkbox" name="status" id="status" class="flat" <?php echo (isset($business_detail[0]->isactive)&&$business_detail[0]->isactive==1) ? 'checked': ''; ?>> 
+                           </div>
+                          </div>
                         <div class="ln_solid">
                         </div>
                         <div class="item form-group">
