@@ -33,7 +33,7 @@
 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Serial No *</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Serial Number *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" name="serialnumber" class="form-control" value="<?php echo set_value('serialnumber', $deviceinventory_data['serial_no']); ?>" readonly="readonly">
 
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Make *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" name="devicemake" class="form-control" value="<?php echo set_value('devicemake', $deviceinventory_data['make']); ?>">
                             </div>
@@ -53,7 +53,7 @@
                             <?php } ?>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Model *</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Model *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" name="devicemodel" class="form-control" value="<?php echo set_value('devicemodel', $deviceinventory_data['model']); ?>">
                             </div>
