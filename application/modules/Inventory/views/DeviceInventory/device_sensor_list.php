@@ -10,13 +10,13 @@
                 <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
                 <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>
                 <?php
-                if (isset($permission) && !empty($permission)) {
-                    if ($permission[0]->addpermission == 1) {
+               // if (isset($permission) && !empty($permission)) {
+               //     if ($permission[0]->addpermission == 1) {
                         ?>
                         <a href="<?php echo base_url('Add_device_sensors'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                                     
                         <?php
-                    }
-                }
+                   // }
+               // }
                 ?>
             </div>
         </div>
@@ -43,7 +43,7 @@
                         <tbody >
                             <?php
                             $i = 1;
-                            if (!empty($device_sensors_list)) {
+                            if (!empty($device_sensors_list)) {                                //print_r($device_sensors_list);  
                                 foreach ($device_sensors_list as $device_sen_list) {
                                     ?>
 
@@ -60,28 +60,29 @@
 
                                             <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="dev_sen<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $device_sen_list['id']; ?>" name="id" id="dev_id<?php echo $i; ?>" />
+                                                <input type="hidden" value="<?php echo $device_sen_list['device_id']; ?>" name="device_id" >
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                                                 <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->editpermission == 1) {
+                                               // if (isset($permission) && !empty($permission)) {
+                                                //    if ($permission[0]->editpermission == 1) {
                                                         ?>
                                                         <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                             <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                         </a>&nbsp;&nbsp;&nbsp;
                                                         <?php
-                                                    }
-                                                }
+                                                //    }
+                                             //   }
                                                 ?>
                                                 <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->deletepermission == 1) {
+                                                //if (isset($permission) && !empty($permission)) {
+                                                 //   if ($permission[0]->deletepermission == 1) {
                                                         ?>
                                                         <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                             <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                         </a> 
                                                         <?php
-                                                    }
-                                                }
+                                                //    }
+                                               // }
                                                 ?>
                                             </form>
                                         </td>

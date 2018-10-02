@@ -69,7 +69,7 @@ $back_action = $this->input->post('back_action');
         </label>
         <div class="col-md-6 col-sm-6 col-xs-12">             
 <!--          <select class="form-control" name="sensorid" id="sensorid"  
-                  <?php echo $managed_dev_sen_Id_readonly == 'sen' ? 'readonly="readonly"' : ''; ?>>
+         <?php echo $managed_dev_sen_Id_readonly == 'sen' ? 'readonly="readonly"' : ''; ?>>
           <?php if ($managed_dev_sen_Id_readonly != "sen") { ?>                                     
           <option value="">Select Sensor Number</option>
           <?php } ?>   
@@ -87,8 +87,6 @@ $back_action = $this->input->post('back_action');
         <?php }
             }
             } else { ?>
-        <option value="">Select Sensor Number
-        </option> 
         <?php foreach ($sensorid_list as $sensorid_list_data_2) { ?>
         <option value="<?php echo $sensorid_list_data_2['id']; ?>" 
                 <?php echo set_value('sensorid') == $sensorid_list_data_2['id'] ? 'selected' : ''; ?> >  
