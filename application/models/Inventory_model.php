@@ -413,7 +413,7 @@ class Inventory_model extends MY_Model {
                            device_asset.device_id,
                            device_asset.asset_id,
                            device_asset.createdate,
-                           device_asset.createdby,device_inventory.isactive,
+                           device_asset.createdby,device_asset.isactive,
                            device_inventory.id as `device_inventory_id`,device_inventory.number,asset.code');
         $this->db->from('device_inventory');
         $this->db->join('device_asset', 'device_asset.device_id=device_inventory.id');
@@ -434,6 +434,7 @@ class Inventory_model extends MY_Model {
                            device_asset.asset_id,
                            device_asset.createdate,
                            device_asset.createdby,
+                           device_asset.isactive,
                            device_inventory.id as `device_inventory_id`,device_inventory.number,asset.code');
         $this->db->from('device_inventory');
         $this->db->join('device_asset', 'device_asset.device_id=device_inventory.id');

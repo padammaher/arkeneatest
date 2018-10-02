@@ -66,6 +66,7 @@ if (isset($permission) && !empty($permission)) {
                                 <th>Device_Num</th>
                                 <th>Asset Code</th>
                                 <th>Wef Date</th>
+                                <th>Status</th>
                                 <?php
                                 if (isset($asset_index)) {
                                     if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1) {
@@ -88,6 +89,7 @@ if (isset($permission) && !empty($permission)) {
                                         <td><?php echo $device_asset_list_data['number']; ?></td>
                                         <td><?php echo $device_asset_list_data['code']; ?></td>
                                         <td><?php echo $device_asset_list_data['createdate']; ?></td>
+                                        <td><?php echo ($device_asset_list_data['isactive']==1)?'Active':'In-active'; ?></td>
                                         <?php
                                         if (isset($asset_index)) {
                                             if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1) {

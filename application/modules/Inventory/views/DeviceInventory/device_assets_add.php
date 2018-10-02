@@ -86,7 +86,13 @@ $back_action = $this->input->post('back_action');
                             <?php if (form_error('wef_date')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('wef_date'); ?></span>
                             <?php } ?>
-                        </div>                                   
+                        </div>   
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                <input type="checkbox" name="status" id="status" class="flat" checked> Active
+                            </div>
+                        </div>	
 
                         <div class="ln_solid"></div>
                         <div class="item form-group">
