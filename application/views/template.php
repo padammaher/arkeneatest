@@ -22,8 +22,8 @@
         <!-- iCheck -->
         <link href="<?php echo base_url('assets/css/iCheck/skins/flat/green.css'); ?>" rel="stylesheet" type="text/css"/>
 
-        
-        
+
+
         <!-- bootstrap-progressbar -->
         <link href="<?php echo base_url('assets/css/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'); ?>" rel="stylesheet" type="text/css"/>
         <!-- JQVMap -->
@@ -32,13 +32,13 @@
         <link href="<?php echo base_url('assets/css/bootstrap-daterangepicker/daterangepicker.css'); ?>" rel="stylesheet" type="text/css"/>
 
         <!---- data tables css--> 
-    <link href="<?php echo base_url('assets/css/datatables.net-bs/css/dataTables.bootstrap.min.css');?>" rel="stylesheet">
-    <link href=".<?php echo base_url('assets/css/datatables.net-buttons-bs/css/buttons.bootstrap.min.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/datatables.net-responsive-bs/css/responsive.bootstrap.min.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/datatables.net-scroller-bs/css/scroller.bootstrap.min.css');?>" rel="stylesheet">
+        <link href="<?php echo base_url('assets/css/datatables.net-bs/css/dataTables.bootstrap.min.css'); ?>" rel="stylesheet">
+        <link href=".<?php echo base_url('assets/css/datatables.net-buttons-bs/css/buttons.bootstrap.min.css'); ?>" rel="stylesheet">
+        <link href="<?php echo base_url('assets/css/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css'); ?>" rel="stylesheet">
+        <link href="<?php echo base_url('assets/css/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'); ?>" rel="stylesheet">
+        <link href="<?php echo base_url('assets/css/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'); ?>" rel="stylesheet">
         <!----end data tables css-->
-    
+
         <!-- Custom Theme Style -->
         <link href="<?php echo base_url('assets/css/build/css/custom.css'); ?>" rel="stylesheet" type="text/css"/>
         <link href="<?php echo base_url('assets/css/build/css/column.css'); ?>" rel="stylesheet" type="text/css"/>
@@ -185,27 +185,27 @@
         <script src="<?php echo base_url('assets/css/nprogress/nprogress.js'); ?>" type="text/javascript"></script>
 
         <link href="<?php echo base_url(); ?>assets/css/tag.css" rel="stylesheet">
-<script src="<?php echo base_url(); ?>assets/js/taginput.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/taginput.js"></script>
         <!----data tables js-->
-             <script src="<?php echo base_url('assets/css/datatables.net/js/jquery.dataTables.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-bs/js/dataTables.bootstrap.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/dataTables.buttons.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-buttons-bs/js/buttons.bootstrap.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/buttons.flash.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/buttons.html5.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/buttons.print.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-keytable/js/dataTables.keyTable.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-responsive/js/dataTables.responsive.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-responsive-bs/js/responsive.bootstrap.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/datatables.net-scroller/js/dataTables.scroller.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/jszip/dist/jszip.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/pdfmake/build/pdfmake.min.js');?>"></script>
-    <script src="<?php echo base_url('assets/css/pdfmake/build/vfs_fonts.js');?>"></script>
-    <!----data tables js-->
-    
+        <script src="<?php echo base_url('assets/css/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-bs/js/dataTables.bootstrap.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/dataTables.buttons.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-buttons-bs/js/buttons.bootstrap.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/buttons.flash.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/buttons.html5.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-buttons/js/buttons.print.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-keytable/js/dataTables.keyTable.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-responsive/js/dataTables.responsive.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-responsive-bs/js/responsive.bootstrap.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/datatables.net-scroller/js/dataTables.scroller.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/jszip/dist/jszip.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/pdfmake/build/pdfmake.min.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/css/pdfmake/build/vfs_fonts.js'); ?>"></script>
+        <!----data tables js-->
+
         <!-- form validatin -->
-        
+
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
         <!-- CORE JS Jquery Validation - START -->
