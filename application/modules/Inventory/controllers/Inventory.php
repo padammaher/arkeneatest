@@ -44,6 +44,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Device Inventory";
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $todaysdate = date('Y-m-d');
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -147,6 +148,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Device Inventory";
 
             $data['Device_inventory_list_data'] = $this->Inventory_model->Device_inventory_list($user_id);
 
@@ -179,6 +181,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Edit Device Inventory";
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $form_action_type = $this->input->post('post');
@@ -302,6 +305,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Device Sensor";
 //             $data['device_list']=$this->Inventory_model->device_list($user_id);              
             $data['device_list'] = $this->Inventory_model->device_list($user_id);
             $data['sensorid_list'] = $this->Inventory_model->sensorid_list($user_id);
@@ -404,6 +408,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Edit Device Sensor";
 //            echo $this->input->post('post');
 //exit;
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -543,7 +548,7 @@ class Inventory extends MY_Controller {
                     $data['permission'] = $this->users->get_permissions('Device Sensor');
                     //check user Permission
                     userPermissionCheck($data['permission'], 'update');
-
+                    $data['dataHeader']['title'] = "Add Device Sensor";
                     load_view_template($data, 'DeviceInventory/add_device_sensor');
                 }
 //                  $sensor_form_action=explode(" ",$this->input->post('sensor_form_action'));
@@ -569,7 +574,7 @@ class Inventory extends MY_Controller {
                 userPermissionCheck($data['permission'], 'view', 'Device Sensor');
 
                 $data['device_sensors_list'] = $this->Inventory_model->device_sensors_list($user_id);
-
+                $data['dataHeader']['title'] = "Device-Sensor List";
                 load_view_template($data, 'DeviceInventory/Device_sensor_list');
             }
         }
@@ -607,7 +612,7 @@ class Inventory extends MY_Controller {
                     $data['permission'] = $this->users->get_permissions('Sensor Inventory');
                     //check user Permission
                     userPermissionCheck($data['permission'], 'update');
-
+                    $data['dataHeader']['title'] = "Edit Sensor Inventory";
                     load_view_template($data, 'SensorInventory/edit_sensor_inventory_1');
                 }
 //                  $sensor_form_action=explode(" ",$this->input->post('sensor_form_action'));
@@ -633,7 +638,7 @@ class Inventory extends MY_Controller {
                 userPermissionCheck($data['permission'], 'view', 'Sensor Inventory');
 
                 $data['sensor_inventory_list'] = $this->Inventory_model->sensor_inventory_list($user_id);
-
+                $data['dataHeader']['title'] = "Sensor Inventory";
                 load_view_template($data, 'SensorInventory/sensor_inventory_list_1');
             }
         }
@@ -661,6 +666,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Sensor Inventory";
             $todaysdate = date('Y-m-d');
             $data['sensor_type'] = $this->Inventory_model->sensor_type_list($user_id);
             $data['parameter_list'] = $this->Inventory_model->parameter_list($user_id);
@@ -774,6 +780,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Device-Asset List";
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $form_action = ($this->input->post('post')) == '' ? $this->input->post('dev_asset_post') : $this->input->post('post');
                 $sen_inv_id = ($this->input->post('id')) == '' ? $this->input->post('dev_asset_id') : $this->input->post('id');
@@ -809,7 +816,7 @@ class Inventory extends MY_Controller {
 
             $todaysdate = date('Y-m-d');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-
+            $data['dataHeader']['title'] = "Add Device Assets";
 
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -882,6 +889,7 @@ class Inventory extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Edit Device Assets";
             $data['assetcode_list'] = $this->Inventory_model->assetcode_list($user_id);
 //            asset_form_action
 
