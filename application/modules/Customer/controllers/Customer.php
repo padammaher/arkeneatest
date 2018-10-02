@@ -26,6 +26,7 @@ class Customer extends MY_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Add Customer Provisioning";
             load_view_template($this->data, 'add_customer');
         }
     }
@@ -95,6 +96,7 @@ class Customer extends MY_Controller {
                 $this->data['city'] = $this->Customer_Model->get_city_list($user_data[0]->state_id);
             $this->data['user_id'] = $user_id;
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Edit Customer Provisioning";
             load_view_template($this->data, 'Edit_customer_info');
         }
     }
@@ -148,6 +150,7 @@ class Customer extends MY_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Customer Provisioning";
             $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
             load_view_template($this->data, 'customer_info');
         }
@@ -166,6 +169,7 @@ class Customer extends MY_Controller {
             $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
             //$this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Client User List";
             load_view_template($this->data, 'client_user_list');
         }
     }
