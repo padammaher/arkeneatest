@@ -375,7 +375,6 @@ class Customer extends MY_Controller {
             redirect('auth', 'refresh');
         } else {
             $data['permission'] = $this->users->get_permissions('Customer Business Location');
-            //check user Permission
             userPermissionCheck($data['permission'], 'add');
 
             if ($this->input->post('location_name'))
@@ -398,7 +397,11 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
-            $additional_data['isactive'] = 1;
+            if($this->input->post('status')){
+                 $additional_data['isactive'] = 1;
+            }else{
+                $additional_data['isactive'] = 0;
+            }
             $additional_data['user_id'] = $this->session->userdata('user_id');
 
             $this->Customer_Model->add_business_location($additional_data);
@@ -436,7 +439,6 @@ class Customer extends MY_Controller {
             $data['permission'] = $this->users->get_permissions('Customer Business Location');
             //check user Permission
             userPermissionCheck($data['permission'], 'update');
-
             if ($this->input->post('id'))
                 $id = $this->input->post('id');
             if ($this->input->post('location_name'))
@@ -459,6 +461,13 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
+           if($this->input->post('status')){
+                 $additional_data['isactive'] = 1;
+            }else{
+                $additional_data['isactive'] = 0;
+            }
+            
+            
             $additional_data['user_id'] = $this->session->userdata('user_id');
             $this->Customer_Model->update_busineess_location($additional_data, $id);
             // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
