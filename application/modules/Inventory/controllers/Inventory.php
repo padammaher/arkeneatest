@@ -820,7 +820,6 @@ class Inventory extends MY_Controller {
 
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
                 if ($this->input->post('dev_asset_post_add') == 'dev_asset_post_add') {
                     load_view_template($data, 'DeviceInventory/device_assets_add');
                 } else {
@@ -833,13 +832,15 @@ class Inventory extends MY_Controller {
                         'asset_id' => $this->input->post('assetid'),
                         'createdate' => date('Y-m-d', strtotime($this->input->post('wef_date'))),
                         'createdby' => $user_id,
-                        'isdeleted' => 0
+                        'isdeleted' => 0,
+                        'isactive'=>($this->input->post('status')=='on')?1:0,
                     );
                     $unique_data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'asset_id' => $this->input->post('assetid'),
                         'createdate' => date('Y-m-d', strtotime($this->input->post('wef_date'))),
-                        'createdby' => $user_id
+                        'createdby' => $user_id,
+                        'isactive'=>($this->input->post('status')=='on')?1:0,
                     );
 
                     if ($this->form_validation->run() == TRUE) {
@@ -904,42 +905,34 @@ class Inventory extends MY_Controller {
                 $data['Edit_device_asset_data'] = $this->Inventory_model->Edit_device_asset_model($sen_inv_id);
                 if ($form_action == 'edit') {
                     $data['permission'] = $this->users->get_permissions('Device Asset');
-                    //check user Permission
                     userPermissionCheck($data['permission'], 'update');
-
-                    // echo $form_action;
-                    // print_r($this->input->post());exit;
                     load_view_template($data, 'DeviceInventory/device_assets_edit');
                 } else if ($form_action == 'update') {
                     $todaysdate = date('Y-m-d');
 //                     $user_id = $this->session->userdata('user_id');
 
-
                     $update_data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'asset_id' => $this->input->post('assetid'),
                         'createdate' => date('Y-m-d', strtotime($this->input->post('wef_date'))),
-                        'createdby' => $user_id
+                        'createdby' => $user_id,
+                        'isactive'=>($this->input->post('status')=='on')?1:0,
                     );
-
                     $unique_data = array(
                         'device_id' => $this->input->post('deviceid'),
                         'asset_id' => $this->input->post('assetid'),
                         'createdate' => date('Y-m-d', strtotime($this->input->post('wef_date'))),
-                        'createdby' => $user_id
+                        'createdby' => $user_id,
+                        'isactive'=>($this->input->post('status')=='on')?1:0,
                     );
                     if ($this->form_validation->run() == TRUE) {
 
                         $isUnique = $this->Inventory_model->checkUnique('device_asset', $unique_data);
-
-
                         if ($isUnique) {
-
                             $this->session->set_flashdata('error_msg', 'Device asset already existed!');
                             load_view_template($data, 'DeviceInventory/device_assets_edit');
                         } else {
                             $update_device_asset_data = $this->Inventory_model->Update_device_asset_model($update_data, $sen_inv_id);
-
                             if ($update_device_asset_data) {
                                 $this->session->set_flashdata('success_msg', 'Device asset successfully updated');
                                 if (!empty($this->input->post('back_action'))) {
