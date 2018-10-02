@@ -462,14 +462,10 @@ class AssetsManagement extends MY_Controller {
                 $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
                 $data['asset_location_list'] = $this->Assets->edit_assets_location($asset_loc_id);
                 if ($form_action == 'edit') {
-
-
-                    // echo "fgffd";
                     load_view_template($data, 'Assets/assets_location_edit');
                 }
                 if ($form_action == 'update') {
-                    //                       print_r($this->input->post());
-
+                    
                     $unique_Data = array(
                         'location' => $this->input->post('asset_location'),
                         'address' => $this->input->post('asset_address'),
@@ -477,7 +473,8 @@ class AssetsManagement extends MY_Controller {
                         'contact_no' => $this->input->post('asset_contactno'),
                         'longitude' => $this->input->post('asset_long'),
                         'contact_person' => $this->input->post('asset_contactperson'),
-                        'contact_email' => $this->input->post('asset_contactemail')
+                        'contact_email' => $this->input->post('asset_contactemail'),
+                        'isactive' => ($this->input->post('status')=='on')?1:0,
                     );
                     if ($this->form_validation->run() == TRUE) {
                         $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
@@ -497,7 +494,7 @@ class AssetsManagement extends MY_Controller {
                                 'contact_email' => $this->input->post('asset_contactemail'),
                                 'createdat' => $todaysdate,
                                 'createdby' => $user_id,
-                                'isactive' => '1',
+                                'isactive' => ($this->input->post('status')=='on')?1:0,
                                 'asset_id' => $this->input->post('assetcode')
                             );
 
@@ -590,7 +587,8 @@ class AssetsManagement extends MY_Controller {
                             'contact_email' => $this->input->post('asset_contactemail'),
                             'createdby' => $user_id,
                             'isactive' => '1',
-                            'asset_id' => $this->input->post('assetcode')
+                            'asset_id' => $this->input->post('assetcode'),
+                            'isactive' => ($this->input->post('status')=='on')?1:0,
                         );
                         $isUnique = $this->Assets->checkasset_locationIfExists('asset_location', $unique_Data);
                         //            print_r($isUnique);
