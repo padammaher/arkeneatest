@@ -1,3 +1,16 @@
+<?php
+if (isset($permission) && !empty($permission)) {
+    foreach ($permission as $key => $value) {
+        if ($value->menuName == 'Device Inventory') {
+            $device_index = $key;
+        } elseif ($value->menuName == 'Device Sensor') {
+            $sensor_index = $key;
+        } elseif ($value->menuName == 'Device Asset') {
+            $asset_index = $key;
+        }
+    }
+}
+?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -6,12 +19,27 @@
 
         <div class="title_right">
             <div class="pull-right">
-
-                <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
-                <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-tachometer"></i> Device Sensor</a>
                 <?php
-                if (isset($permission) && !empty($permission)) {
-                    if ($permission[0]->addpermission == 1) {
+                if (isset($device_index)) {
+                    if ($permission[$device_index]->addpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($sensor_index)) {
+                    if ($permission[$sensor_index]->addpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-tachometer"></i> Device Sensor</a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($asset_index)) {
+                    if ($permission[$asset_index]->addpermission == 1) {
                         ?>
                         <a href="<?php echo base_url('Device_assets_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                                
                         <?php
@@ -38,7 +66,14 @@
                                 <th>Device_Num</th>
                                 <th>Asset Code</th>
                                 <th>Wef Date</th>
-                                <th>Action</th>                                         
+                                <?php
+                                if (isset($asset_index)) {
+                                    if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1) {
+                                        echo "<th>Actions</th>";
+                                    }
+                                }
+                                ?>
+                                <!--<th>Action</th>-->                                         
                             </tr>
                         </thead>
                         <tbody>
@@ -53,35 +88,42 @@
                                         <td><?php echo $device_asset_list_data['number']; ?></td>
                                         <td><?php echo $device_asset_list_data['code']; ?></td>
                                         <td><?php echo $device_asset_list_data['createdate']; ?></td>
-                                        <td>
-                                            <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dervice_asset<?php echo $i; ?>">
-                                                <input type="hidden" value="<?php echo $device_asset_list_data['id']; ?>" name="id"/>
-                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->editpermission == 1) {
-                                                        ?>
-                                                        <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                        </a>
-                                                        <?php
-                                                    }
-                                                }
+                                        <?php
+                                        if (isset($asset_index)) {
+                                            if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1) {
                                                 ?>
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->deletepermission == 1) {
-                                                        ?>
-                                                        <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                        </a>
+                                                <td>
+                                                    <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dervice_asset<?php echo $i; ?>">
+                                                        <input type="hidden" value="<?php echo $device_asset_list_data['id']; ?>" name="id"/>
+                                                        <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                                                         <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </form>   
-                                        </td>
-
+                                                        if (isset($asset_index)) {
+                                                            if ($permission[$asset_index]->editpermission == 1) {
+                                                                ?>
+                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                                </a>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                        <?php
+                                                        if (isset($asset_index)) {
+                                                            if ($permission[$asset_index]->deletepermission == 1) {
+                                                                ?>
+                                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                                </a>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </form>   
+                                                </td>
+                                            <?php
+                                            }
+                                        }
+                                        ?>
                                     </tr>
 
                                     <?php
@@ -95,7 +137,7 @@
                                 </tr>
 
 
-                            <?php } ?>                        </tbody>             
+<?php } ?>                        </tbody>             
                     </table>
                 </div>
 

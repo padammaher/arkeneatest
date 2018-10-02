@@ -94,8 +94,16 @@
                                 <th>Red Value</th>                          
                                 <th>Wef Date</th>                          
                                 <th>Trigger Count</th>
-                                <th>Status</th>        
-                                <th>Actions</th>                          
+                                <th>Status</th>
+                                <?php
+                                if (isset($permission) && !empty($permission)) {
+                                    if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
+                                        ?>
+                                        <th>Actions</th>      
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -154,43 +162,50 @@
                                         <td class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
                                         <td class="flex-item"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>
                                         <td class="flex-item"><?php echo (isset($asset_rule['rule_status'])) ? ($asset_rule['rule_status'] == 1) ? 'Active' : 'In-active' : ''; ?></td>
-                                        <td class="flex-item">
-                                            <form name="edit_asset_rule" id="edit_asset_rule<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>Asset_Rule">
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->editpermission == 1) {
-                                                        ?>
-                                                        <a  class="edit_asset" id="<?php echo $i; ?>">    
-                                                            <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
-                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
-                                                        </a>  
-                                                        <?php
-                                                    }
-                                                }
+                                        <?php
+                                        if (isset($permission) && !empty($permission)) {
+                                            if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
                                                 ?>
-                                            </form> 
-                                            <form name="triggerlistewrwer" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
-                                                <a class="trigger_data" id="<?php echo $i; ?>">
-                                                    <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
-                                                    <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
-                                                </a>
-                                            </form> 
-                                            <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->deletepermission == 1) {
+                                                <td class="flex-item">
+                                                    <form name="edit_asset_rule" id="edit_asset_rule<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>Asset_Rule">
+                                                        <?php
+                                                        if (isset($permission) && !empty($permission)) {
+                                                            if ($permission[0]->editpermission == 1) {
+                                                                ?>
+                                                                <a  class="edit_asset" id="<?php echo $i; ?>">    
+                                                                    <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
+                                                                </a>  
+                                                                <?php
+                                                            }
+                                                        }
                                                         ?>
-                                                        <a  class="delete_asset" id="<?php echo $i; ?>">
-                                                            <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
-                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i>
+                                                    </form> 
+                                                    <form name="triggerlistewrwer" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
+                                                        <a class="trigger_data" id="<?php echo $i; ?>">
+                                                            <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                            <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
                                                         </a>
+                                                    </form> 
+                                                    <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
                                                         <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </form> 
-                                        </td>
-
+                                                        if (isset($permission) && !empty($permission)) {
+                                                            if ($permission[0]->deletepermission == 1) {
+                                                                ?>
+                                                                <a  class="delete_asset" id="<?php echo $i; ?>">
+                                                                    <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
+                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" ata-original-title="Delete"></i>
+                                                                </a>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </form> 
+                                                </td>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </tr>
                                     <!--                                <div class="row clearfix">
                                                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

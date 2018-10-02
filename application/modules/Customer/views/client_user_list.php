@@ -1,5 +1,18 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <!--<div class="right_col" role="main">-->
+<?php
+if (isset($permission) && !empty($permission)) {
+    foreach ($permission as $key => $value) {
+        if ($value->menuName == 'Client User') {
+            $user_index = $key;
+        } elseif ($value->menuName == 'Customer Provisioning') {
+            $customer_index = $key;
+        } elseif ($value->menuName == 'Customer Business Location') {
+            $location_index = $key;
+        }
+    }
+}
+?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -8,13 +21,29 @@
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <a href="<?php echo base_url() ?>Customerinfo" class="btn btn-sm btn-primary"><i class="fa fa-users"></i> Customer Provisioning
-                </a>
-                <a href="<?php echo base_url() ?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary"> <i class="fa fa-map-marker"></i> Customer Business Location
-                </a>
                 <?php
-                if (isset($permission) && !empty($permission)) {
-                    if ($permission[0]->addpermission == 1) {
+                if (isset($customer_index)) {
+                    if ($permission[$customer_index]->addpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>Customerinfo" class="btn btn-sm btn-primary"><i class="fa fa-users"></i> Customer Provisioning
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($location_index)) {
+                    if ($permission[$location_index]->addpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary"> <i class="fa fa-map-marker"></i> Customer Business Location
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($user_index)) {
+                    if ($permission[$user_index]->addpermission == 1) {
                         ?>
                         <a href="<?php echo base_url() ?>AddClient" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
                         <?php
@@ -36,8 +65,15 @@
                                 <th>Name</th>
                                 <th>Customer Location</th>
                                 <th>User Name</th>                          
-                                <th>Status</th>                          
-                                <th>Actions</th>                          
+                                <th>Status</th>     
+                                <?php
+                                if (isset($user_index)) {
+                                    if ($permission[$user_index]->editpermission == 1 || $permission[$user_index]->deletepermission == 1) {
+                                        echo "<th>Actions</th>";
+                                    }
+                                }
+                                ?>
+                                <!--<th>Actions</th>-->                          
                             </tr>
                         </thead>
                         <tbody>
@@ -55,37 +91,45 @@
 
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->username; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $clientinfo->active == 1 ? 'Active' : 'In-active'; ?></td>
-                                        <td class="flex-item">
-                                            <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
-                                                <input type="hidden" value="<?php echo $clientinfo->id; ?>" name="client_id"/>
-                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->editpermission == 1) {
-                                                        ?>
-                                                        <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                            </i>
-                                                        </a>
-                                                        <?php
-                                                    }
-                                                }
+                                        <?php
+                                        if (isset($user_index)) {
+                                            if ($permission[$user_index]->editpermission == 1 || $permission[$user_index]->deletepermission == 1) {
                                                 ?>
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->deletepermission == 1) {
-                                                        ?>
-                                                        <a  class="delete" id="<?php echo $i; ?>">
-                                                        <!-- <a href="<?php echo base_url() ?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"> -->
-                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                            </i> 
-                                                        </a> 
+                                                <td class="flex-item">
+                                                    <form action="<?php echo base_url(); ?>update_client" method="post" id="update_client<?php echo $i; ?>"> 
+                                                        <input type="hidden" value="<?php echo $clientinfo->id; ?>" name="client_id"/>
+                                                        <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                                                         <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </form> 
-                                        </td>
+                                                        if (isset($user_index)) {
+                                                            if ($permission[$user_index]->editpermission == 1) {
+                                                                ?>
+                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                                    </i>
+                                                                </a>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                        <?php
+                                                        if (isset($user_index)) {
+                                                            if ($permission[$user_index]->deletepermission == 1) {
+                                                                ?>
+                                                                <a  class="delete" id="<?php echo $i; ?>">
+                                                                <!-- <a href="<?php echo base_url() ?>Customer/delete_client_user?client_id=<?php echo $clientinfo->id; ?>" title="Delete" onclick="return confirm('Are you sure you want to delete this item?');"> -->
+                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                                    </i> 
+                                                                </a> 
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </form> 
+                                                </td>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </tr>
                                     <?php
                                     $i++;

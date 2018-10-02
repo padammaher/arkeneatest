@@ -55,8 +55,16 @@
                                 <th>Alarm Trigger Name</th>
                                 <th>Trigger Threshold</th>
                                 <th>Email</th>
-                                <th>SMS</th>                          
-                                <th>Actions</th>                          
+                                <th>SMS</th>   
+                                <?php
+                                if (isset($permission) && !empty($permission)) {
+                                    if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
+                                        ?>
+                                        <th>Actions</th>  
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,34 +84,42 @@
                                         <td <?php echo $modal_idand_class; ?>><?php echo ($trigger_list_data['trigger_threshold_id']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['trigger_threshold_id']; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo ($trigger_list_data['email']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['email']; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo ($trigger_list_data['sms_contact_no']) == '' ? '<i class="fa fa-times" aria-hidden="true"></i>' : $trigger_list_data['sms_contact_no']; ?></td>
-                                        <td class="flex-item">
-                                            <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form<?php echo $i; ?>">
-                                                <input type="hidden" id="triggerid<?php echo $i; ?>" value="<?php echo $trigger_list_data['id']; ?>" name="trigger_post_id"/>
-                                                <input type="hidden" name="trigger_form_action" id="trigger_form_action<?php echo $i; ?>"/>
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->editpermission == 1) {
-                                                        ?>
-                                                        <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                        </a>
-                                                        <?php
-                                                    }
-                                                }
+                                        <?php
+                                        if (isset($permission) && !empty($permission)) {
+                                            if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
                                                 ?>
-                                                <?php
-                                                if (isset($permission) && !empty($permission)) {
-                                                    if ($permission[0]->deletepermission == 1) {
-                                                        ?>
-                                                        <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                        </a> 
+                                                <td class="flex-item">
+                                                    <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form<?php echo $i; ?>">
+                                                        <input type="hidden" id="triggerid<?php echo $i; ?>" value="<?php echo $trigger_list_data['id']; ?>" name="trigger_post_id"/>
+                                                        <input type="hidden" name="trigger_form_action" id="trigger_form_action<?php echo $i; ?>"/>
                                                         <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </form>
-                                        </td>
+                                                        if (isset($permission) && !empty($permission)) {
+                                                            if ($permission[0]->editpermission == 1) {
+                                                                ?>
+                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                                </a>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                        <?php
+                                                        if (isset($permission) && !empty($permission)) {
+                                                            if ($permission[0]->deletepermission == 1) {
+                                                                ?>
+                                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                                </a> 
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </form>
+                                                </td>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </tr>
 
                                     <?php
@@ -112,7 +128,7 @@
                             } else {
                                 ?>
                             <td colspan="6">No data found..!</td> 
-<?php } ?>
+                        <?php } ?>
                         </tbody>
                     </table>
                     <form action="<?php echo base_url(); ?>trigger_add" method="post" id="trigger_form0">
