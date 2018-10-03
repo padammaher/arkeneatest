@@ -22,8 +22,8 @@
                   
                 <div class="animate form login_form">
                   <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
-                                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                               <?php
+                               <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <strong></strong> <?php
                                 if ($this->session->flashdata('message')) {
                                     echo $this->session->flashdata('message');
                                 }
