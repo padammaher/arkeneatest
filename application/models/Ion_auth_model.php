@@ -766,27 +766,23 @@ class Ion_auth_model extends CI_Model {
      * @updated 52aa456eef8b60ad6754b31fbdcc77bb
      * */
     public function forgotten_password($identity) {
+        
         if (empty($identity)) {
             $this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
             return FALSE;
         }
-
         // All some more randomness
         $activation_code_part = "";
-        if (function_exists("openssl_random_pseudo_bytes")) {
-            $activation_code_part = openssl_random_pseudo_bytes(128);
+        if (function_exists("openssl_random_pseudo_bytes")) { 
+            $activation_code_part = openssl_random_pseudo_bytes(128);            
         }
-
         for ($i = 0; $i < 1024; $i++) {
             $activation_code_part = sha1($activation_code_part . mt_rand() . microtime());
         }
-
+        $user_email=$identity; 
         $key = $this->hash_code($activation_code_part . $identity);
-
         // If enable query strings is set, then we need to replace any unsafe characters so that the code can still work
         if ($key != '' && $this->config->item('permitted_uri_chars') != '' && $this->config->item('enable_query_strings') == FALSE) {
-            // preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
-            // compatibility as many are unaware of how characters in the permitted_uri_chars will be parsed as a regex pattern
             if (!preg_match("|^[" . str_replace(array('\\-', '\-'), '-', preg_quote($this->config->item('permitted_uri_chars'), '-')) . "]+$|i", $key)) {
                 $key = preg_replace("/[^" . $this->config->item('permitted_uri_chars') . "]+/i", "-", $key);
             }
@@ -800,15 +796,40 @@ class Ion_auth_model extends CI_Model {
             'forgotten_password_code' => $key,
             'forgotten_password_time' => time()
         );
-
         $this->db->update($this->tables['users'], $update, array($this->identity_column => $identity));
+        $return = $this->db->affected_rows() == 1;    
+        
+        $config['useragent'] = 'CodeIgniter';
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+        $config['smtp_user'] = 'mitroz.padamm@gmail.com'; // Your gmail id
+        $config['smtp_pass'] = 'maher0122'; // Your gmail Password
+        $config['smtp_port'] = 465;
+        $config['wordwrap'] = TRUE;
+        $config['wrapchars'] = 76;
+        $config['mailtype'] = 'html';
+        $config['charset'] = 'iso-8859-1';
+        $config['validate'] = FALSE;
+        $config['priority'] = 3;
+        $config['newline'] = "\r\n";
+        $config['crlf'] = "\r\n";
+        $this->load->library('email');
+        $this->email->initialize($config);
 
-        $return = $this->db->affected_rows() == 1;
-
-        if ($return)
-            $this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_successful'));
-        else
+        $this->email->from('mitroz.padamm@gmail.com', 'WorkWide');
+        $this->email->to($user_email);
+        $this->email->subject('Task Status');
+        $this->email->message('<a href="'.base_url().'Auth/reset_password/'.$key.'">Reset password</a>');
+        if ($this->email->send()&&$return) {
+             $this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_successful'));
+        }else{
+            $return=''; 
             $this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
+        }
+//        if ($return)            
+//            $this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_successful'));
+//        else
+//            $this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
 
         return $return;
     }

@@ -147,9 +147,9 @@ class UomMaster extends CI_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add UOM";
             $data['uom_list'] = $this->uommodel->get_uom($user_id);
-            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
-//            echo "<pre>"; 
-//            print_r( $data['uom_type_list']); exit(); 
+//            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
+            $data['uom_type_list'] = $this->uommodel->uom_types($user_id);
+
             load_view_template($data, 'master/add_uom');
         }
     }

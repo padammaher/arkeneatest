@@ -19,6 +19,12 @@ class PrivilegeMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         } else {
+            $group_id = $this->session->userdata('group_id');
+            if ($group_id != 1) {
+                $data['permission'] = $this->users->get_permissions('Privilege');
+                //check user Permission
+                userPermissionCheck($data['permission'], 'view');
+            }
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Privileges List";
@@ -31,6 +37,12 @@ class PrivilegeMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         } else {
+            $group_id = $this->session->userdata('group_id');
+            if ($group_id != 1) {
+                $data['permission'] = $this->users->get_permissions('Privilege');
+                //check user Permission
+                userPermissionCheck($data['permission'], 'update');
+            }
             $user_id = $this->session->userdata('user_id');
             if ($_POST) {
                 $post_array = array();
