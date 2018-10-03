@@ -54,13 +54,13 @@
 
                                 <select class="form-control" name="uom" id="uom" >
                                     <option value=''>Select UOM</option>
-                                    <?php foreach ($uom_data as $um) { ?> 
+                                    <?php foreach ($uom_data as $um) { if($um['isactive']==1){ ?> 
                                         <option value="<?php echo $um['id']; ?>" <?php
                                                 if (isset($asset_detail[0]->uom)) {
                                                     echo ($um['id'] == $asset_detail[0]->uom) ? 'selected' : '';
                                                 }
                                                 ?> ><?php echo $um['name']; ?> </option>
-                                <?php } ?> 
+                                    <?php } } ?> 
                                 </select>
                             </div>
                         </div>
@@ -142,7 +142,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $('#green_value').keypress(function (event) {
         var keycode = event.which;
@@ -234,3 +233,19 @@
         color:greay; 
     }
 </style>
+
+<script>
+// just for the demos, avoids form submit
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+$( "#myform" ).validate({
+  rules: {
+    password: "required",
+    password_again: {
+      equalTo: "#password"
+    }
+  }
+});
+</script>

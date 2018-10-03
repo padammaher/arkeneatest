@@ -673,9 +673,9 @@ class Assets extends MY_Model {
     }
 
     public function get_uom_list_type($uom_type_id) {
-        $this->db->select('id,name');
+        $this->db->select('id,name,isactive');
         $this->db->from('uom');
-        $this->db->where('uom_type_id', $uom_type_id);
+        $this->db->where(array('uom_type_id'=>$uom_type_id,'isdeleted'=>0));
         $query = $this->db->get();
         $uom_list_data = $query->result_array();
         return $uom_list_data;
@@ -889,7 +889,8 @@ from asset
     public function get_parameter_range_limits($parameter_id) {
         $this->db->select('min_value,max_value');
         $this->db->from('parameter_range');
-        $this->db->where('parameter_id', $parameter_id);
+//        $this->db->where('parameter_id', $parameter_id);
+        $this->db->where('id', $parameter_id);
         $this->db->limit('1');
         $query = $this->db->get();
         $result = $query->result_array();
