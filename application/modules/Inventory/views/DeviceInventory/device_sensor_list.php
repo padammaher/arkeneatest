@@ -21,7 +21,7 @@ if (isset($permission) && !empty($permission)) {
             <div class="pull-right">
                 <?php
                 if (isset($device_index)) {
-                    if ($permission[$device_index]->addpermission == 1) {
+                    if ($permission[$device_index]->viewpermission == 1) {
                         ?>
                         <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
                         <?php
@@ -30,7 +30,7 @@ if (isset($permission) && !empty($permission)) {
                 ?>
                 <?php
                 if (isset($asset_index)) {
-                    if ($permission[$asset_index]->addpermission == 1) {
+                    if ($permission[$asset_index]->viewpermission == 1) {
                         ?>
                         <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>
                         <?php
