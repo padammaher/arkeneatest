@@ -47,30 +47,34 @@
                     foreach ($dataHeader['menulist'] as $menu_name) {
                         $main_menu_tab = explode(',', $menu_name['nav_ids']);
                         if ($menu_name['parent'] == 0) {
-                            ?>
-
-                            <?php if ($menu_name['menuName'] == 'Dashboard') { ?>
-
-                                <!--<ul class="nav side-menu">-->
+                            if ($menu_name['menuName'] == 'Dashboard') {
+                                ?>
                                 <li>
                                     <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
                                         <i class="fa fa-home"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
                                 </li>
-                                <!--</ul>-->
-
                             <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
-                                <!--<div class="menu_section">-->
-                                <!--<h3>General</h3>-->
-                                <!--<ul class="nav side-menu">-->
                                 <li>
                                     <a>
-                                        <i class="fa fa-bar-chart-o"></i><?php echo $menu_name['menuName']; ?>  
+                                        <i class="fa <?php
+                                        if ($menu_name['menuName'] == 'Configuration') {
+                                            echo "fa-table";
+                                        } else {
+                                            echo "fa-bar-chart-o";
+                                        }
+                                        ?>"></i><?php echo $menu_name['menuName']; ?>  
                                     </a>
                                 </li>
-                                <!--</ul>-->
-                                <!--</div>-->
-                            <?php } else { ?>
+                            <?php } elseif ($menu_name['menuName'] == 'Privilege') {
+                                ?>
+                                <li>
+                                    <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
+                                        <i class="fa fa-edit"></i><?php echo $menu_name['menuName']; ?> 
+                                    </a>
+                                </li>
+                            <?php } else {
+                                ?>
 
                                 <!--<ul class="nav side-menu">-->
                                 <li>
