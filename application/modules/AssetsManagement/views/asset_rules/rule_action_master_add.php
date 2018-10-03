@@ -60,7 +60,7 @@
                                                     echo ($um['id'] == $asset_detail[0]->uom) ? 'selected' : '';
                                                 }
                                                 ?> ><?php echo $um['name']; ?> </option>
-<?php } ?> 
+                                <?php } ?> 
                                 </select>
                             </div>
                         </div>
