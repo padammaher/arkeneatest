@@ -79,6 +79,9 @@
                                     if ($menu_name['menuName'] == 'Masters' && $this->session->userdata('group_id') != 1) {
                                         echo 'class="not-allowed"';
                                     }
+                                    if (isset($menu_name['url'])) {
+                                        echo "href='" . base_url() . $menu_name['url'] . "'";
+                                    }
                                     ?>>
                                         <i class="fa fa-edit">
                                         </i>
