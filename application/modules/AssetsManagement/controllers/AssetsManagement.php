@@ -885,7 +885,7 @@ class AssetsManagement extends MY_Controller {
         }
         $this->session->unset_userdata('rule_id');
         $data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
-        $this->session->set_userdata('parameter_id', $this->data['parameter_detail'][0]['parameter_id']);
+        $this->session->set_userdata('parameter_id', $data['parameter_detail'][0]['parameter_id']);
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
         $data['dataHeader']['title'] = "Rule & Action Master List";
@@ -907,8 +907,8 @@ class AssetsManagement extends MY_Controller {
         $data['permission'] = $this->users->get_permissions('Asset Rule');
         //check user Permission
         userPermissionCheck($data['permission'], 'add');
-
         $parameter_id = $this->session->userdata('parameter_id');
+        $parameter_range_id=$this->session->userdata('parameter_range_id');
         $user_id = $this->session->userdata('user_id');
 
         if ($this->input->post('asset_rule_id')) {
@@ -926,7 +926,7 @@ class AssetsManagement extends MY_Controller {
             $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
         $data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
 
-        $parameter_range = $this->Assets->get_parameter_range_limits($parameter_id);
+        $parameter_range = $this->Assets->get_parameter_range_limits($parameter_range_id);   
         $data['paramete_limit'] = $parameter_range;
         // if(isset($uom_data[0]['name']))   
         // $this->data['uom_name'] = $uom_data[0]['name'];
