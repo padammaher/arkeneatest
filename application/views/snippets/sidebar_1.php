@@ -30,19 +30,9 @@
             echo 'cursor-notallowed';
         }
         ?>">
-
-            <!--            <div class="menu_section">
-                            <h3>Home</h3>
-                            <ul class="nav side-menu">
-                                <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
-                            </ul>
-                        </div>-->
-
-
             <div class="menu_section">
-                <h3>Main Pages
-                </h3>
-                <ul class="nav side-menu">  
+                <h3>Home</h3>
+                <ul class="nav side-menu">
                     <?php
                     foreach ($dataHeader['menulist'] as $menu_name) {
                         $main_menu_tab = explode(',', $menu_name['nav_ids']);
@@ -54,38 +44,30 @@
                                         <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
                                 </li>
-                            <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
-                                <li>
-                                    <a>
-                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?>  
-                                    </a>
-                                </li>
-                            <?php } elseif ($menu_name['menuName'] == 'Privilege') {
-                                ?>
-                                <li>
-                                    <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
-                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
-                                    </a>
-                                </li>
-                            <?php } else {
-                                ?>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
 
-                                <!--<ul class="nav side-menu">-->
+            <div class="menu_section">
+                <h3>Main Pages</h3>
+                <ul class="nav side-menu">
+                    <?php
+                    foreach ($dataHeader['menulist'] as $menu_name) {
+                        $main_menu_tab = explode(',', $menu_name['nav_ids']);
+                        if ($menu_name['parent'] == 0) {
+                            if ($menu_name['menuName'] == 'Forms' || $menu_name['menuName'] == 'Masters') {
+                                ?>
                                 <li>
-                                    <a 
-                                    <?php
+                                    <a <?php
                                     if ($menu_name['menuName'] == 'Masters' && $this->session->userdata('group_id') != 1) {
                                         echo 'class="not-allowed"';
                                     }
-                                    if (isset($menu_name['url'])) {
-                                        echo "href='" . base_url() . $menu_name['url'] . "'";
-                                    }
                                     ?>>
-                                        <i class="<?php echo $menu_name['iconPath']; ?>">
-                                        </i>
-                                        <?php echo $menu_name['menuName']; ?> 
-                                        <span class="fa fa-chevron-down">
-                                        </span>
+                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?><span class="fa fa-chevron-down"></span>
                                     </a>
                                     <?php if ($menu_name['menuName'] != 'Masters' && $this->session->userdata('group_id') != 1) { ?>
                                         <ul class="nav child_menu">
@@ -103,7 +85,7 @@
                                                 }
                                             }
                                             ?>
-                                        </ul> 
+                                        </ul>
                                     <?php } elseif ($this->session->userdata('group_id') == 1) {
                                         ?>
                                         <ul class="nav child_menu">
@@ -121,11 +103,10 @@
                                                 }
                                             }
                                             ?>
-                                        </ul> 
+                                        </ul>
                                     <?php }
                                     ?>
                                 </li>
-                                <!--</ul>-->
                                 <?php
                             }
                         }
@@ -133,7 +114,44 @@
                     ?>
                 </ul>
             </div>
-
+            <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                    <?php
+                    foreach ($dataHeader['menulist'] as $menu_name) {
+                        $main_menu_tab = explode(',', $menu_name['nav_ids']);
+                        if ($menu_name['parent'] == 0) {
+                            if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') {
+                                ?>
+                                <li><a><i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?></a></li>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
+            <div class="menu_section">
+                <h3>Settings</h3>
+                <ul class="nav side-menu">
+                    <?php
+                    foreach ($dataHeader['menulist'] as $menu_name) {
+                        $main_menu_tab = explode(',', $menu_name['nav_ids']);
+                        if ($menu_name['parent'] == 0) {
+                            if ($menu_name['menuName'] == 'Privilege') {
+                                ?>
+                                <li>
+                                    <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
+                                        <i class="fa fa-bar-chart-o"></i><?php echo $menu_name['menuName']; ?>
+                                    </a>
+                                </li>
+                                <?php
+                            }
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
         </div>
         <!-- /sidebar menu -->
 

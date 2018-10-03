@@ -54,13 +54,13 @@
 
                                 <select class="form-control" name="uom" id="uom" >
                                     <option value=''>Select UOM</option>
-                                    <?php foreach ($uom_data as $um) { ?> 
+                                    <?php foreach ($uom_data as $um) { if($um['isactive']==1){ ?> 
                                         <option value="<?php echo $um['id']; ?>" <?php
                                                 if (isset($asset_detail[0]->uom)) {
                                                     echo ($um['id'] == $asset_detail[0]->uom) ? 'selected' : '';
                                                 }
                                                 ?> ><?php echo $um['name']; ?> </option>
-<?php } ?> 
+                                    <?php } } ?> 
                                 </select>
                             </div>
                         </div>
@@ -109,8 +109,8 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <label class="">
-                                    <div class="icheckbox_flat-green checked" style="position: relative;">
-                                        <input name="rule_status" id="rule_status" type="checkbox" class="flat" checked="checked" style="position: absolute; opacity: 0;">
+                                    <div class="icheckbox_flat-green checked" style="position: relative;"> 
+                                        <input name="rule_status" id="rule_status" type="checkbox" class="flat"  style="position: absolute; opacity: 0;" <?php echo (isset($asset_detail[0]->rule_status)&&$asset_detail[0]->rule_status==1) ? 'checked' : ''; ?>>
                                         <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
                                         </ins>
                                     </div> Active
@@ -142,7 +142,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $('#green_value').keypress(function (event) {
         var keycode = event.which;
@@ -234,3 +233,19 @@
         color:greay; 
     }
 </style>
+
+<script>
+// just for the demos, avoids form submit
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+$( "#myform" ).validate({
+  rules: {
+    password: "required",
+    password_again: {
+      equalTo: "#password"
+    }
+  }
+});
+</script>

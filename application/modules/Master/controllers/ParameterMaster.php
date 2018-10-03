@@ -26,6 +26,7 @@ class ParameterMaster extends CI_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Parameter List";
             $data['parameter_list'] = $this->parametermodel->get_parameterlist($user_id);
             $this->session->unset_userdata('param_post');
             $this->session->unset_userdata('parame_post');
@@ -81,11 +82,13 @@ class ParameterMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Add Parameter";
                 $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
                 load_view_template($data, 'master/add_parameter');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Parameter";
             $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
 
             load_view_template($data, 'master/add_parameter');
@@ -131,6 +134,7 @@ class ParameterMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Edit Parameter";
                 $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
                 load_view_template($data, 'master/edit_parameter');
             }
@@ -164,6 +168,7 @@ class ParameterMaster extends CI_Controller {
                 $data['param_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Edit Parameter";
                 load_view_template($data, 'master/edit_parameter');
             } else {
                 echo "Something Went wrong";

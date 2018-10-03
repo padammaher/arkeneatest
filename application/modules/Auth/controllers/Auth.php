@@ -10,7 +10,7 @@ class Auth extends MY_Controller {
         $this->load->library(array('ion_auth', 'form_validation',));
         $this->load->model(array('users', 'group_model', 'country'));
         // $this->load->helper(array('url', 'language'));
-        $this->load->helper(array('url', 'language', 'form'));
+        $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->lang->load('auth');
     }
@@ -80,42 +80,55 @@ class Auth extends MY_Controller {
                 'id' => 'password_confirm',
                 'type' => 'password'
             );
-            $data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
-            $data['dataHeader'] = $this->users->get_allData($user_id);
-            
+            $this->data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            if($user->login_flag==0){
-            $this->template->write_view('content', 'index1', (isset($this->data) ? $this->data : NULL), TRUE);
-            }else{
-                $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
+            if ($user->login_flag == 0) {
+                $view = "index1";
+            } else {
+                $view = "index1";
             }
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($this->data, $view);
+
+//            $this->template->set_master_template('template.php');
+//            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//            if ($user->login_flag == 0) {
+//                $this->template->write_view('content', 'index1', (isset($this->data) ? $this->data : NULL), TRUE);
+//            } else {
+//                $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
+//            }
+//            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//            $this->template->render();
         }
     }
-    public function dashboard(){
+
+    public function dashboard() {
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
-        $this->template->set_master_template('template.php');
-        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
-        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        $this->template->render();
+        $data['dataHeader']['title'] = "Home";
+        load_view_template($data, "index2");
+
+//        $this->template->set_master_template('template.php');
+//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//        $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
+//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//        $this->template->render();
     }
+
     public function restricted() {
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
         //echo "<script>alert('You must be an administrator to view this page.')</script>";
-        $this->template->set_master_template('template.php');
-        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        $this->template->write_view('content', 'error_admin', (isset($this->data) ? $this->data : NULL), TRUE);
-        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        $this->template->render();
+        load_view_template($data, "error_admin");
+
+//        $this->template->set_master_template('template.php');
+//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//        $this->template->write_view('content', 'error_admin', (isset($this->data) ? $this->data : NULL), TRUE);
+//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//        $this->template->render();
         return 0;
     }
 
@@ -139,7 +152,7 @@ class Auth extends MY_Controller {
             }
 
             $user_id = $this->session->userdata('user_id');
-            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
             // display the create user form
             // 
@@ -236,13 +249,14 @@ class Auth extends MY_Controller {
                 'value' => $this->form_validation->set_value('profile_image'),
             );
 
+            load_view_template($this->data, "index");
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'index', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+//            $this->template->set_master_template('template.php');
+//            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//            $this->template->write_view('content', 'index', (isset($this->data) ? $this->data : NULL), TRUE);
+//            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//            $this->template->render();
         }
     }
 
@@ -377,49 +391,46 @@ class Auth extends MY_Controller {
 
     // forgot password
     public function forgot_password() {
-        // setting validation rules by checking whether identity is username or email
+
         if ($this->config->item('identity', 'ion_auth') != 'email') {
             $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_identity_label'), 'required');
         } else {
             $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
         }
-
-
         if ($this->form_validation->run() == false) {
             $this->data['type'] = $this->config->item('identity', 'ion_auth');
             // setup the input
             $this->data['identity'] = array('name' => 'identity',
                 'id' => 'identity',
             );
-
             if ($this->config->item('identity', 'ion_auth') != 'email') {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
             } else {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
             }
-
-            // set any errors and display the form
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            $this->_render_page('auth/forgot_password', $this->data);
+
+            //$this->_render_page('auth/forgot_password', $this->data);
+
+
+            $this->template->set_master_template('login_template.php');
+            $this->template->write_view('content', 'auth/forgot_password', (isset($this->data) ? $this->data : NULL), TRUE);
+            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+            $this->template->render();
         } else {
             $identity_column = $this->config->item('identity', 'ion_auth');
             $identity = $this->ion_auth->where($identity_column, $this->input->post('identity'))->users()->row();
-
             if (empty($identity)) {
-
                 if ($this->config->item('identity', 'ion_auth') != 'email') {
                     $this->ion_auth->set_error('forgot_password_identity_not_found');
                 } else {
                     $this->ion_auth->set_error('forgot_password_email_not_found');
                 }
-
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
                 redirect("auth/forgot_password", 'refresh');
             }
-
             // run the forgotten password method to email an activation code to the user
             $forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
-
             if ($forgotten) {
                 // if there were no errors
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -436,12 +447,8 @@ class Auth extends MY_Controller {
         if (!$code) {
             show_404();
         }
-
         $user = $this->ion_auth->forgotten_password_check($code);
-
         if ($user) {
-            // if the code is valid then display the password reset form
-
             $this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
             $this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
 
@@ -471,9 +478,10 @@ class Auth extends MY_Controller {
                 );
                 $this->data['csrf'] = $this->_get_csrf_nonce();
                 $this->data['code'] = $code;
-
-                // render
-                $this->_render_page('auth/reset_password', $this->data);
+                $this->template->set_master_template('login_template.php');
+                $this->template->write_view('content', 'auth/reset_password', (isset($this->data) ? $this->data : NULL), TRUE);
+                $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+                $this->template->render();
             } else {
                 // do we have a valid request?
                 if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id')) {
@@ -499,13 +507,11 @@ class Auth extends MY_Controller {
                 }
             }
         } else {
-            // if the code is invalid then send them back to the forgot password page
             $this->session->set_flashdata('message', $this->ion_auth->errors());
             redirect("auth/forgot_password", 'refresh');
         }
     }
 
-    
     // activate the user
     public function activate($id, $code = false) {
         if ($code !== false) {
@@ -548,16 +554,16 @@ class Auth extends MY_Controller {
 
 
             $user_id = $this->session->userdata('user_id');
-            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
-
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'deactivate_user', (isset($this->data) ? $this->data : NULL), TRUE);
-
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($this->data, "deactivate_user");
+//            $this->template->set_master_template('template.php');
+//            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//            $this->template->write_view('content', 'deactivate_user', (isset($this->data) ? $this->data : NULL), TRUE);
+//
+//            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//            $this->template->render();
         } else {
             // do we really want to deactivate?
             if ($this->input->post('confirm') == 'yes') {
@@ -581,7 +587,7 @@ class Auth extends MY_Controller {
     public function create_user() {
 
         $user_id = $this->session->userdata('user_id');
-        $data['dataHeader'] = $this->users->get_allData($user_id);
+        $this->data['dataHeader'] = $this->users->get_allData($user_id);
         $this->data['title'] = $this->lang->line('create_user_heading');
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
@@ -645,15 +651,14 @@ class Auth extends MY_Controller {
             $this->session->set_flashdata('message', $this->ion_auth->messages());
             redirect("auth", 'refresh');
         } else {
+            load_view_template($this->data, "create_user");
 
-
-
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            $this->template->write_view('content', 'create_user', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+//            $this->template->set_master_template('template.php');
+//            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//            $this->template->write_view('content', 'create_user', (isset($this->data) ? $this->data : NULL), TRUE);
+//            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//            $this->template->render();
         }
     }
 
@@ -808,16 +813,17 @@ class Auth extends MY_Controller {
 
             // $this->_render_page('auth/create_group', $this->data);
             $user_id = $this->session->userdata('user_id');
-            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
+            load_view_template($this->data, "auth/create_group");
 
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-
-            $this->template->write_view('content', 'auth/create_group', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+//            $this->template->set_master_template('template.php');
+//            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//
+//            $this->template->write_view('content', 'auth/create_group', (isset($this->data) ? $this->data : NULL), TRUE);
+//            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//            $this->template->render();
         }
     }
 
@@ -878,16 +884,16 @@ class Auth extends MY_Controller {
 
         $user_id = $this->session->userdata('user_id');
 
-        $data['dataHeader'] = $this->users->get_allData($user_id);
+        $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
-
-        $this->template->set_master_template('template.php');
-        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-
-        $this->template->write_view('content', 'edit_group', (isset($this->data) ? $this->data : NULL), TRUE);
-        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        $this->template->render();
+        load_view_template($this->data, "edit_group");
+//        $this->template->set_master_template('template.php');
+//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//
+//        $this->template->write_view('content', 'edit_group', (isset($this->data) ? $this->data : NULL), TRUE);
+//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//        $this->template->render();
     }
 
     public function groups() {
@@ -907,16 +913,16 @@ class Auth extends MY_Controller {
 
             $user_id = $this->session->userdata('user_id');
 
-            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
-
-            $this->template->set_master_template('template.php');
-            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-
-            $this->template->write_view('content', 'groups', (isset($this->data) ? $this->data : NULL), TRUE);
-            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-            $this->template->render();
+            load_view_template($this->data, "groups");
+//            $this->template->set_master_template('template.php');
+//            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//
+//            $this->template->write_view('content', 'groups', (isset($this->data) ? $this->data : NULL), TRUE);
+//            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//            $this->template->render();
         }
     }
 

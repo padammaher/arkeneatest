@@ -28,6 +28,7 @@ class AssetMaster extends CI_Controller {
             $this->session->unset_userdata('assetcate_post');
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Asset Category";
             $data['asset_categories'] = $this->assetmodel->get_AssetCategoryList($user_id);
 
             load_view_template($data, 'master/AssetCategory');
@@ -45,6 +46,7 @@ class AssetMaster extends CI_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Asset Type";
             $data['asset_type'] = $this->assetmodel->get_assettypeList($user_id);
             $this->session->unset_userdata('assettype_post');
             $this->session->unset_userdata('assettypee_post');
@@ -98,10 +100,12 @@ class AssetMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Add Asset Category";
                 load_view_template($data, 'master/add_asset_category');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Asset Category";
             load_view_template($data, 'master/add_asset_category');
         }
     }
@@ -144,6 +148,7 @@ class AssetMaster extends CI_Controller {
 //                $data['ast_cat_id'] = $this->input->post('edit_id');
 //                $data['result'] = $this->assetmodel->get_asset_category($this->input->post('edit_id'));
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Edit Asset Category";
                 load_view_template($data, 'master/edit_asset_category');
             }
         }
@@ -174,6 +179,7 @@ class AssetMaster extends CI_Controller {
                 $data['ast_cat_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Edit Asset Category";
                 load_view_template($data, 'master/edit_asset_category');
             } else {
                 echo "Something Went wrong";
@@ -228,10 +234,12 @@ class AssetMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Add Asset Type";
                 load_view_template($data, 'master/add_asset_type');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Asset Type";
             load_view_template($data, 'master/add_asset_type');
         }
     }
@@ -272,6 +280,7 @@ class AssetMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Edit Asset Type";
                 load_view_template($data, 'master/edit_asset_type');
             }
         }
@@ -301,7 +310,7 @@ class AssetMaster extends CI_Controller {
                 $data['ast_type_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
-
+                $data['dataHeader']['title'] = "Edit Asset Type";
                 load_view_template($data, 'master/edit_asset_type');
             } else {
                 echo "Something Went wrong";

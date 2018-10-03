@@ -98,7 +98,7 @@
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="Enter Mobile Number " required="required">
                 </div>
-              </div>
+              </div> 
               <div class="item form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID 
                 <span class="required">*</span>
@@ -108,6 +108,12 @@
                  <div id="email_error" style="color:red"></div>      
                 </div>
               </div>
+               <div class="item form-group">
+                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                  <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                      <input type="checkbox" name="status" id="status" class="flat" checked> 
+                </div>
+               </div>
               <div class="ln_solid">
               </div>
               <div class="item form-group">

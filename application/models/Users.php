@@ -70,7 +70,7 @@ class Users extends MY_Model {
 
     public function get_menu_list() {
         $group_id = $this->session->userdata('group_id');
-        $this->db->select('menu.id,menu.menuName,menu.url,menu.parent,menu.nav_ids'); //,groups.name,groups.id as group_id
+        $this->db->select('menu.id,menu.menuName,menu.url,menu.parent,menu.nav_ids,menu.iconPath'); //,groups.name,groups.id as group_id
         $this->db->from('menu');
         $this->db->where('menu.sidebar_flag', 1);
         $this->db->where('isactive', 1);

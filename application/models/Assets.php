@@ -290,7 +290,8 @@ class Assets extends MY_Model {
                                     asset.`code`,
                                     users.id as `branch_user_tbl_id`,
                                     users.first_name as `client_name`,
-                                    asset_user.createdate');
+                                    asset_user.createdate,
+                                    asset_user.isactive');
         $this->db->from('asset_user');
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('users', 'users.id = asset_user.assetuser_id', 'left');
@@ -382,7 +383,8 @@ class Assets extends MY_Model {
                                     asset.`code`,
                                     users.id as `branch_user_tbl_id`,
                                     users.first_name as `client_name`,
-                                    asset_user.createdate');
+                                    asset_user.createdate,
+                                    asset_user.isactive');
         $this->db->from('asset_user');
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('users', 'users.id = asset_user.assetuser_id', 'inner');
@@ -671,9 +673,9 @@ class Assets extends MY_Model {
     }
 
     public function get_uom_list_type($uom_type_id) {
-        $this->db->select('id,name');
+        $this->db->select('id,name,isactive');
         $this->db->from('uom');
-        $this->db->where('uom_type_id', $uom_type_id);
+        $this->db->where(array('uom_type_id'=>$uom_type_id,'isdeleted'=>0));
         $query = $this->db->get();
         $uom_list_data = $query->result_array();
         return $uom_list_data;
@@ -887,7 +889,8 @@ from asset
     public function get_parameter_range_limits($parameter_id) {
         $this->db->select('min_value,max_value');
         $this->db->from('parameter_range');
-        $this->db->where('parameter_id', $parameter_id);
+//        $this->db->where('parameter_id', $parameter_id);
+        $this->db->where('id', $parameter_id);
         $this->db->limit('1');
         $query = $this->db->get();
         $result = $query->result_array();

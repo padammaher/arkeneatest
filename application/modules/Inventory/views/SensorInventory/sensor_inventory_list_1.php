@@ -74,7 +74,7 @@ if (isset($permission) && !empty($permission)) {
                     <table id="datatable" class="table table-striped table-bordered item-table" >
                         <thead>
                             <tr><th>Sr.No</th>
-                                <th>Sensor_Number</th>
+                                <th>Sensor_Num</th>
                                 <th>Device_Num</th>
                                 <th>Sensor_Type</th>                          
                                 <th>Location</th>                                                                         

@@ -29,30 +29,34 @@ $back_action = $this->input->post('back_action');
                 </div>
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url(); ?>Edit_device_sensors">
-                        <?php foreach ($Edit_device_sensors_data as $Edit_device_sensors_data) {
-                        //          print_r($Edit_device_sensors_data); 
+                        <?php
+                        foreach ($Edit_device_sensors_data as $Edit_device_sensors_data) {
+                            //          print_r($Edit_device_sensors_data); 
                             ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Device ID</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">             
-                                    <select class="form-control" name="deviceid" id="deviceid" required="required" <?php if (!empty($managed_dev_sen_Id_readonly)) {
-                                            echo $managed_dev_sen_Id_readonly == 'dev' ? 'readonly="readonly"' : '';
-                                        } else {
-                                            echo 'readonly="readonly"';
-                                        } ?>>                                                  
+                                    <select class="form-control" name="deviceid" id="deviceid" required="required" <?php
+                                    if (!empty($managed_dev_sen_Id_readonly)) {
+                                        echo $managed_dev_sen_Id_readonly == 'dev' ? 'readonly="readonly"' : '';
+                                    } else {
+                                        echo 'readonly="readonly"';
+                                    }
+                                    ?>>                                                  
 
                                         <?php if ($managed_dev_sen_Id_readonly != "sen") { ?>                                     
 
-                                        <?php } ?>   
+    <?php } ?>   
 
                                         <?php if ($managed_dev_sen_Id_readonly == "dev") { ?>
 
                                             <option value="">Select device Number</option> <?php
                                     foreach ($device_list as $device_id_list) {
                                         if ($managed_dev_sen_Id[1] == $device_id_list['id']) {
-                                            ?>
+                                                    ?>
                                                     <option value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid', $managed_dev_sen_Id[1]) == $device_id_list['id'] ? 'selected' : '' ?> ><?php echo $device_id_list['number']; ?></option>
-                                                <?php }
+                                                <?php
+                                                }
                                             }
                                         } elseif ($managed_dev_sen_Id_readonly == "sen") {
                                             ?>
@@ -60,24 +64,26 @@ $back_action = $this->input->post('back_action');
 
                                                 <option value="<?php echo $device_list_2['id']; ?>" <?php echo set_value('deviceid', $Edit_device_sensors_data['device_id']) == $device_list_2['id'] ? 'selected' : ''; ?> >  <?php echo $device_list_2['number']; ?></option>
 
-                                                <?php }
-                                                } else {
-                                                    ?>
+                                            <?php
+                                            }
+                                        } else {
+                                            ?>
                                             <option value="">Select device</option>       
                                             <option value="<?php echo $Edit_device_sensors_data['device_id']; ?>" <?php echo set_value('deviceid', $Edit_device_sensors_data['device_id']) == $Edit_device_sensors_data['device_id'] ? 'selected' : ''; ?> ><?php echo $Edit_device_sensors_data['number']; ?></option>
-                                            <?php } ?>
+                                <?php } ?>
                                     </select>             
                                 </div>
-                                        <?php if (form_error('deviceid')) { ?>
+    <?php if (form_error('deviceid')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('deviceid'); ?></span>
-                                        <?php } ?>
+    <?php } ?>
                             </div> 
 
 
 
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor ID *</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Number *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">             
+
                                     <select class="form-control locationMultiple" name="sensorid[]" id="sensorid" <?php echo $managed_dev_sen_Id_readonly == 'sen' ? 'readonly="readonly"' : ''; ?> multiple="multiple" >
                                     <?php if ($managed_dev_sen_Id_readonly != "dev") { ?>                                     
                                             <option value="">Select Sensor</option>
@@ -116,11 +122,12 @@ $back_action = $this->input->post('back_action');
                                         } ?>
                                     </select>             
 
+
                                 </div>
-                                        <?php if (form_error('sensorid')) { ?>
+    <?php if (form_error('sensorid')) { ?>
 
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensorid'); ?></span>
-                                <?php } ?>
+    <?php } ?>
                             </div> 
 
      
@@ -129,7 +136,8 @@ $back_action = $this->input->post('back_action');
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                     <label><?php $isactive = set_value('isactive');
-                                        $Edit_device_sensors_data['isactive']; ?> 
+    $Edit_device_sensors_data['isactive'];
+    ?> 
                                         <input type="checkbox" name="isactive" checked class="flat" <?php echo $isactive == "on" ? 'checked' : ($Edit_device_sensors_data['isactive']) == "1" ? 'checked' : ''; ?>> Active
                                     </label>
 
@@ -149,15 +157,15 @@ $back_action = $this->input->post('back_action');
 
 <!---->                                    <button type="submit" class="btn btn-primary" name="update_dev_sen_button" id="edit_inventory_button" >Update</button>
 
-                                        <?php if (!empty($back_action)) { ?>
+    <?php if (!empty($back_action)) { ?>
                                         <input type="hidden" name="back_action" value="<?php echo set_value('back_action', $back_action); ?>" >
                                         <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
-                                <?php } else { ?>
+    <?php } else { ?>
                                         <a href="<?php echo base_url('Device_sensor_list'); ?>" type="button" class="btn btn-default">Cancel</a> 
-                                   <?php } ?>
+    <?php } ?>
                                 </div>
                             </div>
-                       <?php } ?>
+<?php } ?>
                     </form>					
 
                 </div>
@@ -171,6 +179,7 @@ $back_action = $this->input->post('back_action');
 </div>
 
 <script type="text/javascript">
+
     
  $.fn.select2.defaults.set("theme", "bootstrap");
     $(".locationMultiple").select2({
@@ -180,10 +189,11 @@ $back_action = $this->input->post('back_action');
  <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
  <script type="text/javascript">
     <?php if ($managed_dev_sen_Id_readonly == 'dev') { ?>
+
         $(document).ready(function () {
             $("#deviceid").change(function ()
             {
-    //       alert(this.value);
+                //       alert(this.value);
                 var objdata = '';
                 var i = 0;
                 var options;
@@ -198,7 +208,7 @@ $back_action = $this->input->post('back_action');
                         var obj = $.parseJSON(res);
 
                         for (i = 0; i < obj.length; i++) {
-    //                            alert(obj[i]['sensor_inventory_id']);
+                            //                            alert(obj[i]['sensor_inventory_id']);
                             options += '<option value="' + obj[i]['sensor_inventory_id'] + '">' + obj[i]['sensor_no'] + '</option>';
                         }
                         $("#sensorid").html(options);
@@ -207,6 +217,7 @@ $back_action = $this->input->post('back_action');
             });
         });
 <?php } ?>
+
    
 //               $(document).ready(function () {
 //                var jsonData = [];
@@ -229,4 +240,5 @@ $back_action = $this->input->post('back_action');
 //                });
 //            });
  
+
 </script>

@@ -7,7 +7,7 @@
         <div class="title_right">
             <div class="pull-right">
 
-                <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Management</a>
+                <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa fa-arrow-left"></i> Asset Management</a>
                 <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
                 <?php
                 if (isset($permission) && !empty($permission)) {
@@ -33,15 +33,14 @@
                                 <th>Sr.No</th>
                                 <th>Asset Code</th>
                                 <th>User Name</th>
-
-<!--<th>Status</th>-->   
+                                <th>Status</th>   
                                 <th>Actions</th>   
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $i = 1; //var_dump($asset_user_list);
-                            if (!empty($asset_user_list)) {
+                            if (!empty($asset_user_list)) { 
                                 foreach ($asset_user_list as $k => $asset_user_list_data) {
                                     ?> 
                                     <tr>
@@ -52,6 +51,7 @@
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $k + 1 ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['code']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo ($asset_user_list_data['isactive']==1)?'Active':'In-active'; ?></td>
                                         <td>
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_user_list_data['id']; ?>" name="asset_user_post_id"/>
