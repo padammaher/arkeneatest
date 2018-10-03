@@ -41,7 +41,7 @@
                                     </option>
                                     <?php foreach ($client_location as $Location) { ?> 
                                         <option value="<?php echo $Location->id; ?>"<?php
-                                        if (isset($client_details[0]->customer_address)) {
+                                        if (isset($client_details[0]->location_id)) {
                                             echo ($Location->id == $client_details[0]->location_id) ? 'selected' : '';
                                         }
                                         ?>><?php echo (isset($Location->location_name)) ? $Location->location_name : ''; ?></option>

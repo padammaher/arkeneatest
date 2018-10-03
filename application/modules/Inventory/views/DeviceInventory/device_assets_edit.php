@@ -11,7 +11,8 @@ $back_action = $this->input->post('back_action');
             </div>
             <div class="x_content">
                 <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url(); ?>Device_assets_edit">
-<?php  foreach ($Edit_device_asset_data as $dev_asset_data) {  ?>
+<?php  foreach ($Edit_device_asset_data as $dev_asset_data) {   ?>
+                    
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number</label>
@@ -28,9 +29,14 @@ $back_action = $this->input->post('back_action');
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">             
+                            <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="assetid" id="assetid" required="required">
-                                    <option value="">Select device</option>
+                                    <option 
+                            value="<?php if(isset($dev_asset_data['asset_id'])){ echo $dev_asset_data['asset_id']; }
+                                    else {echo ""; } ?>">
+                                    <?php if(isset($dev_asset_data['asset_id'])){ echo $dev_asset_data['code']; }
+                                    else { echo "Select device";} ?>   
+                                    </option>
 
                                     <?php foreach ($assetcode_list as $assetcode_list_data) {
 //                    if($assetcode_list_data['id'] == $dev_asset_data['asset_id']){ 
