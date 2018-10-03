@@ -19,9 +19,14 @@
                                 <select class="form-control" onchange="get_uom_list(this.value);" required="required" id="uom_type" name="uom_type">
                                     <option value="">Select Uom Type
                                     </option>
-                                    <?php foreach ($uom_type_list as $um) { ?> 
-                                        <option value="<?php echo $um['id']; ?>"><?php echo (isset($um['name'])) ? $um['name'] : ''; ?></option>
-                                    <?php } ?> 
+                                    <?php
+                                    foreach ($uom_type_list as $um) {
+                                        if ($um['isactive'] == 1) {
+                                            ?> 
+                                            <option value="<?php echo $um['id']; ?>"><?php echo (isset($um['name'])) ? $um['name'] : ''; ?></option>
+                                        <?php }
+                                    }
+                                    ?> 
                                 </select> 
 <!--                                    <input type="text" class="form-control" placeholder="UOM Type" name="uom_type" required="required" value="<?php echo @$post['uom_type']; ?>" pattern="[a-zA-Z\s]*">-->
                             </div>

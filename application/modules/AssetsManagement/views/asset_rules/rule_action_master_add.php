@@ -60,7 +60,7 @@
                                                     echo ($um['id'] == $asset_detail[0]->uom) ? 'selected' : '';
                                                 }
                                                 ?> ><?php echo $um['name']; ?> </option>
-<?php } ?> 
+                                <?php } ?> 
                                 </select>
                             </div>
                         </div>
@@ -109,8 +109,8 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <label class="">
-                                    <div class="icheckbox_flat-green checked" style="position: relative;">
-                                        <input name="rule_status" id="rule_status" type="checkbox" class="flat" checked="checked" style="position: absolute; opacity: 0;">
+                                    <div class="icheckbox_flat-green checked" style="position: relative;"> 
+                                        <input name="rule_status" id="rule_status" type="checkbox" class="flat"  style="position: absolute; opacity: 0;" <?php echo (isset($asset_detail[0]->rule_status)&&$asset_detail[0]->rule_status==1) ? 'checked' : ''; ?>>
                                         <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;">
                                         </ins>
                                     </div> Active

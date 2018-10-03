@@ -9,7 +9,7 @@ if (!function_exists('load_view_template')) {
         $CI = & get_instance();
         $CI->template->set_master_template('template.php', (isset($data) ? $data : NULL));
         $CI->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        $CI->template->write_view('sidebar', 'snippets/sidebar', (isset($data) ? $data : NULL));
+        $CI->template->write_view('sidebar', 'snippets/sidebar_1', (isset($data) ? $data : NULL));
         $CI->template->write_view('content', $view, (isset($data) ? $data : NULL), TRUE);
         $CI->template->write_view('footer', 'snippets/footer', '', TRUE);
         $CI->template->render();
