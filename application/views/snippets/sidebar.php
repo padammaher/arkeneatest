@@ -51,26 +51,20 @@
                                 ?>
                                 <li>
                                     <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
-                                        <i class="fa fa-home"></i><?php echo $menu_name['menuName']; ?> 
+                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
                                 </li>
                             <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
                                 <li>
                                     <a>
-                                        <i class="fa <?php
-                                        if ($menu_name['menuName'] == 'Configuration') {
-                                            echo "fa-table";
-                                        } else {
-                                            echo "fa-bar-chart-o";
-                                        }
-                                        ?>"></i><?php echo $menu_name['menuName']; ?>  
+                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?>  
                                     </a>
                                 </li>
                             <?php } elseif ($menu_name['menuName'] == 'Privilege') {
                                 ?>
                                 <li>
                                     <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
-                                        <i class="fa fa-edit"></i><?php echo $menu_name['menuName']; ?> 
+                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
                                 </li>
                             <?php } else {
@@ -87,7 +81,7 @@
                                         echo "href='" . base_url() . $menu_name['url'] . "'";
                                     }
                                     ?>>
-                                        <i class="fa fa-edit">
+                                        <i class="<?php echo $menu_name['iconPath']; ?>">
                                         </i>
                                         <?php echo $menu_name['menuName']; ?> 
                                         <span class="fa fa-chevron-down">
