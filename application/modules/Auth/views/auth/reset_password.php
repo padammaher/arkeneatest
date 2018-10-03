@@ -33,19 +33,23 @@
                        <?php echo form_open('auth/reset_password/' . $code);?>
                         <h1>Change Password</h1>
                         <div>
-                           <label for="new_password"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br />
+                            <label style="color: white; font-style: normal;" for="new"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br />
 		<?php echo form_input($new_password);?>
+                            <div id="errorpassword"> </div>
                             <div class="lgnErorr1"></div>
                         </div>
-                        <div>
-                         <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm');?> <br />
-		<?php echo form_input($new_password_confirm);?>
+                        <div> <label style="color: white; font-style: normal;" for="new_password">
+                         <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm');?> </label><br />
+		    <?php echo form_input($new_password_confirm);?>
+                         <div id="errorpasswordmatch"> </div>
                             <div class="lgnErorr2"></div>
                         </div>
                         <div>
                             <?php echo form_input($user_id);?>
                             <?php echo form_hidden($csrf); ?>
-                           <?php echo form_submit('submit', lang('reset_password_submit_btn'));?>
+                            
+                            
+                            <button id="resset_password" class="btn btn-default submit" type="submit">Submit</button> 
                            
                         </div>
                         <div class="clearfix"></div>
@@ -66,3 +70,43 @@
         </div>
     </body>
 </html>
+<script>
+ $(document).ready(function () {
+        $('#new').focusout(function () {
+            var str = $('#new').val();
+            var upper_text = new RegExp('[A-Z]');
+            var lower_text = new RegExp('[a-z]');
+            var number_check = new RegExp('[0-9]');
+            var special_char = new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
+
+            var flag = 'T';
+
+            if (str.match(upper_text) && str.match(lower_text) && str.match(special_char) && str.match(number_check) && str.length > 7) {
+                $('#errorpassword').html("");
+                $("#resset_password").prop("disabled", false);
+            } else {
+                $('#d12').css("color", "red");
+                $('#errorpassword').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> add atleast one upper,lower,special character, one number, and minimum 8 character length");
+                $('#errorpassword').css("color", "red");
+
+                $("#resset_password").prop("disabled", true);
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#resset_password").click(function () {
+            var password = $("#new").val();
+            var confirmPassword = $("#new_confirm").val();
+            if (password != confirmPassword) {
+                $('#errorpasswordmatch').css("color", "red");
+                 $('#errorpasswordmatch').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'>Password Not Match</span> ");
+                return false;
+            }
+             $('#errorpasswordmatch').html("");
+            return true;
+        });
+    });
+</script>
