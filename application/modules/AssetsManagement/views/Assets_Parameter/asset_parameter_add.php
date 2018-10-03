@@ -44,14 +44,16 @@
                                             <option value="">Select Parameter</option>
                                             <?php
                                             foreach ($parameter_list as $param) {
-                                                if (isset($param_id) && $param['id'] == $param_id) {
-                                                    $selected = "selected";
-                                                } else {
-                                                    $selected = "";
+                                                if ($param['isactive'] == 1) {
+                                                    if (isset($param_id) && $param['id'] == $param_id) {
+                                                        $selected = "selected";
+                                                    } else {
+                                                        $selected = "";
+                                                    }
+                                                    ?>
+                                                    <option value="<?php echo $param['id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $param['name']; ?></option>
+                                                    <?php
                                                 }
-                                                ?>
-                                                <option value="<?php echo $param['id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $param['name']; ?></option>
-                                                <?php
                                             }
                                             ?>
                                         </select>

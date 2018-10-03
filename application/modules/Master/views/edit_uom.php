@@ -24,9 +24,11 @@
                                     <?php
                                     if (isset($uom_list) && !empty($uom_list)) {
                                         foreach ($uom_list as $ul) {
-                                            ?>
-                                            <option value="<?php echo $ul['id'] ?>" <?php echo $ul['id'] == $result[0]['id'] ? "selected" : '' ?>><?php echo $ul['name']; ?></option>
-                                            <?php
+                                            if ($ul['isactive'] == 1) {
+                                                ?>
+                                                <option value="<?php echo $ul['id'] ?>" <?php echo $ul['id'] == $result[0]['id'] ? "selected" : '' ?>><?php echo $ul['name']; ?></option>
+                                                <?php
+                                            }
                                         }
                                     }
                                     ?>
