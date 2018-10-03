@@ -53,7 +53,7 @@
 
                                 <!--<ul class="nav side-menu">-->
                                 <li>
-                                    <a href="<?php echo base_url() . (isset($menu_name['url'])) ? $menu_name['url'] : ''; ?>">
+                                    <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
                                         <i class="fa fa-home"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
                                 </li>
@@ -97,11 +97,8 @@
                                                 if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
                                                     ?>                              
                                                     <li>
-                                                        <a href="<?php
-                                                        echo base_url();
-                                                        echo ($sub_menu['url']) ? $sub_menu['url'] : '';
-                                                        ?>">
-                                                               <?php echo $sub_menu['menuName']; ?>
+                                                        <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
+                                                            <?php echo $sub_menu['menuName']; ?>
                                                         </a>
                                                     </li>
                                                     <?php
@@ -118,11 +115,8 @@
                                                 if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
                                                     ?>                              
                                                     <li>
-                                                        <a href="<?php
-                                                        echo base_url();
-                                                        echo ($sub_menu['url']) ? $sub_menu['url'] : '';
-                                                        ?>">
-                                                               <?php echo $sub_menu['menuName']; ?>
+                                                        <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
+                                                            <?php echo $sub_menu['menuName']; ?>
                                                         </a>
                                                     </li>
                                                     <?php
