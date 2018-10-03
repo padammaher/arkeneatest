@@ -9,7 +9,7 @@
         <!--<link rel="icon" href="images/favicon.ico" type="image/ico" />-->
 
 
-        <title>ePhytionSee - <?php echo isset($dataHeader['title']) ? $dataHeader['title'] : ''; ?></title>
+        <title><?php echo isset($dataHeader['title']) ? $dataHeader['title'] : ''; ?></title>
 
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
 

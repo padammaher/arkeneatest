@@ -26,6 +26,7 @@ class SensorMaster extends CI_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Sensor Type List";
             $data['sensor_type_details'] = $this->sensormodel->get_sensortypeList($user_id);
             $this->session->unset_userdata('sensor_post');
             $this->session->unset_userdata('sensore_post');
@@ -81,10 +82,12 @@ class SensorMaster extends CI_Controller {
                 redirect('sensortype');
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Add Sensor Type";
                 load_view_template($data, 'master/add_sensor_type');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Add Sensor Type";
             load_view_template($data, 'master/add_sensor_type');
         }
     }
@@ -123,6 +126,7 @@ class SensorMaster extends CI_Controller {
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Edit Sensor Type";
                 load_view_template($data, 'master/edit_sensor_type');
             }
         }
@@ -152,6 +156,7 @@ class SensorMaster extends CI_Controller {
                 $data['sensortype_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Edit Sensor Type";
                 load_view_template($data, 'master/edit_sensor_type');
             } else {
                 echo "Something Went wrong";

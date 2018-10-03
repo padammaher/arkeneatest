@@ -60,7 +60,7 @@ if (isset($permission) && !empty($permission)) {
                             <tr>
                                 <th>Sr.No</th>
                                 <th>Device_Num</th>
-                                <th>Sensor Number</th>
+                                <th>Sensor_Num</th>
                                 <?php
                                 if (isset($sensor_index)) {
                                     if ($permission[$sensor_index]->editpermission == 1 || $permission[$sensor_index]->deletepermission == 1) {
@@ -86,7 +86,7 @@ if (isset($permission) && !empty($permission)) {
                                         <td <?php echo $modal_idand_class; ?>><?php echo $i; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['number']; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['sensor_no']; ?></td>
-                                         <?php
+                                        <?php
                                         if (isset($sensor_index)) {
                                             if ($permission[$sensor_index]->editpermission == 1 || $permission[$sensor_index]->deletepermission == 1) {
                                                 ?>
@@ -124,19 +124,19 @@ if (isset($permission) && !empty($permission)) {
                                         }
                                         ?>
 
+                                    </tr>
+
+                                    <?php
+                                    $i++;
+                                }
+                            } else {
+                                ?>                      
+
+                                <tr>                          
+                                    <td colspan="4">data not found..!</td>
                                 </tr>
 
-                                <?php
-                                $i++;
-                            }
-                        } else {
-                            ?>                      
-
-                            <tr>                          
-                                <td colspan="4">data not found..!</td>
-                            </tr>
-
-                        <?php } ?>                      
+                            <?php } ?>                      
                         </tbody>
                     </table>
                 </div>   </div>

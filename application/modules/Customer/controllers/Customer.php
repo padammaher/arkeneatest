@@ -26,6 +26,7 @@ class Customer extends MY_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Add Customer Provisioning";
             load_view_template($this->data, 'add_customer');
         }
     }
@@ -95,6 +96,7 @@ class Customer extends MY_Controller {
                 $this->data['city'] = $this->Customer_Model->get_city_list($user_data[0]->state_id);
             $this->data['user_id'] = $user_id;
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Edit Customer Provisioning";
             load_view_template($this->data, 'Edit_customer_info');
         }
     }
@@ -148,6 +150,7 @@ class Customer extends MY_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Customer Provisioning";
             $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
             load_view_template($this->data, 'customer_info');
         }
@@ -166,6 +169,7 @@ class Customer extends MY_Controller {
             $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
             //$this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Client User List";
             load_view_template($this->data, 'client_user_list');
         }
     }
@@ -223,7 +227,7 @@ class Customer extends MY_Controller {
             $client_id = $this->input->get('client_id');
             $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
-//        echo "<pre>";print_r($this->data['client_location']);
+            $this->data['dataHeader']['title'] = "Add Client User";
             load_view_template($this->data, 'edit_client_user');
         }
     }
@@ -254,6 +258,7 @@ class Customer extends MY_Controller {
                 $client_id = $this->input->post('client_id');
                 $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
                 $this->data['dataHeader'] = $this->users->get_allData($user_id);
+                $this->data['dataHeader']['title'] = "Edit Client User";
 //                  print_r( $this->data['client_details']); exit();
                 load_view_template($this->data, 'edit_client_user');
             } else if ($this->input->post('post') == 'delete') {
@@ -344,6 +349,7 @@ class Customer extends MY_Controller {
             $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);
 
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Customer Business Location List";
             load_view_template($this->data, 'customer_business_location_list');
         }
     }
@@ -360,6 +366,7 @@ class Customer extends MY_Controller {
             $this->data['country'] = $country = $this->Customer_Model->get_country();
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Add Customer Business Location";
             load_view_template($this->data, 'customer_business_location_add');
         }
     }
@@ -393,9 +400,9 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
-            if($this->input->post('status')){
-                 $additional_data['isactive'] = 1;
-            }else{
+            if ($this->input->post('status')) {
+                $additional_data['isactive'] = 1;
+            } else {
                 $additional_data['isactive'] = 0;
             }
             $additional_data['user_id'] = $this->session->userdata('user_id');
@@ -424,6 +431,7 @@ class Customer extends MY_Controller {
             $this->data['city_list'] = $this->Customer_Model->get_city_list($business_data[0]->state);
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Edit Customer Business Location";
             load_view_template($this->data, 'customer_business_location_edit');
         }
     }
@@ -457,13 +465,13 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
-           if($this->input->post('status')){
-                 $additional_data['isactive'] = 1;
-            }else{
+            if ($this->input->post('status')) {
+                $additional_data['isactive'] = 1;
+            } else {
                 $additional_data['isactive'] = 0;
             }
-            
-            
+
+
             $additional_data['user_id'] = $this->session->userdata('user_id');
             $this->Customer_Model->update_busineess_location($additional_data, $id);
             // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
