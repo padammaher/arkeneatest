@@ -54,7 +54,8 @@ $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['acces_forbidden'] = "Welcome/accessDenied";
-
+// forgetpassword
+$route['resetPassword']='Auth/reset_password';
 //Masters
 $route['assetcategory'] = "Master/AssetMaster/assetcategory";
 $route['addAssetCategory'] = "Master/assetmaster/add_asset_category";
