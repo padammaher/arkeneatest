@@ -49,7 +49,7 @@ var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
 
-	
+
 	
 // Sidebar
 function init_sidebar() {
@@ -71,6 +71,7 @@ var setContentHeight = function () {
 
   $SIDEBAR_MENU.find('a').on('click', function(ev) {
 	  console.log('clicked - sidebar_menu');
+          
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
@@ -124,7 +125,7 @@ $MENU_TOGGLE.on('click', function() {
 });
 
 	// check active menu
-	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+	$SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parentsUntil('.side-menu').addClass('current-page');
 
 	/*$SIDEBAR_MENU.find('a').filter(function () {
 		return this.href == CURRENT_URL;
