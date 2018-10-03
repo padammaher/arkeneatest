@@ -18,32 +18,34 @@
                             ?>
 
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Number *</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Number *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" name="sensornum" value="<?php echo set_value('sensornum', $sensor_inventory_data['sensor_no']); ?>" class="form-control" placeholder="SN001" required="required" readonly="readonly">
                                 </div>
                                 <?php if (form_error('sensornum')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensornum'); ?></span>
-    <?php } ?>
+                                <?php } ?>
                             </div>             
 
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor_Type *</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Type *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">             
 
                                     <select class="form-control" name="sensortype" required="required">                      
                                         <option value="">Select Type</option>                   
-                                        <?php foreach ($sensor_type as $sensor_type_data) {
+                                        <?php
+                                        foreach ($sensor_type as $sensor_type_data) {
                                             if ($sensor_type_data['id'] == $sensor_inventory_data['sensor_type_tbl_id']) {
                                                 ?>
                                                 <option value="<?php echo $sensor_type_data['id']; ?>" <?php echo set_value('sensortype') == $sensor_type_data['id'] ? 'selected' : ''; ?> selected><?php echo $sensor_type_data['name']; ?></option>
-        <?php } else { ?>                    
+                                            <?php } else { ?>                    
                                                 <option value="<?php echo $sensor_type_data['id']; ?>" <?php echo set_value('sensortype') == $sensor_type_data['id'] ? 'selected' : ''; ?> ><?php echo $sensor_type_data['name']; ?></option>
-                                    <?php }
-                                } ?>
+                                            <?php }
+                                        }
+                                        ?>
                                     </select>                               
                                 </div>
-    <?php if (form_error('sensortype')) { ?>
+                                <?php if (form_error('sensortype')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensortype'); ?></span>
     <?php } ?>
                             </div> 
@@ -54,7 +56,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" name="make" value="<?php echo set_value('make', $sensor_inventory_data['make']); ?>" class="form-control" placeholder="Seimens" required="required">
                                 </div>
-    <?php if (form_error('make')) { ?>
+                                <?php if (form_error('make')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('make'); ?></span>
     <?php } ?>
                             </div>
@@ -64,7 +66,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" name="model" value="<?php echo set_value('model', $sensor_inventory_data['model']); ?>" class="form-control" placeholder="T001A" required="required">
                                 </div>
-    <?php if (form_error('model')) { ?>
+                                <?php if (form_error('model')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('model'); ?></span>
     <?php } ?>
                             </div>
@@ -75,15 +77,16 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" id="Customerlocation" name="Customerlocation" required>
                                         <option value="">Select Location</option>
-    <?php foreach ($location_list as $loc_list) {
+                                        <?php
+                                        foreach ($location_list as $loc_list) {
 //           if($deviceinventory_data['customer_location_id']) 
-        ?>
+                                            ?>
                                             <option value="<?php echo $loc_list['id']; ?>" <?php echo (set_value('Customerlocation', $sensor_inventory_data['customer_location_id'])) == $loc_list['id'] ? 'selected' : ''; ?> ><?php echo $loc_list['location_name']; ?></option>
                                 <?php } ?>
 
                                     </select>
                                 </div>
-    <?php if (form_error('Customerlocation')) { ?>
+                                <?php if (form_error('Customerlocation')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Customerlocation'); ?></span>
     <?php }
     ?>
@@ -102,14 +105,16 @@
                                     <select class="form-control" name="Parameter" id="Parameter" required="required">
                                         <option value="">Select Type</option>                   
                                         <!--<option value="<?php echo $parameter_list_data['id']; ?>" <?php echo set_value('Parameter') == $parameter_list_data['id'] ? 'selected' : ''; ?>><?php echo $parameter_list_data['name']; ?></option>-->
-                                        <?php foreach ($parameter_list as $parameter_list_data) {
+                                        <?php
+                                        foreach ($parameter_list as $parameter_list_data) {
                                             if ($parameter_list_data['id'] == $sensor_inventory_data['parameter_tbl_id']) {
                                                 ?>
                                                 <option value="<?php echo $parameter_list_data['id']; ?>" <?php echo set_value('Parameter') == $parameter_list_data['id'] ? 'selected' : ''; ?> selected><?php echo $parameter_list_data['name']; ?></option>
-                                    <?php } else { ?>
+        <?php } else { ?>
                                                 <option value="<?php echo $parameter_list_data['id']; ?>" <?php echo set_value('Parameter') == $parameter_list_data['id'] ? 'selected' : ''; ?> ><?php echo $parameter_list_data['name']; ?></option>                       
-        <?php }
-    } ?>
+                                    <?php }
+                                }
+                                ?>
                                     </select>             
                                 </div>
     <?php if (form_error('Parameter')) { ?>
@@ -120,15 +125,19 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">             
                                     <select class="form-control" name="UOM" id="UOM" required="required">
-                                        <option value="<?php if (!empty(set_value('UOM'))) {
-        echo set_value('UOM');
-    } else {
-        echo $sensor_inventory_data['uom_type_tbl_id'];
-    } ?>"><?php if (!empty(set_value('selectuom'))) {
-        echo set_value('selectuom');
-    } else {
-        echo $sensor_inventory_data['uom_type_tbl_name'];
-    } ?></option>                   
+                                        <option value="<?php
+                                                    if (!empty(set_value('UOM'))) {
+                                                        echo set_value('UOM');
+                                                    } else {
+                                                        echo $sensor_inventory_data['uom_type_tbl_id'];
+                                                    }
+                                                    ?>"><?php
+                                                    if (!empty(set_value('selectuom'))) {
+                                                        echo set_value('selectuom');
+                                                    } else {
+                                                        echo $sensor_inventory_data['uom_type_tbl_name'];
+                                                    }
+                                                    ?></option>                   
                                     </select>             
                                 </div>
     <?php if (form_error('UOM')) { ?>
@@ -143,11 +152,13 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                     <label><?php $isactive = set_value('isactive'); ?>                          
 
-                                        <input type="checkbox" name="isactive" class="flat" <?php if (!empty($isactive)) {
+                                        <input type="checkbox" name="isactive" class="flat" <?php
+    if (!empty($isactive)) {
         echo ($isactive) == "1" ? 'checked' : '';
     } else {
         echo ($sensor_inventory_data['isactive']) == "1" ? 'checked' : '';
-    } ?>> Active
+    }
+    ?>> Active
                                     </label>
                                 </div>
                             </div>    

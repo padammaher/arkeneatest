@@ -82,23 +82,25 @@ class Auth extends MY_Controller {
             );
             $data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
             $data['dataHeader'] = $this->users->get_allData($user_id);
-            
+
 
             $this->template->set_master_template('template.php');
             $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
             $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-            if($user->login_flag==0){
-            $this->template->write_view('content', 'index1', (isset($this->data) ? $this->data : NULL), TRUE);
-            }else{
+            if ($user->login_flag == 0) {
+                $this->template->write_view('content', 'index1', (isset($this->data) ? $this->data : NULL), TRUE);
+            } else {
                 $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
             }
             $this->template->write_view('footer', 'snippets/footer', '', TRUE);
             $this->template->render();
         }
     }
-    public function dashboard(){
+
+    public function dashboard() {
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
+        $data['dataHeader']['title'] = "Home";
         $this->template->set_master_template('template.php');
         $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
         $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
@@ -106,6 +108,7 @@ class Auth extends MY_Controller {
         $this->template->write_view('footer', 'snippets/footer', '', TRUE);
         $this->template->render();
     }
+
     public function restricted() {
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
@@ -268,6 +271,7 @@ class Auth extends MY_Controller {
                 // if the login was un-successful
                 // redirect them back to the login page
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
+//                echo $this->session->flashdata('message');
                 redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
             }
         } else {
@@ -504,7 +508,6 @@ class Auth extends MY_Controller {
         }
     }
 
-    
     // activate the user
     public function activate($id, $code = false) {
         if ($code !== false) {

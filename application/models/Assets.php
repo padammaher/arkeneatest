@@ -290,7 +290,8 @@ class Assets extends MY_Model {
                                     asset.`code`,
                                     users.id as `branch_user_tbl_id`,
                                     users.first_name as `client_name`,
-                                    asset_user.createdate');
+                                    asset_user.createdate,
+                                    asset_user.isactive');
         $this->db->from('asset_user');
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('users', 'users.id = asset_user.assetuser_id', 'left');
@@ -382,7 +383,8 @@ class Assets extends MY_Model {
                                     asset.`code`,
                                     users.id as `branch_user_tbl_id`,
                                     users.first_name as `client_name`,
-                                    asset_user.createdate');
+                                    asset_user.createdate,
+                                    asset_user.isactive');
         $this->db->from('asset_user');
         $this->db->join('asset', 'asset.id = asset_user.asset_id', 'inner');
         $this->db->join('users', 'users.id = asset_user.assetuser_id', 'inner');

@@ -7,10 +7,17 @@
         <div class="title_right">
             <div class="pull-right">
 
-                <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Management</a>
+                <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa fa-arrow-left"></i> Asset Management</a>
                 <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
-                <a href="<?php echo base_url('User_asset_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                 
-
+                <?php
+                if (isset($permission) && !empty($permission)) {
+                    if ($permission[0]->addpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url('User_asset_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                 
+                        <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -26,41 +33,60 @@
                                 <th>Sr.No</th>
                                 <th>Asset Code</th>
                                 <th>User Name</th>
-
-<!--<th>Status</th>-->   
+                                <th>Status</th>   
                                 <th>Actions</th>   
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $i = 1; //var_dump($asset_user_list);
-                            if (!empty($asset_user_list)) {
+                            if (!empty($asset_user_list)) { 
                                 foreach ($asset_user_list as $k => $asset_user_list_data) {
                                     ?> 
                                     <tr>
-        <?php $setId_to_modal = $asset_user_list_data['id'];
-        $modal_idand_class = "data-toggle='modal' href='#user_assest_list_modal_" . $setId_to_modal . "'";
-        ?>
+                                        <?php
+                                        $setId_to_modal = $asset_user_list_data['id'];
+                                        $modal_idand_class = "data-toggle='modal' href='#user_assest_list_modal_" . $setId_to_modal . "'";
+                                        ?>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $k + 1 ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['code']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo ($asset_user_list_data['isactive']==1)?'Active':'In-active'; ?></td>
                                         <td>
                                             <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $asset_user_list_data['id']; ?>" name="asset_user_post_id"/>
                                                 <input type="hidden" name="asset_user_post" id="post<?php echo $i; ?>"/>
-                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                </a> 
+                                                <?php
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->editpermission == 1) {
+                                                        ?>
+                                                        <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                        </a>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                                <?php
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->deletepermission == 1) {
+                                                        ?>
+                                                        <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                            <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                        </a> 
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
                                             </form>   
                                         </td>
-        <?php $i++;
-    }
-} else { ?>
+                                        <?php
+                                        $i++;
+                                    }
+                                } else {
+                                    ?>
                                     <td colspan="4">No data found..!</td>                                                                           
-<?php } ?>					
+                                <?php } ?>					
                         </tbody>
                     </table>
                 </div>
@@ -74,8 +100,8 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        
-            $('body').on('click', '.edit', function () {
+
+        $('body').on('click', '.edit', function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
 //            alert(id);
@@ -91,7 +117,7 @@
 //            }
 //        });
 
-        
+
         $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#confirmmodal_Box").modal();
@@ -102,8 +128,8 @@
             });
         });
 
-        
-             $('body').on('click', '.manage_user', function () {
+
+        $('body').on('click', '.manage_user', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');

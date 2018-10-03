@@ -16,12 +16,17 @@ class Customer extends MY_Controller {
     }
 
     public function index() {
-         if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
+            //check user Permission
+            userPermissionCheck($this->data['permission'], 'add');
+
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Add Customer Provisioning";
             load_view_template($this->data, 'add_customer');
         }
     }
@@ -73,21 +78,26 @@ class Customer extends MY_Controller {
     //     }
     // }
 
-    public function edit_customer_detail() {    
+    public function edit_customer_detail() {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $user_id = $this->session->userdata('user_id');
-        $this->data['user_detail'] = $user_data = $this->Customer_Model->get_customer_detail($user_id);
-        $this->data['country'] = $country = $this->Customer_Model->get_country();
-        if (isset($user_data[0]->country_id))
-            $this->data['state'] = $this->Customer_Model->get_state_list($user_data[0]->country_id);
-        if (isset($user_data[0]->state_id))
-            $this->data['city'] = $this->Customer_Model->get_city_list($user_data[0]->state_id);
-        $this->data['user_id'] = $user_id;
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'Edit_customer_info');
+            $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
+            //check user Permission
+            userPermissionCheck($this->data['permission'], 'update');
+
+            $user_id = $this->session->userdata('user_id');
+            $this->data['user_detail'] = $user_data = $this->Customer_Model->get_customer_detail($user_id);
+            $this->data['country'] = $country = $this->Customer_Model->get_country();
+            if (isset($user_data[0]->country_id))
+                $this->data['state'] = $this->Customer_Model->get_state_list($user_data[0]->country_id);
+            if (isset($user_data[0]->state_id))
+                $this->data['city'] = $this->Customer_Model->get_city_list($user_data[0]->state_id);
+            $this->data['user_id'] = $user_id;
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Edit Customer Provisioning";
+            load_view_template($this->data, 'Edit_customer_info');
         }
     }
 
@@ -95,6 +105,10 @@ class Customer extends MY_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Customer Provisioning');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
             $user_id = $this->session->userdata('user_id');
             if ($this->input->post('customer_address'))
                 $additional_data['customer_address'] = $this->input->post('customer_address');
@@ -130,23 +144,33 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $user_id = $this->session->userdata('user_id');
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
-        load_view_template($this->data, 'customer_info');
+            $this->data['permission'] = $this->users->get_permissions(['Customer Provisioning', 'Client User', 'Customer Business Location']);
+            //check user Permission
+            userPermissionCheck($this->data['permission'], 'view', 'Customer Provisioning');
+
+            $user_id = $this->session->userdata('user_id');
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Customer Provisioning";
+            $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
+            load_view_template($this->data, 'customer_info');
         }
     }
 
     public function client_user_list() {
-         if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $user_id = $this->session->userdata('user_id');
-        $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
-        //$this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'client_user_list');
+            $this->data['permission'] = $this->users->get_permissions(['Client User', 'Customer Provisioning', 'Customer Business Location']);
+            //check user Permission
+            userPermissionCheck($this->data['permission'], 'view', 'Client User');
+
+            $user_id = $this->session->userdata('user_id');
+            $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
+            //$this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Client User List";
+            load_view_template($this->data, 'client_user_list');
         }
     }
 
@@ -192,15 +216,19 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $user_id = $this->session->userdata('user_id');
-        $this->data['user_id'] = $user_id;
-        $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
+            $data['permission'] = $this->users->get_permissions('Client User');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
 
-        $client_id = $this->input->get('client_id');
-        $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-//        echo "<pre>";print_r($this->data['client_location']);
-        load_view_template($this->data, 'edit_client_user');
+            $user_id = $this->session->userdata('user_id');
+            $this->data['user_id'] = $user_id;
+            $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
+
+            $client_id = $this->input->get('client_id');
+            $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Add Client User";
+            load_view_template($this->data, 'edit_client_user');
         }
     }
 
@@ -215,6 +243,10 @@ class Customer extends MY_Controller {
 
     public function update_client_detail() {
         // print_r($_POST); exit();
+        $data['permission'] = $this->users->get_permissions('Client User');
+        //check user Permission
+        userPermissionCheck($data['permission'], 'update');
+
         $user_id = $this->session->userdata('user_id');
         $salt = '';
         $id = '';
@@ -226,6 +258,7 @@ class Customer extends MY_Controller {
                 $client_id = $this->input->post('client_id');
                 $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
                 $this->data['dataHeader'] = $this->users->get_allData($user_id);
+                $this->data['dataHeader']['title'] = "Edit Client User";
 //                  print_r( $this->data['client_details']); exit();
                 load_view_template($this->data, 'edit_client_user');
             } else if ($this->input->post('post') == 'delete') {
@@ -304,27 +337,37 @@ class Customer extends MY_Controller {
       } */
 
     public function customer_business_location_list() {
-         if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $user_id = $this->session->userdata('user_id');
-        $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);
+            $this->data['permission'] = $this->users->get_permissions(['Customer Business Location', 'Client User', 'Customer Provisioning']);
+            //check user Permission
+            userPermissionCheck($this->data['permission'], 'view', 'Customer Business Location');
 
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'customer_business_location_list');
+            $user_id = $this->session->userdata('user_id');
+            $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);
+
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Customer Business Location List";
+            load_view_template($this->data, 'customer_business_location_list');
         }
     }
 
     public function add_customer_business_location() {
-         if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $this->data['country'] = $country = $this->Customer_Model->get_country();
-        $user_id = $this->session->userdata('user_id');
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'customer_business_location_add');
+            $data['permission'] = $this->users->get_permissions('Customer Business Location');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'add');
+
+            $this->data['country'] = $country = $this->Customer_Model->get_country();
+            $user_id = $this->session->userdata('user_id');
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Add Customer Business Location";
+            load_view_template($this->data, 'customer_business_location_add');
         }
     }
 
@@ -334,6 +377,9 @@ class Customer extends MY_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Customer Business Location');
+            userPermissionCheck($data['permission'], 'add');
+
             if ($this->input->post('location_name'))
                 $additional_data['location_name'] = $this->input->post('location_name');
             if ($this->input->post('address'))
@@ -354,7 +400,11 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
-            $additional_data['isactive'] = 1;
+            if ($this->input->post('status')) {
+                $additional_data['isactive'] = 1;
+            } else {
+                $additional_data['isactive'] = 0;
+            }
             $additional_data['user_id'] = $this->session->userdata('user_id');
 
             $this->Customer_Model->add_business_location($additional_data);
@@ -366,18 +416,23 @@ class Customer extends MY_Controller {
     }
 
     public function edit_business_location() {
-         if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $business_id = $this->input->post('business_id');
-        $this->data['business_detail'] = $business_data = $this->Customer_Model->get_business_detail($business_id);
-        $this->data['country_list'] = $country = $this->Customer_Model->get_country();
-        $this->data['states_list'] = $state_list = $this->Customer_Model->get_state_list($business_data[0]->country);
-        $this->data['city_list'] = $this->Customer_Model->get_city_list($business_data[0]->state);
-        $user_id = $this->session->userdata('user_id');
-        $this->data['dataHeader'] = $this->users->get_allData($user_id);
-        load_view_template($this->data, 'customer_business_location_edit');
+            $data['permission'] = $this->users->get_permissions('Customer Business Location');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
+
+            $business_id = $this->input->post('business_id');
+            $this->data['business_detail'] = $business_data = $this->Customer_Model->get_business_detail($business_id);
+            $this->data['country_list'] = $country = $this->Customer_Model->get_country();
+            $this->data['states_list'] = $state_list = $this->Customer_Model->get_state_list($business_data[0]->country);
+            $this->data['city_list'] = $this->Customer_Model->get_city_list($business_data[0]->state);
+            $user_id = $this->session->userdata('user_id');
+            $this->data['dataHeader'] = $this->users->get_allData($user_id);
+            $this->data['dataHeader']['title'] = "Edit Customer Business Location";
+            load_view_template($this->data, 'customer_business_location_edit');
         }
     }
 
@@ -385,6 +440,9 @@ class Customer extends MY_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth', 'refresh');
         } else {
+            $data['permission'] = $this->users->get_permissions('Customer Business Location');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'update');
             if ($this->input->post('id'))
                 $id = $this->input->post('id');
             if ($this->input->post('location_name'))
@@ -407,6 +465,13 @@ class Customer extends MY_Controller {
                 $additional_data['mobile'] = $this->input->post('mobile');
             if ($this->input->post('email'))
                 $additional_data['email'] = $this->input->post('email');
+            if ($this->input->post('status')) {
+                $additional_data['isactive'] = 1;
+            } else {
+                $additional_data['isactive'] = 0;
+            }
+
+
             $additional_data['user_id'] = $this->session->userdata('user_id');
             $this->Customer_Model->update_busineess_location($additional_data, $id);
             // $this->data['location_detail']=  $this->Customer_Model->get_business_list(); 
@@ -541,17 +606,21 @@ class Customer extends MY_Controller {
       } */
 
     public function delete_business_location() {
-         if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $user_id = $this->session->userdata('user_id');
-        $business_id = $this->input->post('business_id');
-        $this->Customer_Model->delete_business_location_data($business_id);
-        $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);
-        $this->session->set_flashdata('success_msg', 'Business location deleted sucessfully');
-        //exit;
-        redirect('ManageBusinessLoacaiton', 'refresh');
+            $data['permission'] = $this->users->get_permissions('Customer Business Location');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'delete');
+
+            $user_id = $this->session->userdata('user_id');
+            $business_id = $this->input->post('business_id');
+            $this->Customer_Model->delete_business_location_data($business_id);
+            $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);
+            $this->session->set_flashdata('success_msg', 'Business location deleted sucessfully');
+            //exit;
+            redirect('ManageBusinessLoacaiton', 'refresh');
         }
         // $this->template->set_master_template('template.php');
         // $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));

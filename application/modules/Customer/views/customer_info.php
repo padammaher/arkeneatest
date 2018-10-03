@@ -1,5 +1,18 @@
-<?php //print_r($user_detail[0]->customer_name); exit();              ?> 
+<?php //print_r($user_detail[0]->customer_name); exit();                       ?> 
 <!-- <div class="right_col" role="main"> -->
+<?php
+if (isset($permission) && !empty($permission)) {
+    foreach ($permission as $key => $value) {
+        if ($value->menuName == 'Customer Provisioning') {
+            $customer_index = $key;
+        } elseif ($value->menuName == 'Customer Business Location') {
+            $location_index = $key;
+        } elseif ($value->menuName == 'Client User') {
+            $user_index = $key;
+        }
+    }
+}
+?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -9,8 +22,16 @@
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <a href="<?php echo base_url() ?>Editcustomerinfo" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit Customer Information
-                </a>
+                <?php
+                if (isset($customer_index)) {
+                    if ($permission[$customer_index]->editpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>Editcustomerinfo" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit Customer Information
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
                 <!--- <a href="assets-location-list.html" class="btn btn-sm btn-primary">Asset Location</a>
       <a href="user-assets-list.html" class="btn btn-sm btn-primary">Asset User</a>--->
             </div>
@@ -78,7 +99,6 @@
                                     <a href="<?php echo base_url() ?>ManageBusinessLoacaiton" class="btn btn-sm btn-primary btn-block"><i class="fa fa-map-marker"></i> Manage Business Location</a>
                                 <?php }
                                 ?>
-
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <?php if ($this->session->userdata('group_id') == 2) { ?>
@@ -87,8 +107,6 @@
                                     <a href="<?php echo base_url() ?>ManageUsers" class="btn btn-sm btn-success btn-block"> <i class="fa fa-user"></i> Manage Users</a>
                                 <?php }
                                 ?>
-
-
                             </div>
                         </div>
                     </div>

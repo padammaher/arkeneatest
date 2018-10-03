@@ -1,4 +1,16 @@
-
+<?php
+if (isset($permission) && !empty($permission)) {
+    foreach ($permission as $key => $value) {
+        if ($value->menuName == 'Client User') {
+            $user_index = $key;
+        } elseif ($value->menuName == 'Customer Provisioning') {
+            $customer_index = $key;
+        } elseif ($value->menuName == 'Customer Business Location') {
+            $location_index = $key;
+        }
+    }
+}
+?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -7,18 +19,42 @@
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <a href="<?php echo base_url() ?>Customerinfo" class="btn btn-sm btn-primary"> 
-                    <i class="fa fa-users">
-                    </i> Customer Provisioning
-                </a>
-                <a href="<?php echo base_url() ?>ManageUsers" class="btn btn-sm btn-primary"> 
-                    <i class="fa fa-user">
-                    </i> User Management
-                </a>
-                <a href="<?php echo base_url() ?>Add_Business_Location" class="btn btn-sm btn-primary"> 
-                    <i class="fa fa-plus">
-                    </i> Add New
-                </a>
+                <?php
+                if (isset($customer_index)) {
+                    if ($permission[$customer_index]->viewpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>Customerinfo" class="btn btn-sm btn-primary"> 
+                            <i class="fa fa-users">
+                            </i> Customer Provisioning
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($user_index)) {
+                    if ($permission[$user_index]->viewpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>ManageUsers" class="btn btn-sm btn-primary"> 
+                            <i class="fa fa-user">
+                            </i> User Management
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
+                <?php
+                if (isset($location_index)) {
+                    if ($permission[$location_index]->addpermission == 1) {
+                        ?>
+                        <a href="<?php echo base_url() ?>Add_Business_Location" class="btn btn-sm btn-primary"> 
+                            <i class="fa fa-plus">
+                            </i> Add New
+                        </a>
+                        <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -41,8 +77,15 @@
                                 <th>Telephone</th>                          
                                 <th>Mobile No.</th>                          
                                 <th>Email ID</th>                          
-                                <th>Status</th>                          
-                                <th>Actions</th>                          
+                                <th>Status</th>     
+                                <?php
+                                if (isset($location_index)) {
+                                    if ($permission[$location_index]->editpermission == 1 || $permission[$location_index]->deletepermission == 1) {
+                                        echo "<th>Actions</th>";
+                                    }
+                                }
+                                ?>
+                                <!--<th>Actions</th>-->                          
                             </tr>
                         </thead>
                         <tbody>
@@ -63,23 +106,51 @@
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->telephone; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->mobile; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->email; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php if(isset($location->isactive)){ echo $location->isactive == 1 ? 'Active' : 'In-active'; } ?></td>
-                                        <td class="action">
-                                            <form action="<?php echo base_url(); ?>update_business" method="post" id="edit_update_business_location<?php echo $i; ?>"> 
-                                                <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
-                                                <a class="edit_location" title="Edit" id="<?php echo $i; ?>">
-                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                                    </i>
-                                                </a>
-                                            </form> 
-                                            <form action="<?php echo base_url(); ?>Customer/delete_business_location" method="post" id="delete_update_business_location<?php echo $i; ?>"> 
-                                                <a class="delete_location" title="Delete" id="<?php echo $i; ?>">
-                                                    <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
-                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                                    </i> 
-                                                </a> 
-                                            </form>
-                                        </td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php
+                                            if (isset($location->isactive)) {
+                                                echo $location->isactive == 1 ? 'Active' : 'In-active';
+                                            }
+                                            ?></td>
+                                        <?php
+                                        if (isset($location_index)) {
+                                            if ($permission[$location_index]->editpermission == 1 || $permission[$location_index]->deletepermission == 1) {
+                                                ?>
+                                                <td class="action">
+                                                    <?php
+                                                    if (isset($location_index)) {
+                                                        if ($permission[$location_index]->editpermission == 1) {
+                                                            ?>
+                                                            <form action="<?php echo base_url(); ?>update_business" method="post" id="edit_update_business_location<?php echo $i; ?>"> 
+                                                                <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
+                                                                <a class="edit_location" title="Edit" id="<?php echo $i; ?>">
+                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                                    </i>
+                                                                </a>
+                                                            </form> 
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if (isset($location_index)) {
+                                                        if ($permission[$location_index]->deletepermission == 1) {
+                                                            ?>
+                                                            <form action="<?php echo base_url(); ?>Customer/delete_business_location" method="post" id="delete_update_business_location<?php echo $i; ?>"> 
+                                                                <a class="delete_location" title="Delete" id="<?php echo $i; ?>">
+                                                                    <input type="hidden" name="business_id" value="<?php echo $location->id; ?>" id="business_id">  
+                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                                    </i> 
+                                                                </a> 
+                                                            </form>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </tr>
                                     <?php
                                     $i++;
@@ -210,16 +281,18 @@
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">
                         $(document).ready(function () {
-                            $(".edit_location").click(function () {
+                            $('body').on('click', '.edit_location', function () {
                                 var id = $(this).attr('id');
                                 $("#edit_update_business_location" + id).submit();
                             });
-                            $(".delete_location").click(function () {
+
+                            $('body').on('click', '.delete_location', function () {
                                 var id = $(this).attr('id');
                                 $("#delete_confirmation").modal('show');
                                 $(".ok").click(function () {
                                     // $("#post" + id).val('delete');
                                     $("#delete_update_business_location" + id).submit();
+
                                 });
                             });
                         });

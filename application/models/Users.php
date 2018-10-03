@@ -72,8 +72,7 @@ class Users extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         $this->db->select('menu.id,menu.menuName,menu.url,menu.parent,menu.nav_ids'); //,groups.name,groups.id as group_id
         $this->db->from('menu');
-        //$this->db->join('groups', 'groups.id=menu.group_id');
-        //$this->db->where('menu.group_id',$group_id); 
+        $this->db->where('menu.sidebar_flag', 1);
         $this->db->where('isactive', 1);
         $query = $this->db->get();
         $data = $query->result_array();
@@ -84,14 +83,19 @@ class Users extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         if ($group_id == 1) {
             $role_id = 1;
-        } else {
+        } elseif ($group_id == 2) {
             $role_id = 2;
         }
+
         $this->db->select('privileges.id,role,privileges.group_id,object,addpermission,editpermission,deletepermission,'
                 . 'viewpermission,privileges.isactive,menu.menuName');
         $this->db->join('menu', 'privileges.object=menu.id');
-        $this->db->where(array('privileges.isactive' => 1, 'privileges.group_id' => $group_id, 'privileges.role' => $role_id,
-            'menu.menuName' => $menu));
+        $this->db->where(array('privileges.isactive' => 1, 'privileges.group_id' => $group_id, 'privileges.role' => $role_id));
+        if (is_array($menu) && !empty($menu)) {
+            $this->db->where_in('menu.menuName', $menu);
+        } else {
+            $this->db->where('menu.menuName', $menu);
+        }
         $result = $this->db->get('privileges')->result();
         return $result;
     }
