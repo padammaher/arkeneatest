@@ -244,6 +244,24 @@ class Inventory_model extends MY_Model {
         return $objData;
     }
     
+        public function device_ids_for_dev_sen($user_id) {
+        $group_id = $this->session->userdata('group_id');
+        $this->db->select('id,number,serial_no,customer_location_id');
+        $this->db->from('device_inventory');
+        $this->db->where('isactive', 1);
+        $this->db->where(array('isdeleted'=>0));
+        $this->db->where('device_inventory.id NOT IN (select device_sensor_mapping.device_id from device_sensor_mapping where device_sensor_mapping.isdeleted=0)');    
+                            
+        if($group_id =='2'){
+        $this->db->where('createdby', $user_id);
+        }
+        $this->db->group_by('id');
+        $query = $this->db->get();
+//        echo $this->db->last_query();
+        $objData = $query->result_array();
+        return $objData;
+    }
+    
     public function sensor_list_on_divice($device_id){
          $this->db->select('id,sensor_id'); 
          $this->db->from('device_sensor_mapping');
@@ -355,6 +373,7 @@ class Inventory_model extends MY_Model {
 
     public function add_devicesensor($insert_data) {
         $table = 'device_sensor_mapping';
+
         $check = $this->db->insert($table, $insert_data);
         return $this->db->insert_id();
     }
@@ -381,6 +400,9 @@ class Inventory_model extends MY_Model {
 
     public function Update_device_sensors_model($update_data, $form_action_type_id) {
 //        $table='device_sensor_mapping';
+//        print_r($update_data);
+//        echo $form_action_type_id;
+//        exit;
         $this->db->where('id', $form_action_type_id);
         return $this->db->update('device_sensor_mapping', $update_data);
     }
@@ -528,24 +550,31 @@ class Inventory_model extends MY_Model {
         return $objData;
     }
     
-    public function getsensor_data($deviceid,$user_id){
-        $group_id = $this->session->userdata('group_id');     
+    public function getsensor_data($deviceid,$user_id,$status){
+        $group_id = $this->session->userdata('group_id');
+        $row_set='';
         $this->db->select('sensor_inventory.id as `sensorid`,sensor_inventory.sensor_no');
         $this->db->from('device_inventory');
         $this->db->join('sensor_inventory', 'sensor_inventory.customer_location_id=device_inventory.customer_location_id', 'inner');
         $this->db->where('sensor_inventory.isactive', 1);
         $this->db->where(array('device_inventory.id'=>$deviceid,'sensor_inventory.isdeleted'=>0));        
+        if($status =='' && $status !='edit' ){
+        $this->db->where('sensor_inventory.id NOT IN (select sensor_id from device_sensor_mapping where device_sensor_mapping.isdeleted=0)');    
+        }
         if($group_id =='2'){
          $this->db->where('sensor_inventory.createdby', $user_id);
         }
         $this->db->group_by('sensor_inventory.id');
         $query = $this->db->get();
-         foreach ($query->result_array() as $k => $row) {
-            $row_set[$k]['id'] = htmlentities(stripslashes($row['sensorid']));
-            $row_set[$k]['name'] = htmlentities(stripslashes($row['sensor_no']));
-        }
-
-        echo json_encode($row_set);
+        if($query->num_rows()>0){
+            foreach ($query->result_array() as $k => $row) {
+               $row_set[$k]['id'] = htmlentities(stripslashes($row['sensorid']));
+               $row_set[$k]['name'] = htmlentities(stripslashes($row['sensor_no']));
+           }
+        
+        }else{  $row_set=0; }
+        
+         echo json_encode($row_set);
 
     }
     

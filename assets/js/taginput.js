@@ -635,6 +635,7 @@
                                         ms._valueContainer = $('<input/>', {
                                             type: 'hidden',
                                             name: cfg.name,
+                                            id:'drop_down_sensor_id',
                                             value: JSON.stringify(ms.getValue())
                                         });
                                         ms._valueContainer.appendTo(ms.selectionContainer);
