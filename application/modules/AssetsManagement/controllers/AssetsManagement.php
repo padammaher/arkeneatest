@@ -884,20 +884,23 @@ class AssetsManagement extends MY_Controller {
             $parameter_range_id = $this->session->userdata('parameter_range_id');
         }
         $this->session->unset_userdata('rule_id');
-        $this->data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
+        $data['parameter_detail'] = $this->Assets->get_parameter_range($parameter_range_id);
         $this->session->set_userdata('parameter_id', $this->data['parameter_detail'][0]['parameter_id']);
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
         $data['dataHeader']['title'] = "Rule & Action Master List";
 
-        $this->data['parameter_id'] = $parameter_range_id;
-        $this->data['asset_list'] = $this->Assets->get_asset_rule_list($parameter_range_id);
-        $this->template->set_master_template('template.php', (isset($data) ? $data : NULL));
-        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        $this->template->write_view('content', 'asset_rules/rule_action_master_list', (isset($this->data) ? $this->data : NULL), TRUE);
-        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        $this->template->render();
+        $data['parameter_id'] = $parameter_range_id;
+        $data['asset_list'] = $this->Assets->get_asset_rule_list($parameter_range_id);
+
+        load_view_template($data, 'asset_rules/rule_action_master_list');
+
+//        $this->template->set_master_template('template.php', (isset($data) ? $data : NULL));
+//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//        $this->template->write_view('content', 'asset_rules/rule_action_master_list', (isset($this->data) ? $this->data : NULL), TRUE);
+//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//        $this->template->render();
     }
 
     public function add_asset_rule() {
@@ -910,21 +913,21 @@ class AssetsManagement extends MY_Controller {
 
         if ($this->input->post('asset_rule_id')) {
             $asset_rule_id = $this->input->post('asset_rule_id');
-            $this->data['asset_detail'] = $this->Assets->get_asset_details($asset_rule_id);
+            $data['asset_detail'] = $this->Assets->get_asset_details($asset_rule_id);
         } else {
-            $this->data['asset_detail'] = '';
+            $data['asset_detail'] = '';
         }
         $param_data = $this->Assets->get_paramiter_name($parameter_id);
 
-        $this->data['param_id'] = (isset($param_data[0]['id'])) ? $param_data[0]['id'] : '';
-        $this->data['parameter_name'] = (isset($param_data[0]['name'])) ? $param_data[0]['name'] : '';
+        $data['param_id'] = (isset($param_data[0]['id'])) ? $param_data[0]['id'] : '';
+        $data['parameter_name'] = (isset($param_data[0]['name'])) ? $param_data[0]['name'] : '';
         //print_r($param_data[0]['uom_type_id']); exit(); 
         if ($param_data[0]['uom_type_id'])
             $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
-        $this->data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
+        $data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
 
         $parameter_range = $this->Assets->get_parameter_range_limits($parameter_id);
-        $this->data['paramete_limit'] = $parameter_range;
+        $data['paramete_limit'] = $parameter_range;
         // if(isset($uom_data[0]['name']))   
         // $this->data['uom_name'] = $uom_data[0]['name'];
         // if(isset($uom_data[0]['id'])) 
@@ -937,12 +940,13 @@ class AssetsManagement extends MY_Controller {
             $data['dataHeader']['title'] = "Add Rule & Action Master";
         }
 
-        $this->template->set_master_template('template.php', (isset($data) ? $data : NULL));
-        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-        $this->template->write_view('content', 'asset_rules/rule_action_master_add', (isset($this->data) ? $this->data : NULL), TRUE);
-        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-        $this->template->render();
+        load_view_template($data, 'asset_rules/rule_action_master_add');
+//        $this->template->set_master_template('template.php', (isset($data) ? $data : NULL));
+//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+//        $this->template->write_view('content', 'asset_rules/rule_action_master_add', (isset($this->data) ? $this->data : NULL), TRUE);
+//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+//        $this->template->render();
     }
 
     public function add_asset_rule_detail() {
