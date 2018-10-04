@@ -67,7 +67,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <label>
-                                    <input type="checkbox" name="status" class="flat" <?php echo isset($checked) ? $checked : ''; ?>> Active
+                                    <input type="checkbox" name="status" class="flat" id="status" <?php echo isset($checked) ? $checked : ''; ?>> Active
                                 </label>
                             </div>
                         </div>	
@@ -97,7 +97,7 @@
             e.preventDefault();
             return false;
         }
-    });
+        });
 
     $(function () {
 
@@ -120,11 +120,11 @@
                 $("#delete_confirmation").modal('hide');
                 current.remove();
             });
-//            if (confirm("Really delete this tag?"))
+            //            if (confirm("Really delete this tag?"))
 //                $(this).remove();
         });
 
-    });
+        });
 </script>
 <style>
     #tags{

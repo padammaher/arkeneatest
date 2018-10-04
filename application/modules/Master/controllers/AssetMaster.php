@@ -154,6 +154,10 @@ class AssetMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
+//            $check = $this->assetmodel->check_category_in_use($id);
+//            if (count($check) > 0) {
+//                $this->session->set_flashdata('error_msg', 'Asset category is already in Use');
+//            } else {
             $data = array('isdeleted' => 1);
             $response = $this->assetmodel->assetcategory_update($id, $data);
             if ($response > 0) {
@@ -161,6 +165,7 @@ class AssetMaster extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error_msg', 'Failed to delete asset category');
             }
+//            }
             redirect('assetcategory');
         } elseif ($this->input->post('post') == 'edit' || $this->session->userdata('assetcate_post')) {
             $data['permission'] = $this->users->get_permissions('Asset Category');
@@ -286,6 +291,10 @@ class AssetMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
+//            $check = $this->assetmodel->check_assettype_in_use($id);
+//            if (count($check) > 0) {
+//                $this->session->set_flashdata('error_msg', 'Asset type is already in Use');
+//            } else {
             $data = array('isdeleted' => 1);
             $response = $this->assetmodel->assettype_update($id, $data);
             if ($response > 0) {
@@ -293,6 +302,7 @@ class AssetMaster extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error_msg', 'Failed to delete asset type');
             }
+//            }
             redirect('assettype');
         } elseif ($this->input->post('post') == 'edit' || $this->session->userdata('assettypee_post')) {
             $data['permission'] = $this->users->get_permissions('Asset type');

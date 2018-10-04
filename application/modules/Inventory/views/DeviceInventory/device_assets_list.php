@@ -21,7 +21,7 @@ if (isset($permission) && !empty($permission)) {
             <div class="pull-right">
                 <?php
                 if (isset($device_index)) {
-                    if ($permission[$device_index]->addpermission == 1) {
+                    if ($permission[$device_index]->viewpermission == 1) {
                         ?>
                         <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
                         <?php
@@ -30,7 +30,7 @@ if (isset($permission) && !empty($permission)) {
                 ?>
                 <?php
                 if (isset($sensor_index)) {
-                    if ($permission[$sensor_index]->addpermission == 1) {
+                    if ($permission[$sensor_index]->viewpermission == 1) {
                         ?>
                         <a href="<?php echo base_url('Device_sensor_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-tachometer"></i> Device Sensor</a>
                         <?php
@@ -89,7 +89,7 @@ if (isset($permission) && !empty($permission)) {
                                         <td><?php echo $device_asset_list_data['number']; ?></td>
                                         <td><?php echo $device_asset_list_data['code']; ?></td>
                                         <td><?php echo $device_asset_list_data['createdate']; ?></td>
-                                        <td><?php echo ($device_asset_list_data['isactive']==1)?'Active':'In-active'; ?></td>
+                                        <td><?php echo ($device_asset_list_data['isactive'] == 1) ? 'Active' : 'In-active'; ?></td>
                                         <?php
                                         if (isset($asset_index)) {
                                             if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1) {
@@ -122,7 +122,7 @@ if (isset($permission) && !empty($permission)) {
                                                         ?>
                                                     </form>   
                                                 </td>
-                                            <?php
+                                                <?php
                                             }
                                         }
                                         ?>
@@ -139,7 +139,7 @@ if (isset($permission) && !empty($permission)) {
                                 </tr>
 
 
-<?php } ?>                        </tbody>             
+                            <?php } ?>                        </tbody>             
                     </table>
                 </div>
 

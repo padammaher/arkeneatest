@@ -49,6 +49,14 @@ class SensorModel extends MY_Model {
         return $this->db->affected_rows();
     }
 
+    function check_sensortype_in_use($id) {
+        $this->db->select('sensor_inventory.id,sensor_inventory.sensor_no');
+        $this->db->join('sensor_type', 'sensor_inventory.sensor_type_id=sensor_type.id');
+        $this->db->where(array('sensor_inventory.sensor_type_id' => $id, 'sensor_inventory.isactive' => 1, 'sensor_inventory.isdeleted' => 0));
+        $result = $this->db->get('sensor_inventory')->result();
+        return $result;
+    }
+
 }
 
 /* End of file MasterModel.php */

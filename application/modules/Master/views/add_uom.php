@@ -24,7 +24,8 @@
                                         if ($um['isactive'] == 1) {
                                             ?> 
                                             <option value="<?php echo $um['id']; ?>"><?php echo (isset($um['name'])) ? $um['name'] : ''; ?></option>
-                                        <?php }
+                                        <?php
+                                        }
                                     }
                                     ?> 
                                 </select> 
@@ -43,7 +44,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <label>
-                                    <input type="checkbox" name="status" class="flat" checked="checked"> Active
+                                    <input type="checkbox" name="status" id="status" class="flat" checked="checked"> Active
                                 </label>
                             </div>
                         </div>	

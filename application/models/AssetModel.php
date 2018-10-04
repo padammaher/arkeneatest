@@ -93,6 +93,22 @@ class AssetModel extends MY_Model {
         return $this->db->affected_rows();
     }
 
+    function check_category_in_use($id) {
+        $this->db->select('asset.id,asset.code');
+        $this->db->join('asset_category', 'asset.asset_catid=asset_category.id');
+        $this->db->where(array('asset.asset_catid' => $id, 'asset.isactive' => 1, 'asset.isdeleted' => 0));
+        $result = $this->db->get('asset')->result();
+        return $result;
+    }
+
+    function check_assettype_in_use($id) {
+        $this->db->select('asset.id,asset.code');
+        $this->db->join('asset_type', 'asset.asset_typeid=asset_type.id');
+        $this->db->where(array('asset.asset_typeid' => $id, 'asset.isactive' => 1, 'asset.isdeleted' => 0));
+        $result = $this->db->get('asset')->result();
+        return $result;
+    }
+
 }
 
 /* End of file MasterModel.php */
