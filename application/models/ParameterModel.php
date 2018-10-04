@@ -65,6 +65,23 @@ class ParameterModel extends MY_Model {
         return $result;
     }
 
+    function check_parameter_in_use($id) {
+        $this->db->select('parameter_range.id');
+        $this->db->join('parameter_range', 'parameter.id = parameter_range.parameter_id');
+        $this->db->where(array('parameter.id' => $id, 'parameter_range.isactive' => 1, 'parameter_range.isdeleted' => 0));
+        $result = $this->db->get('parameter')->result();
+
+        if (count($result) > 0) {
+            return count($result);
+        } else {
+            $this->db->select('sensor_inventory.id');
+            $this->db->join('sensor_inventory', 'parameter.id = sensor_inventory.parameter_id');
+            $this->db->where(array('parameter.id' => $id, 'sensor_inventory.isactive' => 1, 'sensor_inventory.isdeleted' => 0));
+            $result1 = $this->db->get('parameter')->result();
+            return count($result1);
+        }
+    }
+
 }
 
 /* End of file MasterModel.php */

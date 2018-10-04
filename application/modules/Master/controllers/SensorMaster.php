@@ -132,13 +132,18 @@ class SensorMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
+//            $check = $this->sensormodel->check_sensortype_in_use($id);
+//            if (count($check) > 0) {
+//                $this->session->set_flashdata('error_msg', 'Sensor type is in Use');
+//            } else {
             $data = array('isdeleted' => 1);
             $response = $this->sensormodel->sensortype_update($id, $data);
             if ($response > 0) {
-                $this->session->set_flashdata('success_msg', 'Successfully deleted an asset type');
+                $this->session->set_flashdata('success_msg', 'Successfully deleted an sensor type');
             } else {
-                $this->session->set_flashdata('error_msg', 'Failed to delete asset type');
+                $this->session->set_flashdata('error_msg', 'Failed to delete sensor type');
             }
+//            }
             redirect('sensortype');
         } elseif ($this->input->post('post') == 'edit' || $this->session->userdata('sensore_post')) {
             $data['permission'] = $this->users->get_permissions('Sensor Type');
