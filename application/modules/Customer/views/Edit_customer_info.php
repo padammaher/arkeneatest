@@ -119,6 +119,26 @@
                                     <div id="email_error" style="color:red;"></div>
                                 </div>
                             </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="company_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'company');" >
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
+                                    <img src="http://bidvestlocal/assets/images/logo.png" id="company_logo" alt="Company Logo" height="50" width="50">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Logo
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="profile_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'profile');" >
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
+                                    <img src="http://bidvestlocal/assets/images/img.jpg" id="profile_logo" alt="Profile Logo" height="50" width="50">
+                                </div>
+                            </div>
                             <div class="ln_solid">
                             </div>
                         <?php } ?> 
@@ -160,6 +180,20 @@
                 $("#City_id").html(data);
             }
         });
+    }
+    function readURL(input, type) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                if (type == 'company') {
+                    $('#company_logo').attr('src', e.target.result);
+                } else {
+                    $('#profile_logo').attr('src', e.target.result);
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
     }
     $(document).ready(function () {
 
@@ -225,4 +259,11 @@
     .form-group .control-label:after {
         content:"*";color:greay;
     }
+    .margin-top{
+        margin-top: 10px;
+    }
+    /*    input[type=file]{
+            width:90px;
+            color:transparent;
+        }*/
 </style>

@@ -429,9 +429,6 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Asset Location');
-            //check user Permission
-            userPermissionCheck($data['permission'], 'view');
 
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
@@ -465,10 +462,16 @@ class AssetsManagement extends MY_Controller {
                 $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
                 $data['asset_location_list'] = $this->Assets->edit_assets_location($asset_loc_id);
                 if ($form_action == 'edit') {
+                    $data['permission'] = $this->users->get_permissions('Asset Location');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'update');
                     $data['dataHeader']['title'] = "Edit Asset Location";
                     load_view_template($data, 'Assets/assets_location_edit');
                 }
                 if ($form_action == 'update') {
+                    $data['permission'] = $this->users->get_permissions('Asset Location');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'update');
 
                     $unique_Data = array(
                         'location' => $this->input->post('asset_location'),
@@ -522,7 +525,9 @@ class AssetsManagement extends MY_Controller {
                         load_view_template($data, 'Assets/assets_location_edit');
                     }
                 } elseif ($form_action == 'delete') {
-
+                    $data['permission'] = $this->users->get_permissions('Asset Location');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'delete');
                     //                      echo "delete".$asset_loc_form_action[1]; exit;
                     $delete_asset_location = $this->Assets->Delete_asset_location($asset_loc_id);
                     if ($delete_asset_location) {
@@ -531,6 +536,10 @@ class AssetsManagement extends MY_Controller {
                     }
                 }
             } else {
+                $data['permission'] = $this->users->get_permissions(['Asset Location', 'Asset User', 'Asset Management']);
+                //check user Permission
+                userPermissionCheck($data['permission'], 'view', 'Asset Location');
+
                 $data['dataHeader']['title'] = "Asset Location List";
                 $data['asset_location_list'] = $this->Assets->assets_location_list($user_id);
                 load_view_template($data, 'Assets/assets_location_list');
@@ -664,9 +673,9 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Asset User');
+            $data['permission'] = $this->users->get_permissions(['Asset User', 'Asset Location', 'Asset Management']);
             //check user Permission
-            userPermissionCheck($data['permission'], 'view');
+            userPermissionCheck($data['permission'], 'view', 'Asset User');
 
             // set the flash data error message if there is one
             $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
@@ -775,9 +784,6 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $data['permission'] = $this->users->get_permissions('Asset User');
-            //check user Permission
-            userPermissionCheck($data['permission'], 'update');
 
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
@@ -812,8 +818,14 @@ class AssetsManagement extends MY_Controller {
 
 
                 if ($asset_user_post == 'edit') {
+                    $data['permission'] = $this->users->get_permissions('Asset User');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'update');
                     load_view_template($data, 'Assets/user_assets_edit');
                 } else if ($asset_user_post == 'update') {
+                    $data['permission'] = $this->users->get_permissions('Asset User');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'update');
                     $todaysdate = date('Y-m-d');
 
                     if ($this->form_validation->run() == TRUE) {
@@ -857,7 +869,9 @@ class AssetsManagement extends MY_Controller {
                         load_view_template($data, 'Assets/user_assets_edit');
                     }
                 } else if ($asset_user_post == 'delete') {
-
+                    $data['permission'] = $this->users->get_permissions('Asset User');
+                    //check user Permission
+                    userPermissionCheck($data['permission'], 'delete');
                     $delete_user_list_data = $this->Assets->delete_asset_user($asset_user_post_id);
                     if ($delete_user_list_data) {
                         $this->session->set_flashdata('success_msg', 'Asset user successfully deleted');
@@ -908,7 +922,7 @@ class AssetsManagement extends MY_Controller {
         //check user Permission
         userPermissionCheck($data['permission'], 'add');
         $parameter_id = $this->session->userdata('parameter_id');
-        $parameter_range_id=$this->session->userdata('parameter_range_id');
+        $parameter_range_id = $this->session->userdata('parameter_range_id');
         $user_id = $this->session->userdata('user_id');
 
         if ($this->input->post('asset_rule_id')) {
@@ -926,7 +940,7 @@ class AssetsManagement extends MY_Controller {
             $uom_data = $this->Assets->get_uom_list_type($param_data[0]['uom_type_id']);
         $data['uom_data'] = (isset($uom_data)) ? $uom_data : '';
 
-        $parameter_range = $this->Assets->get_parameter_range_limits($parameter_range_id);   
+        $parameter_range = $this->Assets->get_parameter_range_limits($parameter_range_id);
         $data['paramete_limit'] = $parameter_range;
         // if(isset($uom_data[0]['name']))   
         // $this->data['uom_name'] = $uom_data[0]['name'];
