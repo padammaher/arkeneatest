@@ -250,6 +250,10 @@ class UomMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
+//            $check = $this->uommodel->check_uomtype_in_use($id);
+//            if ($check > 0) {
+//                $this->session->set_flashdata('error_msg', 'UOM Type is already in Use');
+//            } else {
             $data = array('isdeleted' => 1);
             $response = $this->uommodel->uomtype_update($id, $data);
 
@@ -258,6 +262,7 @@ class UomMaster extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error_msg', 'Failed to delete an UOM type');
             }
+//            }
             redirect('uom_type_list');
         }
         if ($this->input->post('post') == 'edit' || $this->session->userdata('edit_uom_type')) {
@@ -384,6 +389,10 @@ class UomMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
+//            $check = $this->uommodel->check_uom_in_use($id);
+//            if ($check > 0) {
+//                $this->session->set_flashdata('error_msg', 'UOM is already in Use');
+//            } else {
             $data = array('isdeleted' => 1);
             $response = $this->uommodel->delete_uom_record($id, $data);
             if ($response > 0) {
@@ -391,6 +400,7 @@ class UomMaster extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error_msg', 'Failed to delete an UOM type');
             }
+//            }
             redirect('uomlist');
         }
         if ($this->input->post('post') == 'edit' || $this->session->userdata('edit_uom_type')) {

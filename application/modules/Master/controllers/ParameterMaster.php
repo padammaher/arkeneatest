@@ -141,6 +141,10 @@ class ParameterMaster extends CI_Controller {
         }
         if ($this->input->post('post') == 'delete') {
             $id = $this->input->post('id');
+//            $check = $this->parametermodel->check_parameter_in_use($id);
+//            if ($check > 0) {
+//                $this->session->set_flashdata('error_msg', 'Parameter is already in Use');
+//            } else {
             $data = array('isdeleted' => 1);
             $response = $this->parametermodel->parameter_update($id, $data);
             if ($response > 0) {
@@ -148,6 +152,7 @@ class ParameterMaster extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error_msg', 'Failed to delete parameter');
             }
+//            }
             redirect('parameterlist');
         }
         if ($this->input->post('post') == 'edit' || $this->session->userdata('parame_post')) {

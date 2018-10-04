@@ -200,4 +200,39 @@ class UomModel extends MY_Model {
         return $result;
     }
 
+    function check_uomtype_in_use($id) {
+        $this->db->select('uom_type.id,parameter.id as paramid');
+        $this->db->join('parameter', 'uom_type.id=parameter.uom_type_id');
+        $this->db->where(array('uom_type.id' => $id, 'parameter.isactive' => 1, 'parameter.isdeleted' => 0));
+        $result = $this->db->get('uom_type')->result();
+
+        if (count($result) > 0) {
+            return count($result);
+        } else {
+            $this->db->select('uom_type.id,uom.id as uomid');
+            $this->db->join('uom', 'uom_type.id=uom.uom_type_id');
+            $this->db->where(array('uom_type.id' => $id, 'uom.isactive' => 1, 'uom.isdeleted' => 0));
+            $result1 = $this->db->get('uom_type')->result();
+            return count($result1);
+        }
+    }
+
+    function check_uom_in_use($id) {
+        $this->db->select('uom.id,parameter_range.id as paramrangeid,uom.uom_type_id');
+        $this->db->join('parameter_range', 'uom.id=parameter_range.uom_id');
+        $this->db->where('uom.uom_type_id', $id);
+        $this->db->where(array('parameter_range.isactive' => 1, 'parameter_range.isdeleted' => 0, 'uom.isdeleted' => 0));
+        $result = $this->db->get('uom')->result();
+
+        if (count($result) > 0) {
+            return count($result);
+        } else {
+            $this->db->select('uom.id,sensor_inventory.id as sensin_id,uom.uom_type_id');
+            $this->db->join('sensor_inventory', 'uom.id=sensor_inventory.uom_type_id');
+            $this->db->where(array('uom.uom_type_id' => $id, 'sensor_inventory.isactive' => 1, 'sensor_inventory.isdeleted' => 0, 'uom.isdeleted' => 0));
+            $result1 = $this->db->get('uom')->result();
+            return count($result1);
+        }
+    }
+
 }
