@@ -81,7 +81,7 @@ $back_action = $this->input->post('back_action');
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control locationMultiple" name="sensorid[]" id="sensorid"  
-                                    <?php echo $managed_dev_sen_Id_readonly == 'sen' ? 'readonly="readonly"' : ''; ?> multiple="multiple" >
+                                    <?php echo $managed_dev_sen_Id_readonly == 'sen' ? 'readonly="readonly"' : 'multiple="multiple"'; ?>  >
                                     <?php if ($managed_dev_sen_Id_readonly != "sen") { ?>                                     
                                         <!--<option value="">Select Sensor Number</option>-->
                                     <?php } ?>   
@@ -112,6 +112,7 @@ $back_action = $this->input->post('back_action');
                                 </select>        
                             </div>
 <?php if (form_error('sensorid[]')) { ?>
+                            
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; ">
     <?php echo form_error('sensorid[]'); ?>
                                 </span>

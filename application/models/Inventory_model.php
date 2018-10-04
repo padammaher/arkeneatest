@@ -274,7 +274,7 @@ class Inventory_model extends MY_Model {
 
     public function sensorid_list($user_id) {
         $group_id = $this->session->userdata('group_id');
-        $this->db->select('device_inventory.id as `device_inventory_id`,sensor_inventory.id,sensor_inventory.sensor_no');
+        $this->db->select('sensor_inventory.id,device_inventory.id as `device_inventory_id`,sensor_inventory.sensor_no');
         $this->db->from('sensor_inventory');
         $this->db->join('device_inventory', 'device_inventory.customer_location_id=sensor_inventory.customer_location_id', 'inner');
         $this->db->where('sensor_inventory.isactive', 1);
@@ -284,8 +284,9 @@ class Inventory_model extends MY_Model {
         $this->db->where('sensor_inventory.createdby', $user_id);
         }
         
-        $this->db->group_by('sensor_inventory.id');
+        $this->db->group_by('sensor_inventory.id');        
         $query = $this->db->get();
+//        echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
         
@@ -378,23 +379,63 @@ class Inventory_model extends MY_Model {
         return $this->db->insert_id();
     }
 
-    public function Edit_device_sensors_model($dev_sens_id) {
-        $this->db->select('device_sensor_mapping.id,
-                           device_sensor_mapping.device_id,
-                           device_sensor_mapping.sensor_id,
-                           device_sensor_mapping.createdat,
-                           device_sensor_mapping.createdby,
-                           device_sensor_mapping.isactive,
-                           device_inventory.id as `device_inventory_id`,device_inventory.number,
-                           sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`');
-        $this->db->from('device_sensor_mapping');
-        $this->db->join('device_inventory', 'device_sensor_mapping.device_id=device_inventory.id');
-        $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
-        $this->db->where('device_sensor_mapping.id', $dev_sens_id);
-        $query = $this->db->get();
+    public function Edit_device_sensors_model($dev_sens_id,$dev_sen_post_add) {
+        $returnIds='';
+        $group_id = $this->session->userdata('group_id');
+        if($dev_sen_post_add == '') {
+        
+        $Sen_query=$this->db->select('device_id,sensor_id')
+                            ->from('device_sensor_mapping')
+                            ->where('device_sensor_mapping.id',$dev_sens_id)
+                            ->get();
+            $Sen_queryRes=$Sen_query->result();
+//            print_r($Sen_queryRes);
+           if($Sen_queryRes){
+                    foreach ($Sen_queryRes as $Sen_queryRes_value) {
+                     $returnIds =$Sen_queryRes_value->device_id;
+                    }
+            } 
+                    if($returnIds){    
+                    $this->db->select('device_sensor_mapping.id,
+                                       device_sensor_mapping.device_id,
+                                       device_sensor_mapping.sensor_id,
+                                       device_sensor_mapping.createdat,
+                                       device_sensor_mapping.createdby,
+                                       device_sensor_mapping.isactive,
+                                       device_inventory.id as `device_inventory_id`,device_inventory.number,
+                                       sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`');
+                    $this->db->from('device_sensor_mapping');
+                    $this->db->join('device_inventory', 'device_sensor_mapping.device_id=device_inventory.id');
+                    $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
+                    $this->db->where('device_sensor_mapping.device_id', $returnIds);
+                    $this->db->where(array('device_sensor_mapping.isactive'=>1,'device_sensor_mapping.isdeleted'=>0));
+                    if($group_id==2){
+                    $this->db->where(array('device_sensor_mapping.createdby'=>1));
+                    }
+        
+           }
+        }
+           else{
+                                    $this->db->select('device_sensor_mapping.id,
+                                        device_sensor_mapping.device_id,
+                                        device_sensor_mapping.sensor_id,
+                                        device_sensor_mapping.createdat,
+                                        device_sensor_mapping.createdby,
+                                        device_sensor_mapping.isactive,
+                                        device_inventory.id as `device_inventory_id`,device_inventory.number,
+                                        sensor_inventory.id as `sensor_inventory_tbl_id,sensor_inventory.sensor_no`');
+                     $this->db->from('device_sensor_mapping');
+                     $this->db->join('device_inventory', 'device_sensor_mapping.device_id=device_inventory.id');
+                     $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
+                     $this->db->where('device_sensor_mapping.id', $dev_sens_id);                     
+                     if($group_id==2){
+                     $this->db->where(array('device_sensor_mapping.createdby'=>1));
+                     }
+           }
+           
+           $query = $this->db->get();
 //        echo $this->db->last_query();
         $objData = $query->result_array();
-
         return $objData;
     }
 

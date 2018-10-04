@@ -421,13 +421,17 @@ class Inventory extends MY_Controller {
 //                exit;
                 $form_action = ($this->input->post('post')) == '' ? $this->input->post('dev_sen_post') : $this->input->post('post');
                 $sen_inv_id = ($this->input->post('id')) == '' ? $this->input->post('dev_sen_post_id') : $this->input->post('id');
+                $dev_sen_post_add=($this->input->post('dev_sen_post_add')) != '' ? $this->input->post('dev_sen_post_add') : '';
                 $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
                 $this->form_validation->set_rules('sensorid[]', 'Sensor ID', 'required');
 
-                $data['device_list'] = $this->Inventory_model->device_list($user_id);
+                $data['device_list'] = $this->Inventory_model->device_ids_for_dev_sen($user_id);
                 $data['sensorid_list'] = $this->Inventory_model->sensorid_list($user_id);
-
-                $data['Edit_device_sensors_data'] = $this->Inventory_model->Edit_device_sensors_model($sen_inv_id);
+//                echo $sen_inv_id ;
+//                print_r($data['device_list']);
+//exit;
+                $data['Edit_device_sensors_data'] = $this->Inventory_model->Edit_device_sensors_model($sen_inv_id,$dev_sen_post_add);
+//                print_r($data['Edit_device_sensors_data']);exit;
                 if ($form_action == 'edit') {
                     $device_id = $this->input->post('device_id');
                     $user_id = $this->session->userdata('user_id');
@@ -447,13 +451,10 @@ class Inventory extends MY_Controller {
                         for ($i = 0; $i < $k; $i++) {
                             $arr[$i] = $this->string_sanitize($sensor_input[$i]);
                         }
-//                         print_r($arr); exit;
-                        
-//                         print_r($arr);exit;
+//                        
                         if ($this->form_validation->run() == TRUE) {
                             
-                            $exsist_sensor_list= $this->Inventory_model->sensor_list_on_divice($device_id); 
-//                        print_r($exsist_sensor_list); exit;
+                            $exsist_sensor_list= $this->Inventory_model->sensor_list_on_divice($device_id);                         
                          foreach ($exsist_sensor_list as $key_list){
                              $checkexsit=''; 
                              foreach($arr as $key){
@@ -461,9 +462,11 @@ class Inventory extends MY_Controller {
                                        $checkexsit=1; 
                                   }
                              }
+//
                             if(!$checkexsit){  
-                                $delete_sensor_data = $this->Inventory_model->Delete_Device_sensor($key_list['id']);
+                               // $delete_sensor_data = $this->Inventory_model->Delete_Device_sensor($key_list['id']);
                             }
+                            
                          }
                             
                         foreach ($arr as $tag_key){
@@ -505,15 +508,35 @@ class Inventory extends MY_Controller {
                                     'isdeleted' => 0
                                 );
 
-                     
+                            if($k>1){ 
+//                                echo $k;exit;
                             $update_device_sensors_data = $this->Inventory_model->add_devicesensor($insert_data);                            
+                            }
                            }
 
                         }
-//                        var_dump($update_data);exit;
+//                        echo $tag_key;exit;
+                         $unique_Data = array(
+                                'device_id' => $this->input->post('deviceid'),
+                                'sensor_id' => $tag_key,
+                                'createdby' => $user_id,
+                                'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
+                                'isdeleted'=> 0
+                            );
+                            $update_data = array(
+                                    'device_id' => $this->input->post('deviceid'),
+                                    'sensor_id' => $tag_key,
+                                    'createdby' => $user_id,
+                                    'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
+//                                    'isdeleted' => 0
+                                );
+//                              print_r($unique_Data); exit();
+                           $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
+//                        var_dump($isUnique);exit;
                         if ($isUnique) {
-                            $this->session->set_flashdata('error_msg', 'Device sensor already updated!');
-                            load_view_template($data, 'DeviceInventory/edit_device_sensor');
+                            $this->session->set_flashdata('error_msg', 'Device sensor successfully updated!');
+//                            load_view_template($data, 'DeviceInventory/edit_device_sensor');
+                             return redirect('Device_sensor_list', 'refresh');
                         } else {
 
 
