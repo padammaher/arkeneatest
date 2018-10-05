@@ -44,39 +44,62 @@ class Customer extends MY_Controller {
     //     $this->template->write_view('footer', 'snippets/footer', '', TRUE);
     //     $this->template->render();
     // }
-    // public function add_customer_detail() {
-    //     if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
-    //         redirect('auth', 'refresh');
-    //     } else {
-    //         if ($this->input->post('customer_address'))
-    //             $additional_data['customer_address'] = $this->input->post('customer_address');
-    //         if ($this->input->post('contact_person'))
-    //             $additional_data['contact_person'] = $this->input->post('contact_person');
-    //         if ($this->input->post('country_id'))
-    //             $additional_data['country_id'] = $this->input->post('country_id');
-    //         if ($this->input->post('state_id'))
-    //             $additional_data['state_id'] = $this->input->post('state_id');
-    //         if ($this->input->post('city_id'))
-    //             $additional_data['city_id'] = $this->input->post('city_id');
-    //         if ($this->input->post('pincode'))
-    //             $additional_data['pincode'] = $this->input->post('pincode');
-    //         if ($this->input->post('phone'))
-    //             $additional_data['phone'] = $this->input->post('phone');
-    //         if ($this->input->post('mobile'))
-    //             $additional_data['mobile'] = $this->input->post('mobile');
-    //         if ($this->input->post('email'))
-    //             $additional_data['email'] = $this->input->post('email');
-    //         $this->Customer_Model->add_customer($additional_data);
-    //         $user_id = $this->session->userdata('user_id');
-    //         $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
-    //         $this->template->set_master_template('template.php');
-    //         $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-    //         $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-    //         $this->template->write_view('content', 'customer_info', (isset($this->data) ? $this->data : NULL), TRUE);
-    //         $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-    //         $this->template->render();
-    //     }
-    // }
+//    public function add_customer_detail() {
+//        if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
+//            redirect('auth', 'refresh');
+//        } else {
+//            if ($this->input->post('customer_address'))
+//                $additional_data['customer_address'] = $this->input->post('customer_address');
+//            if ($this->input->post('contact_person'))
+//                $additional_data['contact_person'] = $this->input->post('contact_person');
+//            if ($this->input->post('country_id'))
+//                $additional_data['country_id'] = $this->input->post('country_id');
+//            if ($this->input->post('state_id'))
+//                $additional_data['state_id'] = $this->input->post('state_id');
+//            if ($this->input->post('city_id'))
+//                $additional_data['city_id'] = $this->input->post('city_id');
+//            if ($this->input->post('pincode'))
+//                $additional_data['pincode'] = $this->input->post('pincode');
+//            if ($this->input->post('phone'))
+//                $additional_data['phone'] = $this->input->post('phone');
+//            if ($this->input->post('mobile'))
+//                $additional_data['mobile'] = $this->input->post('mobile');
+//            if ($this->input->post('email'))
+//                $additional_data['email'] = $this->input->post('email');
+//
+//            $company_name = $_FILES['company_logo']['name'];
+//            if (isset($company_name)) {
+//                $company_path = './uploads/users/companylogo';
+//                $company_source_path = FCPATH . 'uploads/users/companylogo/';
+//                $file_name = "company_logo";
+//                $company_logo = upload_company_logo($file_name, $company_path, $company_source_path);
+//                if (!empty($company_logo)) {
+//                    $additional_data['company_logo'] = $company_logo;
+//                }
+//            }
+//            $profile_name = $_FILES['profile_logo']['name'];
+//            if (isset($profile_name)) {
+//                $profile_path = './uploads/users/profile';
+//                $profile_source_path = FCPATH . "uploads/users/profile/";
+//                $file_name = "profile_logo";
+//                $profile_logo = upload_profile_logo($file_name, $profile_path, $profile_source_path);
+//                if (!empty($profile_logo)) {
+//                    $additional_data['profileimg'] = $profile_logo;
+//                }
+//            }
+//
+//            $this->Customer_Model->add_customer($additional_data);
+//            $user_id = $this->session->userdata('user_id');
+////            $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
+//            redirect('Customerinfo');
+////            $this->template->set_master_template('template.php');
+////            $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
+////            $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
+////            $this->template->write_view('content', 'customer_info', (isset($this->data) ? $this->data : NULL), TRUE);
+////            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
+////            $this->template->render();
+//        }
+//    }
 
     public function edit_customer_detail() {
         if (!$this->ion_auth->logged_in()) {
@@ -130,6 +153,28 @@ class Customer extends MY_Controller {
                 $additional_data['email'] = $this->input->post('email');
             if ($this->input->post('user_id'))
                 $update_user_id = $this->input->post('user_id');
+
+
+            $company_name = $_FILES['company_logo']['name'];
+            if (isset($company_name)) {
+                $company_path = './uploads/users/companylogo';
+                $company_source_path = FCPATH . 'uploads/users/companylogo/';
+                $file_name = "company_logo";
+                $company_logo = upload_company_logo($file_name, $company_path, $company_source_path);
+                if (!empty($company_logo)) {
+                    $additional_data['company_logo'] = $company_logo;
+                }
+            }
+            $profile_name = $_FILES['profile_logo']['name'];
+            if (isset($profile_name)) {
+                $profile_path = './uploads/users/profile';
+                $profile_source_path = FCPATH . "uploads/users/profile/";
+                $file_name = "profile_logo";
+                $profile_logo = upload_profile_logo($file_name, $profile_path, $profile_source_path);
+                if (!empty($profile_logo)) {
+                    $additional_data['profileimg'] = $profile_logo;
+                }
+            }
 
             $this->Customer_Model->update_customer_detail($additional_data, $update_user_id);
             $this->Customer_Model->update_login_flag($user_id);

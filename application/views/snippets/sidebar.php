@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="<?php echo base_url(); ?>Dashboard" class="site_title"><img src="<?php echo base_url('assets/images/logo.png'); ?>"> <span>ePhytionSee</span></a>
+            <a href="<?php echo base_url(); ?>Dashboard" class="site_title"><img src="data:image/gif;base64,<?php echo $dataHeader['company_logo']; ?>"> <span>ePhytionSee</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -9,7 +9,7 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="<?php echo base_url('assets/images/img.jpg'); ?>" alt="..." class="img-circle profile_img">
+                <img src="data:image/gif;base64,<?php echo $dataHeader['profileimg']; ?>" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
