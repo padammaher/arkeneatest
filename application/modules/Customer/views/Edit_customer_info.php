@@ -130,7 +130,14 @@
                                         <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');" >
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                        <img src="data:image/gif;base64,<?php echo $user->company_logo; ?>" id="company_logo" alt="Company Logo" height="50" width="50">
+                                        <?php
+                                        if ($login_flag == 0 && $login_flag != '') {
+                                            $display = "style='display:none;'";
+                                        } else {
+                                            $display = "";
+                                        }
+                                        ?>
+                                        <img src="data:image/gif;base64,<?php echo $user->company_logo; ?>" id="company_logo" alt="Company Logo" height="50" width="50" <?php echo isset($display) ? $display : ''; ?>>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -141,7 +148,14 @@
                                     <input name="profile_logo" type="file" placeholder=""  onchange="readURL(this, 'profile');" >
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                    <img src="data:image/gif;base64,<?php echo $user->profileimg; ?>" id="profile_logo" alt="Profile Logo" height="50" width="50">
+                                    <?php
+                                    if ($login_flag == 0 && $login_flag != '') {
+                                        $display = "style='display:none;'";
+                                    } else {
+                                        $display = "";
+                                    }
+                                    ?>
+                                    <img src="data:image/gif;base64,<?php echo $user->profileimg; ?>" id="profile_logo" alt="Profile Logo" height="50" width="50" <?php echo isset($display) ? $display : ''; ?>>
                                 </div>
                             </div>
                             <div class="ln_solid">
@@ -192,8 +206,10 @@
 
             reader.onload = function (e) {
                 if (type == 'company') {
+                    $('#company_logo').css('display', 'block');
                     $('#company_logo').attr('src', e.target.result);
                 } else {
+                    $('#profile_logo').css('display', 'block');
                     $('#profile_logo').attr('src', e.target.result);
                 }
             };

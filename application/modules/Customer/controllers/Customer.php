@@ -119,7 +119,12 @@ class Customer extends MY_Controller {
                 $this->data['city'] = $this->Customer_Model->get_city_list($user_data[0]->state_id);
             $this->data['user_id'] = $user_id;
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
-            $this->data['dataHeader']['title'] = "Edit Customer Provisioning";
+            $login_flag = $this->session->userdata('login_flag');
+            if ($login_flag == 0 && $login_flag != '') {
+                $this->data['dataHeader']['title'] = "Add Customer Provisioning";
+            } else {
+                $this->data['dataHeader']['title'] = "Edit Customer Provisioning";
+            }
             load_view_template($this->data, 'Edit_customer_info');
         }
     }
