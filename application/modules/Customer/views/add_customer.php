@@ -11,9 +11,9 @@
                     </div>
                 </div>
                 <div class="x_content">
-                    <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url() ?>Customer/add_customer_detail">
+                    <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url() ?>Customer/add_customer_detail" enctype="multipart/form-data">
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Name
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Customer Name <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" class="form-control static-text" placeholder="Asset Sr. No." value="<?php echo isset($user_name) ? $user_name : ''; ?>" disabled>
@@ -22,24 +22,24 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Address <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input name="customer_address" type="text" class="form-control" placeholder="Address">
+                                <input name="customer_address" type="text" class="form-control" placeholder="Address" required="required">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person Name
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person Name 
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="contact_per_name" type="text" class="form-control" placeholder="Contact Person Name">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Country
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="Country" onChange="getState(this.value);">
+                                <select class="form-control" name="Country" onChange="getState(this.value);" required> 
                                     <?php foreach ($country as $contries) { ?> 
                                         <option value="<?php echo $contries->id; ?>"><?php echo $contries->name; ?> </option>
                                     <?php } ?> 
@@ -47,72 +47,72 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">State
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="State" id="State_id" onChange="getCity(this.value);">
+                                <select class="form-control" name="State" id="State_id" onChange="getCity(this.value);" required>
                                     <option value="">Select</option>
                                 </select>
                             </div>
                         </div>						  
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">City
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="City" id="City_id">
+                                <select class="form-control" name="City" id="City_id" required>
                                     <option value="pune">pune </option>
                                     <option value="Mumbai">Mumbai</option>
                                 </select>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="Pincode" type="number" class="form-control" placeholder="Pincode" required="required">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No.
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Telephone No. <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="Telephone" type="number" class="form-control" placeholder="Telephone No." required="required">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No. <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="Mobile" type="number" class="form-control" placeholder="Mobile No." required="required">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="Email" type="Email" class="form-control" placeholder="Email ID" required="required">
                             </div>
                         </div>
-                        <!--                        <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input name="company_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'company');" >
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                                        <img src="http://bidvestlocal/assets/images/logo.png" id="company_logo" alt="Company Logo" height="50" width="50">
-                                                    </div>
-                                                </div>
-                                                <div class="item form-group">
-                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Logo
-                                                    </label>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <input name="profile_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'profile');" >
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                                        <img src="http://bidvestlocal/assets/images/img.jpg" id="profile_logo" alt="Profile Logo" height="50" width="50">
-                                                    </div>
-                                                </div>-->
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo <span>*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input name="company_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'company');" accept=".png, .jpg, .jpeg,.gif">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
+                                <img src="http://bidvestlocal/assets/images/logo.png" id="company_logo" alt="Company Logo" height="50" width="50">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Logo <span>*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input name="profile_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'profile');" accept=".png, .jpg, .jpeg,.gif">
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
+                                <img src="http://bidvestlocal/assets/images/img.jpg" id="profile_logo" alt="Profile Logo" height="50" width="50">
+                            </div>
+                        </div>
                         <div class="ln_solid">
                         </div>
                         <div class="item form-group">

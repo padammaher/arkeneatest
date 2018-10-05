@@ -1,4 +1,4 @@
-<?php // var_dump($dataHeader)    ?>
+<?php // var_dump($dataHeader)     ?>
 <div class="top_nav">
     <div class="nav_menu">
         <nav>
@@ -6,10 +6,10 @@
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a> <div class="companyid"><?php echo $dataHeader['company_name']; ?></div>
             </div>
 
-              <ul class="nav navbar-nav navbar-right"><li class="dropdown logout"><a href="<?php echo base_url() ?>auth/logout" class="dropdown-toggle info-number mt-10"><i class="fa fa-power-off pull-right"></i></a></li>
+            <ul class="nav navbar-nav navbar-right"><li class="dropdown logout"><a href="<?php echo base_url() ?>auth/logout" class="dropdown-toggle info-number mt-10"><i class="fa fa-power-off pull-right"></i></a></li>
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="<?php echo base_url('assets/images/img.jpg'); ?>" alt=""><?php echo $dataHeader['username']; ?>
+                        <img src="data:image/gif;base64,<?php echo $dataHeader['profileimg']; ?>" alt=""><?php echo $dataHeader['username']; ?>
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
