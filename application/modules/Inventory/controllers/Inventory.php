@@ -534,7 +534,7 @@ class Inventory extends MY_Controller {
                            $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
 //                        var_dump($isUnique);exit;
                         if ($isUnique) {
-                            $this->session->set_flashdata('error_msg', 'Device sensor successfully updated!');
+                            $this->session->set_flashdata('success_msg', 'Device sensor successfully updated!');
 //                            load_view_template($data, 'DeviceInventory/edit_device_sensor');
                              return redirect('Device_sensor_list', 'refresh');
                         } else {
@@ -725,6 +725,7 @@ class Inventory extends MY_Controller {
                 $add_sen_inv_form_action = explode(" ", $this->input->post('add_sen_inv_form_action'));
 
                 $sensor_form_action = explode(" ", $this->input->post('sensor_form_action'));
+                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $add_sen_inv_form_action[1]);
                 $unique_Data = array('sensor_no' => $this->input->post('sensornum'),
                     'sensor_type_id' => $this->input->post('sensortype'),
                     'make' => $this->input->post('make'),
@@ -780,13 +781,14 @@ class Inventory extends MY_Controller {
 //                        echo print_r($this->input->post());
 //                        exit();
                     } else if ($add_sen_inv_form_action[0] == "update") {
+                        
                         $isUnique = $this->Inventory_model->checkUnique('sensor_inventory', $unique_Data);
                         if ($isUnique) {
 
                             //                $data['error'] = 'Category name is already existed!';
                             //             echo "allready";
                             $this->session->set_flashdata('error_msg', 'Sensor inventory already updated!');
-                            load_view_template($data, 'SensorInventory/add_sensor_inventory');
+                            load_view_template($data, 'SensorInventory/edit_sensor_inventory_1');
                         } else {
                             $insertdata = $this->Inventory_model->update_sensor_inventory($insert_data, $add_sen_inv_form_action[1]);
                             if ($insertdata) {

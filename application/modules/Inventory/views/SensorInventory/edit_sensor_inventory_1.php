@@ -12,7 +12,7 @@
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url(); ?>Add_sensor_inventory">
                         <?php
-                        // echo "<pre>";
+//                         echo "<pre>";
 //print_r($sensor_inventory_list_data);
                         foreach ($sensor_inventory_list_data as $sensor_inventory_data) {
                             ?>
@@ -154,7 +154,7 @@
 
                                         <input type="checkbox" name="isactive" class="flat" <?php
     if (!empty($isactive)) {
-        echo ($isactive) == "1" ? 'checked' : '';
+        echo ($isactive) == "on" ? 'checked' : '';
     } else {
         echo ($sensor_inventory_data['isactive']) == "1" ? 'checked' : '';
     }

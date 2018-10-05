@@ -40,7 +40,8 @@ $back_action = $this->input->post('back_action');
                             $sensor_id = $Edit_device_sensors_data['sensor_id'];
                             $sensor_no=$Edit_device_sensors_data['sensor_no'];
                         }
-//                        echo count($temp_sensor_ids);
+//                        print_r($temp_sensor_ids);
+                        //                        echo count($temp_sensor_ids);
 //                        echo "<pre>";
 //                                      print_r($Edit_device_sensors_data); 
                         
@@ -118,13 +119,29 @@ $back_action = $this->input->post('back_action');
                                     } elseif ($managed_dev_sen_Id_readonly == "dev") {
                                         ?>
 
-                                        <option value="<?php echo isset($sensor_id)? $sensor_id:'';?>" <?php echo isset($sensor_id)? 'selected':'';?>><?php echo isset($sensor_no)? $sensor_no:'Select Sensor';?></option>  
-                                        <?php foreach ($sensorid_list as $sensorid_list_data_2) {
-                                        if($sensor_id != $sensorid_list_data_2['id']) { ?>
-                                            <option value="<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?> >  <?php echo $sensorid_list_data_2['sensor_no']; ?></option>
+                                        <!--<option value="<?php echo isset($sensor_id)? $sensor_id:'';?>" <?php echo isset($sensor_id)? 'selected':'';?>><?php echo isset($sensor_no)? $sensor_no:'Select Sensor';?></option>-->  
+                                        <?php // foreach ($sensorid_list as $sensorid_list_data_2) {
+//                                        if($sensor_id != $sensorid_list_data_2['id']) { ?>
+                                            <!--<option value="<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?> >  <?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
 
                                             <?php
-                                    } }  
+//                                    } } 
+                                    
+                                     $i = 0;
+                                        foreach ($sensorid_list as $key => $sensorid_list_data_2) {
+                                            if ($sensorid_list_data_2['id'] == $temp_sensor_ids[$i] && count($temp_sensor_ids) > $i) {
+                                                ?>
+                                                <option value="<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?>  ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>
+                                                <?php
+                                                $i++;
+                                            } else if (!in_array($sensorid_list_data_2['id'], $temp_sensor_ids)) {
+                                                ?> 
+                                                <option value="<?php echo $sensorid_list_data_2['id']; ?>" ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        
+                                        
                                     } else {
                                         ?>
                                         <?php
@@ -184,7 +201,7 @@ $back_action = $this->input->post('back_action');
                                 <!---->                                    <button type="submit" class="btn btn-primary" name="update_dev_sen_button" id="edit_inventory_button" >Update</button>
 
                                 <?php if (!empty($back_action)) { ?>
-                                    <input type="text" name="back_action" value="<?php echo set_value('back_action', $back_action); ?>" >
+                                    <input type="hidden" name="back_action" value="<?php echo set_value('back_action', $back_action); ?>" >
                                     <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
                                 <?php } else { ?>
                                     <a href="<?php echo base_url('Device_sensor_list'); ?>" type="button" class="btn btn-default">Cancel</a> 

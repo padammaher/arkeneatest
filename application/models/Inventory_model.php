@@ -283,7 +283,7 @@ class Inventory_model extends MY_Model {
         if($group_id =='2'){
         $this->db->where('sensor_inventory.createdby', $user_id);
         }
-        
+//        $this->db->where('sensor_inventory.id NOT IN (select device_sensor_mapping.sensor_id from device_sensor_mapping where device_sensor_mapping.isdeleted=0)');    
         $this->db->group_by('sensor_inventory.id');        
         $query = $this->db->get();
 //        echo $this->db->last_query();
@@ -381,15 +381,18 @@ class Inventory_model extends MY_Model {
 
     public function Edit_device_sensors_model($dev_sens_id,$dev_sen_post_add) {
         $returnIds='';
+         $user_id = $this->session->userdata('user_id');
         $group_id = $this->session->userdata('group_id');
-        if($dev_sen_post_add == '') {
+        $Explode_dev_sen_post_add=explode(" ",$dev_sen_post_add);
+ 
+        if($Explode_dev_sen_post_add[0] != 'sen') {
         
         $Sen_query=$this->db->select('device_id,sensor_id')
                             ->from('device_sensor_mapping')
                             ->where('device_sensor_mapping.id',$dev_sens_id)
                             ->get();
             $Sen_queryRes=$Sen_query->result();
-//            print_r($Sen_queryRes);
+//            print_r($Sen_queryRes); exit;
            if($Sen_queryRes){
                     foreach ($Sen_queryRes as $Sen_queryRes_value) {
                      $returnIds =$Sen_queryRes_value->device_id;
@@ -410,7 +413,7 @@ class Inventory_model extends MY_Model {
                     $this->db->where('device_sensor_mapping.device_id', $returnIds);
                     $this->db->where(array('device_sensor_mapping.isactive'=>1,'device_sensor_mapping.isdeleted'=>0));
                     if($group_id==2){
-                    $this->db->where(array('device_sensor_mapping.createdby'=>1));
+                    $this->db->where(array('device_sensor_mapping.createdby'=>$user_id));
                     }
         
            }
@@ -429,12 +432,12 @@ class Inventory_model extends MY_Model {
                      $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
                      $this->db->where('device_sensor_mapping.id', $dev_sens_id);                     
                      if($group_id==2){
-                     $this->db->where(array('device_sensor_mapping.createdby'=>1));
+                     $this->db->where(array('device_sensor_mapping.createdby'=>$user_id));
                      }
            }
-           
+//           exit;
            $query = $this->db->get();
-//        echo $this->db->last_query();
+//        echo $this->db->last_query();exit;
         $objData = $query->result_array();
         return $objData;
     }
