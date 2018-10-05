@@ -184,7 +184,7 @@ $back_action = $this->input->post('back_action');
                                 <!---->                                    <button type="submit" class="btn btn-primary" name="update_dev_sen_button" id="edit_inventory_button" >Update</button>
 
                                 <?php if (!empty($back_action)) { ?>
-                                    <input type="text" name="back_action" value="<?php echo set_value('back_action', $back_action); ?>" >
+                                    <input type="hidden" name="back_action" value="<?php echo set_value('back_action', $back_action); ?>" >
                                     <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
                                 <?php } else { ?>
                                     <a href="<?php echo base_url('Device_sensor_list'); ?>" type="button" class="btn btn-default">Cancel</a> 

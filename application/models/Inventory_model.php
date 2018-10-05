@@ -381,6 +381,7 @@ class Inventory_model extends MY_Model {
 
     public function Edit_device_sensors_model($dev_sens_id,$dev_sen_post_add) {
         $returnIds='';
+         $user_id = $this->session->userdata('user_id');
         $group_id = $this->session->userdata('group_id');
         if($dev_sen_post_add == '') {
         
@@ -410,7 +411,7 @@ class Inventory_model extends MY_Model {
                     $this->db->where('device_sensor_mapping.device_id', $returnIds);
                     $this->db->where(array('device_sensor_mapping.isactive'=>1,'device_sensor_mapping.isdeleted'=>0));
                     if($group_id==2){
-                    $this->db->where(array('device_sensor_mapping.createdby'=>1));
+                    $this->db->where(array('device_sensor_mapping.createdby'=>$user_id));
                     }
         
            }
@@ -429,7 +430,7 @@ class Inventory_model extends MY_Model {
                      $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
                      $this->db->where('device_sensor_mapping.id', $dev_sens_id);                     
                      if($group_id==2){
-                     $this->db->where(array('device_sensor_mapping.createdby'=>1));
+                     $this->db->where(array('device_sensor_mapping.createdby'=>$user_id));
                      }
            }
            
