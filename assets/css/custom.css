@@ -1338,7 +1338,7 @@ i .fa.fa-ellipsis-v:hover{cursor: pointer !important;}
 .date-cal-bg{background-color: #f9f9f9; width:100%;height:auto;box-shadow: 0px 0px 0px #e1e1e1; border: 1px solid #e1e1e1;}
 .date-cal-head{background-color: #1fb5ac; width:100%;height:auto; color:white;     box-shadow: 0px 2px 4px #e1e1e1;}
 .text-insp-success{color: #1fb5ac;}
-//.hidden{ display: none !important;}
+
 
 .icon-bg{
     position: relative;
@@ -1637,6 +1637,12 @@ textarea.form-control {
 /*.box-header.with-border {
     border-bottom: 1px solid #f4f4f4;
 }*/
+
+.checkboxhold .checkth {
+    background: #2a3f54;
+    color: #fff;
+    border-right: none !important;    
+}
 
 @media(min-width: 320px) and (max-width: 767px){
     .page-topbar{
