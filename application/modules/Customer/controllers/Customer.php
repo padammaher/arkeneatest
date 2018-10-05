@@ -323,8 +323,8 @@ class Customer extends MY_Controller {
                 if ($this->input->post('client_username'))
                     $additional_data['email'] = $this->input->post('client_username');
 
-                if ($this->input->post('password'))
-                    $additional_data['password'] = $this->input->post('password');
+//                if ($this->input->post('password'))
+//                    $additional_data['password'] = $this->input->post('password');
 
                 if ($this->input->post('status') == 'on') {
                     $additional_data['active'] = 1;

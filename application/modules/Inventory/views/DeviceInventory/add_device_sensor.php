@@ -43,7 +43,7 @@ $back_action = $this->input->post('back_action');
                                         <!--<option value="">Select Device Number</option>-->
                                     <?php } ?>         
                                     <?php if ($managed_dev_sen_Id_readonly == "dev") { ?>
-                                        <option value="">Select Device Number
+                                        <option value="" disabled>Select Device Number
                                         </option> 
                                         <?php
                                         foreach ($device_list as $device_id_list) {
@@ -58,7 +58,7 @@ $back_action = $this->input->post('back_action');
                                         }
                                     } else {
                                         ?>
-                                        <option value="">Select Device Number
+                                                <option value="" disabled>Select Device Number
                                         </option> 
                                                 <?php foreach ($device_list as $device_id_list_2) { ?>
                                             <option id="<?php echo $device_id_list_2['customer_location_id']; ?>" value="<?php echo $device_id_list_2['id']; ?>" 
@@ -86,7 +86,7 @@ $back_action = $this->input->post('back_action');
                                         <!--<option value="">Select Sensor Number</option>-->
                                     <?php } ?>   
                                     <?php if ($managed_dev_sen_Id_readonly == "sen") { ?>
-                                        <option value="">Select Sensor Number
+                                        <option value="" disabled>Select Sensor Number
                                         </option> 
                                         <?php
                                         foreach ($sensorid_list as $sensorid_list_data) {

@@ -61,6 +61,7 @@ if (isset($permission) && !empty($permission)) {
                                 <th>Sr.No</th>
                                 <th>Device_Num</th>
                                 <th>Sensor_Num</th>
+                                <th>Status</th>
                                 <?php
                                 if (isset($sensor_index)) {
                                     if ($permission[$sensor_index]->editpermission == 1 || $permission[$sensor_index]->deletepermission == 1) {
@@ -86,6 +87,7 @@ if (isset($permission) && !empty($permission)) {
                                         <td <?php echo $modal_idand_class; ?>><?php echo $i; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['number']; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['sensor_no']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['isactive']== 1 ? 'Active':'In_active'; ?></td>
                                         <?php
                                         if (isset($sensor_index)) {
                                             if ($permission[$sensor_index]->editpermission == 1 || $permission[$sensor_index]->deletepermission == 1) {
