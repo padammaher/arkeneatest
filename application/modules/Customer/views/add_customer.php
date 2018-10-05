@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Logo <span>*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Image <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="profile_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'profile');" accept=".png, .jpg, .jpeg,.gif">

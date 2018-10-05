@@ -7,6 +7,7 @@
 
         <div class="title_right">
             <div class="pull-right">
+                <!--<a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add IconPath</a>-->
                 <?php
                 if (isset($permission) && !empty($permission)) {
                     if ($permission[0]->addpermission == 1) {

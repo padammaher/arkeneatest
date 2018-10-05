@@ -94,7 +94,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="pincode" id="pincode" type="number" class="form-control" placeholder="Enter pincode" required="required" value="<?php echo $user->pincode; ?>">
+                                    <input name="pincode" id="pincode" type="text" class="form-control" placeholder="Enter pincode" pattern="[0-9\s]+" maxlength="4" required="required" value="<?php echo $user->pincode; ?>" title="Only 4 digits are allowed">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -108,7 +108,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="mobile" id="mobile" type="number" class="form-control" placeholder="Enter Mobile No." required="required" value="<?php echo $user->mobile; ?>">
+                                    <input name="mobile" id="mobile" type="number" class="form-control"  placeholder="Enter Mobile No." required="required" value="<?php echo $user->mobile; ?>">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Logo
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Image
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="profile_logo" type="file" placeholder=""  onchange="readURL(this, 'profile');" >
@@ -231,21 +231,30 @@
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
                 return false;
-            } else if (inputVal.length < 10) {
+            } else if (inputVal.length < 9) {
                 $("#customer_info_submit").prop("disabled", true);
                 $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
             }
-            if (inputVal.length == 10) {
+            if (inputVal.length == 9) {
                 $("#customer_info_submit").prop("disabled", false);
             }
         });
     });
     $('#pincode').keypress(function (e) {
+//        var pinVal = $(this).val();
+//        $('span.error-keyup-pin').remove();
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             //display error message
             $("#errmsg").html("Digits Only").show().fadeOut("slow");
             return false;
         }
+//        else if (pinVal.length > 3) {
+//            $("#customer_info_submit").prop("disabled", true);
+//            $(this).after('<span class="error error-keyup-pin" style="color:red">Maximum 4 number are allowed.</span>');
+//        }
+//        if (pinVal.length <= 3) {
+//            $("#customer_info_submit").prop("disabled", false);
+//        }
     });
     $('#phone').keypress(function (event) {
         var keycode = event.which;
