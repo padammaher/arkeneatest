@@ -101,13 +101,17 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                                    <label><?php $isactive = set_value('isactive'); ?>                          
+                                    <label><?php echo $isactive = set_value('isactive'); 
+//                                    echo $sensor_inventory_data['isactive']; ?>                          
 
-                                        <input type="checkbox" name="isactive" class="flat" <?php if (!empty($isactive)) {
-        echo ($isactive) == "1" ? 'checked' : '';
-    } else {
-        echo ($sensor_inventory_data['isactive']) == "1" ? 'checked' : '';
-    } ?>> Active
+                                        <input type="checkbox" name="isactive" class="flat" 
+                                            <?php
+                                            if (!empty($isactive)) {
+                                                echo ($isactive) == "on" ? 'checked' : '';
+                                            } else {
+                                                echo ($sensor_inventory_data['isactive']) == "1" ? 'checked' : '';
+                                            }
+                                            ?>> Active
                                     </label>
                                 </div>
                             </div>    
