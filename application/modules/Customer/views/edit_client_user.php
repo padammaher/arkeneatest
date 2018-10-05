@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">User Name
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email ID
                                 <span> *</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -58,24 +58,31 @@
                                 <div id="email_error" style="color:red"> </div>
                             </div>
                         </div>
+                        <?php if(!isset($client_details[0]->password)) { ?>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Password
                                 <span > *</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                
                                 <input name="password" type="password" id="client_password" class="form-control" placeholder="Enter Password" required="required"  value="<?php echo (isset($client_details[0]->password)) ? $client_details[0]->password : ''; ?>" >
+                                
                                 <div id="errorpassword"> </div>
                             </div>
-
                         </div>	
+                        <?php } ?>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <?php
                                 if (isset($client_details[0]->active) && $client_details[0]->active == 1) {
                                     $checked = "checked";
-                                } else {
-                                    $checked = "";
+                                } else if(set_value('status') == "on") {
+                                    $checked = "checked";
+                                }
+                                else
+                                {
+                                    $checked = "checked";
                                 }
                                 ?>
                                 <input type="checkbox" name="status" id="status" class="flat" <?php echo isset($checked) ? $checked : ''; ?>> Active

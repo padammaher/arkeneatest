@@ -48,7 +48,7 @@ if (isset($permission) && !empty($permission)) {
                     ?>
                     <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
                     <?php
-                }
+                }else {?>   <a class="btn btn-sm btn-primary not-allowed"><i class="fa fa-map-marker"></i> Asset Location</a> <?php }
             }
             ?>
             <?php
@@ -135,7 +135,7 @@ if (isset($permission) && !empty($permission)) {
                                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                                 </a>
                                                                 <?php
-                                                            }
+                                                            } else { ?>  <i class="fa fa-pencil blue not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
                                                         }
                                                         ?>
                 <!--                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
@@ -156,8 +156,8 @@ if (isset($permission) && !empty($permission)) {
                                                                         <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
                                                                     </a>   
                                                                     <?php
-                                                                }
-                                                            }
+                                                                }else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
+                                                            } 
                                                             ?>
                                                         <?php } else { ?>   
                                                             <?php
@@ -170,7 +170,7 @@ if (isset($permission) && !empty($permission)) {
 
                                                                     </a> 
                                                                     <?php
-                                                                }
+                                                                }else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php } 
                                                             }
                                                             ?>
                                                         <?php } ?>
@@ -189,7 +189,7 @@ if (isset($permission) && !empty($permission)) {
                                                                         <i class="fa fa-group text-warning"></i> 
                                                                     </a>
                                                                     <?php
-                                                                }
+                                                                } else { ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
                                                             }
                                                             ?>
                                                         <?php } else { ?>
@@ -202,7 +202,7 @@ if (isset($permission) && !empty($permission)) {
                                                                         <i class="fa fa-group text-warning"></i> 
                                                                     </a>
                                                                     <?php
-                                                                }
+                                                                } else { ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
                                                             }
                                                             ?>
                                                         <?php } ?>
@@ -220,7 +220,7 @@ if (isset($permission) && !empty($permission)) {
                                                                 </a>
                                                             </form>&nbsp;
                                                             <?php
-                                                        }
+                                                        } else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
                                                     }
                                                     ?>
                                                     <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
@@ -234,7 +234,7 @@ if (isset($permission) && !empty($permission)) {
                                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                                 </a> 
                                                                 <?php
-                                                            }
+                                                            } else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
                                                         }
                                                         ?>
                                                     </form>&nbsp;   

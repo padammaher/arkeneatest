@@ -490,6 +490,7 @@ class Inventory_model extends MY_Model {
          $this->db->where('device_inventory.createdby', $user_id);
         }
         $query = $this->db->get();
+//        echo $this->db->last_query()
         $objData = $query->result_array();
         return $objData;
     }
