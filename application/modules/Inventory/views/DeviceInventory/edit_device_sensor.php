@@ -105,7 +105,7 @@ $back_action = $this->input->post('back_action');
 
                                     <?php if ($managed_dev_sen_Id_readonly == "sen") { ?>
 
-                                                <!--<option value="<?php echo isset($sensor_id) ? $sensor_id : ''; ?>" <?php echo isset($sensor_id) ? 'selected' : ''; ?>><?php echo isset($sensor_no) ? $sensor_no : 'Select Sensor'; ?></option>-->  
+                                                <option value="<?php echo isset($sensor_id) ? $sensor_id : ''; ?>" <?php echo isset($sensor_id) ? 'selected' : ''; ?>><?php echo isset($sensor_no) ? $sensor_no : 'Select Sensor'; ?></option>  
                                         <?php
                                         foreach ($sensorid_list as $sensorid_list_data) {
                                             if ($managed_dev_sen_Id[1] == $sensorid_list_data['id']) {

@@ -571,6 +571,7 @@ class Inventory_model extends MY_Model {
         if($group_id =='2'){
          $this->db->where('sensor_inventory.createdby', $user_id);
         }
+        $this->db->where('sensor_inventory.id NOT IN (select device_sensor_mapping.sensor_id from device_sensor_mapping where device_sensor_mapping.isdeleted=0)');    
         $this->db->group_by('sensor_inventory.id');
         $query = $this->db->get();
         $objData = $query->result_array();
