@@ -104,6 +104,12 @@ class Auth extends MY_Controller {
     }
 
     public function dashboard() {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
+            
+        
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
         $data['dataHeader']['title'] = "Home";
@@ -115,9 +121,14 @@ class Auth extends MY_Controller {
 //        $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
 //        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
 //        $this->template->render();
+        }
     }
 
     public function restricted() {
+          if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
         $user_id = $this->session->userdata('user_id');
         $data['dataHeader'] = $this->users->get_allData($user_id);
         //echo "<script>alert('You must be an administrator to view this page.')</script>";
@@ -130,6 +141,7 @@ class Auth extends MY_Controller {
 //        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
 //        $this->template->render();
         return 0;
+    }
     }
 
     public function users() {
