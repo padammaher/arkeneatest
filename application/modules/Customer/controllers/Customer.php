@@ -13,6 +13,7 @@ class Customer extends MY_Controller {
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->lang->load('auth');
+        $this->load->library('image_lib');
     }
 
     public function index() {
@@ -159,23 +160,20 @@ class Customer extends MY_Controller {
             if ($this->input->post('user_id'))
                 $update_user_id = $this->input->post('user_id');
 
-
-            $company_name = $_FILES['company_logo']['name'];
-            if (isset($company_name)) {
-                $company_path = './uploads/users/companylogo';
-                $company_source_path = FCPATH . 'uploads/users/companylogo/';
+            $path = './uploads/users/profile';
+            $source_path = FCPATH . "uploads/users/profile/";
+//            $company_name = $_FILES['company_logo']['name'];
+            if (isset($_FILES['company_logo']['name'])) {
                 $file_name = "company_logo";
-                $company_logo = upload_company_logo($file_name, $company_path, $company_source_path);
+                $company_logo = upload_logo($file_name, $path, $source_path);
                 if (!empty($company_logo)) {
                     $additional_data['company_logo'] = $company_logo;
                 }
             }
-            $profile_name = $_FILES['profile_logo']['name'];
-            if (isset($profile_name)) {
-                $profile_path = './uploads/users/profile';
-                $profile_source_path = FCPATH . "uploads/users/profile/";
+//            $profile_name = $_FILES['profile_logo']['name'];
+            if (isset($_FILES['profile_logo']['name'])) {
                 $file_name = "profile_logo";
-                $profile_logo = upload_profile_logo($file_name, $profile_path, $profile_source_path);
+                $profile_logo = upload_logo($file_name, $path, $source_path);
                 if (!empty($profile_logo)) {
                     $additional_data['profileimg'] = $profile_logo;
                 }
