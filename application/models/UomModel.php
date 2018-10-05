@@ -235,4 +235,11 @@ class UomModel extends MY_Model {
         }
     }
 
+    function getUOM() {
+        $this->db->select('uom.id,uom.name,iconpath');
+        $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
+        $result = $this->db->get('uom')->result_array();
+        return $result;
+    }
+
 }

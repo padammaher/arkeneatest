@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
-        
+
 
         <title>Ephysionsee Login</title>
 
@@ -19,32 +19,40 @@
             <a class="hiddenanchor" id="signin"></a>
 
             <div class="login_wrapper">
-                  
+
                 <div class="animate form login_form">
-                  <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
-                                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                <strong></strong> <?php
-                                if ($this->session->flashdata('message')) {
-                                    echo $this->session->flashdata('message');
-                                }
-                                ?>
-                </div>      
+                    <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong></strong> <?php
+                        if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                        }
+                        ?>
+                    </div>      
                     <section class="login_content">
                         <?php echo form_open("auth/login", array('id' => 'login_form')); ?> 
                         <h1>Login Form</h1>
                         <div>
-                            <?php echo form_input($identity); ?>
-                            <div class="lgnErorr1"></div>
+                            <?php echo form_input($identity, '', 'required'); ?>
+                            <div class="lgnErorr1">
+                                <?php if (form_error('identity')) { ?>
+                                    <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('identity'); ?></span>
+                                <?php } ?>
+                            </div>
                         </div>
                         <div>
-                            <?php echo form_input($password); ?>
-                            <div class="lgnErorr2"></div>
+                            <?php echo form_input($password, '', 'required'); ?>
+                            <div class="lgnErorr2">
+                                <?php if (form_error('password')) { ?>
+                                    <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('password'); ?></span>
+                                <?php } ?>
+                            </div>
                         </div>
-<!--                        <div class="col-sm-12">
-                            <label class="checkbox">
-                                <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"'); ?> <?php echo lang('login_remember_label', 'remember'); ?>
-                            </label>
-                        </div>-->
+                        <!--                        <div class="col-sm-12">
+                                                    <label class="checkbox">
+                        <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"'); ?> <?php echo lang('login_remember_label', 'remember'); ?>
+                                                    </label>
+                                                </div>-->
                         <div>
                             <button class="btn btn-default submit" type="submit">LOGIN</button> 
                             <?php echo form_close(); ?>
@@ -108,19 +116,19 @@
         </div>
     </body>
     <script src="<?php echo base_url('assets/css/jquery/dist/jquery.min.js'); ?>" type="text/javascript"></script>
-            <script>
-            $(document).ready(function () {
-                var eoorrrr = "<?php echo $this->session->flashdata('message');?>";
-               
-                $("#error_msg").css("display", "none");
-<?php if ($this->session->flashdata('message')) { ?>
-        
-                    $("#error_msg").css("display", "block");
-                    setTimeout(function () {
-                        $('#error_msg').fadeOut('fast');
+    <script>
+        $(document).ready(function () {
+            var eoorrrr = "<?php echo $this->session->flashdata('message'); ?>";
 
-                    }, 3000);
+            $("#error_msg").css("display", "none");
+<?php if ($this->session->flashdata('message')) { ?>
+
+                $("#error_msg").css("display", "block");
+                setTimeout(function () {
+                    $('#error_msg').fadeOut('fast');
+
+                }, 3000);
 <?php } ?>
-    });
-        </script>
+        });
+    </script>
 </html>

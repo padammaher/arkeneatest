@@ -489,4 +489,20 @@ class UomMaster extends CI_Controller {
         }
     }
 
+    public function add_uom_icon() {
+        if (!$this->ion_auth->logged_in()) {
+            redirect('auth/login', 'refresh');
+        } else {
+            if ($_POST) {
+                
+            } else {
+                $user_id = $this->session->userdata('user_id');
+                $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['dataHeader']['title'] = "Manage UOM Icon";
+                $data['uom_icon_data'] = $this->uommodel->getUOM();
+                load_view_template($data, 'master/uom_icon/add_view');
+            }
+        }
+    }
+
 }

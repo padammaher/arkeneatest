@@ -119,16 +119,21 @@
                                     <div id="email_error" style="color:red;"></div>
                                 </div>
                             </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');" >
+                            <?php
+                            $group_id = $this->session->userdata('group_id');
+                            if ($group_id == 1) {
+                                ?>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');" >
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
+                                        <img src="data:image/gif;base64,<?php echo $user->company_logo; ?>" id="company_logo" alt="Company Logo" height="50" width="50">
+                                    </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                    <img src="data:image/gif;base64,<?php echo $user->company_logo; ?>" id="company_logo" alt="Company Logo" height="50" width="50">
-                                </div>
-                            </div>
+                            <?php } ?>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Image
                                 </label>

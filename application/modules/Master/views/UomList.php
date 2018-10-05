@@ -7,7 +7,7 @@
 
         <div class="title_right">
             <div class="pull-right">
-                <!--<a href="" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add IconPath</a>-->
+                <!--<a href="<?php echo base_url() ?>manageIcon" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Manage Icon</a>-->
                 <?php
                 if (isset($permission) && !empty($permission)) {
                     if ($permission[0]->addpermission == 1) {
@@ -30,8 +30,8 @@
                     <table id="datatable" class="table table-striped table-bordered item-table" >
                         <thead>
                             <tr><th>Sr. No</th>
-                                <th>UOM Type</th>
                                 <th>UOM</th>
+                                <th>UOM Type</th>
                                 <th>Status</th>
                                 <?php
                                 if (isset($permission) && !empty($permission)) {
@@ -53,8 +53,8 @@
                                     ?>
                                     <tr>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $i; ?></td>
-                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uomnames']; ?></td>
+                                        <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['active'] == 1 ? 'Active' : 'In-active'; ?></td>
                                         <?php
                                         if (isset($permission) && !empty($permission)) {
