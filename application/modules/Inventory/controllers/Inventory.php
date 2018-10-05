@@ -534,7 +534,7 @@ class Inventory extends MY_Controller {
                            $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
 //                        var_dump($isUnique);exit;
                         if ($isUnique) {
-                            $this->session->set_flashdata('error_msg', 'Device sensor successfully updated!');
+                            $this->session->set_flashdata('success_msg', 'Device sensor successfully updated!');
 //                            load_view_template($data, 'DeviceInventory/edit_device_sensor');
                              return redirect('Device_sensor_list', 'refresh');
                         } else {

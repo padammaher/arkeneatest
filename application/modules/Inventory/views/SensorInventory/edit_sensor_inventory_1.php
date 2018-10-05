@@ -12,7 +12,7 @@
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url(); ?>Add_sensor_inventory">
                         <?php
-                        // echo "<pre>";
+//                         echo "<pre>";
 //print_r($sensor_inventory_list_data);
                         foreach ($sensor_inventory_list_data as $sensor_inventory_data) {
                             ?>
