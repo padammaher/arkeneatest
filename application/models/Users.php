@@ -38,6 +38,12 @@ class Users extends MY_Model {
         if ($objData) {
             $objData[0]['menulist'] = $this->get_menu_list();
         }
+        if (isset($objData)) {
+            $group_id = $objData[0]['group_id'];
+            if ($group_id != 1) {
+                $objData[0]['admin_company_logo'] = $this->get_company_logo();
+            }
+        }
         return $objData[0];
     }
 
@@ -97,6 +103,15 @@ class Users extends MY_Model {
             $this->db->where('menu.menuName', $menu);
         }
         $result = $this->db->get('privileges')->result();
+        return $result;
+    }
+
+    public function get_company_logo() {
+        $this->db->select('company_logo');
+        $this->db->from('users');
+        $this->db->where('group_id', 1);
+        $query = $this->db->get();
+        $result = $query->result_array();
         return $result;
     }
 
