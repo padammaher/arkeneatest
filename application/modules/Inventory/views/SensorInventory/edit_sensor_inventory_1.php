@@ -154,7 +154,7 @@
 
                                         <input type="checkbox" name="isactive" class="flat" <?php
     if (!empty($isactive)) {
-        echo ($isactive) == "1" ? 'checked' : '';
+        echo ($isactive) == "on" ? 'checked' : '';
     } else {
         echo ($sensor_inventory_data['isactive']) == "1" ? 'checked' : '';
     }
