@@ -21,11 +21,11 @@
                             <tr>
                                 
                                 
-                        <th>Menu</th>
-                                <th>Add</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                                 <th>View</th>
+                        <th width="20%">Menu</th>
+                                 <th width="20%" class="text-center">Add</th>
+                                 <th width="20%" class="text-center">Edit</th>
+                                <th width="20%" class="text-center">Delete</th>
+                                  <th width="20%" class="text-center">View</th>
                                
                             </tr>
                         </thead>
@@ -38,10 +38,10 @@
                                     ?>
                    <tr>
                         <td><?php echo $data->menuName ?></td>
-                        <td><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"  <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->addpermission =='1'? 'checked':'';?>></label></td>
-                        <td><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->editpermission =='1'? 'checked':'';?>></label></td>
-                        <td><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->deletepermission =='1'? 'checked':'';?>></label></td>
-                        <td><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->viewpermission =='1'? 'checked':'';?>></label></td>
+                        <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"  <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->addpermission =='1'? 'checked':'';?>></label></td>
+                        <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->editpermission =='1'? 'checked':'';?>></label></td>
+                        <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->deletepermission =='1'? 'checked':'';?>></label></td>
+                        <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]" <?php if(isset($user_privilege_data[$k]))echo $user_privilege_data[$k]->viewpermission =='1'? 'checked':'';?>></label></td>
 
                     </tr>
                             <?php } } 
