@@ -107,7 +107,7 @@ class Assets extends MY_Model {
 
     public function assets_list($user_id, $id = NULL) {
         $group_id = $this->session->userdata('group_id');
-        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,asset.isactive,users.first_name as `client_name`,users.username as `client_username`,customer_business_location.id as locid,asset_location.id as assetlocid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable,asset.startdate,asset.enddate');
+        $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,asset.isactive,users.first_name as `client_name`,users.username as `client_username`,customer_business_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable,asset.startdate,asset.enddate,asset_location.id as assetlocid');
         //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
         $this->db->from('asset');
         $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
@@ -115,7 +115,8 @@ class Assets extends MY_Model {
         $this->db->join('asset_user', 'asset_user.asset_id= asset.id', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
         $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
-        $this->db->join('users', 'users.id=asset.createdby');
+        $this->db->join('users', 'users.id=asset.createdby','left');
+//        $this->db->where('users.isdeleted IN (select users.id as assetlocid from asset_location where isdeleted=0 and asset_location.asset_id=asset.id)', NULL, FALSE);
 //        $this->db->group_by('asset.id');
         if (isset($id) && $id !== NULL) {
             $this->db->where('asset.id', $id);
