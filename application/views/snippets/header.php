@@ -3,10 +3,10 @@
     <div class="nav_menu">
         <nav>
             <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a> <div class="companyid"><?php echo $dataHeader['company_name']; ?></div>
+                <a id="menu_toggle"><i class="fa fa-bars" ></i></a> <div class="companyid" ><?php echo $dataHeader['company_name']; ?></div>
             </div>
 
-              <ul class="nav navbar-nav navbar-right"><li class="dropdown logout"><a href="<?php echo base_url() ?>auth/logout" class="dropdown-toggle info-number mt-10"><i class="fa fa-power-off pull-right"></i></a></li>
+              <ul class="nav navbar-nav navbar-right"><li class="dropdown logout"><a title="Logout" href="<?php echo base_url() ?>auth/logout" class="dropdown-toggle info-number mt-10"><i class="fa fa-power-off pull-right"></i></a></li>
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <img src="<?php echo base_url('assets/images/img.jpg'); ?>" alt=""><?php echo $dataHeader['username']; ?>
