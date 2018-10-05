@@ -86,7 +86,7 @@ class Auth extends MY_Controller {
             if ($user->login_flag == 0) {
                 $view = "index1";
             } else {
-                $view = "index1";
+                $view = "index2";
             }
             load_view_template($this->data, $view);
 
