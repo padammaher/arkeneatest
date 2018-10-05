@@ -33,23 +33,23 @@ $back_action = $this->input->post('back_action');
                         <?php
                         $temp_device_ids = '';
                         $temp_sensor_ids = '';
+//                         echo "<pre>";
+//                                      print_r($Edit_device_sensors_data); 
                         foreach ($Edit_device_sensors_data as $Edit_device_sensors_data) {
                             $temp_device_ids = $Edit_device_sensors_data['device_id'];
                             $temp_sensor_ids[] = $Edit_device_sensors_data['sensor_inventory_tbl_id'];
-                            $number=$Edit_device_sensors_data['number'];
+                            $temp_sensor_number[] = $Edit_device_sensors_data['sensor_no'];
+                            $number = $Edit_device_sensors_data['number'];
                             $sensor_id = $Edit_device_sensors_data['sensor_id'];
-                            $sensor_no=$Edit_device_sensors_data['sensor_no'];
+                            $sensor_no = $Edit_device_sensors_data['sensor_no'];
                         }
 //                        print_r($temp_sensor_ids);
                         //                        echo count($temp_sensor_ids);
-//                        echo "<pre>";
-//                                      print_r($Edit_device_sensors_data); 
-                        
                         ?>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">   
-                                
+
                                 <select class="form-control" name="deviceid" id="deviceid" required="required" <?php
                                 if (!empty($managed_dev_sen_Id_readonly)) {
                                     echo $managed_dev_sen_Id_readonly == 'dev' ? 'readonly="readonly"' : '';
@@ -64,20 +64,19 @@ $back_action = $this->input->post('back_action');
 
                                     <?php if ($managed_dev_sen_Id_readonly == "dev") { ?>
 
-                                        <option value="<?php echo isset($temp_device_ids) ? $temp_device_ids:''; ?>"><?php echo isset($number)? $number : 'Select device Number';?></option> <?php
+                                        <option value="<?php echo isset($temp_device_ids) ? $temp_device_ids : ''; ?>"><?php echo isset($number) ? $number : 'Select device Number'; ?></option> <?php
                                         foreach ($device_list as $device_id_list) {
                                             if ($managed_dev_sen_Id[1] == $device_id_list['id']) {
                                                 ?>
                                                 <option value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid', $managed_dev_sen_Id[1]) == $device_id_list['id'] ? 'selected' : '' ?> ><?php echo $device_id_list['number']; ?></option>
                                                 <?php
                                             }
-                                            
                                         }
                                     } elseif ($managed_dev_sen_Id_readonly == "sen") {
                                         ?>
-                                        <option value="<?php echo isset($temp_device_ids) ? $temp_device_ids:''; ?>"><?php echo isset($number)? $number : 'Select device Number';?></option>
-                                    
-                                         <?php foreach ($device_list as $device_list_2) { ?>
+                                        <option value="<?php echo isset($temp_device_ids) ? $temp_device_ids : ''; ?>"><?php echo isset($number) ? $number : 'Select device Number'; ?></option>
+
+                                        <?php foreach ($device_list as $device_list_2) { ?>
                                             <option value="<?php echo $device_list_2['id']; ?>" <?php echo set_value('deviceid', $temp_device_ids) == $device_list_2['id'] ? 'selected' : ''; ?> >  <?php echo $device_list_2['number']; ?></option>
 
                                             <?php
@@ -106,7 +105,7 @@ $back_action = $this->input->post('back_action');
 
                                     <?php if ($managed_dev_sen_Id_readonly == "sen") { ?>
 
-                                        <!--<option value="<?php echo isset($sensor_id)? $sensor_id:'';?>" <?php echo isset($sensor_id)? 'selected':'';?>><?php echo isset($sensor_no)? $sensor_no:'Select Sensor';?></option>-->  
+                                                <option value="<?php echo isset($sensor_id) ? $sensor_id : ''; ?>" <?php echo isset($sensor_id) ? 'selected' : ''; ?>><?php echo isset($sensor_no) ? $sensor_no : 'Select Sensor'; ?></option>  
                                         <?php
                                         foreach ($sensorid_list as $sensorid_list_data) {
                                             if ($managed_dev_sen_Id[1] == $sensorid_list_data['id']) {
@@ -117,44 +116,71 @@ $back_action = $this->input->post('back_action');
                                             }
                                         }
                                     } elseif ($managed_dev_sen_Id_readonly == "dev") {
-                                        ?>
 
-                                        <!--<option value="<?php echo isset($sensor_id)? $sensor_id:'';?>" <?php echo isset($sensor_id)? 'selected':'';?>><?php echo isset($sensor_no)? $sensor_no:'Select Sensor';?></option>-->  
-                                        <?php // foreach ($sensorid_list as $sensorid_list_data_2) {
-//                                        if($sensor_id != $sensorid_list_data_2['id']) { ?>
-                                            <!--<option value="<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?> >  <?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
+                                        for ($i1 = 0; $i1 < count($temp_sensor_ids); $i1++) {
+                                            ?>
+                                            <option value="<?php echo isset($temp_sensor_ids[$i1]) ? $temp_sensor_ids[$i1] : ''; ?>" 
+                                                    <?php echo isset($temp_sensor_ids[$i1]) ? 'selected' : ''; ?>>
+                                                <?php echo isset($temp_sensor_number[$i1]) ? $temp_sensor_number[$i1] : 'Select Sensor'; ?></option>  
 
                                             <?php
-//                                    } } 
-                                    
-                                     $i = 0;
-                                        foreach ($sensorid_list as $key => $sensorid_list_data_2) {
-                                            if ($sensorid_list_data_2['id'] == $temp_sensor_ids[$i] && count($temp_sensor_ids) > $i) {
+                                        }
+                                        foreach ($sensorid_list as $sensorid_list_data_2) {
+                                            if (!in_array($sensorid_list_data_2['id'], $temp_sensor_ids)) {
                                                 ?>
-                                                <option value="<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?>  ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>
-                                                <?php
-                                                $i++;
-                                            } else if (!in_array($sensorid_list_data_2['id'], $temp_sensor_ids)) {
-                                                ?> 
-                                                <option value="<?php echo $sensorid_list_data_2['id']; ?>" ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>
+                                                <option value="<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?> >  <?php echo $sensorid_list_data_2['sensor_no']; ?></option>
+
                                                 <?php
                                             }
                                         }
-                                        
-                                        
+
+
+//                                     $i = 0;
+//                                        foreach ($sensorid_list as $key => $sensorid_list_data_2) {
+//                                            if ($sensorid_list_data_2['id'] == $temp_sensor_ids[$i] && count($temp_sensor_ids) > $i) {
+//                                                
+                                        ?>
+                                                        <!--<option value="//<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?>  ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
+                                        //<?php
+//                                                $i++;
+//                                            } else if (!in_array($sensorid_list_data_2['id'], $temp_sensor_ids)) {
+//                                                
+                                        ?> 
+                                        <!--<option value="//<?php echo $sensorid_list_data_2['id']; ?>" ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
+                                        //<?php
+//                                            }
+//                                        }
                                     } else {
                                         ?>
                                         <?php
-                                        $i = 0;
-                                        foreach ($sensorid_list as $key => $sensorid_list_data) {
-                                            if ($sensorid_list_data['id'] == $temp_sensor_ids[$i] && count($temp_sensor_ids) > $i) {
+//                                        $i = 0;
+                                        
+//                                        foreach ($sensorid_list as $key => $sensorid_list_data) {
+//                                            if ($sensorid_list_data['id'] == $temp_sensor_ids[$i] && count($temp_sensor_ids) > $i) {
+//                                                ?>
+                                                <!--<option value="//<?php echo $sensorid_list_data['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data['id'] ? 'selected' : ''; ?>  ><?php echo $sensorid_list_data['sensor_no']; ?></option>-->
+                                                //<?php
+//                                                $i++;
+//                                            } else if (!in_array($sensorid_list_data['id'], $temp_sensor_ids)) {
+//                                                ?> 
+                                                <!--<option value="//<?php echo $sensorid_list_data['id']; ?>" ><?php echo $sensorid_list_data['sensor_no']; ?></option>-->
+                                                //<?php
+//                                            }
+//                                        }
+                                                
+                                            for ($i1 = 0; $i1 < count($temp_sensor_ids); $i1++) {
+                                            ?>
+                                            <option value="<?php echo isset($temp_sensor_ids[$i1]) ? $temp_sensor_ids[$i1] : ''; ?>" 
+                                                    <?php echo isset($temp_sensor_ids[$i1]) ? 'selected' : ''; ?>>
+                                                <?php echo isset($temp_sensor_number[$i1]) ? $temp_sensor_number[$i1] : 'Select Sensor'; ?></option>  
+
+                                            <?php
+                                        }
+                                        foreach ($sensorid_list as $sensorid_list_data) {
+                                            if (!in_array($sensorid_list_data['id'], $temp_sensor_ids)) {
                                                 ?>
-                                                <option value="<?php echo $sensorid_list_data['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data['id'] ? 'selected' : ''; ?>  ><?php echo $sensorid_list_data['sensor_no']; ?></option>
-                                                <?php
-                                                $i++;
-                                            } else if (!in_array($sensorid_list_data['id'], $temp_sensor_ids)) {
-                                                ?> 
-                                                <option value="<?php echo $sensorid_list_data['id']; ?>" ><?php echo $sensorid_list_data['sensor_no']; ?></option>
+                                                <option value="<?php echo $sensorid_list_data['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids) == $sensorid_list_data['id'] ? 'selected' : ''; ?> >  <?php echo $sensorid_list_data['sensor_no']; ?></option>
+
                                                 <?php
                                             }
                                         }
@@ -176,10 +202,9 @@ $back_action = $this->input->post('back_action');
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                                
-                                <label><?php 
+
+                                <label><?php
                                     $isactive = set_value('isactive');
-                                    
                                     ?> 
                                     <input type="checkbox" name="isactive" checked class="flat" <?php echo $isactive == "on" ? 'checked' : (isset($Edit_device_sensors_data['isactive'])) == "1" ? 'checked' : ''; ?>> Active
                                 </label>
@@ -194,7 +219,7 @@ $back_action = $this->input->post('back_action');
                         <div class="ln_solid"></div>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <input type="hidden" value="<?php echo isset($Edit_device_sensors_data['id']) ? $Edit_device_sensors_data['id'] :''; ?>" name="id"/>
+                                <input type="hidden" value="<?php echo isset($Edit_device_sensors_data['id']) ? $Edit_device_sensors_data['id'] : ''; ?>" name="id"/>
                                 <input type="hidden" name="post" id="post" value="update"/>
                                 <!--<input type="hidden" name="sensor_form_action" id="sensor_form_action" value="update <?php echo $Edit_device_sensors_data['id']; ?>" >    
 

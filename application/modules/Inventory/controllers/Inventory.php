@@ -464,7 +464,7 @@ class Inventory extends MY_Controller {
                              }
 //
                             if(!$checkexsit){  
-                               // $delete_sensor_data = $this->Inventory_model->Delete_Device_sensor($key_list['id']);
+                                $delete_sensor_data = $this->Inventory_model->Delete_Device_sensor($key_list['id']);
                             }
                             
                          }
@@ -528,7 +528,7 @@ class Inventory extends MY_Controller {
                                     'sensor_id' => $tag_key,
                                     'createdby' => $user_id,
                                     'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
-//                                    'isdeleted' => 0
+                                    'isdeleted' => 0
                                 );
 //                              print_r($unique_Data); exit();
                            $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
@@ -536,7 +536,12 @@ class Inventory extends MY_Controller {
                         if ($isUnique) {
                             $this->session->set_flashdata('success_msg', 'Device sensor successfully updated!');
 //                            load_view_template($data, 'DeviceInventory/edit_device_sensor');
-                             return redirect('Device_sensor_list', 'refresh');
+                              if (!empty($this->input->post('back_action'))) {
+                                    return redirect($this->input->post('back_action'), 'refresh');
+                                } else {
+                                    return redirect('Device_sensor_list', 'refresh');
+                                }
+                             
                         } else {
 
 
