@@ -83,9 +83,6 @@ if ($this->session->userdata('login_flag')) {
                                 <li>
                                     <a 
                                     <?php
-                                    if ($menu_name['menuName'] == 'Masters' && $this->session->userdata('group_id') != 1) {
-                                        echo 'class="not-allowed"';
-                                    }
                                     if (isset($menu_name['url'])) {
                                         echo "href='" . base_url() . $menu_name['url'] . "'";
                                     }
@@ -96,24 +93,9 @@ if ($this->session->userdata('login_flag')) {
                                         <span class="fa fa-chevron-down">
                                         </span>
                                     </a>
-                                    <?php if ($menu_name['menuName'] != 'Masters' && $this->session->userdata('group_id') != 1) { ?>
-                                        <ul class="nav child_menu">
-                                            <?php
-                                            foreach ($dataHeader['menulist'] as $sub_menu) {
-                                                $nav_ids_value = explode(',', $sub_menu['nav_ids']);
-                                                if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
-                                                    ?>                              
-                                                    <li>
-                                                        <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
-                                                            <?php echo $sub_menu['menuName']; ?>
-                                                        </a>
-                                                    </li>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </ul> 
-                                    <?php } elseif ($this->session->userdata('group_id') == 1) {
+                                    <?php
+                                    $login_flag = $this->session->userdata('login_flag');
+                                    if ($login_flag != 0) {
                                         ?>
                                         <ul class="nav child_menu">
                                             <?php
@@ -131,8 +113,7 @@ if ($this->session->userdata('login_flag')) {
                                             }
                                             ?>
                                         </ul> 
-                                    <?php }
-                                    ?>
+                                    <?php } ?>
                                 </li>
                                 <!--</ul>-->
                                 <?php

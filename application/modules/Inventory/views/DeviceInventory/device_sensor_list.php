@@ -1,16 +1,3 @@
-<?php
-if (isset($permission) && !empty($permission)) {
-    foreach ($permission as $key => $value) {
-        if ($value->menuName == 'Device Inventory') {
-            $device_index = $key;
-        } elseif ($value->menuName == 'Device Sensor') {
-            $sensor_index = $key;
-        } elseif ($value->menuName == 'Device Asset') {
-            $asset_index = $key;
-        }
-    }
-}
-?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -19,33 +6,9 @@ if (isset($permission) && !empty($permission)) {
 
         <div class="title_right">
             <div class="pull-right">
-                <?php
-                if (isset($device_index)) {
-                    if ($permission[$device_index]->viewpermission == 1) {
-                        ?>
-                        <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
-                        <?php
-                    }
-                }
-                ?>
-                <?php
-                if (isset($asset_index)) {
-                    if ($permission[$asset_index]->viewpermission == 1) {
-                        ?>
-                        <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>
-                        <?php
-                    }
-                }
-                ?>
-                <?php
-                if (isset($sensor_index)) {
-                    if ($permission[$sensor_index]->addpermission == 1) {
-                        ?>
-                        <a href="<?php echo base_url('Add_device_sensors'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                                     
-                        <?php
-                    }
-                }
-                ?>
+                <a href="<?php echo base_url('Device_inventory_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-cloud"></i> Device Inventory</a>
+                <a href="<?php echo base_url('Device_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-inbox"></i> Device Asset</a>
+                <a href="<?php echo base_url('Add_device_sensors'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                                     
             </div>
         </div>
     </div>
@@ -62,15 +25,7 @@ if (isset($permission) && !empty($permission)) {
                                 <th>Device Number</th>
                                 <th>Sensor Number</th>
                                 <th>Status</th>
-                                <?php
-                                if (isset($sensor_index)) {
-                                    if ($permission[$sensor_index]->editpermission == 1 || $permission[$sensor_index]->deletepermission == 1) {
-                                        echo "<th>Actions</th>";
-                                    }
-                                }
-                                ?>
-                                <!--<th>Action</th>-->
-
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody >
@@ -87,45 +42,21 @@ if (isset($permission) && !empty($permission)) {
                                         <td <?php echo $modal_idand_class; ?>><?php echo $i; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['number']; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['sensor_no']; ?></td>
-                                        <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['isactive']== 1 ? 'Active':'In_active'; ?></td>
-                                        <?php
-                                        if (isset($sensor_index)) {
-                                            if ($permission[$sensor_index]->editpermission == 1 || $permission[$sensor_index]->deletepermission == 1) {
-                                                ?>
-                                                <td>
-                                                    <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="dev_sen<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $device_sen_list['id']; ?>" name="id" id="dev_id<?php echo $i; ?>" />
-                                                        <input type="hidden" value="<?php echo $device_sen_list['device_id']; ?>" name="device_id" >
-                                                        <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                        <?php
-                                                        if (isset($sensor_index)) {
-                                                            if ($permission[$sensor_index]->editpermission == 1) {
-                                                                ?>
-                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                                </a>&nbsp;&nbsp;&nbsp;
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (isset($sensor_index)) {
-                                                            if ($permission[$sensor_index]->deletepermission == 1) {
-                                                                ?>
-                                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                                </a> 
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </form>
-                                                </td>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['isactive'] == 1 ? 'Active' : 'In_active'; ?></td>
+                                        <td>
+                                            <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="dev_sen<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $device_sen_list['id']; ?>" name="id" id="dev_id<?php echo $i; ?>" />
+                                                <input type="hidden" value="<?php echo $device_sen_list['device_id']; ?>" name="device_id" >
+                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                </a>&nbsp;&nbsp;&nbsp;
 
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                </a> 
+                                            </form>
+                                        </td>
                                     </tr>
 
                                     <?php
@@ -133,15 +64,14 @@ if (isset($permission) && !empty($permission)) {
                                 }
                             } else {
                                 ?>                      
-
                                 <tr>                          
-                                    <td colspan="4">data not found..!</td>
+                                    <td>data not found..!</td><td></td><td></td><td></td><td></td>
                                 </tr>
-
                             <?php } ?>                      
                         </tbody>
                     </table>
-                </div>   </div>
+                </div>   
+            </div>
         </div>
     </div>
 </div>

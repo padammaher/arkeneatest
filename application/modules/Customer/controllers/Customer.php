@@ -192,9 +192,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $this->data['permission'] = $this->users->get_permissions(['Customer Provisioning', 'Client User', 'Customer Business Location']);
+            $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
             //check user Permission
-            userPermissionCheck($this->data['permission'], 'view', 'Customer Provisioning');
+            userPermissionCheck($this->data['permission'], 'view');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
@@ -209,9 +209,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $this->data['permission'] = $this->users->get_permissions(['Client User', 'Customer Provisioning', 'Customer Business Location']);
+            $this->data['permission'] = $this->users->get_permissions('Client User');
             //check user Permission
-            userPermissionCheck($this->data['permission'], 'view', 'Client User');
+            userPermissionCheck($this->data['permission'], 'view');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['client_details'] = $this->Customer_Model->get_client_list($user_id);
@@ -291,9 +291,7 @@ class Customer extends MY_Controller {
 
     public function update_client_detail() {
         // print_r($_POST); exit();
-        $data['permission'] = $this->users->get_permissions('Client User');
-        //check user Permission
-        userPermissionCheck($data['permission'], 'update');
+
 
         $user_id = $this->session->userdata('user_id');
         $salt = '';
@@ -302,6 +300,10 @@ class Customer extends MY_Controller {
             redirect('auth', 'refresh');
         } else {
             if ($this->input->post('post') == 'edit') {
+                $data['permission'] = $this->users->get_permissions('Client User');
+                //check user Permission
+                userPermissionCheck($data['permission'], 'update');
+
                 $this->data['client_location'] = $country = $this->Customer_Model->get_customer_location($user_id);
                 $client_id = $this->input->post('client_id');
                 $this->data['client_details'] = $this->Customer_Model->get_client_detail($client_id);
@@ -310,6 +312,9 @@ class Customer extends MY_Controller {
 //                  print_r( $this->data['client_details']); exit();
                 load_view_template($this->data, 'edit_client_user');
             } else if ($this->input->post('post') == 'delete') {
+                $data['permission'] = $this->users->get_permissions('Client User');
+                //check user Permission
+                userPermissionCheck($data['permission'], 'delete');
                 $client_id = $this->input->post('client_id');
                 $this->Customer_Model->delete_client_detail($client_id);
                 redirect('ManageUsers', 'refresh');
@@ -389,9 +394,9 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $this->data['permission'] = $this->users->get_permissions(['Customer Business Location', 'Client User', 'Customer Provisioning']);
+            $this->data['permission'] = $this->users->get_permissions('Customer Business Location');
             //check user Permission
-            userPermissionCheck($this->data['permission'], 'view', 'Customer Business Location');
+            userPermissionCheck($this->data['permission'], 'view');
 
             $user_id = $this->session->userdata('user_id');
             $this->data['location_detail'] = $this->Customer_Model->get_business_list($user_id);

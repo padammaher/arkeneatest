@@ -191,6 +191,11 @@
                             } elseif (isset($post['status']) && !empty($post['status'])) {
                                 $checked = "checked";
                             }
+                            if (isset($edit_id)) {
+                                
+                            } else {
+                                $checked = "checked";
+                            }
                             ?>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>

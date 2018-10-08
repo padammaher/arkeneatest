@@ -87,23 +87,25 @@ class Users extends MY_Model {
 
     public function get_permissions($menu) {
         $group_id = $this->session->userdata('group_id');
-        if ($group_id == 1) {
-            $role_id = 1;
-        } elseif ($group_id == 2) {
-            $role_id = 2;
+        $this->db->select('id');
+        $this->db->where('group_id', $group_id);
+        $roleData = $this->db->get('roles')->result();
+        if (count($roleData) > 0) {
+            $role_id = $roleData[0]->id;
         }
-
-        $this->db->select('privileges.id,role,privileges.group_id,object,addpermission,editpermission,deletepermission,'
-                . 'viewpermission,privileges.isactive,menu.menuName');
-        $this->db->join('menu', 'privileges.object=menu.id');
-        $this->db->where(array('privileges.isactive' => 1, 'privileges.group_id' => $group_id, 'privileges.role' => $role_id));
-        if (is_array($menu) && !empty($menu)) {
-            $this->db->where_in('menu.menuName', $menu);
-        } else {
-            $this->db->where('menu.menuName', $menu);
+        if (isset($role_id, $group_id)) {
+            $this->db->select('privileges.id,role,privileges.group_id,object,addpermission,editpermission,deletepermission,'
+                    . 'viewpermission,privileges.isactive,menu.menuName');
+            $this->db->join('menu', 'privileges.object=menu.id');
+            $this->db->where(array('privileges.isactive' => 1, 'privileges.group_id' => $group_id, 'privileges.role' => $role_id));
+            if (is_array($menu) && !empty($menu)) {
+                $this->db->where_in('menu.menuName', $menu);
+            } else {
+                $this->db->where('menu.menuName', $menu);
+            }
+            $result = $this->db->get('privileges')->result();
+            return $result;
         }
-        $result = $this->db->get('privileges')->result();
-        return $result;
     }
 
     public function get_company_logo() {
