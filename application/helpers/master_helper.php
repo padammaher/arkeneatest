@@ -19,57 +19,63 @@ if (!function_exists('load_view_template')) {
 if (!function_exists('userPermissionCheck')) {
 
     function userPermissionCheck($permission, $type, $menu = null) {
-        if (isset($permission) && !empty($permission)) {
-            $CI = & get_instance();
-//            $CI->load->model('users');
-            if (isset($permission) && !empty($permission)) {
-                if (isset($menu) && $menu !== null) {
-                    foreach ($permission as $key => $value) {
-                        if ($value->menuName == $menu) {
-                            $index = $key;
-                        }
-                    }
-                } else {
-                    $index = 0;
-                }
-
-                if (isset($index)) {
-                    switch ($type) {
-                        case "view":
-                            if ($permission[$index]->viewpermission == 1) {
-                                
-                            } else {
-                                redirect('acces_forbidden', 'refresh');
-                            }
-                            break;
-                        case "update":
-                            if ($permission[$index]->editpermission == 1) {
-                                
-                            } else {
-                                redirect('acces_forbidden', 'refresh');
-                            }
-                            break;
-                        case "add":
-                            if ($permission[$index]->addpermission == 1) {
-                                
-                            } else {
-                                redirect('acces_forbidden', 'refresh');
-                            }
-                            break;
-                        case "delete":
-                            if ($permission[$index]->deletepermission == 1) {
-                                
-                            } else {
-                                redirect('acces_forbidden', 'refresh');
-                            }
-                            break;
-                    }
-                } else {
-                    redirect('acces_forbidden', 'refresh');
-                }
-            }
-        } else {
+        $CI = & get_instance();
+        $login_flag = $CI->session->userdata('login_flag');
+        if (isset($login_flag) && $login_flag == 0) {
             redirect('acces_forbidden', 'refresh');
+        } else {
+            if (isset($permission) && !empty($permission)) {
+                $CI = & get_instance();
+//            $CI->load->model('users');
+                if (isset($permission) && !empty($permission)) {
+                    if (isset($menu) && $menu !== null) {
+                        foreach ($permission as $key => $value) {
+                            if ($value->menuName == $menu) {
+                                $index = $key;
+                            }
+                        }
+                    } else {
+                        $index = 0;
+                    }
+
+                    if (isset($index)) {
+                        switch ($type) {
+                            case "view":
+                                if ($permission[$index]->viewpermission == 1) {
+                                    
+                                } else {
+                                    redirect('acces_forbidden', 'refresh');
+                                }
+                                break;
+                            case "update":
+                                if ($permission[$index]->editpermission == 1) {
+                                    
+                                } else {
+                                    redirect('acces_forbidden', 'refresh');
+                                }
+                                break;
+                            case "add":
+                                if ($permission[$index]->addpermission == 1) {
+                                    
+                                } else {
+                                    redirect('acces_forbidden', 'refresh');
+                                }
+                                break;
+                            case "delete":
+                                if ($permission[$index]->deletepermission == 1) {
+                                    
+                                } else {
+                                    redirect('acces_forbidden', 'refresh');
+                                }
+                                break;
+                        }
+                    } else {
+                        redirect('acces_forbidden', 'refresh');
+                    }
+                }
+            } else {
+                redirect('acces_forbidden', 'refresh');
+            }
         }
     }
 
