@@ -15,11 +15,11 @@
                       <tbody>
                        
                         <tr>
-                          <td width="" class="lft-td">Device ID</td>
+                          <td width="" class="lft-td">Device Number</td>
                           <td><?php echo $list['number'] ?></td>
                         </tr>
                         <tr>
-                        <td class="lft-td">Sensor ID</td>
+                        <td class="lft-td">Sensor Number</td>
                         <td><?php echo $list['sensor_no'] ?></td>
                     </tr>
                                     

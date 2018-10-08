@@ -181,12 +181,6 @@ if (isset($permission) && !empty($permission)) {
                                             <table class="table table-bordered">                      
                                                 <tbody>
                                                     <tr>
-                                                        <td width="" class="lft-td">Sr.no.
-                                                        </td>
-                                                        <td><?php echo $i; ?>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <td width="" class="lft-td">Location
                                                         </td>
                                                         <td><?php echo $location->location_name; ?>
@@ -257,7 +251,7 @@ if (isset($permission) && !empty($permission)) {
                                 </div>
                             </div>  
                             <script>
-                                $(".flex-item_row .flex-item<?php echo $i; ?> ").click(function (e) {
+                                $(".flex-item<?php echo $i; ?> ").click(function (e) {
                                     if (!$(e.target).hasClass('fa')) {
                                         $('#detailsModal<?php echo $i; ?>').modal('show');
                                     }
@@ -268,6 +262,7 @@ if (isset($permission) && !empty($permission)) {
                                 });
                             </script>
                             <?php
+                            $i++;
                         }
                     }
                     ?>
