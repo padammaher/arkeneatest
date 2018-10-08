@@ -93,18 +93,23 @@
                                 <input name="Email" type="Email" class="form-control" placeholder="Email ID" required="required">
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo <span>*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input name="company_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'company');" accept=".png, .jpg, .jpeg,.gif">
+                        <?php
+                        $group_id = $this->session->userdata('group_id');
+                        if ($group_id == 1) {
+                            ?>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo <span>*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input name="company_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'company');" accept=".png, .jpg, .jpeg,.gif">
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
+                                    <img src="http://bidvestlocal/assets/images/logo.png" id="company_logo" alt="Company Logo" height="50" width="50">
+                                </div>
                             </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                <img src="http://bidvestlocal/assets/images/logo.png" id="company_logo" alt="Company Logo" height="50" width="50">
-                            </div>
-                        </div>
+                        <?php } ?>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Logo <span>*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Image <span>*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="profile_logo" type="file" placeholder="" required="required" onchange="readURL(this, 'profile');" accept=".png, .jpg, .jpeg,.gif">

@@ -120,10 +120,10 @@
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Parameter'); ?></span>
                             <?php } ?>
               </div>             <div class="item form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM *</label>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type*</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="UOM" id="UOM" required="required">
-                    <option value="<?php if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo '';} ?>"><?php if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo "Select UOM";}?></option>                   
+                    <option value="<?php if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo '';} ?>"><?php if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo "Select UOM Type";}?></option>                   
                 </select>             
                 </div>
                   <?php if (form_error('UOM')) { ?>

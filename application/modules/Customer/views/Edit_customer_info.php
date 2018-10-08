@@ -94,7 +94,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="pincode" id="pincode" type="number" class="form-control" placeholder="Enter pincode" required="required" value="<?php echo $user->pincode; ?>">
+                                    <input name="pincode" id="pincode" type="text" class="form-control" placeholder="Enter pincode" pattern="[0-9\s]+" maxlength="4" required="required" value="<?php echo $user->pincode; ?>" title="Only 4 digits are allowed">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -108,7 +108,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile No.
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="mobile" id="mobile" type="number" class="form-control" placeholder="Enter Mobile No." required="required" value="<?php echo $user->mobile; ?>">
+                                    <input name="mobile" id="mobile" type="number" class="form-control"  placeholder="Enter Mobile No." required="required" value="<?php echo $user->mobile; ?>">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -119,24 +119,43 @@
                                     <div id="email_error" style="color:red;"></div>
                                 </div>
                             </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');" >
+                            <?php
+                            $group_id = $this->session->userdata('group_id');
+                            if ($group_id == 1) {
+                                ?>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');" >
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
+                                        <?php
+                                        if ($login_flag == 0 && $login_flag != '') {
+                                            $display = "style='display:none;'";
+                                        } else {
+                                            $display = "";
+                                        }
+                                        ?>
+                                        <img src="data:image/gif;base64,<?php echo $user->company_logo; ?>" id="company_logo" alt="Company Logo" height="50" width="50" <?php echo isset($display) ? $display : ''; ?>>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                    <img src="data:image/gif;base64,<?php echo $user->company_logo; ?>" id="company_logo" alt="Company Logo" height="50" width="50">
-                                </div>
-                            </div>
+                            <?php } ?>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Logo
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Image
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="profile_logo" type="file" placeholder=""  onchange="readURL(this, 'profile');" >
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                    <img src="data:image/gif;base64,<?php echo $user->profileimg; ?>" id="profile_logo" alt="Profile Logo" height="50" width="50">
+                                    <?php
+                                    if ($login_flag == 0 && $login_flag != '') {
+                                        $display = "style='display:none;'";
+                                    } else {
+                                        $display = "";
+                                    }
+                                    ?>
+                                    <img src="data:image/gif;base64,<?php echo $user->profileimg; ?>" id="profile_logo" alt="Profile Logo" height="50" width="50" <?php echo isset($display) ? $display : ''; ?>>
                                 </div>
                             </div>
                             <div class="ln_solid">
@@ -187,8 +206,10 @@
 
             reader.onload = function (e) {
                 if (type == 'company') {
+                    $('#company_logo').css('display', 'block');
                     $('#company_logo').attr('src', e.target.result);
                 } else {
+                    $('#profile_logo').css('display', 'block');
                     $('#profile_logo').attr('src', e.target.result);
                 }
             };
@@ -231,21 +252,30 @@
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
                 return false;
-            } else if (inputVal.length < 10) {
+            } else if (inputVal.length < 9) {
                 $("#customer_info_submit").prop("disabled", true);
                 $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
             }
-            if (inputVal.length == 10) {
+            if (inputVal.length == 9) {
                 $("#customer_info_submit").prop("disabled", false);
             }
         });
     });
     $('#pincode').keypress(function (e) {
+//        var pinVal = $(this).val();
+//        $('span.error-keyup-pin').remove();
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             //display error message
             $("#errmsg").html("Digits Only").show().fadeOut("slow");
             return false;
         }
+//        else if (pinVal.length > 3) {
+//            $("#customer_info_submit").prop("disabled", true);
+//            $(this).after('<span class="error error-keyup-pin" style="color:red">Maximum 4 number are allowed.</span>');
+//        }
+//        if (pinVal.length <= 3) {
+//            $("#customer_info_submit").prop("disabled", false);
+//        }
     });
     $('#phone').keypress(function (event) {
         var keycode = event.which;

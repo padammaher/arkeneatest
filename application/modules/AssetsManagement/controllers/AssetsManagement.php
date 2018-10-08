@@ -54,7 +54,8 @@ class AssetsManagement extends MY_Controller {
                     'code' => $this->input->post('Assetcode'),
                     'createdby' => $user_id,
                     'startdate' => date("Y-m-d", strtotime($this->input->post('startdate'))),
-                    'enddate' => date("Y-m-d", strtotime($this->input->post('enddate')))
+                    'enddate' => date("Y-m-d", strtotime($this->input->post('enddate'))),
+                    'isdeleted'=>0
                 );
 
                 $unique_Data = array(
@@ -69,7 +70,8 @@ class AssetsManagement extends MY_Controller {
                     'createdby' => $user_id,
 //                    'isactive' => ($this->input->post('isactive')) == 'on' ? '1' : '0',
                     'startdate' => date("Y-m-d", strtotime($this->input->post('startdate'))),
-                    'enddate' => date("Y-m-d", strtotime($this->input->post('enddate')))
+                    'enddate' => date("Y-m-d", strtotime($this->input->post('enddate'))),
+                    'isdeleted'=>0
                 );
 
                 $this->form_validation->set_rules('Assetcode', 'Asset Code', 'required|alpha_numeric');
@@ -268,7 +270,8 @@ class AssetsManagement extends MY_Controller {
                             'code' => $this->input->post('Assetcode'),
                             'createdby' => $user_id,
                             'startdate' => date("Y-m-d", strtotime($this->input->post('startdate'))),
-                            'enddate' => $CheckEnddate
+                            'enddate' => $CheckEnddate,
+                            'isdeleted'=>0
                         );
                         $unique_Data_without_date = array(
 //                        'code' => $this->input->post('Assetcode'),
@@ -333,8 +336,14 @@ class AssetsManagement extends MY_Controller {
                     $id1 = $edit_asset_list_id;
                     // var_dump($edit_asset_list_id);die; 
                     $data = $this->Assets->delete_assets($edit_asset_list_id);
+//                    exit;
                     if ($data) {
                         $this->session->set_flashdata('success_msg', 'Assets Successfully deleted');
+                        redirect(base_url('Assets_list'));
+                    }
+                    else
+                    {
+                        $this->session->set_flashdata('note_msg', 'Failed to delete, asset is already in use');
                         redirect(base_url('Assets_list'));
                     }
                 }

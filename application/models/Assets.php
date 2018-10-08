@@ -42,11 +42,23 @@ class Assets extends MY_Model {
 
     public function delete_assets($id1) {
         // var_dump($id);die;
-        $assets_data = array('isdeleted' => 1);
-        $this->db->where('asset.id', $id1);
-        return $this->db->update('asset', $assets_data);
-//        
-//        return $this->db->delete('asset');
+        $todays=date("Y-m-d");
+        $where_condtion="startdate<='".$todays."' and enddate>='".$todays."'";
+        $Sql_query=$this->db->select('id')->from('asset')->where('id',$id1)->where($where_condtion)->get()->num_rows();
+//        echo $this->db->last_query();
+//        ======= ** delete(update) query ***====================
+         $assets_data = array('isdeleted' => 1);
+         $this->db->where('asset.id', $id1);
+         
+        if($Sql_query>0)
+        {
+           return false;
+        }
+        else
+        {
+           return $this->db->update('asset', $assets_data);
+        }
+//             return $this->db->delete('asset');
     }
 
     public function getCustomerLocationCount($user_id) {
@@ -441,7 +453,7 @@ class Assets extends MY_Model {
 
         $query = $this->db->select('id,code,startdate,enddate')
                 ->from('asset')
-                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate']))
+                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate'],'isdeleted'=>$unique_Data['isdeleted']))
                 ->get();
         // $result=$query->
 //                  echo $this->db->last_query();
@@ -460,7 +472,7 @@ class Assets extends MY_Model {
 
         $query = $this->db->select('id,code,startdate,enddate')
                 ->from('asset')
-                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate']))
+                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate'],'isdeleted'=>$unique_Data['isdeleted']))
                 ->get();
         // $result=$query->
 //                  echo $this->db->last_query();

@@ -1,7 +1,13 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="<?php echo base_url(); ?>Dashboard" class="site_title"><img src="data:image/gif;base64,<?php echo $dataHeader['company_logo']; ?>"> <span>ePhytionSee</span></a>
+            <a href="<?php echo base_url(); ?>Dashboard" class="site_title">
+                <?php if (isset($dataHeader['group_id']) && $dataHeader['group_id'] != 1) { ?>
+                    <img src="data:image/gif;base64,<?php echo $dataHeader['admin_company_logo'][0]['company_logo']; ?>">
+                <?php } else { ?>
+                    <img src="data:image/gif;base64,<?php echo $dataHeader['company_logo']; ?>"> 
+                <?php } ?>
+                <span>ePhytionSee</span></a>
         </div>
 
         <div class="clearfix"></div>

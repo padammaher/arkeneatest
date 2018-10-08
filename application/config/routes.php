@@ -55,7 +55,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['acces_forbidden'] = "Welcome/accessDenied";
 // forgetpassword
-$route['resetPassword']='Auth/reset_password';
+$route['resetPassword'] = 'Auth/reset_password';
 //Masters
 $route['assetcategory'] = "Master/AssetMaster/assetcategory";
 $route['addAssetCategory'] = "Master/assetmaster/add_asset_category";
@@ -79,7 +79,7 @@ $route['addUomTypeList'] = "Master/uommaster/add_uomType_list";
 $route['addUomList'] = "Master/uommaster/add_uom_list";
 $route['updateUomTypeList'] = "Master/uommaster/uomtypelist_update";
 $route['updateUomList'] = "Master/uommaster/uomlist_update";
-
+$route['manageIcon'] = "Master/uommaster/add_uom_icon";
 
 //Assets Management--------------------
 $route['Assets_list'] = 'AssetsManagement/Asset_List';

@@ -1,11 +1,11 @@
-<?php // var_dump($dataHeader)      ?>
+<?php // var_dump($dataHeader)                   ?>
 <div class="top_nav">
     <div class="nav_menu">
         <nav>
             <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars" ></i></a> <div class="companyid" ><?php echo $dataHeader['company_name']; ?></div>
             </div>
-            <ul class="nav navbar-nav navbar-right"><li class="dropdown logout"><a title="Logout" href="<?php echo base_url() ?>auth/logout" class="dropdown-toggle info-number mt-10"><i class="fa fa-power-off pull-right"></i></a></li>
+            <ul class="nav navbar-nav navbar-right"><li class="dropdown logout"><a title="Logout" id="logout" class="dropdown-toggle info-number mt-10"><i class="fa fa-power-off pull-right"></i></a></li>
 
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -96,6 +96,16 @@
         </nav>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#logout").click(function () {
+            $("#logout_confirmation").modal();
+            $(".ok").click(function () {
+                document.location.href = "<?php echo base_url() ?>auth/logout";
+            });
+        });
+    });
+</script>
 
 
 

@@ -128,7 +128,7 @@ if (isset($permission) && !empty($permission)) {
                                                                     </a>
                                                                 </form>&nbsp;
                                                                 <?php
-                                                            }
+                                                            }else {?><i class="fa fa-pencil blue not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i> <?php }
                                                         }
                                                         ?>
 
@@ -147,7 +147,7 @@ if (isset($permission) && !empty($permission)) {
                                                                             <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                                         </a>
                                                                         <?php
-                                                                    }
+                                                                    }else {?><i class="fa fa-dashboard text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i> <?php }
                                                                 }
                                                                 ?>
                                                             <?php } else { ?> 
@@ -160,7 +160,7 @@ if (isset($permission) && !empty($permission)) {
                                                                             <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                                         </a>
                                                                         <?php
-                                                                    }
+                                                                    }else { ?> <i class="fa fa-dashboard text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i> <?php }
                                                                 }
                                                                 ?>
                                                             <?php } ?>
@@ -179,7 +179,7 @@ if (isset($permission) && !empty($permission)) {
                                                                             <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
                                                                         </a>
                                                                         <?php
-                                                                    }
+                                                                    }else {?><i class="fa fa-gears text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i> <?php }
                                                                 }
                                                                 ?>
                                                             <?php } else { ?>
@@ -192,7 +192,7 @@ if (isset($permission) && !empty($permission)) {
                                                                             <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i>  
                                                                         </a>    
                                                                         <?php
-                                                                    }
+                                                                    }else {?><i class="fa fa-gears text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i> <?php }
                                                                 }
                                                                 ?>
                                                             <?php } ?>
@@ -210,7 +210,7 @@ if (isset($permission) && !empty($permission)) {
                                                                         <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                                     </a></form>&nbsp;
                                                                 <?php
-                                                            }
+                                                            }else {?><i class="fa fa-trash red not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i> <?php }
                                                         }
                                                         ?>
                                                     </div>

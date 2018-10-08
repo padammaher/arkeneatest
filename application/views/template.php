@@ -135,6 +135,23 @@
                         </div>
                     </div>
                 </div>
+                <div id="logout_confirmation"  class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                Confirmation<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4></h4>
+                                <p>Are you sure you want to Logout ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary ok">Yes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- End Modal -->
                 <footer>      
                     {footer}            
@@ -262,7 +279,7 @@
                 var i = 0;
                 var options;
                 $("#UOM").empty();
-                var options = '<option value="">Select Type</option>';
+                var options = '<option value="">Select UOM Type</option>';
                 $.ajax({
                     url: '<?php echo base_url(); ?>Inventory/load_uomtype_by_parameter',
                     type: 'post',

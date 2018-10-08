@@ -13,6 +13,7 @@ class Customer extends MY_Controller {
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->lang->load('auth');
+        $this->load->library('image_lib');
     }
 
     public function index() {
@@ -119,7 +120,12 @@ class Customer extends MY_Controller {
                 $this->data['city'] = $this->Customer_Model->get_city_list($user_data[0]->state_id);
             $this->data['user_id'] = $user_id;
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
-            $this->data['dataHeader']['title'] = "Edit Customer Provisioning";
+            $login_flag = $this->session->userdata('login_flag');
+            if ($login_flag == 0 && $login_flag != '') {
+                $this->data['dataHeader']['title'] = "Add Customer Provisioning";
+            } else {
+                $this->data['dataHeader']['title'] = "Edit Customer Provisioning";
+            }
             load_view_template($this->data, 'Edit_customer_info');
         }
     }
@@ -154,23 +160,20 @@ class Customer extends MY_Controller {
             if ($this->input->post('user_id'))
                 $update_user_id = $this->input->post('user_id');
 
-
-            $company_name = $_FILES['company_logo']['name'];
-            if (isset($company_name)) {
-                $company_path = './uploads/users/companylogo';
-                $company_source_path = FCPATH . 'uploads/users/companylogo/';
+            $path = './uploads/users/profile';
+            $source_path = FCPATH . "uploads/users/profile/";
+//            $company_name = $_FILES['company_logo']['name'];
+            if (isset($_FILES['company_logo']['name'])) {
                 $file_name = "company_logo";
-                $company_logo = upload_company_logo($file_name, $company_path, $company_source_path);
+                $company_logo = upload_logo($file_name, $path, $source_path);
                 if (!empty($company_logo)) {
                     $additional_data['company_logo'] = $company_logo;
                 }
             }
-            $profile_name = $_FILES['profile_logo']['name'];
-            if (isset($profile_name)) {
-                $profile_path = './uploads/users/profile';
-                $profile_source_path = FCPATH . "uploads/users/profile/";
+//            $profile_name = $_FILES['profile_logo']['name'];
+            if (isset($_FILES['profile_logo']['name'])) {
                 $file_name = "profile_logo";
-                $profile_logo = upload_profile_logo($file_name, $profile_path, $profile_source_path);
+                $profile_logo = upload_logo($file_name, $path, $source_path);
                 if (!empty($profile_logo)) {
                     $additional_data['profileimg'] = $profile_logo;
                 }
