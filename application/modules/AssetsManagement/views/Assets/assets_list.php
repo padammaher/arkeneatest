@@ -20,20 +20,21 @@
 
     </div>
 </div>
-<?php //print_r($this->session->userdata());
-if (isset($permission) && !empty($permission)) {
-    foreach ($permission as $key => $value) {
-        if ($value->menuName == 'Asset Management') {
-            $asset_index = $key;
-        } elseif ($value->menuName == 'Asset Location') {
-            $location_index = $key;
-        } elseif ($value->menuName == 'Asset User') {
-            $user_index = $key;
-        } elseif ($value->menuName == 'Asset Parameter Range') {
-            $parameter_index = $key;
-        }
-    }
-}
+<?php
+//print_r($this->session->userdata());
+//if (isset($permission) && !empty($permission)) {
+//    foreach ($permission as $key => $value) {
+//        if ($value->menuName == 'Asset Management') {
+//            $asset_index = $key;
+//        } elseif ($value->menuName == 'Asset Location') {
+//            $location_index = $key;
+//        } elseif ($value->menuName == 'Asset User') {
+//            $user_index = $key;
+//        } elseif ($value->menuName == 'Asset Parameter Range') {
+//            $parameter_index = $key;
+//        }
+//    }
+//}
 ?>
 <div class="page-title">
     <div class="title_left">
@@ -42,34 +43,9 @@ if (isset($permission) && !empty($permission)) {
 
     <div class="title_right">
         <div class="pull-right"> 
-            <?php
-            if (isset($location_index)) {
-                if ($permission[$location_index]->viewpermission == 1) {
-                    ?>
-                    <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
-                <?php } else {
-                    ?>   <a class="btn btn-sm btn-primary not-allowed"><i class="fa fa-map-marker"></i> Asset Location</a> <?php
-                }
-            }
-            ?>
-            <?php
-            if (isset($user_index)) {
-                if ($permission[$user_index]->viewpermission == 1) {
-                    ?>
-                    <a href="<?php echo base_url('User_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-user"></i> Asset User</a>
-                    <?php
-                }
-            }
-            ?>
-            <?php
-            if (isset($asset_index)) {
-                if ($permission[$asset_index]->addpermission == 1) {
-                    ?>
-                    <a href="<?php echo base_url('Assets_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
-                    <?php
-                }
-            }
-            ?>
+            <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
+            <a href="<?php echo base_url('User_assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-user"></i> Asset User</a>
+            <a href="<?php echo base_url('Assets_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
         </div>
     </div>
 
@@ -89,14 +65,7 @@ if (isset($permission) && !empty($permission)) {
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Status</th>
-                            <?php
-                            if (isset($location_index) || isset($asset_index) || isset($user_index) || isset($parameter_index)) {
-                                if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1 || $permission[$location_index]->editpermission == 1 || $permission[$location_index]->addpermission == 1 || $permission[$user_index]->editpermission == 1 || $permission[$user_index]->addpermission == 1 || $permission[$parameter_index]->viewpermission == 1) {
-                                    echo "<th>Actions</th>";
-                                }
-                            }
-                            ?>
-                            <!--<th>Actions</th>-->                          
+                            <th>Actions</th>                          
                         </tr>
                     </thead>
                     <tbody>
@@ -119,139 +88,67 @@ if (isset($permission) && !empty($permission)) {
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['startdate'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['enddate'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['isactive'] == '1' ? "Active" : "In-active"; ?></td>
-                                    <?php
-                                    if (isset($location_index) || isset($asset_index) || isset($user_index) || isset($parameter_index)) {
-                                        if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1 || $permission[$location_index]->editpermission == 1 || $permission[$location_index]->addpermission == 1 || $permission[$user_index]->editpermission == 1 || $permission[$user_index]->addpermission == 1 || $permission[$parameter_index]->viewpermission == 1) {
-                                            ?>
-                                            <td>
-                                                <div style="display: -webkit-inline-box;">
-                                                    <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
-                                                        <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                        <?php
-                                                        if (isset($asset_index)) {
-                                                            if ($permission[$asset_index]->editpermission == 1) {
-                                                                ?>
-                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                                </a>
-                                                            <?php } else {
-                                                                ?>  <i class="fa fa-pencil blue not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
-                                                            }
-                                                        }
-                                                        ?>
-                <!--                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                </a> -->
-                                                    </form>&nbsp;
+                                    <td>
+                                        <div style="display: -webkit-inline-box;">
+                                            <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
+                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                </a>
+                                                    <!--                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
+        <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+        </a> -->
+                                            </form>&nbsp;
 
-                                                    <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
-                                                        <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                                        <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
-                                                        <?php if (!empty($list['assetlocid'])) { ?>  
-                                                            <?php
-                                                            if (isset($location_index)) {
-                                                                if ($permission[$location_index]->editpermission == 1) {
-                                                                    ?>
-                                                                    <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
-                                                                        <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
-                                                                    </a>   
-                                                                <?php } else {
-                                                                    ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
-                                                                }
-                                                            }
-                                                            ?>
-                                                        <?php } else { ?>   
-                                                            <?php
-                                                            if (isset($location_index)) {
-                                                                if ($permission[$location_index]->addpermission == 1) {
-                                                                    ?>
-                                                                    <input type="hidden" name="manage_location_add" id="manage_location_add" value="manage_location_add" /> 
-                                                                    <a class="manage_location_add"  data-toggle="tooltip" data-placement="top" title="" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-original-title="Manage Asset Location">
-                                                                        <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                            <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
+                                                <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                                <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
+                                                <?php if (!empty($list['assetlocid'])) { ?>  
+                                                    <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
+                                                        <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                    </a>   
+                                                <?php } else { ?>   
+                                                    <input type="hidden" name="manage_location_add" id="manage_location_add" value="manage_location_add" /> 
+                                                    <a class="manage_location_add"  data-toggle="tooltip" data-placement="top" title="" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-original-title="Manage Asset Location">
+                                                        <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                    </a> 
+                                                <?php } ?>
+                                            </form>  &nbsp;  
 
-                                                                    </a> 
-                                                                <?php } else {
-                                                                    ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
-                                                                }
-                                                            }
-                                                            ?>
-                                                        <?php } ?>
-                                                    </form>  &nbsp;  
+                                            <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
+                                                <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                                <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
+                                                <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
+                                                    <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                        <i class="fa fa-group text-warning"></i> 
+                                                    </a>
+                                                <?php } else { ?>
+                                                    <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />        
+                                                    <a  title="Manage Users" class="manage_user_add" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                        <i class="fa fa-group text-warning"></i> 
+                                                    </a>
+                                                <?php } ?>
+                                            </form> &nbsp;
+                                            <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
+                                                <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
+                                                <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
 
-                                                    <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
-                                                        <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                                        <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
-                                                        <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
-                                                            <?php
-                                                            if (isset($user_index)) {
-                                                                if ($permission[$user_index]->editpermission == 1) {
-                                                                    ?>
-                                                                    <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                                        <i class="fa fa-group text-warning"></i> 
-                                                                    </a>
-                                                                <?php } else {
-                                                                    ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
-                                                                }
-                                                            }
-                                                            ?>
-                                                        <?php } else { ?>
-                                                            <?php
-                                                            if (isset($user_index)) {
-                                                                if ($permission[$user_index]->addpermission == 1) {
-                                                                    ?>
-                                                                    <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />        
-                                                                    <a  title="Manage Users" class="manage_user_add" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                                        <i class="fa fa-group text-warning"></i> 
-                                                                    </a>
-                                                                <?php } else {
-                                                                    ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
-                                                                }
-                                                            }
-                                                            ?>
-                                                        <?php } ?>
-                                                    </form> &nbsp;
-                                                    <?php
-                                                    if (isset($parameter_index)) {
-                                                        if ($permission[$parameter_index]->viewpermission == 1) {
-                                                            ?>
-                                                            <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
-                                                                <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
-                                                                <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
-
-                                                                <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
-                                                                    <i class="fa fa-list-ul text-info"></i> 
-                                                                </a>
-                                                            </form>&nbsp;
-                                                        <?php } else {
-                                                            ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                    <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
-                                                        <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                        <?php
-                                                        if (isset($asset_index)) {
-                                                            if ($permission[$asset_index]->deletepermission == 1) {
-                                                                ?>
-                                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                                </a> 
-                                                            <?php } else {
-                                                                ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </form>&nbsp;   
-                                                </div>
-                                            </td>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                                                <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
+                                                    <i class="fa fa-list-ul text-info"></i> 
+                                                </a>
+                                            </form>&nbsp;
+                                            <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
+                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                </a> 
+                                            </form>&nbsp;   
+                                        </div>
+                                    </td>
                                 </tr>          
                                 <?php
                                 $i++;
@@ -310,6 +207,7 @@ if (isset($permission) && !empty($permission)) {
         });
 
         $('body').on('click', '.manage_location', function () {
+            var id = $(this).attr('id');
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {           
                var id = $(this).attr('id');

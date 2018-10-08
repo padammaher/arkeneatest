@@ -1,18 +1,5 @@
-<?php //print_r($user_detail[0]->customer_name); exit();                       ?> 
+<?php //print_r($user_detail[0]->customer_name); exit();                          ?> 
 <!-- <div class="right_col" role="main"> -->
-<?php
-if (isset($permission) && !empty($permission)) {
-    foreach ($permission as $key => $value) {
-        if ($value->menuName == 'Customer Provisioning') {
-            $customer_index = $key;
-        } elseif ($value->menuName == 'Customer Business Location') {
-            $location_index = $key;
-        } elseif ($value->menuName == 'Client User') {
-            $user_index = $key;
-        }
-    }
-}
-?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -22,16 +9,9 @@ if (isset($permission) && !empty($permission)) {
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <?php
-                if (isset($customer_index)) {
-                    if ($permission[$customer_index]->editpermission == 1) {
-                        ?>
-                        <a href="<?php echo base_url() ?>Editcustomerinfo" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit Customer Information
-                        </a>
-                        <?php
-                    }
-                }
-                ?>
+                <a href="<?php echo base_url() ?>Editcustomerinfo" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit Customer Information
+                </a>
+
                 <!--- <a href="assets-location-list.html" class="btn btn-sm btn-primary">Asset Location</a>
       <a href="user-assets-list.html" class="btn btn-sm btn-primary">Asset User</a>--->
             </div>

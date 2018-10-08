@@ -6,7 +6,6 @@
 
         <div class="title_right">
             <div class="pull-right">
-
                 <a href="<?php echo base_url('Assets_location_add'); ?>" class="btn btn-sm btn-primary">Add New</a>
                 <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary">Asset Management</a>
                 <a href="<?php echo base_url('User_assets_list'); ?>" class="btn btn-sm btn-primary">Asset User</a>

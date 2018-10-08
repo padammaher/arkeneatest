@@ -1,14 +1,3 @@
-<?php
-if (isset($permission) && !empty($permission)) {
-    foreach ($permission as $key => $value) {
-        if ($value->menuName == 'Asset Parameter Range') {
-            $param_index = $key;
-        } elseif ($value->menuName == 'Asset Rule') {
-            $rule_index = $key;
-        }
-    }
-}
-?>
 <div class="">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -39,15 +28,7 @@ if (isset($permission) && !empty($permission)) {
                     <div class="title_right">
                         <div class="pull-right">
                             <a href="<?php echo base_url() . 'Assets_list'; ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Management</a>
-                            <?php
-                            if (isset($param_index)) {
-                                if ($permission[$param_index]->addpermission == 1) {
-                                    ?>
-                                    <a href="<?php echo base_url() . 'asset_parameter_add'; ?>" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Add Parameter Range</a>
-                                    <?php
-                                }
-                            }
-                            ?>
+                            <a href="<?php echo base_url() . 'asset_parameter_add'; ?>" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Add Parameter Range</a>
                         </div>
                     </div>
                 </div>
@@ -65,15 +46,7 @@ if (isset($permission) && !empty($permission)) {
                                 <th>UOM</th>                          
                                 <th>Bits/ sign</th>                          
                                 <th>Status</th> 
-                                <?php
-                                if (isset($param_index) || isset($rule_index)) {
-                                    if ($permission[$param_index]->editpermission == 1 || $permission[$param_index]->deletepermission == 1 || $permission[$rule_index]->viewpermission == 1) {
-                                        ?>
-                                        <th>Actions</th>    
-                                        <?php
-                                    }
-                                }
-                                ?>
+                                <th>Actions</th>    
                             </tr>
                         </thead>
                         <tbody>
@@ -91,62 +64,30 @@ if (isset($permission) && !empty($permission)) {
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['uom'] ? $r['uom'] : ""; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['bits_per_sign'] ? $r['bits_per_sign'] : ""; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
-                                        <?php
-                                        if (isset($param_index) || isset($rule_index)) {
-                                            if ($permission[$param_index]->editpermission == 1 || $permission[$param_index]->deletepermission == 1 || $permission[$rule_index]->viewpermission == 1) {
-                                                ?>
-                                                <td class="action">
-                                                    <form action="" method="post" id="update_param_range<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
-                                                        <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                        <?php
-                                                        if (isset($param_index)) {
-                                                            if ($permission[$param_index]->editpermission == 1) {
-                                                                ?>
-                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                                </a>
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (isset($rule_index)) {
-                                                            if ($permission[$rule_index]->viewpermission == 1) {
-                                                                ?>
-                                                                <a title="Edit" class="manage" id="<?php echo $i; ?>">
-                                                                    <i class="fa fa-dedent" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Rule"></i>
-                                                                </a>
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (isset($param_index)) {
-                                                            if ($permission[$param_index]->deletepermission == 1) {
-                                                                ?>
-                                                                <a title="Delete" class="delete" id="<?php echo $i; ?>" >
-                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                                </a> 
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </form>
-                                                </td>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
+                                        <td class="action">
+                                            <form action="" method="post" id="update_param_range<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
+                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                </a>
+                                                <a title="Edit" class="manage" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-dedent" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Rule"></i>
+                                                </a>
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>" >
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                </a> 
+                                            </form>
+                                        </td>
                                     </tr>
                                     <?php
                                     $i++;
                                 }
                             } else {
                                 ?>
-                            <td colspan="9">No data found..!</td> 
-                        <?php }
-                        ?>
+                                <tr><td>No data found..!</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                            <?php }
+                            ?>
                         </tbody>
                     </table>
                 </div>

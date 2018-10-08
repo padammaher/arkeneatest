@@ -1,16 +1,3 @@
-<?php
-if (isset($permission) && !empty($permission)) {
-    foreach ($permission as $key => $value) {
-        if ($value->menuName == 'Asset Management') {
-            $asset_index = $key;
-        } elseif ($value->menuName == 'Asset Location') {
-            $location_index = $key;
-        } elseif ($value->menuName == 'Asset User') {
-            $user_index = $key;
-        }
-    }
-}
-?>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -19,33 +6,9 @@ if (isset($permission) && !empty($permission)) {
 
         <div class="title_right">
             <div class="pull-right">
-                <?php
-                if (isset($asset_index)) {
-                    if ($permission[$asset_index]->viewpermission == 1) {
-                        ?>
-                        <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa fa-arrow-left"></i> Asset Management</a>
-                        <?php
-                    }
-                }
-                ?>
-                <?php
-                if (isset($location_index)) {
-                    if ($permission[$location_index]->viewpermission == 1) {
-                        ?>
-                        <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
-                        <?php
-                    }
-                }
-                ?>               
-                <?php
-                if (isset($user_index)) {
-                    if ($permission[$user_index]->addpermission == 1) {
-                        ?>
-                        <a href="<?php echo base_url('User_asset_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                 
-                        <?php
-                    }
-                }
-                ?>
+                <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa fa-arrow-left"></i> Asset Management</a>
+                <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
+                <a href="<?php echo base_url('User_asset_add'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>                 
             </div>
         </div>
     </div>
@@ -62,13 +25,7 @@ if (isset($permission) && !empty($permission)) {
                                 <th>Asset Code</th>
                                 <th>User Name</th>
                                 <th>Status</th>   
-                                <?php
-                                if (isset($user_index)) {
-                                    if ($permission[$user_index]->editpermission == 1 || $permission[$user_index]->deletepermission == 1) {
-                                        echo "<th>Actions</th>";
-                                    }
-                                }
-                                ?>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,49 +43,27 @@ if (isset($permission) && !empty($permission)) {
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['code']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $asset_user_list_data['client_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo ($asset_user_list_data['isactive'] == 1) ? 'Active' : 'In-active'; ?></td>
-                                        <?php
-                                        if (isset($user_index)) {
-                                            if ($permission[$user_index]->editpermission == 1 || $permission[$user_index]->deletepermission == 1) {
-                                                ?>
-                                                <td>
-                                                    <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="Assets_edit<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $asset_user_list_data['id']; ?>" name="asset_user_post_id"/>
-                                                        <input type="hidden" name="asset_user_post" id="post<?php echo $i; ?>"/>
-                                                        <?php
-                                                        if (isset($user_index)) {
-                                                            if ($permission[$user_index]->editpermission == 1) {
-                                                                ?>
-                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                                </a>
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (isset($user_index)) {
-                                                            if ($permission[$user_index]->deletepermission == 1) {
-                                                                ?>
-                                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                                </a> 
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </form>   
-                                                </td>
-                                            <?php
-                                            }
-                                        }
-                                        ?>
-                                        <?php
-                                        $i++;
-                                    }
-                                } else {
-                                    ?>
-                                    <td colspan="4">No data found..!</td>                                                                           
-<?php } ?>					
+                                        <td>
+                                            <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="Assets_edit<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $asset_user_list_data['id']; ?>" name="asset_user_post_id"/>
+                                                <input type="hidden" name="asset_user_post" id="post<?php echo $i; ?>"/>
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
+                                                </a>
+
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
+                                                </a> 
+                                            </form>   
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $i++;
+                                }
+                            } else {
+                                ?>
+                                <tr><td>No data found..!</td><td></td><td></td><td></td><td></td></tr>                                                                          
+                            <?php } ?>					
                         </tbody>
                     </table>
                 </div>
