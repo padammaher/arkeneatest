@@ -445,10 +445,10 @@ class Auth extends MY_Controller {
             $forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
             if ($forgotten) {
                 // if there were no errors
-                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                $this->session->set_flashdata('success_message', $this->ion_auth->messages());
                 redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
             } else {
-                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                $this->session->set_flashdata('error_message', $this->ion_auth->errors());
                 redirect("auth/forgot_password", 'refresh');
             }
         }
