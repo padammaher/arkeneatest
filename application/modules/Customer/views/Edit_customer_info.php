@@ -126,17 +126,19 @@
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
                                     </label>
+                                    <?php
+                                    if ($login_flag == 0 && $login_flag != '') {
+                                        $display = "style='display:none;'";
+                                        $required = "required";
+                                    } else {
+                                        $display = "";
+                                        $required = "";
+                                    }
+                                    ?>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');">
+                                        <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');" <?php echo isset($required) ? $required : ''; ?>>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                        <?php
-                                        if ($login_flag == 0 && $login_flag != '') {
-                                            $display = "style='display:none;'";
-                                        } else {
-                                            $display = "";
-                                        }
-                                        ?>
                                         <img src="data:image/gif;base64,<?php echo $user->company_logo; ?>" id="company_logo" alt="Company Logo" height="50" width="50" <?php echo isset($display) ? $display : ''; ?>>
                                     </div>
                                 </div>
@@ -144,17 +146,19 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile Image
                                 </label>
+                                <?php
+                                if ($login_flag == 0 && $login_flag != '') {
+                                    $display = "style='display:none;'";
+                                    $required = "required";
+                                } else {
+                                    $display = "";
+                                    $required = "";
+                                }
+                                ?>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="profile_logo" type="file" placeholder=""  onchange="readURL(this, 'profile');" >
+                                    <input name="profile_logo" type="file" placeholder=""  onchange="readURL(this, 'profile');" <?php echo isset($required) ? $required : ''; ?>>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
-                                    <?php
-                                    if ($login_flag == 0 && $login_flag != '') {
-                                        $display = "style='display:none;'";
-                                    } else {
-                                        $display = "";
-                                    }
-                                    ?>
                                     <img src="data:image/gif;base64,<?php echo $user->profileimg; ?>" id="profile_logo" alt="Profile Logo" height="50" width="50" <?php echo isset($display) ? $display : ''; ?>>
                                 </div>
                             </div>
