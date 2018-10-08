@@ -158,12 +158,12 @@ if (isset($permission) && !empty($permission)) {
                                         <div class="modal-body">
                                             <table class="table table-bordered">                      
                                                 <tbody>
-                                                    <tr>
+<!--                                                    <tr>
                                                         <td width="" class="lft-td">Sr. No.
                                                         </td>
                                                         <td><?php echo $i; ?> 
                                                         </td>
-                                                    </tr>
+                                                    </tr>-->
                                                     <tr>
                                                         <td width="" class="lft-td">Name
                                                         </td>

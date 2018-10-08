@@ -1,4 +1,4 @@
-<?php  $srno=1; foreach ($Device_inventory_list_data as $list) {  ?>     
+<?php  $srno=1; foreach ($Device_inventory_list_data as $list) { ?>     
 <!-- Modal -->
               <div id="device_inv_list_modal_<?php echo $list['id'] ?>" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -19,11 +19,11 @@
                           <td><?php echo $srno;?></td>
                         </tr>-->
                         <tr>
-                                        <td class="lft-td">Device_Num</td>
+                                        <td class="lft-td">Device Number</td>
                                         <td><?php echo $list['number'] ?></td>
                                     </tr>
                                     <tr>
-                                         <td class="lft-td">Serial_No</td>
+                                         <td class="lft-td">Serial Number</td>
                                         <td><?php echo $list['serial_no'] ?></td>
                                     </tr>
                                     <tr>
@@ -46,14 +46,30 @@
                                         <td class="lft-td">GSM Number</td>
                                         <td><?php echo $list['gsm_number'] ?></td>
                                     </tr>
-                                    <tr>
+<!--                                    <tr>
                                         <td class="lft-td">Communication Status</td>
                                         <td><?php echo $list['communication_status'] ?></td>
-                                    </tr>                              
+                                    </tr>                              -->
                                     <tr>
                                         <td class="lft-td">Communication Protocol</td>
                                         <td><?php echo $list['communication_protocol'] ?></td>
-                                    </tr>                                   
+                                    </tr> 
+                                    <tr>
+                                        <td class="lft-td">Stock Date</td>
+                                        <td><?php echo ($list['stock_date'])?$list['stock_date']:''; ?></td>
+                                    </tr> 
+                                    <tr>
+                                        <td class="lft-td">Customer Location</td>
+                                        <td><?php echo ($list['location_name'])?$list['location_name']:''; ?></td>
+                                    </tr> 
+                                     <tr>
+                                        <td class="lft-td">OEM Serivice Interval</td>
+                                        <td><?php echo ($list['oem_ser_interval_number'])?$list['oem_ser_interval_number']:''; ?></td>
+                                    </tr> 
+                                     <tr>
+                                        <td class="lft-td">Service After</td>
+                                        <td><?php echo ($list['service_after_number'])?$list['service_after_number']:''; ?></td>
+                                    </tr>
 									
 							
                       </tbody>

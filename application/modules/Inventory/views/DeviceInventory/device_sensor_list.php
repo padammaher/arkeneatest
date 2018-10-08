@@ -59,8 +59,8 @@ if (isset($permission) && !empty($permission)) {
                         <thead>
                             <tr>
                                 <th>Sr.No</th>
-                                <th>Device_Num</th>
-                                <th>Sensor_Num</th>
+                                <th>Device Number</th>
+                                <th>Sensor Number</th>
                                 <th>Status</th>
                                 <?php
                                 if (isset($sensor_index)) {

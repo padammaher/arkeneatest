@@ -62,9 +62,9 @@ if (isset($permission) && !empty($permission)) {
                     <table id="datatable" class="table table-striped table-bordered item-table" >
                         <thead>
                             <tr><th>Sr.No</th>
-                                <th>Device_Num</th>
+                                <th>Device Number</th>
                                 <th>Asset Code</th>
-                                <th>Serial_Num</th>
+                                <th>Serial Number</th>
                                 <th>Make</th>                          
                                 <th>Model</th>                          
                                 <th>Location</th>                          
