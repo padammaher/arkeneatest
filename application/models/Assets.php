@@ -142,7 +142,7 @@ class Assets extends MY_Model {
         }
         if ($group_id == '2') {
 //            $this->db->where(array('asset.createdby' => $user_id));
-              $this->db->where(array('users.location_id' => $this->Loginuser_location_id));
+              $this->db->where(array('customer_business_location.id' => $this->Loginuser_location_id));
             
         }
         $this->db->where(array('asset.isdeleted' => 0));
