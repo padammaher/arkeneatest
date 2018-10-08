@@ -18,25 +18,11 @@
                                 <th>User Type</th>
                                 <th>Description</th>
                                 <th>Status</th>
-                                <?php
-                                $group_id = $this->session->userdata('group_id');
-                                if ($group_id != 1) {
-                                    if (isset($permission) && !empty($permission)) {
-                                        if ($permission[0]->editpermission == 1) {
-                                            ?>
-                                            <th>Actions</th>    
-                                            <?php
-                                        }
-                                    }
-                                } else {
-                                    echo "<th>Actions</th>";
-                                }
-                                ?>
+                                <th>Actions</th>    
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            //echo "<pre>";print_r($user_type);
                             if (isset($user_type) && !empty($user_type)) {
                                 foreach ($user_type as $k => $data) {
                                     ?>
@@ -45,35 +31,11 @@
                                         <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->rolename; ?></td>
                                         <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->roledescription ? $data->roledescription : ""; ?></td>
                                         <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->isactive == 1 ? 'Active' : 'In-active'; ?></td>
-                                        <?php
-                                        $group_id = $this->session->userdata('group_id');
-                                        if ($group_id != 1) {
-                                            if (isset($permission) && !empty($permission)) {
-                                                if ($permission[0]->editpermission == 1) {
-                                                    ?>
-                                                    <td class="action">
-                                                        <a title="Add Privelege" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
-                                                            <i class="fa fa-cog blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage"></i>
-                                                        </a>
-                    <!--                                            <a title="Edit" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
-                                                            <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                        </a>-->
-                                                        <!--<a title="Delete" class="delete" id="<?php echo $k + 1; ?>" name="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>">-->
-                                                            <!--<i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i>--> 
-                                                        <!--</a>-->
-                                                    </td>
-                                                    <?php
-                                                }
-                                            }
-                                        } else {
-                                            ?>
-                                            <td class="action">
-                                                <a title="Add Privelege" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
-                                                    <i class="fa fa-cog blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage"></i>
-                                                </a>
-                                            </td>
-                                        <?php }
-                                        ?>
+                                        <td class="action">
+                                            <a title="Add Privelege" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
+                                                <i class="fa fa-cog blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <?php
                                 }

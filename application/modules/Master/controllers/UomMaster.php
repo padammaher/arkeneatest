@@ -535,7 +535,7 @@ class UomMaster extends CI_Controller {
         if ($this->input->post('uom_id')) {
             $id = $this->input->post('uom_id');
             $response = $this->uommodel->get_iconPath($id);
-            if (count($response) > 0) {
+            if (isset($response)) {
                 echo $response;
             }
         }

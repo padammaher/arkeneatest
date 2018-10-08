@@ -57,7 +57,7 @@
                     data: {uom_id: selected},
                     dataType: "html",
                     success: function (data) {
-                        $("#icon").html(data);
+                        $("#icon").val($.trim(data));
                     }
                 });
             }

@@ -7,15 +7,22 @@
 
         <div class="title_right">
             <div class="pull-right">
-                <!--<a href="<?php echo base_url() ?>manageIcon" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Manage Icon</a>-->
+                <a href="<?php echo base_url() ?>manageIcon" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Manage Icon</a>
                 <?php
                 if (isset($permission) && !empty($permission)) {
                     if ($permission[0]->addpermission == 1) {
                         ?>
                         <a href="<?php echo base_url() ?>addUomList" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New</a>
                         <?php
+                    } else {
+                        ?>
+                        <a class="btn btn-sm btn-primary not-allowed"><i class="fa fa-plus"></i> Add New</a>
+                        <?php
                     }
-                }
+                } else {
+                    ?>
+                    <a class="btn btn-sm btn-primary not-allowed"><i class="fa fa-plus"></i> Add New</a>
+                <?php }
                 ?>
             </div>
         </div>
@@ -34,13 +41,13 @@
                                 <th>UOM Type</th>
                                 <th>Status</th>
                                 <?php
-                                if (isset($permission) && !empty($permission)) {
-                                    if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
-                                        ?>
-                                        <th>Actions</th>  
-                                        <?php
-                                    }
-                                }
+//                                if (isset($permission) && !empty($permission)) {
+//                                    if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
+                                ?>
+                                <th>Actions</th>  
+                                <?php
+//                                    }
+//                                }
                                 ?>
                             </tr>
                         </thead>
@@ -57,40 +64,47 @@
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['name']; ?></td>
                                         <td class="flx-item" data-value="<?php echo $r['id'] . "_" . $i; ?>"><?php echo $r['active'] == 1 ? 'Active' : 'In-active'; ?></td>
                                         <?php
-                                        if (isset($permission) && !empty($permission)) {
-                                            if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
-                                                ?>
-                                                <td  class="action">
-                                                    <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
-                                                        <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
-                                                        <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                        <?php
-                                                        if (isset($permission) && !empty($permission)) {
-                                                            if ($permission[0]->editpermission == 1) {
-                                                                ?>
-                                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
-                                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
-                                                                </a>
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                        <?php
-                                                        if (isset($permission) && !empty($permission)) {
-                                                            if ($permission[0]->deletepermission == 1) {
-                                                                ?>
-                                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
-                                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
-                                                                </a> 
-                                                                <?php
-                                                            }
-                                                        }
-                                                        ?>
-                                                    </form>
-                                                </td>
+//                                        if (isset($permission) && !empty($permission)) {
+//                                            if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
+                                        ?>
+                                        <td  class="action">
+                                            <form action="<?php echo base_url(); ?>updateUomList" method="post" id="updateuomtype<?php echo $i; ?>">
+                                                <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
+                                                <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
                                                 <?php
-                                            }
-                                        }
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->editpermission == 1) {
+                                                        $edit_show = 1;
+                                                    } else {
+                                                        $edit_show = 0;
+                                                    }
+                                                } else {
+                                                    $edit_show = 0;
+                                                }
+                                                ?>
+                                                <a title="Edit" class="<?php echo isset($edit_show) && $edit_show != 1 ? 'not-allowed' : 'edit'; ?>" id="<?php echo $i; ?>">  
+                                                    <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo isset($edit_show) && $edit_show != 1 ? 'Access Denied' : 'Edit'; ?>"></i>
+                                                </a>
+
+                                                <?php
+                                                if (isset($permission) && !empty($permission)) {
+                                                    if ($permission[0]->deletepermission == 1) {
+                                                        $delete_show = 1;
+                                                    } else {
+                                                        $delete_show = 1;
+                                                    }
+                                                } else {
+                                                    $delete_show = 0;
+                                                }
+                                                ?>
+                                                <a title="Delete" class="<?php echo isset($delete_show) && $delete_show != 1 ? 'not-allowed' : 'delete'; ?>" id="<?php echo $i; ?>">
+                                                    <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo isset($delete_show) && $delete_show != 1 ? 'Access Denied' : 'Delete'; ?>"></i> 
+                                                </a> 
+                                            </form>
+                                        </td>
+                                        <?php
+//                                            }
+//                                        }
                                         ?>
                                     </tr>
                                     <?php

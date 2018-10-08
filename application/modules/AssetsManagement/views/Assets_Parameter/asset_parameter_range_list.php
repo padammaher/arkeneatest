@@ -159,13 +159,13 @@ if (isset($permission) && !empty($permission)) {
 <script type="text/javascript">
     $(document).ready(function () {
         var update_url = "<?php echo base_url() . 'asset_parameter_update'; ?>";
-        $(".edit").click(function () {
+        $('body').on('click', '.edit', function () {
             var id = $(this).attr('id');
             $("#post" + id).val('edit');
             $("#update_param_range" + id).attr('action', update_url);
             $("#update_param_range" + id).submit();
         });
-        $(".delete").click(function () {
+        $('body').on('click', '.delete', function () {
             var id = $(this).attr('id');
             $("#delete_confirmation").modal();
             $(".ok").click(function () {
@@ -175,17 +175,18 @@ if (isset($permission) && !empty($permission)) {
             });
         });
 
-        $(".manage").click(function () {
+        $('body').on('click', '.manage', function () {
             var id = $(this).attr('id');
             var url = "<?php echo base_url() . 'AssetsManagement/asset_rule_list'; ?>";
             $("#post" + id).val('edit');
             $("#update_param_range" + id).attr('action', url);
             $("#update_param_range" + id).submit();
         });
-        $("#flx-item").click(function (e) {
+        $('body').on('click', '.flx-item', function (e) {
             if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
-                if (id.length !== 0)
+                alert(id);
+                if (id.length != 0)
                 {
                     $.ajax({
                         url: "<?php echo base_url() . 'AssetsManagement/asset_parameter_range_details'; ?>",
@@ -193,6 +194,7 @@ if (isset($permission) && !empty($permission)) {
                         data: {param_range_id: id},
                         dataType: "html",
                         success: function (data) {
+                            alert(data);
                             $("#detailsModal").html(data);
                             $('#detailsModal').modal('show');
                         }
