@@ -131,6 +131,10 @@ class SensorMaster extends CI_Controller {
             }
         }
         if ($this->input->post('post') == 'delete') {
+            $data['permission'] = $this->users->get_permissions('Sensor Type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'delete');
+
             $id = $this->input->post('id');
 //            $check = $this->sensormodel->check_sensortype_in_use($id);
 //            if (count($check) > 0) {

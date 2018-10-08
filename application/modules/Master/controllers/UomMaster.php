@@ -249,6 +249,9 @@ class UomMaster extends CI_Controller {
             }
         }
         if ($this->input->post('post') == 'delete') {
+            $data['permission'] = $this->users->get_permissions('UOM Type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
 //            $check = $this->uommodel->check_uomtype_in_use($id);
 //            if ($check > 0) {
@@ -388,6 +391,9 @@ class UomMaster extends CI_Controller {
             }
         }
         if ($this->input->post('post') == 'delete') {
+            $data['permission'] = $this->users->get_permissions('UOM');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
 //            $check = $this->uommodel->check_uom_in_use($id);
 //            if ($check > 0) {

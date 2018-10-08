@@ -153,6 +153,9 @@ class AssetMaster extends CI_Controller {
             }
         }
         if ($this->input->post('post') == 'delete') {
+            $data['permission'] = $this->users->get_permissions('Asset Category');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
 //            $check = $this->assetmodel->check_category_in_use($id);
 //            if (count($check) > 0) {
@@ -290,6 +293,9 @@ class AssetMaster extends CI_Controller {
             }
         }
         if ($this->input->post('post') == 'delete') {
+            $data['permission'] = $this->users->get_permissions('Asset type');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
 //            $check = $this->assetmodel->check_assettype_in_use($id);
 //            if (count($check) > 0) {
