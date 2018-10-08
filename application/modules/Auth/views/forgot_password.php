@@ -9,7 +9,7 @@
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
         
 
-        <title>Ephysionsee Forget Password</title>
+        <title>Ephysionsee Forgot Password</title>
 
     </head>
 
@@ -32,7 +32,7 @@
                     <section class="login_content">
                         <br>
                         <?php echo form_open("auth/forgot_password");?>
-                        <h1>Forget Password Form</h1>
+                        <h1>Forgot Password</h1>
                         <div>
                             <label for="Email" style="color:white; font-family:courier; text-align: left;">Email </label>
                             <?php echo form_input($identity);?>
