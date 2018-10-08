@@ -72,7 +72,7 @@
                             </tbody>
                         </table>
                         <div class="text-center mtop20 col-md-12 col-sm-12">
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-sm-12">
                                 <?php if ($this->session->userdata('group_id') == 2) { ?>
                                     <a class="btn btn-sm btn-primary btn-block not-allowed"><i class="fa fa-map-marker"></i> Manage Business Location </a>
                                 <?php } elseif ($this->session->userdata('group_id') == 1) { ?>
@@ -80,7 +80,7 @@
                                 <?php }
                                 ?>
                             </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-sm-12">
                                 <?php if ($this->session->userdata('group_id') == 2) { ?>
                                     <a class="btn btn-sm btn-success btn-block not-allowed"> <i class="fa fa-user"></i> Manage Users</a>
                                 <?php } elseif ($this->session->userdata('group_id') == 1) { ?>
