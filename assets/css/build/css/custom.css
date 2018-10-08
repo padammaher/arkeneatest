@@ -2636,6 +2636,14 @@ ul.timeline li {
     font-size: 13px;
     padding: 8px
 }
+
+.timeline .tags img {
+	padding: 2px;
+    background: #f7f7f7;
+    border: 1px solid #e6e6e6;
+
+}
+
 .timeline .tag span {
     display: block;
     overflow: hidden;

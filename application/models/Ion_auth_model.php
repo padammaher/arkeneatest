@@ -1029,7 +1029,7 @@ class Ion_auth_model extends CI_Model {
         }
 
         $this->trigger_events('extra_where');
-        $this->db->select($this->identity_column . ', email, id, password, active, last_login,login_flag,group_id,first_name');
+        $this->db->select($this->identity_column . ', email, id, password, active, last_login,login_flag,group_id,first_name,location_id');
         $this->db->from($this->tables['users']);
         $this->db->where($this->identity_column, $identity);
         $this->db->limit(1);
@@ -1759,7 +1759,8 @@ class Ion_auth_model extends CI_Model {
             'login_flag' => $user->login_flag,
             'last_check' => time(),
             'group_id' => $user->group_id,
-            'first_name' => $user->first_name
+            'first_name' => $user->first_name,
+            'location_id'=>$user->location_id        
         );
 
         $this->session->set_userdata($session_data);

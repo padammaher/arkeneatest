@@ -21,7 +21,7 @@ if (!function_exists('userPermissionCheck')) {
     function userPermissionCheck($permission, $type, $menu = null) {
         if (isset($permission) && !empty($permission)) {
             $CI = & get_instance();
-            $CI->load->model('users');
+//            $CI->load->model('users');
             if (isset($permission) && !empty($permission)) {
                 if (isset($menu) && $menu !== null) {
                     foreach ($permission as $key => $value) {

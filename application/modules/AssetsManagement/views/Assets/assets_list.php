@@ -20,7 +20,7 @@
 
     </div>
 </div>
-<?php
+<?php //print_r($this->session->userdata());
 if (isset($permission) && !empty($permission)) {
     foreach ($permission as $key => $value) {
         if ($value->menuName == 'Asset Management') {
@@ -47,8 +47,9 @@ if (isset($permission) && !empty($permission)) {
                 if ($permission[$location_index]->viewpermission == 1) {
                     ?>
                     <a href="<?php echo base_url('Assets_location_list'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-map-marker"></i> Asset Location</a>
-                    <?php
-                }else {?>   <a class="btn btn-sm btn-primary not-allowed"><i class="fa fa-map-marker"></i> Asset Location</a> <?php }
+                <?php } else {
+                    ?>   <a class="btn btn-sm btn-primary not-allowed"><i class="fa fa-map-marker"></i> Asset Location</a> <?php
+                }
             }
             ?>
             <?php
@@ -134,8 +135,9 @@ if (isset($permission) && !empty($permission)) {
                                                                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                                 </a>
-                                                                <?php
-                                                            } else { ?>  <i class="fa fa-pencil blue not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
+                                                            <?php } else {
+                                                                ?>  <i class="fa fa-pencil blue not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
+                                                            }
                                                         }
                                                         ?>
                 <!--                                            <a title="Delete" class="delete" id="<?php echo $i; ?>">
@@ -155,9 +157,10 @@ if (isset($permission) && !empty($permission)) {
                                                                     <a class="manage_location" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
                                                                         <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
                                                                     </a>   
-                                                                    <?php
-                                                                }else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
-                                                            } 
+                                                                <?php } else {
+                                                                    ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
+                                                                }
+                                                            }
                                                             ?>
                                                         <?php } else { ?>   
                                                             <?php
@@ -169,8 +172,9 @@ if (isset($permission) && !empty($permission)) {
                                                                         <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
 
                                                                     </a> 
-                                                                    <?php
-                                                                }else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php } 
+                                                                <?php } else {
+                                                                    ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
+                                                                }
                                                             }
                                                             ?>
                                                         <?php } ?>
@@ -188,8 +192,9 @@ if (isset($permission) && !empty($permission)) {
                                                                     <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                                         <i class="fa fa-group text-warning"></i> 
                                                                     </a>
-                                                                    <?php
-                                                                } else { ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
+                                                                <?php } else {
+                                                                    ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
+                                                                }
                                                             }
                                                             ?>
                                                         <?php } else { ?>
@@ -201,8 +206,9 @@ if (isset($permission) && !empty($permission)) {
                                                                     <a  title="Manage Users" class="manage_user_add" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
                                                                         <i class="fa fa-group text-warning"></i> 
                                                                     </a>
-                                                                    <?php
-                                                                } else { ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
+                                                                <?php } else {
+                                                                    ?>  <i class="fa fa-group text-warning not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
+                                                                }
                                                             }
                                                             ?>
                                                         <?php } ?>
@@ -219,8 +225,9 @@ if (isset($permission) && !empty($permission)) {
                                                                     <i class="fa fa-list-ul text-info"></i> 
                                                                 </a>
                                                             </form>&nbsp;
-                                                            <?php
-                                                        } else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
+                                                        <?php } else {
+                                                            ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
+                                                        }
                                                     }
                                                     ?>
                                                     <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
@@ -233,8 +240,9 @@ if (isset($permission) && !empty($permission)) {
                                                                 <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                                 </a> 
-                                                                <?php
-                                                            } else { ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php }
+                                                            <?php } else {
+                                                                ?>  <i class="fa fa-map-marker text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !" disabled></i> <?php
+                                                            }
                                                         }
                                                         ?>
                                                     </form>&nbsp;   
@@ -250,8 +258,11 @@ if (isset($permission) && !empty($permission)) {
                             }
                         } else {
                             ?>     
-                        <td colspan="7">No data found..!</td>           
-                    <?php } ?>                  
+                            <tr>
+                                <td>No data found..!</td>
+                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            </tr>          
+                        <?php } ?>                  
                     </tbody>
                 </table>
             </div>
@@ -270,7 +281,6 @@ if (isset($permission) && !empty($permission)) {
             //            alert(id);
             $("#Assets_edit" + id).submit();
         });
-
         //                $(".delete").click(function () {
         //            var flag = confirm('Are you sure you want to delete this item?');
         //            if (flag == true) {
@@ -294,16 +304,14 @@ if (isset($permission) && !empty($permission)) {
         $('body').on('click', '.manage_user', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
-            var id = $(this).attr('id');
-            // $("#post" + id).val('delete');
+            var id = $(this).attr('id');             // $("#post" + id).val('delete');
             $("#asset_user" + id).submit();
             // }
         });
 
         $('body').on('click', '.manage_location', function () {
             // var flag = confirm('Are you sure you want to delete this item?');
-            // if (flag == true) {
-            var id = $(this).attr('id');
+            // if (flag == true) {             var id = $(this).attr('id');
             // $("#post" + id).val('delete');
             $("#asset_location" + id).submit();
             // }

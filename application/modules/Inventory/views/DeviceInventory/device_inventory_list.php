@@ -142,7 +142,7 @@ if (isset($permission) && !empty($permission)) {
                                                                                 <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                                             </a>
                                                                             <?php
-                                                                        }else {?><i class="fa fa-pencil blue not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i><?php }  
+                                                                        }else {?><i class="fa fa-dashboard text-success not-allowed" data-toggle="tooltip" data-placement="top" title="" data-original-title="Access Denied !"></i><?php }  
                                                                     }
                                                                     ?>
                                                                 <?php } else { ?>

@@ -296,11 +296,6 @@
                                                         <td><?php echo (isset($asset_rule['rule_des'])) ? $asset_rule['rule_des'] : ''; ?> .</td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="" class="lft-td">Parameter</td>
-                                                        <td><?php echo (isset($asset_rule['parameter'])) ? $asset_rule['parameter'] : ''; ?> </td>
-                                                    </tr>
-
-                                                    <tr>
                                                         <td width="" class="lft-td">Green Value</td>
                                                         <td><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?> <?php echo (isset($asset_rule['uom_name'])) ? $asset_rule['uom_name'] : ''; ?></td>
                                                     </tr>
@@ -316,7 +311,10 @@
                                                         <td width="" class="lft-td">Wef Date</td>
                                                         <td><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
                                                     </tr>
-
+                                                    <tr>
+                                                        <td width="" class="lft-td">Parameter Count</td>
+                                                        <td><?php echo (isset($asset_rule['parameter'])) ? $asset_rule['parameter'] : ''; ?> </td>
+                                                    </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Trigger Count</td>
                                                         <td><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>

@@ -35,14 +35,14 @@ $back_action = $this->input->post('back_action');
                                         foreach ($device_list as $device_id_list) {
                                             if ($managed_dev_asset_Id == $device_id_list['id']) {
                                                 ?>
-                                                <option value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid', $managed_dev_asset_Id) == $device_id_list['id'] ? 'selected' : '' ?> ><?php echo $device_id_list['number']; ?></option>
+                                                <option id="<?php echo $device_id_list['customer_location_id'];?>" value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid', $managed_dev_asset_Id) == $device_id_list['id'] ? 'selected' : '' ?> ><?php echo $device_id_list['number']; ?></option>
                                                 <?php
                                             }
                                         }
                                     } else {
                                         foreach ($device_list as $device_id_list_2) {
                                             ?>
-                                            <option value="<?php echo $device_id_list_2['id']; ?>" <?php echo set_value('deviceid') == $device_id_list_2['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list_2['number']; ?></option>
+                                            <option id="<?php echo $device_id_list_2['customer_location_id'];?>" value="<?php echo $device_id_list_2['id']; ?>" <?php echo set_value('deviceid') == $device_id_list_2['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list_2['number']; ?></option>
 
 
                                             <?php
@@ -132,15 +132,16 @@ $back_action = $this->input->post('back_action');
         {
 //       alert(this.value);
             var objdata = '';
+            var location_id = $(this).children(":selected").attr("id");
             var i = 0;
             var options;
             $("#assetid").empty();
-            var options = '<option value="">Select Type</option>';
+            var options = '<option value="">Select Asset Code</option>';
             $.ajax({
                 url: '<?php echo base_url(); ?>Inventory/Load_Locationwise_assetids',
                 type: 'post',
                 dataType: 'text',
-                data: {deviceid: this.value},
+                data: {deviceid: this.value,location_id:location_id},
                 success: function (res) {
                     var obj = $.parseJSON(res);
 
