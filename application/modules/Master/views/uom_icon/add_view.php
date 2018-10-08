@@ -8,7 +8,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form class="form-horizontal form-label-left">
+                    <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>manageIcon" method="POST">
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -49,6 +49,18 @@
     $(document).ready(function () {
         $("#uom").change(function () {
             var selected = $(this).val();
+            if (selected.length !== 0)
+            {
+                $.ajax({
+                    url: "<?php echo base_url() . 'Master/uommaster/get_iconPath'; ?>",
+                    method: "POST",
+                    data: {uom_id: selected},
+                    dataType: "html",
+                    success: function (data) {
+                        $("#icon").val($.trim(data));
+                    }
+                });
+            }
         });
     });
 </script>

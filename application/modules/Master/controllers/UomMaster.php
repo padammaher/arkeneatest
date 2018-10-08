@@ -493,14 +493,50 @@ class UomMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         } else {
-            if ($_POST) {
-                
-            } else {
+            if ($this->session->userdata('user_id'))
                 $user_id = $this->session->userdata('user_id');
+
+            if ($_POST) {
+                $this->form_validation->set_rules('uom', 'UOM Type', 'required');
+                $this->form_validation->set_rules('icon_path', 'Icon Path', 'required');
+                if ($this->form_validation->run() == TRUE) {
+                    $uom_id = $this->input->post('uom');
+                    $insert_data = array(
+                        'iconpath' => $this->input->post('icon_path')
+                    );
+
+                    $response = $this->uommodel->update_uom_icon($uom_id, $insert_data);
+                    if ($response > 0) {
+                        $this->session->unset_userdata('uom_icon_post');
+                        $this->session->set_flashdata('success_msg', 'UOM icon path updated successfully');
+                        redirect('uomlist');
+                    } else {
+                        $this->session->set_userdata('uom_icon_post', $this->input->post());
+                        $this->session->set_flashdata('error_msg', 'Failed to update UOM icon path');
+                        redirect('manageIcon');
+                    }
+                } else {
+                    $data['uom_id'] = $this->input->post('uom');
+                    $data['dataHeader'] = $this->users->get_allData($user_id);
+                    $data['dataHeader']['title'] = "Manage UOM Icon";
+                    $data['uom_icon_data'] = $this->uommodel->getUOM();
+                    load_view_template($data, 'master/uom_icon/add_view');
+                }
+            } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Manage UOM Icon";
                 $data['uom_icon_data'] = $this->uommodel->getUOM();
                 load_view_template($data, 'master/uom_icon/add_view');
+            }
+        }
+    }
+
+    public function get_iconPath() {
+        if ($this->input->post('uom_id')) {
+            $id = $this->input->post('uom_id');
+            $response = $this->uommodel->get_iconPath($id);
+            if (isset($response)) {
+                echo $response;
             }
         }
     }

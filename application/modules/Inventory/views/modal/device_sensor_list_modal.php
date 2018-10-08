@@ -7,7 +7,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Details</h4>
+                      <h4 class="modal-title">Device Sensor Details</h4>
                     </div>
                     <div class="modal-body">
 
@@ -15,11 +15,11 @@
                       <tbody>
                        
                         <tr>
-                          <td width="" class="lft-td">Device ID</td>
+                          <td width="" class="lft-td">Device Number</td>
                           <td><?php echo $list['number'] ?></td>
                         </tr>
                         <tr>
-                        <td class="lft-td">Sensor ID</td>
+                        <td class="lft-td">Sensor Number</td>
                         <td><?php echo $list['sensor_no'] ?></td>
                     </tr>
                                     

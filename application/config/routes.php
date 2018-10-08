@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['acces_forbidden'] = "Welcome/accessDenied";
+$route['acces_forbidden'] = "Auth/accessDenied";
 // forgetpassword
 $route['resetPassword'] = 'Auth/reset_password';
 //Masters

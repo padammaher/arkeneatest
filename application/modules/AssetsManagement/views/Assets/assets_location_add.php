@@ -99,7 +99,7 @@ if($managedLocationId == $asset_id_list['id']){    ?>
                             <?php } ?>
                     </div> 
                     <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <input type="checkbox" name="status" id="status" class="flat" checked> Active
                             </div>
