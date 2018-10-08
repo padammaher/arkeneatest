@@ -327,7 +327,7 @@ class Inventory extends MY_Controller {
                     $arr = $this->input->post("sensorid");
 
                     $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
-                    $this->form_validation->set_rules('sensorid[]', 'Sensor ID', 'required');
+                    $this->form_validation->set_rules('sensorid[]', 'Sensor Number', 'required');
 //                    print_r($arr);
 //                    echo form_error('sensorid[]');
                   if(isset($arr)){  
@@ -423,7 +423,7 @@ class Inventory extends MY_Controller {
                 $sen_inv_id = ($this->input->post('id')) == '' ? $this->input->post('dev_sen_post_id') : $this->input->post('id');
                 $dev_sen_post_add=($this->input->post('dev_sen_post_add')) != '' ? $this->input->post('dev_sen_post_add') : '';
                 $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
-                $this->form_validation->set_rules('sensorid[]', 'Sensor ID', 'required');
+                $this->form_validation->set_rules('sensorid[]', 'Sensor Number', 'required');
 
                 $data['device_list'] = $this->Inventory_model->device_ids_for_dev_sen($user_id);
                 $data['sensorid_list'] = $this->Inventory_model->sensorid_list($user_id);
