@@ -54,9 +54,11 @@
                                 }
                             } else {
                                 ?>
-                            <td colspan="7">No data found..!</td>           
-                        <?php }
-                        ?>
+                                <tr>
+                                    <td>No data found..!</td><td></td><td></td><td></td>    
+                                </tr>         
+                            <?php }
+                            ?>
                         </tbody>
                     </table>
                 </div>

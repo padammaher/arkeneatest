@@ -21,7 +21,8 @@
                 <div class="x_content" id="asset-category-list">
                     <table id="datatable" class="table table-striped table-bordered item-table" >
                         <thead>
-                            <tr><th>Sr.No</th>
+                            <tr>
+                                <th>Sr.No</th>
                                 <th>Asset Category</th>
                                 <th>Description</th>
                                 <th>Status</th>
@@ -57,9 +58,11 @@
                                 }
                             } else {
                                 ?>
-                            <td colspan="7">No data found..!</td>           
-                        <?php }
-                        ?>
+                                <tr>
+                                    <td>No data found..!</td><td></td><td></td><td></td><td></td>
+                                </tr>
+                            <?php }
+                            ?>
                         </tbody>
                     </table>
                 </div>
