@@ -1329,7 +1329,7 @@ class AssetsManagement extends MY_Controller {
             }
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Trigger List";
-echo $set_rule_id."--".$user_id."--,".$asset_id;
+//echo $set_rule_id."--".$user_id."--,".$asset_id;
             $data['asset_details'] = $this->Assets->assets_list($asset_id);
 
             $data['trigger_list'] = $this->Assets->trigger_list($set_rule_id, $user_id, $asset_id);

@@ -908,7 +908,7 @@ class Assets extends MY_Model {
 from asset  
  left join customer_business_location on customer_business_location.id= asset.customer_locationid  
  LEFT JOIN asset_user ON asset_user.asset_id = asset.id   
- LEFT JOIN users ON users.id = asset_user.assetuser_id  
+ LEFT JOIN users ON users.id = ".$user_id." 
  
  left join parameter_range ON parameter_range.asset_id = asset.id
   LEFT JOIN
