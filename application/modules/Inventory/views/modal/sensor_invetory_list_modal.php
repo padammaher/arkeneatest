@@ -1,4 +1,4 @@
-<?php  $srno=1; foreach ($sensor_inventory_list as $list) {  ?>     
+<?php  $srno=1; foreach ($sensor_inventory_list as $list) {   ?>     
 <!-- Modal -->
               <div id="sensor_inv_list_modal_<?php echo $list['id'] ?>" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -43,8 +43,8 @@
                                         <td><?php echo $list['name'] ?></td>
                                     </tr>
                                      <tr>
-                                        <td class="lft-td">UOM Type</td>
-                                        <td><?php echo $list['uom_type_tbl_name'] ?></td>
+                                        <td class="lft-td">Customer Location</td>
+                                        <td><?php echo (isset($list['location_name']))?$list['location_name']:''; ?></td>
                                     </tr>
                       </tbody>
                     </table>

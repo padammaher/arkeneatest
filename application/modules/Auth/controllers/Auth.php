@@ -438,7 +438,7 @@ class Auth extends MY_Controller {
                 } else {
                     $this->ion_auth->set_error('forgot_password_email_not_found');
                 }
-                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                $this->session->set_flashdata('error_message', $this->ion_auth->errors());
                 redirect("auth/forgot_password", 'refresh');
             }
             // run the forgotten password method to email an activation code to the user
