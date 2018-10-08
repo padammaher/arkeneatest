@@ -152,7 +152,7 @@ if (isset($permission) && !empty($permission)) {
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;
                                             </button>
-                                            <h4 class="modal-title">Details
+                                            <h4 class="modal-title">Client User Details
                                             </h4>
                                         </div>
                                         <div class="modal-body">
