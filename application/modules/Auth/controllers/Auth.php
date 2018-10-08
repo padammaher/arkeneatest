@@ -108,12 +108,12 @@ class Auth extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            
-        
-        $user_id = $this->session->userdata('user_id');
-        $data['dataHeader'] = $this->users->get_allData($user_id);
-        $data['dataHeader']['title'] = "Home";
-        load_view_template($data, "index2");
+
+
+            $user_id = $this->session->userdata('user_id');
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+            $data['dataHeader']['title'] = "Home";
+            load_view_template($data, "index2");
 
 //        $this->template->set_master_template('template.php');
 //        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
@@ -125,14 +125,14 @@ class Auth extends MY_Controller {
     }
 
     public function restricted() {
-          if (!$this->ion_auth->logged_in()) {
+        if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-        $user_id = $this->session->userdata('user_id');
-        $data['dataHeader'] = $this->users->get_allData($user_id);
-        //echo "<script>alert('You must be an administrator to view this page.')</script>";
-        load_view_template($data, "error_admin");
+            $user_id = $this->session->userdata('user_id');
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+            //echo "<script>alert('You must be an administrator to view this page.')</script>";
+            load_view_template($data, "error_admin");
 
 //        $this->template->set_master_template('template.php');
 //        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
@@ -140,8 +140,8 @@ class Auth extends MY_Controller {
 //        $this->template->write_view('content', 'error_admin', (isset($this->data) ? $this->data : NULL), TRUE);
 //        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
 //        $this->template->render();
-        return 0;
-    }
+            return 0;
+        }
     }
 
     public function users() {
@@ -438,17 +438,17 @@ class Auth extends MY_Controller {
                 } else {
                     $this->ion_auth->set_error('forgot_password_email_not_found');
                 }
-                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                $this->session->set_flashdata('error_message', $this->ion_auth->errors());
                 redirect("auth/forgot_password", 'refresh');
             }
             // run the forgotten password method to email an activation code to the user
             $forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
             if ($forgotten) {
                 // if there were no errors
-                $this->session->set_flashdata('message', $this->ion_auth->messages());
+                $this->session->set_flashdata('success_message', $this->ion_auth->messages());
                 redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
             } else {
-                $this->session->set_flashdata('message', $this->ion_auth->errors());
+                $this->session->set_flashdata('error_message', $this->ion_auth->errors());
                 redirect("auth/forgot_password", 'refresh');
             }
         }
@@ -1025,6 +1025,13 @@ class Auth extends MY_Controller {
         $dataDocumentDetail['type'] = $fileParts['extension'];
         if (isset($upload_status))
             return $fileName;
+    }
+
+    public function accessDenied() {
+        $user_id = $this->session->userdata('user_id');
+        $data['dataHeader'] = $this->users->get_allData($user_id);
+        $data['dataHeader']['title'] = "Error 403! Access Denied";
+        load_view_template($data, '403.php');
     }
 
 }

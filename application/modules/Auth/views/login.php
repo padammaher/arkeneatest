@@ -21,6 +21,12 @@
             <div class="login_wrapper">
 
                 <div class="animate form login_form">
+                    <?php if ($this->session->flashdata('success_message')) { ?>
+                        <div class="alert alert-success fade in" id="error_msg" style="display: none;">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Success!</strong> <?php echo $this->session->flashdata('success_message'); ?>
+                        </div>   
+                    <?php } ?> 
                     <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <strong></strong> <?php

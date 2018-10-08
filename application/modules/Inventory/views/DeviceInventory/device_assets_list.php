@@ -63,7 +63,7 @@ if (isset($permission) && !empty($permission)) {
                         <thead>
                             <tr>
                                 <th>Sr.No</th>
-                                <th>Device_Num</th>
+                                <th>Device Number</th>
                                 <th>Asset Code</th>
                                 <th>Wef Date</th>
                                 <th>Status</th>
@@ -80,16 +80,19 @@ if (isset($permission) && !empty($permission)) {
                         <tbody>
                             <?php
                             $i = 1;
-                            if (!empty($device_asset_list)) {
-                                foreach ($device_asset_list as $device_asset_list_data) {
+                            if (!empty($device_asset_list)) {                               // var_dump($device_asset_list); 
+                                foreach ($device_asset_list as $device_asset_list_data) { echo $device_asset_list_data['id'];
+                                    $setId_to_modal = $device_asset_list_data['id'];
+                                        $modal_idand_class = "data-toggle='modal' href='#device_asset_list_modal_" . $setId_to_modal . "'";
+                                        
                                     ?>	
 
                                     <tr>
-                                        <td><?php echo $i; ?></td>
-                                        <td><?php echo $device_asset_list_data['number']; ?></td>
-                                        <td><?php echo $device_asset_list_data['code']; ?></td>
-                                        <td><?php echo $device_asset_list_data['createdate']; ?></td>
-                                        <td><?php echo ($device_asset_list_data['isactive'] == 1) ? 'Active' : 'In-active'; ?></td>
+                                        <td  <?php echo $modal_idand_class; ?>><?php echo $i; ?></td>
+                                        <td  <?php echo $modal_idand_class; ?>><?php echo $device_asset_list_data['number']; ?></td>
+                                        <td  <?php echo $modal_idand_class; ?>><?php echo $device_asset_list_data['code']; ?></td>
+                                        <td  <?php echo $modal_idand_class; ?>><?php echo $device_asset_list_data['createdate']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo ($device_asset_list_data['isactive'] == 1) ? 'Active' : 'In-active'; ?></td>
                                         <?php
                                         if (isset($asset_index)) {
                                             if ($permission[$asset_index]->editpermission == 1 || $permission[$asset_index]->deletepermission == 1) {
@@ -150,6 +153,8 @@ if (isset($permission) && !empty($permission)) {
 
 
 </div>
+
+<?php $this->load->view('modal/device_asset_list_modal'); ?>
 
 <script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript">

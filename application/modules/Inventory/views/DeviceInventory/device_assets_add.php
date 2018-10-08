@@ -20,7 +20,7 @@ $back_action = $this->input->post('back_action');
                 <div class="x_content">
                     <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url(); ?>Device_assets_add">
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device number</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device number <span>*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="deviceid" id="deviceid"  required="required" <?php echo $managed_dev_asset_Id == '' ? '' : 'readonly="readonly"'; ?>>
 
@@ -56,7 +56,7 @@ $back_action = $this->input->post('back_action');
                             <?php } ?>
                         </div> 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code <span>*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="assetid" id="assetid" required="required">
                                     <option value="">Select Asset Code</option>
@@ -73,7 +73,7 @@ $back_action = $this->input->post('back_action');
                         </div> 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Wef Date</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Wef Date <span>*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
 
                                 <div class="xdisplay_inputx item form-group has-feedback">
@@ -88,7 +88,7 @@ $back_action = $this->input->post('back_action');
                             <?php } ?>
                         </div>   
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status </label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <input type="checkbox" name="status" id="status" class="flat" checked> Active
                             </div>

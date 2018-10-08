@@ -140,6 +140,9 @@ class ParameterMaster extends CI_Controller {
             }
         }
         if ($this->input->post('post') == 'delete') {
+            $data['permission'] = $this->users->get_permissions('Parameter');
+            //check user Permission
+            userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
 //            $check = $this->parametermodel->check_parameter_in_use($id);
 //            if ($check > 0) {

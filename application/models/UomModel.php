@@ -242,4 +242,21 @@ class UomModel extends MY_Model {
         return $result;
     }
 
+    function update_uom_icon($uom_id, $data) {
+        if (isset($data, $uom_id) && !empty($data)) {
+            $this->db->where('id', $uom_id);
+            $this->db->update('uom', $data);
+            return $this->db->affected_rows();
+        }
+    }
+
+    function get_iconPath($id) {
+        $this->db->select('uom.iconpath');
+        $this->db->where('id', $id);
+        $result = $this->db->get('uom')->result();
+        if (count($result) > 0) {
+            return $result[0]->iconpath;
+        }
+    }
+
 }

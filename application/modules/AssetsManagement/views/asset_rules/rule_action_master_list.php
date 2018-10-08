@@ -153,15 +153,15 @@
                                 foreach ($asset_list as $key => $asset_rule) {
                                     ?> 
                                     <tr>
-                                        <td class="flex-item"><?php echo $i; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> </td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['pararameter_name'])) ? $asset_rule['pararameter_name'] : ''; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>
-                                        <td class="flex-item"><?php echo (isset($asset_rule['rule_status'])) ? ($asset_rule['rule_status'] == 1) ? 'Active' : 'In-active' : ''; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> </td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['pararameter_name'])) ? $asset_rule['pararameter_name'] : ''; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['orange_value'])) ? $asset_rule['orange_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['red_value'])) ? $asset_rule['red_value'] : ''; ?><?php echo (isset($asset_rule['uom_name'])) ? '  ' . $asset_rule['uom_name'] : ''; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>
+                                        <td class="flex-item<?php echo $i; ?>"><?php echo (isset($asset_rule['rule_status'])) ? ($asset_rule['rule_status'] == 1) ? 'Active' : 'In-active' : ''; ?></td>
                                         <?php
                                         if (isset($permission) && !empty($permission)) {
                                             if ($permission[0]->editpermission == 1 || $permission[0]->deletepermission == 1) {
@@ -277,16 +277,16 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Details</h4>
+                                            <h4 class="modal-title">Asset Rules Details</h4>
                                         </div>
                                         <div class="modal-body">
 
                                             <table class="table table-bordered">                      
                                                 <tbody>
-                                                    <tr>
+<!--                                                    <tr>
                                                         <td width="" class="lft-td">Rule No.</td>
                                                         <td><?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?> </td>
-                                                    </tr>
+                                                    </tr>-->
                                                     <tr>
                                                         <td width="" class="lft-td">Rule Name</td>
                                                         <td><?php echo (isset($asset_rule['rule_name'])) ? $asset_rule['rule_name'] : ''; ?> </td>
@@ -295,11 +295,6 @@
                                                         <td width="" class="lft-td">Rule Description</td>
                                                         <td><?php echo (isset($asset_rule['rule_des'])) ? $asset_rule['rule_des'] : ''; ?> .</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td width="" class="lft-td">Parameter</td>
-                                                        <td><?php echo (isset($asset_rule['parameter'])) ? $asset_rule['parameter'] : ''; ?> </td>
-                                                    </tr>
-
                                                     <tr>
                                                         <td width="" class="lft-td">Green Value</td>
                                                         <td><?php echo (isset($asset_rule['green_value'])) ? $asset_rule['green_value'] : ''; ?> <?php echo (isset($asset_rule['uom_name'])) ? $asset_rule['uom_name'] : ''; ?></td>
@@ -316,7 +311,10 @@
                                                         <td width="" class="lft-td">Wef Date</td>
                                                         <td><?php echo (isset($asset_rule['wef_date'])) ? $asset_rule['wef_date'] : ''; ?></td>
                                                     </tr>
-
+                                                    <tr>
+                                                        <td width="" class="lft-td">Parameter Count</td>
+                                                        <td><?php echo (isset($asset_rule['parameter'])) ? $asset_rule['parameter'] : ''; ?> </td>
+                                                    </tr>
                                                     <tr>
                                                         <td width="" class="lft-td">Trigger Count</td>
                                                         <td><?php echo (isset($asset_rule['triger_count'])) ? $asset_rule['triger_count'] : ''; ?></td>
@@ -334,7 +332,7 @@
                             </div>  
 
                             <script>
-                                $(".opendialog<?php echo $i; ?> .flex-item").click(function (e) {
+                                $(".flex-item<?php echo $i; ?>").click(function (e) {
                                     if (!$(e.target).hasClass('fa')) {
                                         $('#detailsModal<?php echo $i; ?>').modal('show');
                                     }
@@ -346,6 +344,8 @@
                             </script>
                             <!-- ///////////////////End Modal //////////////////////////////-->
                             <?php
+                        $i++;
+                            
                         }
                     }
                     ?>
