@@ -23,8 +23,4 @@ class Welcome extends CI_Controller {
         $this->load->view('welcome_message');
     }
 
-    public function accessDenied() {
-        echo "<center><h1>Access Denied</h1></center>";
-    }
-
 }
