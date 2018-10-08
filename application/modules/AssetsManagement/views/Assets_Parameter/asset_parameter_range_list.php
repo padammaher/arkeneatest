@@ -185,7 +185,6 @@ if (isset($permission) && !empty($permission)) {
         $('body').on('click', '.flx-item', function (e) {
             if (!$(e.target).hasClass('action')) {
                 var id = $(this).attr('data-value');
-                alert(id);
                 if (id.length != 0)
                 {
                     $.ajax({
@@ -194,7 +193,6 @@ if (isset($permission) && !empty($permission)) {
                         data: {param_range_id: id},
                         dataType: "html",
                         success: function (data) {
-                            alert(data);
                             $("#detailsModal").html(data);
                             $('#detailsModal').modal('show');
                         }
