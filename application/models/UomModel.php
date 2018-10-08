@@ -250,4 +250,13 @@ class UomModel extends MY_Model {
         }
     }
 
+    function get_iconPath($id) {
+        $this->db->select('uom.iconpath');
+        $this->db->where('id', $id);
+        $result = $this->db->get('uom')->result();
+        if (count($result) > 0) {
+            return $result[0]->iconpath;
+        }
+    }
+
 }
