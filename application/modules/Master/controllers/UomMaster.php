@@ -493,10 +493,15 @@ class UomMaster extends CI_Controller {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         } else {
-            if ($_POST) {
-                
-            } else {
+            if ($this->session->userdata('user_id'))
                 $user_id = $this->session->userdata('user_id');
+            if ($_POST) {
+                $this->form_validation->set_rules('uom', 'UOM Type', 'required');
+                $this->form_validation->set_rules('icon_path', 'Icon Path', 'required');
+                if ($this->form_validation->run() == TRUE) {
+                    
+                }
+            } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Manage UOM Icon";
                 $data['uom_icon_data'] = $this->uommodel->getUOM();

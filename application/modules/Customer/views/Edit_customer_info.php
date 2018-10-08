@@ -46,7 +46,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Country
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control" name="country_id" onChange="getState(this.value);">
+                                    <select class="form-control" name="country_id" onChange="getState(this.value);" required>
                                         <option>select country</option> 
                                         <?php foreach ($country as $contries) { ?>                  
                                             <option value="<?php echo $contries->id; ?>"<?php echo ($contries->id == $user->country_id) ? 'selected' : ''; ?> ><?php echo $contries->name; ?> </option>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">State
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" required>State
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select class="form-control" name="state_id" id="State_id" onChange="getCity(this.value);">
@@ -76,7 +76,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">City
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select class="form-control" name="city_id" id="City_id">
+                                    <select class="form-control" name="city_id" id="City_id" required>
                                         <option value="">Select City</option>
                                         <?php
                                         if (isset($city)) {
@@ -127,7 +127,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Logo
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');" >
+                                        <input name="company_logo" type="file" placeholder=""  onchange="readURL(this, 'company');">
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12 margin-top">
                                         <?php
