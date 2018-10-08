@@ -177,7 +177,7 @@ class AssetsManagement extends MY_Controller {
             $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
             $data['category_list'] = $this->Assets->AssetCategory_list($user_id);
             $data['type_list'] = $this->Assets->AssetType_list($user_id);
-            //clear asset_id from session
+            //clear asset_id from session            
             $this->session->unset_userdata('asset_id');
             load_view_template($data, 'Assets/assets_list');
         }
@@ -806,10 +806,10 @@ class AssetsManagement extends MY_Controller {
             $data['dataHeader']['title'] = "Edit User Asset";
 
             $data['asset_code_list'] = $this->Assets->assetcode_list($user_id);
-            $data['asset_userid_list'] = $this->Assets->asset_userid_list($user_id);
+            
 
 
-
+            $location_id_by_assetwise='';
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $todaysdate = date('Y-m-d');
@@ -821,7 +821,14 @@ class AssetsManagement extends MY_Controller {
                 $asset_user_post = $this->input->post('asset_user_post');
 //                 print_r($this->input->post()); exit;
                 $data['asset_user_list_data'] = $this->Assets->edit_assets_user($asset_user_post_id);
-//                 print_r($this->input->post()); exit;
+//                print_r($data['asset_user_list_data']);
+                foreach ($data['asset_user_list_data']  as $asset_user_list_data) {
+                 $location_id_by_assetwise=$asset_user_list_data['location_id'];
+                }
+//                echo $location_id_by_assetwise;
+//                exit;
+                $data['asset_userid_list'] = $this->Assets->asset_userid_list($user_id,$location_id_by_assetwise);
+//                 print_r($data['asset_userid_list']); exit;
                 $this->form_validation->set_rules('assetcode', 'Asset Code', 'required');
                 $this->form_validation->set_rules('assetuserid', 'User Name', 'required');
 
@@ -892,7 +899,16 @@ class AssetsManagement extends MY_Controller {
             }
         }
     }
+    function Load_Locationwise_users() {
+        $data = '';
 
+        $user_id = $this->session->userdata('user_id');
+        $assetcode = $this->input->post('asset_id');
+        $location_id = $this->input->post('location_id');
+        $user_list_data = $this->Assets->Load_Locationwise_user_list($assetcode,$location_id, $user_id);
+
+        echo json_encode($user_list_data);
+    }
     public function asset_rule_list() {
         $data['permission'] = $this->users->get_permissions('Asset Rule');
         //check user Permission

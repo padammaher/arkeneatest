@@ -33,6 +33,7 @@ $back_action = $this->input->post('back_action');
                         <?php
                         $temp_device_ids = '';
                         $temp_sensor_ids = '';
+                        $temp_sensor_number='';$number='';$sensor_id='';$sensor_no='';
 //                         echo "<pre>";
 //                                      print_r($Edit_device_sensors_data); 
                         foreach ($Edit_device_sensors_data as $Edit_device_sensors_data) {
@@ -83,8 +84,8 @@ $back_action = $this->input->post('back_action');
                                         }
                                     } else {
                                         ?>
-                                        <option value="">Select device</option>       
-                                        <option value="<?php echo $temp_device_ids; ?>" <?php echo set_value('deviceid', $temp_device_ids) == $temp_device_ids ? 'selected' : ''; ?> ><?php echo $Edit_device_sensors_data['number']; ?></option>
+                                        <option value="" disabled>Select device number</option>       
+                                        <option value="<?php echo $temp_device_ids; ?>" <?php echo set_value('deviceid', $temp_device_ids) == $temp_device_ids ? 'selected' : ''; ?> ><?php echo $number; ?></option>
                                     <?php } ?>
                                 </select>             
                             </div>
@@ -97,7 +98,7 @@ $back_action = $this->input->post('back_action');
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Sensor Number *</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">        
+                            <div class="col-md-6 col-sm-6 col-xs-12">       
                                 <select class="form-control locationMultiple" name="sensorid[]" id="sensorid" <?php echo $managed_dev_sen_Id_readonly == 'sen' ? 'readonly="readonly"' : 'multiple="multiple"'; ?> >
                                     <?php if ($managed_dev_sen_Id_readonly != "dev") { ?>                                     
                                         <!--<option value="">Select Sensor</option>-->
@@ -105,7 +106,7 @@ $back_action = $this->input->post('back_action');
 
                                     <?php if ($managed_dev_sen_Id_readonly == "sen") { ?>
 
-                                                <option value="<?php echo isset($sensor_id) ? $sensor_id : ''; ?>" <?php echo isset($sensor_id) ? 'selected' : ''; ?>><?php echo isset($sensor_no) ? $sensor_no : 'Select Sensor'; ?></option>  
+                                                <option value="<?php echo isset($sensor_id) ? $sensor_id : ''; ?>" <?php echo isset($sensor_id) ? 'selected' : ''; ?> ><?php echo isset($sensor_no) ? $sensor_no : 'Select Sensor'; ?></option>  
                                         <?php
                                         foreach ($sensorid_list as $sensorid_list_data) {
                                             if ($managed_dev_sen_Id[1] == $sensorid_list_data['id']) {

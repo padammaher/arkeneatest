@@ -58,7 +58,7 @@ $back_action = $this->input->post('back_action');
                                         }
                                     } else {
                                         ?>
-                                                <option value="" disabled>Select Device Number
+                                                <option value="">Select Device Number
                                         </option> 
                                                 <?php foreach ($device_list as $device_id_list_2) { ?>
                                             <option id="<?php echo $device_id_list_2['customer_location_id']; ?>" value="<?php echo $device_id_list_2['id']; ?>" 
@@ -182,6 +182,7 @@ $back_action = $this->input->post('back_action');
 <?php if ($managed_dev_sen_Id_readonly != 'sen') { ?>
             $("#deviceid").change(function () {
             var objdata = '';
+            var location_id = $(this).children(":selected").attr("id");             
             var i = 0;
             var options;
             $("#sensorid").empty();
@@ -192,7 +193,7 @@ $back_action = $this->input->post('back_action');
                 type: 'post',
                 dataType: 'text',
                 data: {
-                    deviceid: this.value}
+                    deviceid: this.value,location_id:location_id}
                 ,
                 success: function (res) {
                     var obj = $.parseJSON(res);

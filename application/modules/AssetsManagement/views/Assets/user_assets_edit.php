@@ -23,7 +23,7 @@ $back_action = $this->input->post('back_action');
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="assetcode" required="required" readonly="readonly">
+                                <select class="form-control" name="assetcode" id="assetcode" required="required" readonly="readonly">
 
                                     <option value="<?php echo $asset_user_data['asset_tbl_id']; ?>"  <?php echo set_value('assetcode') == $asset_user_data['asset_tbl_id'] ? 'selected' : ''; ?> selected><?php echo $asset_user_data['code']; ?></option>                
 
@@ -38,8 +38,10 @@ $back_action = $this->input->post('back_action');
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">User Name *</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">             
-                                <select class="form-control" name="assetuserid" required="required">
+                            <div class="col-md-6 col-sm-6 col-xs-12">      
+                                <?php //echo  $asset_user_data['branch_user_tbl_id'];
+//                                print_r($asset_userid_list);?>
+                                <select class="form-control" name="assetuserid" id="assetuserid" required="required">
                                     <option value="">Select User Name</option>
                                     <!--if (!empty($asset_user_id_list['client_name'])) { ?>-->
     <?php foreach ($asset_userid_list as $asset_user_id_list) {
@@ -50,7 +52,7 @@ $back_action = $this->input->post('back_action');
                                 <?php }
                             } ?>
                                 </select>             
-                            </div><?php echo set_value('assetuserid'); ?>
+                            </div><?php  set_value('assetuserid'); ?>
     <?php if (form_error('assetuserid')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('assetuserid'); ?></span>
     <?php }

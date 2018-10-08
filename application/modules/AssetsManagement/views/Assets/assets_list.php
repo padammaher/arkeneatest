@@ -20,7 +20,7 @@
 
     </div>
 </div>
-<?php
+<?php //print_r($this->session->userdata());
 if (isset($permission) && !empty($permission)) {
     foreach ($permission as $key => $value) {
         if ($value->menuName == 'Asset Management') {

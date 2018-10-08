@@ -451,10 +451,12 @@ class Inventory extends MY_Controller {
                         for ($i = 0; $i < $k; $i++) {
                             $arr[$i] = $this->string_sanitize($sensor_input[$i]);
                         }
-//                        
+//                       print_r($arr) ;
                         if ($this->form_validation->run() == TRUE) {
                             
-                            $exsist_sensor_list= $this->Inventory_model->sensor_list_on_divice($device_id);                         
+                            $exsist_sensor_list= $this->Inventory_model->sensor_list_on_divice($device_id);    
+//                            print_r($exsist_sensor_list);
+//                            exit;
                          foreach ($exsist_sensor_list as $key_list){
                              $checkexsit=''; 
                              foreach($arr as $key){
@@ -468,7 +470,8 @@ class Inventory extends MY_Controller {
                             }
                             
                          }
-                            
+                         // $exsist_sensor_list= $this->Inventory_model->sensor_list_on_divice($device_id);   
+                         //  print_r($exsist_sensor_list); exit; 
                         foreach ($arr as $tag_key){
                              $unique_Data = array(
                                 'device_id' => $this->input->post('deviceid'),
@@ -947,9 +950,9 @@ class Inventory extends MY_Controller {
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Edit Device Assets";
-            $data['assetcode_list'] = $this->Inventory_model->assetcode_list($user_id);
+            
 //            asset_form_action
-
+            $customer_location_id='';
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->form_validation->set_rules('deviceid', 'Device ID', 'required');
                 $this->form_validation->set_rules('assetid', 'Asset ID', 'required');
@@ -959,6 +962,12 @@ class Inventory extends MY_Controller {
                 $form_action = ($this->input->post('post')) == '' ? $this->input->post('dev_asset_post') : $this->input->post('post');
                 $sen_inv_id = ($this->input->post('id')) == '' ? $this->input->post('dev_asset_id') : $this->input->post('id');
                 $data['Edit_device_asset_data'] = $this->Inventory_model->Edit_device_asset_model($sen_inv_id);
+//                customer_location_id
+                foreach ($data['Edit_device_asset_data'] as $Edit_device_asset_data) {
+                    $customer_location_id=$Edit_device_asset_data['customer_location_id'];
+                }
+//                exit;
+                $data['assetcode_list'] = $this->Inventory_model->assetcode_list($user_id,$customer_location_id);
                 if ($form_action == 'edit') {
                     $data['permission'] = $this->users->get_permissions('Device Asset');
                     userPermissionCheck($data['permission'], 'update');
@@ -1065,7 +1074,8 @@ class Inventory extends MY_Controller {
 
         $user_id = $this->session->userdata('user_id');
         $deviceid = $this->input->post('deviceid');
-        $device_sensor_data = $this->Inventory_model->Load_Locationwise_sensor_list($deviceid, $user_id);
+        $location_id=$this->input->post('location_id');
+        $device_sensor_data = $this->Inventory_model->Load_Locationwise_sensor_list($deviceid, $user_id,$location_id);
 
         echo json_encode($device_sensor_data);
     }
@@ -1075,7 +1085,8 @@ class Inventory extends MY_Controller {
 
         $user_id = $this->session->userdata('user_id');
         $deviceid = $this->input->post('deviceid');
-        $device_sensor_data = $this->Inventory_model->Load_Locationwise_assetid_list($deviceid, $user_id);
+        $location_id = $this->input->post('location_id');
+        $device_sensor_data = $this->Inventory_model->Load_Locationwise_assetid_list($deviceid, $user_id,$location_id);
 
         echo json_encode($device_sensor_data);
     }
