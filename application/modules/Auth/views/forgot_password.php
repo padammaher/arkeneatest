@@ -68,3 +68,16 @@
         </div>
     </body>
 </html>
+ <script src="<?php echo base_url('assets/css/jquery/dist/jquery.min.js'); ?>" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $("#error_msg").css("display", "none");
+        <?php if ($this->session->flashdata('error_message')) { ?>
+                         $("#error_msg").css("display", "block");
+                        setTimeout(function () {
+                            $('#error_msg').fadeOut('fast');
+
+                        }, 3000);
+        <?php } ?>
+        });
+    </script>
