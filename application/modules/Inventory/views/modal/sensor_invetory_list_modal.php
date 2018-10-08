@@ -19,11 +19,11 @@
                           <td><?php echo $srno;?></td>
                         </tr>-->
                         <tr>
-                                        <td class="lft-td">Sensor_Number</td>
+                                        <td class="lft-td">Sensor Number</td>
                                         <td><?php echo $list['sensor_no'] ?></td>
                                     </tr>
                                     <tr>
-                                         <td class="lft-td">Sensor_Type</td>
+                                         <td class="lft-td">Sensor Type</td>
                                         <td><?php echo $list['sensor_type_tbl_name'] ?></td>
                                     </tr>
                                     <tr>
@@ -43,7 +43,7 @@
                                         <td><?php echo $list['name'] ?></td>
                                     </tr>
                                      <tr>
-                                        <td class="lft-td">UOM</td>
+                                        <td class="lft-td">UOM Type</td>
                                         <td><?php echo $list['uom_type_tbl_name'] ?></td>
                                     </tr>
                       </tbody>
