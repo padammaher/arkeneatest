@@ -1,3 +1,8 @@
+<?php
+if ($this->session->userdata('login_flag')) {
+    $login_flag = $this->session->userdata('login_flag');
+}
+?> 
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
@@ -15,7 +20,9 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="data:image/gif;base64,<?php echo $dataHeader['profileimg']; ?>" alt="..." class="img-circle profile_img">
+                <?php if (isset($dataHeader['profileimg'])) { ?>
+                    <img src="data:image/gif;base64,<?php echo $dataHeader['profileimg']; ?>" alt="..." class="img-circle profile_img">
+                <?php } ?>
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
@@ -25,11 +32,7 @@
         <!-- /menu profile quick info -->
 
         <br />
-        <?php
-        if ($this->session->userdata('login_flag')) {
-            $login_flag = $this->session->userdata('login_flag');
-        }
-        ?> 
+
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php
         if (isset($login_flag) && $login_flag == 0) {
@@ -171,6 +174,9 @@ if ($login_flag == 0 && $login_flag != '') {
             $("#sidebar-menu a").removeAttr("href");
             $("#sidebar-menu a").css("cursor", "not-allowed");
             $("#sidebar-menu a").addClass('not-allowed');
+            $(".navbar a").removeAttr("href");
+            $(".navbar a").css("cursor", "not-allowed");
+            $(".navbar a").addClass('not-allowed');
         });
     </script>
 <?php } ?> 
