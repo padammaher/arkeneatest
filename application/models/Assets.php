@@ -134,7 +134,7 @@ class Assets extends MY_Model {
         $this->db->join('asset_user', 'asset_user.asset_id= asset.id', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
         $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
-        $this->db->join('users', 'users.id=asset.createdby','left');
+        $this->db->join('users', 'users.id=asset_user.assetuser_id','left');
 //        $this->db->where('users.isdeleted IN (select users.id as assetlocid from asset_location where isdeleted=0 and asset_location.asset_id=asset.id)', NULL, FALSE);
 //        $this->db->group_by('asset.id');
         if (isset($id) && $id !== NULL) {
