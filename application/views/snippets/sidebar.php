@@ -12,7 +12,7 @@ if ($this->session->userdata('login_flag')) {
                 <?php } else { ?>
                     <img src="data:image/gif;base64,<?php echo $dataHeader['company_logo']; ?>"> 
                 <?php } ?>
-                <span>ePhytionSee</span></a>
+                <span><?php echo $dataHeader['company_name']; ?></span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -157,7 +157,7 @@ if ($this->session->userdata('login_flag')) {
             <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+            <a data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
             </a>
         </div>
