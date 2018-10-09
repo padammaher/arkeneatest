@@ -28,13 +28,13 @@
                                     <input name="user_id" type="hidden" class="form-control static-text" placeholder="Asset Sr. No." value="<?php echo $user->id; ?>">
                                 </div>
                              </div>
-                             <div class="item form-group">
+<!--                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" name="company_name" id="company_name" class="form-control static-text" placeholder="Enter Company Name" value="<?php echo (isset($user->company_name)) ? $user->company_name : ''; ?>">
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
                                 </label>

@@ -148,8 +148,8 @@ class Customer extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
             if ($this->input->post('customer_address'))
                 $additional_data['customer_address'] = $this->input->post('customer_address');
-            if ($this->input->post('company_name'))
-                $additional_data['company_name'] = $this->input->post('company_name');
+//            if ($this->input->post('company_name'))
+//                $additional_data['company_name'] = $this->input->post('company_name');
             if ($this->input->post('contact_person'))
                 $additional_data['contact_person'] = $this->input->post('contact_person');
             if ($this->input->post('country_id'))
