@@ -449,8 +449,10 @@ class Inventory extends MY_Controller {
 
                     $device_id = $this->input->post('deviceid');
                     $todaysdate = date('Y-m-d');
-                    $sensor_input = $this->input->post("sensorid");
-//                     print_r($sensor_input );exit;
+
+                     $sensor_input = $this->input->post("sensorid");
+                 //    print_r($sensor_input );exit;
+
 //                     $sensor_input_arr = explode(',', $sensor_input);
                     $k = count($sensor_input);
                     for ($i = 0; $i < $k; $i++) {
@@ -473,21 +475,24 @@ class Inventory extends MY_Controller {
                             if (!$checkexsit) {
                                 $delete_sensor_data = $this->Inventory_model->Delete_Device_sensor($key_list['id']);
                             }
-                        }
-                        // $exsist_sensor_list= $this->Inventory_model->sensor_list_on_divice($device_id);   
-                        //  print_r($exsist_sensor_list); exit; 
-                        foreach ($arr as $tag_key) {
-                            $unique_Data = array(
+
+                         }
+                         // $exsist_sensor_list= $this->Inventory_model->sensor_list_on_divice($device_id);   
+                         // print_r($exsist_sensor_list); exit; 
+                        foreach ($arr as $tag_key){
+                             $unique_Data = array(
                                 'device_id' => $this->input->post('deviceid'),
                                 'sensor_id' => $tag_key,
-                                'createdby' => $user_id,
+                               // 'createdby' => $user_id,
                                 'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
                                 'isdeleted' => 0
                             );
-//                              print_r($unique_Data); exit();
-                            $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
-                            if ($isUnique) {
-                                $isUnique = '';
+                           //  print_r($unique_Data); exit();
+                           $isUnique = $this->Inventory_model->checkUnique('device_sensor_mapping', $unique_Data);
+                           //echo $isUnique; exit; 
+                           if($isUnique){
+                               $isUnique=''; 
+
 
                                 $update_data = array(
                                     'device_id' => $this->input->post('deviceid'),
@@ -496,7 +501,6 @@ class Inventory extends MY_Controller {
                                     'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
                                     'isdeleted' => 0
                                 );
-
 //                                print_r($update_data); exit();
                                 $sen_inv_id = $this->Inventory_model->get_sensor_map_id($update_data);
 

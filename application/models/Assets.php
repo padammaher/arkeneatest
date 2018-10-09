@@ -134,7 +134,7 @@ class Assets extends MY_Model {
         $this->db->join('asset_user', 'asset_user.asset_id= asset.id', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
         $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
-        $this->db->join('users', 'users.id=asset.createdby','left');
+        $this->db->join('users', 'users.id=asset_user.assetuser_id','left');
 //        $this->db->where('users.isdeleted IN (select users.id as assetlocid from asset_location where isdeleted=0 and asset_location.asset_id=asset.id)', NULL, FALSE);
 //        $this->db->group_by('asset.id');
         if (isset($id) && $id !== NULL) {
@@ -142,7 +142,7 @@ class Assets extends MY_Model {
         }
         if ($group_id == '2') {
 //            $this->db->where(array('asset.createdby' => $user_id));
-              $this->db->where(array('users.location_id' => $this->Loginuser_location_id));
+              $this->db->where(array('customer_business_location.id' => $this->Loginuser_location_id));
             
         }
         $this->db->where(array('asset.isdeleted' => 0));
@@ -886,17 +886,49 @@ class Assets extends MY_Model {
     }
         
         
-        $query = "select asset.code,
-    asset.specification,customer_business_location.location_name as `location`,
-    users.first_name as `client_name`,
-    users.username as `client_username`,
+        $query = "SELECT 
+    asset.code,
+    asset.specification,
+    customer_business_location.location_name AS `location`,
+    users.first_name AS `client_name`,
+    users.username AS `client_username`,
     asset_parameter_rule.id AS `asset_parameter_rule_tbl_id`,
-    (SELECT asset_parameter_rule.rule_name from asset_parameter_rule where asset_parameter_rule.id=" . $set_rule_id . ") as `rule_name`,
-    (SELECT asset_parameter_rule.rule_des from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `rule_des`,
-    (SELECT asset_parameter_rule.green_value from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `green_value`,
-    (SELECT asset_parameter_rule.orange_value from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `orange_value`,
-    (SELECT asset_parameter_rule.red_value from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `red_value`,
-    (SELECT asset_parameter_rule.wef_date from asset_parameter_rule where  asset_parameter_rule.id=" . $set_rule_id . ") as `wef_date`,
+    (SELECT 
+            asset_parameter_rule.rule_name
+        FROM
+            asset_parameter_rule
+        WHERE
+            asset_parameter_rule.id = ".$set_rule_id.") AS `rule_name`,
+    (SELECT 
+            asset_parameter_rule.rule_des
+        FROM
+            asset_parameter_rule
+        WHERE
+            asset_parameter_rule.id = ".$set_rule_id.") AS `rule_des`,
+    (SELECT 
+            asset_parameter_rule.green_value
+        FROM
+            asset_parameter_rule
+        WHERE
+            asset_parameter_rule.id = ".$set_rule_id.") AS `green_value`,
+    (SELECT 
+            asset_parameter_rule.orange_value
+        FROM
+            asset_parameter_rule
+        WHERE
+            asset_parameter_rule.id = ".$set_rule_id.") AS `orange_value`,
+    (SELECT 
+            asset_parameter_rule.red_value
+        FROM
+            asset_parameter_rule
+        WHERE
+            asset_parameter_rule.id = ".$set_rule_id.") AS `red_value`,
+    (SELECT 
+            asset_parameter_rule.wef_date
+        FROM
+            asset_parameter_rule
+        WHERE
+            asset_parameter_rule.id = ".$set_rule_id.") AS `wef_date`,
     parameter.name AS `parameter_name`,
     parameter_range.id AS parameter_range_tbl_id,
     (SELECT 
@@ -904,21 +936,27 @@ class Assets extends MY_Model {
         FROM
             `trigger`
         WHERE
-            `trigger`.`rule_id` =".$set_rule_id.") AS `trigger_threshold_id_count`
-from asset  
- left join customer_business_location on customer_business_location.id= asset.customer_locationid  
- LEFT JOIN asset_user ON asset_user.asset_id = asset.id   
- LEFT JOIN users ON users.id = ".$user_id." 
- 
- left join parameter_range ON parameter_range.asset_id = asset.id
-  LEFT JOIN
-    parameter ON parameter.id = parameter_range.parameter_id 
-  left join asset_parameter_rule on  asset_parameter_rule.parameter_range_id=parameter_range.id    
-   LEFT JOIN
+            `trigger`.`rule_id` = ".$set_rule_id.") AS `trigger_threshold_id_count`
+FROM
+    asset
+        LEFT JOIN
+    customer_business_location ON customer_business_location.id = asset.customer_locationid
+        LEFT JOIN
+    asset_user ON asset_user.asset_id = asset.id
+        LEFT JOIN
+    users ON users.id = asset_user.assetuser_id    
+        LEFT JOIN
+    asset_parameter_rule ON asset_parameter_rule.id = '".$set_rule_id."'
+		LEFT JOIN
+    parameter_range ON parameter_range.id = asset_parameter_rule.parameter_range_id
+        LEFT JOIN
+    parameter ON parameter.id = parameter_range.parameter_id
+    
+        LEFT JOIN
     `trigger` ON `trigger`.`rule_id` = asset_parameter_rule.id
- where  ".$where." 	    
+WHERE  ".$where." 	    
  group by asset.id ";
-        
+//        echo $query;
         $res = $this->db->query($query);
         return $obj = $res->result_array();
     }

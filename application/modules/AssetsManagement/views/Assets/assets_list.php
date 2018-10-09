@@ -209,7 +209,8 @@
         $('body').on('click', '.manage_location', function () {
             var id = $(this).attr('id');
             // var flag = confirm('Are you sure you want to delete this item?');
-            // if (flag == true) {             var id = $(this).attr('id');
+            // if (flag == true) {           
+               var id = $(this).attr('id');
             // $("#post" + id).val('delete');
             $("#asset_location" + id).submit();
             // }
