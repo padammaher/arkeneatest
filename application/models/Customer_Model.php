@@ -19,6 +19,8 @@ class Customer_Model extends CI_Model {
 
         $this->db->where('id', $user_id);
         $this->db->update('users', $data);
+        $this->session->unset_userdata('login_flag');
+        $this->session->set_userdata('login_flag', 1);
         // print_r($user_id); exit();
         return true;
     }

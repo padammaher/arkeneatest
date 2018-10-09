@@ -7,9 +7,8 @@ class PrivilegeModel extends MY_Model {
     public $_table = 'privileges';
     public $primary_key = 'id';
 
-public function getUserTypeList($id=null,$user_id)
-{
-     $this->db->select('`roles`.`id`,
+    public function getUserTypeList($id = null, $user_id) {
+        $this->db->select('`roles`.`id`,
                         `roles`.`rolename`,
                         `roles`.`roletype`,
                         `roles`.`roledescription`,
@@ -29,31 +28,31 @@ public function getUserTypeList($id=null,$user_id)
         $this->db->from('roles');
         $this->db->join('groups', 'roles.group_id = groups.id', 'left');
 //        $this->db->join('privileges', 'privileges.role = roles.id', 'left');
-        if(!empty($id)){
-        $this->db->where('roles.id',$id);        
+        if (!empty($id)) {
+            $this->db->where('roles.id', $id);
         }
         $this->db->group_by('roles.id');
 //        $this->db->order_by('privileges_id','desc');
         $query = $this->db->get();
-        
+
         $user_data = $query->result();
         return $user_data;
-}
-public function getMenuList()
-{
+    }
+
+    public function getMenuList() {
         $this->db->select('*');
         $this->db->from('menu');
         $query = $this->db->get();
         $user_data = $query->result();
         return $user_data;
-}
+    }
 
-    public function checkIfExists($table = NULL, $groupid_and_roleid = array()) {        
-                
-                $this->db->select('object');
-                $this->db->from($table);
-                $this->db->where(array('role'=>$groupid_and_roleid[1],'group_id'=>$groupid_and_roleid[0]));
-                $query= $this->db->get();
+    public function checkIfExists($table = NULL, $groupid_and_roleid = array()) {
+
+        $this->db->select('object');
+        $this->db->from($table);
+        $this->db->where(array('role' => $groupid_and_roleid[1], 'group_id' => $groupid_and_roleid[0]));
+        $query = $this->db->get();
 //                  $this->db->last_query();
 //                $this->db->get_where($table, $unique_Data);        
         if ($query->num_rows() > 0) {
@@ -62,42 +61,38 @@ public function getMenuList()
             return false;
         }
     }
-public function AddPrivileges($table,$data_insert,$id_and_groupid)
-{
-    $check = $this->db->insert_batch($table, $data_insert);
-    return  $this->db->affected_rows();
-}
 
-    public function update_Privileges($table,$update_data, $groupid_and_roleid) {        
-        $returnVal='';
-        
+    public function AddPrivileges($table, $data_insert, $id_and_groupid) {
+        $check = $this->db->insert_batch($table, $data_insert);
+        return $this->db->affected_rows();
+    }
+
+    public function update_Privileges($table, $update_data, $groupid_and_roleid) {
+        $returnVal = '';
+
         foreach ($update_data as $update_data_value) {
-         
-                $this->db->select('object');
-                $this->db->from($table);
-                $this->db->where(array('role'=>$groupid_and_roleid[1],'group_id'=>$groupid_and_roleid[0],'object'=>$update_data_value['object']));
-                $query= $this->db->get();
-        if ($query->num_rows() > 0) {     
-        $this->db->where(array('role'=> $groupid_and_roleid[1],'group_id'=>$groupid_and_roleid[0],'object'=>$update_data_value['object']));
-        $returnVa= $this->db->update($table, $update_data_value);
+
+            $this->db->select('object');
+            $this->db->from($table);
+            $this->db->where(array('role' => $groupid_and_roleid[1], 'group_id' => $groupid_and_roleid[0], 'object' => $update_data_value['object']));
+            $query = $this->db->get();
+            if ($query->num_rows() > 0) {
+                $this->db->where(array('role' => $groupid_and_roleid[1], 'group_id' => $groupid_and_roleid[0], 'object' => $update_data_value['object']));
+                $returnVa = $this->db->update($table, $update_data_value);
 //        if(!$returnVa){
 //         $this->db->insert_batch($table, $update_data_value);    
+            } else {
+                $this->db->insert($table, $update_data_value);
+            }
+            $returnVal++;
         }
-        else
-        {
-             $this->db->insert($table, $update_data_value); 
-        }
-        $returnVal++;
-        }
-        
+
         return $returnVal;
 //        }
     }
-    
-    
-    public function getUser_privilege_dataList($id=null,$user_id)
-{
-     $this->db->select('`privileges`.`id`,
+
+    public function getUser_privilege_dataList($id = null, $user_id) {
+        $this->db->select('`privileges`.`id`,
                         `privileges`.`role`,
                         `privileges`.`group_id`,
                         `privileges`.`object`,
@@ -113,16 +108,15 @@ public function AddPrivileges($table,$data_insert,$id_and_groupid)
         $this->db->from('roles');
         $this->db->join('groups', 'roles.group_id = groups.id', 'inner');
         $this->db->join('privileges', 'privileges.role = roles.id', 'inner');
-        if(!empty($id)){
-        $this->db->where('roles.id',$id);        
+        if (!empty($id)) {
+            $this->db->where('roles.id', $id);
         }
         $this->db->group_by('privileges.id');
 //        $this->db->order_by('privileges_id','desc');
         $query = $this->db->get();
-        
+
         $user_data = $query->result();
         return $user_data;
-}
-
+    }
 
 }

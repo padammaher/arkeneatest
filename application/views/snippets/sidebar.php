@@ -94,8 +94,9 @@ if ($this->session->userdata('login_flag')) {
                                         </span>
                                     </a>
                                     <?php
-                                    $login_flag = $this->session->userdata('login_flag');
-                                    if ($login_flag != 0) {
+                                    if ($this->session->userdata('login_flag') == 0) {
+                                        
+                                    } else {
                                         ?>
                                         <ul class="nav child_menu">
                                             <?php

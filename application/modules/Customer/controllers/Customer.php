@@ -107,9 +107,17 @@ class Customer extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
-            $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
-            //check user Permission
-            userPermissionCheck($this->data['permission'], 'update');
+            $login_flag = $this->session->userdata('login_flag');
+            if ($login_flag == 0 && $login_flag != '') {
+                $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
+                //check user Permission
+                userPermissionCheck($this->data['permission'], 'add');
+            } else {
+                $this->data['permission'] = $this->users->get_permissions('Customer Provisioning');
+                //check user Permission
+                userPermissionCheck($this->data['permission'], 'update');
+            }
+
 
             $user_id = $this->session->userdata('user_id');
             $this->data['user_detail'] = $user_data = $this->Customer_Model->get_customer_detail($user_id);
@@ -120,7 +128,6 @@ class Customer extends MY_Controller {
                 $this->data['city'] = $this->Customer_Model->get_city_list($user_data[0]->state_id);
             $this->data['user_id'] = $user_id;
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
-            $login_flag = $this->session->userdata('login_flag');
             if ($login_flag == 0 && $login_flag != '') {
                 $this->data['dataHeader']['title'] = "Add Customer Provisioning";
             } else {
@@ -141,6 +148,8 @@ class Customer extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
             if ($this->input->post('customer_address'))
                 $additional_data['customer_address'] = $this->input->post('customer_address');
+            if ($this->input->post('company_name'))
+                $additional_data['company_name'] = $this->input->post('company_name');
             if ($this->input->post('contact_person'))
                 $additional_data['contact_person'] = $this->input->post('contact_person');
             if ($this->input->post('country_id'))
@@ -181,7 +190,7 @@ class Customer extends MY_Controller {
 
             $this->Customer_Model->update_customer_detail($additional_data, $update_user_id);
             $this->Customer_Model->update_login_flag($user_id);
-            $this->session->unset_userdata('login_flag');
+//            $this->session->unset_userdata('login_flag');
             $this->session->set_flashdata('success_msg', 'customer information update sucessfully');
             redirect('Customerinfo', 'refresh');
         }
