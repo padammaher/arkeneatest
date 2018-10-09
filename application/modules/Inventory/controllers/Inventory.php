@@ -623,6 +623,7 @@ class Inventory extends MY_Controller {
 //                    echo $sen_inv_id;
 //                    print_r( $this->input->post());exit;
                     $delete_sensor_data = $this->Inventory_model->Delete_Device_sensor($sen_inv_id);
+//                    exit;
                     if ($delete_sensor_data) {
                         $this->session->set_flashdata('success_msg', 'Device Sensor successfully deleted');
                         return redirect('Device_sensor_list', 'refresh');
@@ -880,14 +881,14 @@ class Inventory extends MY_Controller {
 
             $data['device_list'] = $this->Inventory_model->device_list($user_id);
             $data['assetcode_list'] = $this->Inventory_model->assetcode_list($user_id);
-
+            
             $todaysdate = date('Y-m-d');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add Device Assets";
 
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if ($this->input->post('dev_asset_post_add') == 'dev_asset_post_add') {
+                if ($this->input->post('dev_asset_post_add') == 'dev_asset_post_add') {                    
                     load_view_template($data, 'DeviceInventory/device_assets_add');
                 } else {
 

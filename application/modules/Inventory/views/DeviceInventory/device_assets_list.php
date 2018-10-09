@@ -38,7 +38,7 @@
                             $i = 1;
                             if (!empty($device_asset_list)) {                               // var_dump($device_asset_list); 
                                 foreach ($device_asset_list as $device_asset_list_data) {
-                                    echo $device_asset_list_data['id'];
+                                     $device_asset_list_data['id'];
                                     $setId_to_modal = $device_asset_list_data['id'];
                                     $modal_idand_class = "data-toggle='modal' href='#device_asset_list_modal_" . $setId_to_modal . "'";
                                     ?>	
