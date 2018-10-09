@@ -9,7 +9,7 @@
 
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="data:image/gif;base64,<?php echo $dataHeader['profileimg']; ?>" alt=""><?php echo $dataHeader['username']; ?>
+                        <img src="data:image/gif;base64,<?php echo $dataHeader['profileimg']; ?>" alt=""><?php echo $dataHeader['first_name']; ?>
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">

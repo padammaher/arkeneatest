@@ -184,5 +184,13 @@ class Customer_Model extends CI_Model {
 
         return $data;
     }
+     public function get_company_name() {
+        $this->db->select('company_name');
+        $this->db->from('users');
+        $this->db->where('group_id', 1);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result[0]['company_name'];
+    }
 
 }

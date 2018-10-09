@@ -121,6 +121,7 @@ class Customer extends MY_Controller {
 
             $user_id = $this->session->userdata('user_id');
             $this->data['user_detail'] = $user_data = $this->Customer_Model->get_customer_detail($user_id);
+            $this->data['admin_company_name']=$this->Customer_Model->get_company_name();
             $this->data['country'] = $country = $this->Customer_Model->get_country();
             if (isset($user_data[0]->country_id))
                 $this->data['state'] = $this->Customer_Model->get_state_list($user_data[0]->country_id);
@@ -208,6 +209,7 @@ class Customer extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
             $this->data['dataHeader']['title'] = "Customer Provisioning";
+             $this->data['admin_company_name']=$this->Customer_Model->get_company_name();
             $this->data['user_detail'] = $this->Customer_Model->get_customer_detail($user_id);
             load_view_template($this->data, 'customer_info');
         }

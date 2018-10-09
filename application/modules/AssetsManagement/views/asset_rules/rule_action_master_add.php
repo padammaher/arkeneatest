@@ -340,6 +340,7 @@ $(document).ready(function(){
              var err = 1;
                $('#orange_error').html('Please add Values within the Max & Min value');
         }
+        
        if(green_value)
         if(parseInt(orange_value)<=parseInt(green_value)){
              var err = 1;
