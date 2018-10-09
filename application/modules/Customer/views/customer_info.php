@@ -34,15 +34,15 @@
                         <table class="table table-bordered">                      
                             <tbody>
                                 <tr>
-                                    <td width="15%" class="lft-td">Customer Name
-                                    </td>
-                                    <td><?php echo (isset($user_detail[0]->first_name))?$user_detail[0]->first_name:''; ?> 
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td width="15%" class="lft-td">Company Name
                                     </td>
                                     <td><?php echo (isset($user_detail[0]->company_name))?$user_detail[0]->company_name:''; ?> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="15%" class="lft-td">Customer Name
+                                    </td>
+                                    <td><?php echo (isset($user_detail[0]->first_name))?$user_detail[0]->first_name:''; ?> 
                                     </td>
                                 </tr>
                                 <tr>

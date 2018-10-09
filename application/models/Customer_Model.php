@@ -56,8 +56,9 @@ class Customer_Model extends CI_Model {
         $this->db->from('users');
         $this->db->join('customer_business_location', 'customer_business_location.id=users.location_id', 'left');
         if ($group_id == 2) {
-            $this->db->where('id', $user_id);
+            $this->db->where('users.id', $user_id);
         }
+        $this->db->where('users.isdeleted', 0);
         $query = $this->db->get();
         $objData = $query->result();
 //                 var_dump($objData);die;
