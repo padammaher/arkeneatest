@@ -42,6 +42,7 @@ class Users extends MY_Model {
             $group_id = $objData[0]['group_id'];
             if ($group_id != 1) {
                 $objData[0]['admin_company_logo'] = $this->get_company_logo();
+                $objData[0]['company_name'] = $this->get_company_name();
             }
         }
         return $objData[0];
@@ -115,6 +116,14 @@ class Users extends MY_Model {
         $query = $this->db->get();
         $result = $query->result_array();
         return $result;
+    }
+     public function get_company_name() {
+        $this->db->select('company_name');
+        $this->db->from('users');
+        $this->db->where('group_id', 1);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result[0]['company_name'];
     }
 
 }
