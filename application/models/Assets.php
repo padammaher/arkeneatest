@@ -944,7 +944,7 @@ FROM
         LEFT JOIN
     asset_user ON asset_user.asset_id = asset.id
         LEFT JOIN
-    users ON users.id = ".$user_id."    
+    users ON users.id = asset_user.assetuser_id    
         LEFT JOIN
     asset_parameter_rule ON asset_parameter_rule.id = '".$set_rule_id."'
 		LEFT JOIN
