@@ -22,6 +22,7 @@ $back_action = $this->input->post('back_action');
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Device number <span>*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
+                                <?php //echo "<pre>";print_r($device_list);?>
                                 <select class="form-control" name="deviceid" id="deviceid"  required="required" <?php echo $managed_dev_asset_Id == '' ? '' : 'readonly="readonly"'; ?>>
 
                                     <?php
@@ -31,7 +32,7 @@ $back_action = $this->input->post('back_action');
                                         <option value="">Select Device Number</option>
                                     <?php } ?>                                    
                                     <?php
-                                    if (!empty($managed_dev_asset_Id)) {
+                                    if (!empty($managed_dev_asset_Id)) { 
                                         foreach ($device_list as $device_id_list) {
                                             if ($managed_dev_asset_Id == $device_id_list['id']) {
                                                 ?>

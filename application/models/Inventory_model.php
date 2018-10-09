@@ -83,8 +83,8 @@ class Inventory_model extends MY_Model {
                             device_inventory.customer_location_id,customer_business_location.location_name,
                             device_sensor_mapping.id as `dev_sen_id`,asset.id as `asset_tbl_id`, asset.code,device_asset.id as `device_asset_id`');
         $this->db->from('device_inventory');
-        $this->db->join('device_sensor_mapping', 'device_sensor_mapping.device_id=device_inventory.id', 'left');
-        $this->db->join('device_asset', 'device_asset.device_id=device_inventory.id', 'left');
+        $this->db->join('device_sensor_mapping', 'device_sensor_mapping.device_id=device_inventory.id and `device_sensor_mapping`.`id` in(select device_sensor_mapping.id from device_sensor_mapping where device_sensor_mapping.isdeleted=0)', 'left');
+        $this->db->join('device_asset', 'device_asset.device_id=device_inventory.id and `device_asset`.`id` in(select device_asset.id from device_asset where device_asset.isdeleted=0)', 'left');
         $this->db->join('asset', 'asset.id=device_asset.asset_id', 'left');
         $this->db->join('customer_business_location', 'customer_business_location.id=device_inventory.customer_location_id', 'left');        
         
@@ -156,9 +156,9 @@ class Inventory_model extends MY_Model {
                                           uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`,device_sensor_mapping.id as `device_sensor_mapping_id`,device_asset.id as device_asset_tbl_id`,`device_inventory`.`id` as `device_inventory_tbl_id`,`device_inventory`.number AS `device_id_number`,sensor_inventory.customer_location_id,customer_business_location.location_name');
         $this->db->from('sensor_inventory');
         $this->db->join('sensor_type', 'sensor_type.id=sensor_inventory.sensor_type_id', 'left');
-        $this->db->join('device_sensor_mapping', 'device_sensor_mapping.sensor_id=sensor_inventory.id', 'left');
+        $this->db->join('device_sensor_mapping', 'device_sensor_mapping.sensor_id=sensor_inventory.id and `device_sensor_mapping`.`id` in(select device_sensor_mapping.id from device_sensor_mapping where device_sensor_mapping.isdeleted=0)', 'left');
         $this->db->join('device_inventory', 'device_sensor_mapping.device_id=device_inventory.id', 'left');
-        $this->db->join('device_asset', 'device_asset.device_id=sensor_inventory.id', 'left');
+        $this->db->join('device_asset', 'device_asset.device_id=device_inventory.id and `device_asset`.`id` in(select device_asset.id from device_asset where device_asset.isdeleted=0)', 'left');
         $this->db->join('parameter', 'parameter.id=sensor_inventory.parameter_id', 'left');
         $this->db->join('uom_type', 'uom_type.id=sensor_inventory.uom_type_id', 'left');
         $this->db->join('customer_business_location', 'customer_business_location.id=sensor_inventory.customer_location_id', 'left');
@@ -455,10 +455,23 @@ class Inventory_model extends MY_Model {
 
 //    Delete_sensor_inventory
     public function Delete_Device_sensor($dev_sen_id) {
-        $this->db->where(array('id' => $dev_sen_id));
+
         $update_data = array('isdeleted' => 1);
+        $returnVar='';
+        $query=$this->db->select('device_id')->from('device_sensor_mapping')->where(array('id'=>$dev_sen_id,'isdeleted'=>0))->get()->result();
+//        echo $this->db->last_query();
+                foreach ($query as $query_value) {
+                    $this->db->where(array('device_id' => $query_value->device_id));
+                    $returnVar=$this->db->update('device_sensor_mapping', $update_data);
+                }
+                
+                    return $returnVar;
+               
+//        print_r($query);
+//        echo "</br>".$returnVar;
 //        return  $this->db->delete('device_sensor_mapping');
-        return $this->db->update('device_sensor_mapping', $update_data);
+//        exit;
+//        return $this->db->update('device_sensor_mapping', $update_data);
     }
 
     //    Delete_sensor_inventory

@@ -11,7 +11,7 @@ $back_action = $this->input->post('back_action');
             </div>
             <div class="x_content">
                 <form class="form-horizontal form-label-left" method="POST" action="<?php echo base_url(); ?>Device_assets_edit">
-<?php  foreach ($Edit_device_asset_data as $dev_asset_data) {   ?>
+<?php  foreach ($Edit_device_asset_data as $dev_asset_data) {?>
                     
 
                         <div class="item form-group">

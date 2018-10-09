@@ -1,4 +1,5 @@
-          <div class="">
+<?php print_r($_POST);?>
+<div class="">
            
             <div class="clearfix"></div>
             

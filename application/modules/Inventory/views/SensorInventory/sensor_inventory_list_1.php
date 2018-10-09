@@ -40,7 +40,7 @@
                         <tbody>
 
                             <?php
-                            //echo "<pre>"; print_r($sensor_inventory_list);
+//                            echo "<pre>"; print_r($sensor_inventory_list);
                             $i = 1;
                             if (!empty($sensor_inventory_list)) {
                                 foreach ($sensor_inventory_list as $inventory_list) {
@@ -72,7 +72,7 @@
                                                     <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
                                                     <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Sensor_inventory_list" />       
                                                     <?php if (!empty($inventory_list['device_sensor_mapping_id'])) { ?>   
-                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $InventoryListRowData['id']; ?>'/>  
+                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $inventory_list['id']; ?>'/>  
                                                         <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $inventory_list['id']; ?>">
                                                             <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
                                                         </a>
@@ -182,9 +182,11 @@
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {
             var id = $(this).attr('id');
-            //             $("#asset_user_post" + id).val('manageadd');
-            //             alert(this.name);             $("#dev_sen_post_id" + id).val('sen ' + this.name);
-            //             alert($("#dev_sen_post_id"+ id).val());
+//            alert(id);
+//                         $("#asset_user_post" + id).val('manageadd');
+            //             alert(this.name);   
+            $("#dev_sen_post_id" + id).val('sen ' + this.name);
+//                         alert($("#dev_sen_post_id"+ id).val());
             $("#device_sen" + id).attr('action', manage_dev_sen_addLink);
             $("#device_sen" + id).submit();
             // }
