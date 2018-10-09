@@ -19,6 +19,11 @@ if (!function_exists('load_view_template')) {
 if (!function_exists('userPermissionCheck')) {
 
     function userPermissionCheck($permission, $type, $menu = null) {
+        $CI = & get_instance();
+//        $login_flag = $CI->session->userdata('login_flag');
+//        if (isset($login_flag) && $login_flag == 0 && $menu != "Customer Provisioning") {
+//            redirect('acces_forbidden', 'refresh');
+//        } else {
         if (isset($permission) && !empty($permission)) {
             $CI = & get_instance();
 //            $CI->load->model('users');
@@ -71,6 +76,7 @@ if (!function_exists('userPermissionCheck')) {
         } else {
             redirect('acces_forbidden', 'refresh');
         }
+//        }
     }
 
     if (!function_exists('upload_logo')) {
