@@ -68,12 +68,13 @@ class Assets extends MY_Model {
     }
 
     public function getCustomerLocationCount($user_id) {
+        $location_id= $this->session->userdata('location_id');
         $group_id = $this->session->userdata('group_id');
         $this->db->select('count(customer_business_location.id) as locationcount');
         $this->db->from('customer_business_location ');
         if ($group_id == '2') {
             $this->db->join('users', 'users.location_id=customer_business_location.id', 'left');
-            $this->db->where('users.id', $user_id);
+            $this->db->where('users.location_id', $location_id);
             $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0));
         } else {
             // 
@@ -85,11 +86,12 @@ class Assets extends MY_Model {
     }
 
     public function getAssetCount($user_id) {
+        $location_id= $this->session->userdata('location_id');
         $group_id = $this->session->userdata('group_id');
         $this->db->select('count(id) as assetcount');
         $this->db->from('asset');
         if($group_id=='2'){
-        $this->db->where('createdby', $user_id);
+        $this->db->where('customer_locationid', $location_id);
         }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
@@ -99,10 +101,11 @@ class Assets extends MY_Model {
 
     public function getDeviceCount($user_id) {
          $group_id = $this->session->userdata('group_id');
+         $location_id= $this->session->userdata('location_id');
         $this->db->select('count(id) as devicecount');
         $this->db->from('device_inventory');
         if($group_id=='2'){
-        $this->db->where('createdby', $user_id);
+        $this->db->where('customer_location_id', $location_id);
         }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
@@ -112,10 +115,11 @@ class Assets extends MY_Model {
 
     public function getSensorCount($user_id) {
          $group_id = $this->session->userdata('group_id');
+         $location_id= $this->session->userdata('location_id');
         $this->db->select('count(id) as sensorcount');
         $this->db->from('sensor_inventory');
          if($group_id=='2'){
-        $this->db->where('createdby', $user_id);
+        $this->db->where('customer_location_id', $location_id);
          }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
@@ -161,8 +165,8 @@ class Assets extends MY_Model {
     }
 
     public function assets_list_info($user_id, $id = NULL) {
+        $location_id= $this->session->userdata('location_id');
         $assets_list[0]['customerlocationcount'] = $this->getCustomerLocationCount($user_id);
-
         $assets_list['assetcount'] = $this->getAssetCount($user_id);
         $assets_list['devicecount'] = $this->getDeviceCount($user_id);
         $assets_list['sensorcount'] = $this->getSensorCount($user_id);

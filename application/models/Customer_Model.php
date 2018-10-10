@@ -178,11 +178,21 @@ class Customer_Model extends CI_Model {
         if ($group_id == '2') {
             $this->db->where('user_id', $user_id);
         }
+        $this->db->where('isactive', 1);
+        $this->db->where('isdeleted', 0);
         $this->db->order_by('customer_business_location.location_name', 'asc');
         $query = $this->db->get();
         $data = $query->result();
 
         return $data;
+    }
+     public function get_company_name() {
+        $this->db->select('company_name');
+        $this->db->from('users');
+        $this->db->where('group_id', 1);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        return $result[0]['company_name'];
     }
 
 }
