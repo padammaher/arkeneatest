@@ -212,7 +212,7 @@ class Inventory_model extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         $this->db->select('id,code');
         $this->db->from('asset');
-        $this->db->where('isactive', 1);
+        $this->db->where(array('isactive'=> 1,'isdeleted'=>0));
         $this->db->where('asset.id NOT IN (select asset_id from device_asset where device_asset.isdeleted=0)');    
         $this->db->group_by('id');
         
