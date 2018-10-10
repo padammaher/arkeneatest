@@ -670,6 +670,8 @@ class Inventory extends MY_Controller {
                 $sen_inv_id = $this->input->post('id');
                 $data['sensor_type'] = $this->Inventory_model->sensor_type_list($user_id);
                 $data['parameter_list'] = $this->Inventory_model->parameter_list($user_id);
+                $data['uom_list']= $this->Inventory_model->uom_list();
+               // print_r($data['uom_list']); exit;
                 $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
                 if ($this->input->post('post') == 'edit') {
@@ -702,6 +704,7 @@ class Inventory extends MY_Controller {
                 userPermissionCheck($data['permission'], 'view');
 
                 $data['sensor_inventory_list'] = $this->Inventory_model->sensor_inventory_list($user_id);
+               // print_r($data['sensor_inventory_list']); exit; 
                 $data['dataHeader']['title'] = "Sensor Inventory";
                 load_view_template($data, 'SensorInventory/sensor_inventory_list_1');
             }
@@ -746,6 +749,7 @@ class Inventory extends MY_Controller {
                     // 'description' =>$this->input->post('description'),
                     'parameter_id' => $this->input->post('Parameter'),
                     'uom_type_id' => $this->input->post('UOM'),
+                    'uom_id' => $this->input->post('UOM_ID'),
                     'createdby' => $user_id,
                     'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
                     'customer_location_id' => $this->input->post('Customerlocation'));
@@ -757,6 +761,7 @@ class Inventory extends MY_Controller {
                     'description' => $this->input->post('description'),
                     'parameter_id' => $this->input->post('Parameter'),
                     'uom_type_id' => $this->input->post('UOM'),
+                    'uom_id' => $this->input->post('UOM_ID'),
                     'createdat' => $todaysdate,
                     'createdby' => $user_id,
                     'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
@@ -771,6 +776,7 @@ class Inventory extends MY_Controller {
                 $this->form_validation->set_rules('Customerlocation', 'Customer location', 'required');
                 $this->form_validation->set_rules('Parameter', 'Parameter', 'required');
                 $this->form_validation->set_rules('UOM', 'UOM', 'required');
+                $this->form_validation->set_rules('UOM_ID', 'uom id', 'required');
 
 
                 if ($this->form_validation->run() == TRUE) {
@@ -823,6 +829,7 @@ class Inventory extends MY_Controller {
                     load_view_template($data, 'SensorInventory/add_sensor_inventory');
                 }
             } else {
+                
                 load_view_template($data, 'SensorInventory/add_sensor_inventory');
             }
         }
@@ -1052,6 +1059,14 @@ class Inventory extends MY_Controller {
         $uomtypedata = $this->Inventory_model->uomtype_list($parameter, $user_id);
 
         echo json_encode($uomtypedata);
+    }
+    function load_uom_by_Uom_type() {
+        $data = '';
+
+        $user_id = $this->session->userdata('user_id');
+        $parameter = $this->input->post('Type_id');
+       // print_r($parameter); exit;
+        $uomtypedata = $this->Inventory_model->load_uom_by_uomtype();
     }
 
     function Check_devicenum_is_exist() {

@@ -32,7 +32,8 @@
                                 <th>Device_Num</th>
                                 <th>Sensor_Type</th>                          
                                 <th>Location</th>                                                                         
-                                <th>Description</th>                                                                       
+                                <th>Description</th>  
+                                <th>Uom</th> 
                                 <th>Status</th> 
                                 <th>Actions</th>                          
                             </tr>
@@ -56,6 +57,7 @@
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['sensor_type_tbl_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['location_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['description']; ?></td>
+                                        <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['uom_name']; ?></td>
                                         <td <?php echo $modal_idand_class; ?> class="flex-item"><?php echo $inventory_list['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td class="action">
                                             <div style="display: -webkit-inline-box;">
