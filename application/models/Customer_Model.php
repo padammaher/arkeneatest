@@ -178,6 +178,7 @@ class Customer_Model extends CI_Model {
         if ($group_id == '2') {
             $this->db->where('user_id', $user_id);
         }
+        $this->db->where('isactive', 0);
         $this->db->order_by('customer_business_location.location_name', 'asc');
         $query = $this->db->get();
         $data = $query->result();
