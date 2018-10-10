@@ -940,7 +940,7 @@ class Assets extends MY_Model {
         FROM
             `trigger`
         WHERE
-            `trigger`.`rule_id` = ".$set_rule_id.") AS `trigger_threshold_id_count`
+            `trigger`.`rule_id` = ".$set_rule_id." and `trigger`.`isdeleted`=0) AS `trigger_threshold_id_count`
 FROM
     asset
         LEFT JOIN
