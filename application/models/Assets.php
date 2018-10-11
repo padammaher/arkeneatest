@@ -73,12 +73,14 @@ class Assets extends MY_Model {
         $this->db->select('count(distinct customer_business_location.id) as locationcount');
         $this->db->from('customer_business_location ');
         if ($group_id == '2') {
-            $this->db->join('users', 'users.location_id=customer_business_location.id', 'left');
-           $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0,'customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0,'users.location_id', $location_id));
+           $this->db->join('users', 'users.location_id=customer_business_location.id', 'left');
+           $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0,'customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0,'users.location_id'=> $location_id));
         } else {
+             $this->db->where(array('customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0));
         }
-        $this->db->where(array('customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0));
         $query = $this->db->get();
+        //echo $this->db->last_query(); exit; 
+        
         $obj = $query->result_array();
         return $obj[0]['locationcount'];
     }
