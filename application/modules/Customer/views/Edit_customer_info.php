@@ -101,7 +101,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Pincode
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="pincode" id="pincode" type="text" class="form-control" placeholder="Enter pincode" pattern="[0-9\s]+" maxlength="4" required="required" value="<?php echo $user->pincode; ?>" title="Only 4 digits are allowed">
+                                    <input name="pincode" id="pincode" type="text" class="form-control" placeholder="Enter pincode" pattern="[0-9]+" maxlength="4" required="required" value="<?php echo $user->pincode; ?>" title="Only 4 digits are allowed">
                                 </div>
                             </div>
                             <div class="item form-group">
