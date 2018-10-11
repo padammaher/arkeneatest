@@ -180,15 +180,19 @@ class Inventory_model extends MY_Model {
                                           sensor_inventory.createdat,sensor_inventory.createdby,sensor_inventory.isactive,
                                           sensor_type.id as `sensor_type_tbl_id`,sensor_type.name as `sensor_type_tbl_name`,
                                           parameter.id as `parameter_tbl_id`,parameter.name,sensor_inventory.uom_id,
-                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`,sensor_inventory.customer_location_id,customer_business_location.location_name');
+                                          uom_type.id as `uom_type_tbl_id`,uom_type.name as `uom_type_tbl_name`,
+                                          uom.id as `uom_tbl_id`,uom.name as `uom_tbl_name`,
+                                          sensor_inventory.customer_location_id,customer_business_location.location_name');
         $this->db->from('sensor_inventory');
         $this->db->join('sensor_type', 'sensor_type.id=sensor_inventory.sensor_type_id', 'left');
         $this->db->join('parameter', 'parameter.id=sensor_inventory.parameter_id', 'left');
         $this->db->join('uom_type', 'uom_type.id=sensor_inventory.uom_type_id', 'left');
+        $this->db->join('uom', 'uom_type.id=uom.uom_type_id and sensor_inventory.uom_id=uom.id', 'left');
         $this->db->join('customer_business_location', 'customer_business_location.id=sensor_inventory.customer_location_id', 'left');
 //        $this->db->where('sensor_inventory.createdby', $user_id);
         $this->db->where('sensor_inventory.id', $sen_inv_id);
         $query = $this->db->get();
+               // echo $this->db->last_query();
         $objData = $query->result_array();
         return $objData;
     }
@@ -577,12 +581,13 @@ class Inventory_model extends MY_Model {
 
         echo json_encode($uomtypedata);
     }
-     function load_uom_by_uomtype() { 
+     function load_uom_by_uomtype($uom_type_id,$user_id) { 
         $data = '';
-        $user_id = $this->session->userdata('user_id');
-        $uom_type_id = $this->input->post('uom_Type_id');
-        $uomdata = $this->db->select('id,name')->from('uom')->where(array('uom_type_id'=>$uom_type_id,'isdeleted'=>0,'isactive'=>1))->get()->result_array();
-        echo json_encode($uomdata);
+        // $user_id = $this->session->userdata('user_id');
+        // $uom_type_id = $this->input->post('uom_Type_id');
+        $data = $this->db->select('id,name')->from('uom')->where(array('uom_type_id'=>$uom_type_id,'isdeleted'=>0,'isactive'=>1))->get()->result_array();
+        // echo $this->db->last_query();
+        echo json_encode($data);
     }
     
         public function Load_Locationwise_sensor_list($deviceid, $user_id,$locationid) {       
@@ -671,9 +676,9 @@ class Inventory_model extends MY_Model {
             return "";
         
     }
-    public function  uom_list()
+    public function  uom_list($uom_type_id=NULL)
     { 
-       $obj = $this->db->select('id,name')->from('uom')->get()->result_array();
+       $obj = $this->db->select('id,name')->from('uom')->where(array('uom_type_id'=>$uom_type_id,'isactive'=>1,'isdeleted'=>0))->get()->result_array();
       
        return $obj; 
     }

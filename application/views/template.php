@@ -308,12 +308,13 @@
                 }
             });
             
+           
             $("#UOM").change(function ()
             {
                  var objdata = '';
                 var i = 0;
                 var options;
-                 $("#UOM_Name").empty();
+                 $("#UOM_ID").empty();
                 var options = '<option value="">Select UOM</option>';
                 $.ajax({
                     url: '<?php echo base_url(); ?>Inventory/load_uom_by_Uom_type',
@@ -325,7 +326,7 @@
                         for (i = 0; i < obj.length; i++) {
                             options += '<option value="' + obj[i]['id'] + '">' + obj[i]['name'] + '</option>';
                         }
-                        $("#UOM_Name").html(options);
+                        $("#UOM_ID").html(options);
                     }
                 });
               //  $("#UOM").empty();

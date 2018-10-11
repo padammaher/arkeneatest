@@ -108,7 +108,7 @@ if($managedLocationId == $asset_id_list['id']){    ?>
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type="submit" name="asset_loc_add_button" class="btn btn-primary">Save</button>
+                            <button type="submit" name="asset_loc_add_button" id="asset_loc_add_button" class="btn btn-primary">Save</button>
                             <?php if(!empty($back_action)) {?>
                              <input type="hidden" name="back_action" value="<?php echo set_value('back_action',$back_action);?>" >
                                 <a href="<?php echo base_url($back_action); ?>" type="button" class="btn btn-default">Cancel</a>
@@ -217,5 +217,37 @@ if($managedLocationId == $asset_id_list['id']){    ?>
     }
     
     
-    
+      $(document).ready(function () {
+        $("#asset_contactno").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
+           
+           if(inputVal.trim()==""){ $('span.error-keyup-3').remove(); }else{
+               if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                return false;
+            } else if (inputVal.length < 9) {
+                // $("#trigger_button").prop("disabled", true);
+                // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+            }
+            if (inputVal.length == 9) {
+                // $("#trigger_button").prop("disabled", false);
+            } 
+            }
+        });
+        
+     $("#asset_contactemail").change(function (e) {
+        $('span.error-keyup-3').remove();
+        var emailAddress = $(this).val();
+
+         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;  
+           if(!emailReg.test(emailAddress)) {                  
+                 $(this).after('<span class="error error-keyup-3" style="color:red">Enter valid email id</span>');
+                 $("#asset_loc_add_button").prop("disabled", true);
+           }    else{
+            $("#asset_loc_add_button").prop("disabled", false);
+           }
+
+        }); 
+        });  
 </script>
