@@ -31,7 +31,7 @@
                         <thead>
                             <tr><th>Sr.No</th>
                                 <th>Location</th>
-                                <th>Address</th>
+<!--                                <th>Address</th>-->
                                 <th>Contact Person</th>
                                 <th>City</th>                          
                                 <th>State / Province</th>                          
@@ -53,7 +53,7 @@
                                     <tr>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->location_name; ?></td>
-                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->address; ?></td>
+<!--                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->address; ?></td>-->
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->contact_person_name; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->city_name; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->state_name; ?></td>
