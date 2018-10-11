@@ -112,7 +112,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">GSM Number</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="gsmnumber" id="gsmnumber"  class="form-control" value="<?php echo set_value('gsmnumber', $deviceinventory_data['gsm_number']); ?>" <?php echo set_value('comm_type', $deviceinventory_data['communication_type']) == "GSM" ? 'required' : ''; ?>>
+                                <input type="text" name="gsmnumber" id="gsmnumber"  class="form-control" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="11" minlength="10" value="<?php echo set_value('gsmnumber', $deviceinventory_data['gsm_number']); ?>" <?php echo set_value('comm_type', $deviceinventory_data['communication_type']) == "GSM" ? 'required' : ''; ?>>
                             </div>
                             <?php if (form_error('gsmnumber')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('gsmnumber'); ?></span>
@@ -256,4 +256,28 @@
         });
 
     });
+
+
+          $(document).ready(function () {
+
+        $("#gsmnumber").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
+           // phonenumber(inputVal);
+           if(inputVal.trim()==""){$('span.error-keyup-3').remove(); }else{
+               if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                return false;
+            } else if (inputVal.length < 9) {
+                // $("#trigger_button").prop("disabled", true);
+                // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+            }
+            if (inputVal.length == 9) {
+                // $("#trigger_button").prop("disabled", false);
+            } 
+            }
+        });
+        });
+
+ 
 </script>        

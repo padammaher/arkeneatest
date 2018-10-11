@@ -94,8 +94,10 @@ class Inventory extends MY_Controller {
                 $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha_numeric');
                 $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric');
                 $this->form_validation->set_rules('comm_type', 'Communication Type', 'required');
+                if( $this->input->post('comm_type') == "GSM" || $this->input->post('comm_type') == "gsm"){
                 // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
                 $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric');
+                    }
                 $this->form_validation->set_rules('comm_protocol', 'Communication Protocol', 'required|alpha');
                 $this->form_validation->set_rules('stockdate', 'Stock date', 'required');
                 $this->form_validation->set_rules('oem_ser_interval_type', 'OEM Service Interval', 'required');
@@ -241,7 +243,10 @@ class Inventory extends MY_Controller {
                     $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric');
                     $this->form_validation->set_rules('comm_type', 'Communication Type', 'required');
                     // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-                    $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric');
+                     if( $this->input->post('comm_type') == "GSM" || $this->input->post('comm_type') == "gsm"){
+                // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
+                        $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric');
+                    }
                     $this->form_validation->set_rules('comm_protocol', 'Communication Protocol', 'required|alpha');
                     $this->form_validation->set_rules('stockdate', 'Stock date', 'required');
                     $this->form_validation->set_rules('oem_ser_interval_type', 'OEM Service Interval', 'required');
@@ -756,7 +761,7 @@ class Inventory extends MY_Controller {
                 }
                 // echo $uom_type_tble_id;
                 $data['uom_list']= $this->Inventory_model->uom_list($uom_type_tble_id);
-                
+
                 $unique_Data = array('sensor_no' => $this->input->post('sensornum'),
                     'sensor_type_id' => $this->input->post('sensortype'),
                     'make' => $this->input->post('make'),

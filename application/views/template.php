@@ -279,6 +279,7 @@
                 var i = 0;
                 var options;
                 $("#UOM").empty();
+                $("#UOM_ID").empty();
                 var options = '<option value="">Select UOM Type</option>';
                 $.ajax({
                     url: '<?php echo base_url(); ?>Inventory/load_uomtype_by_parameter',
