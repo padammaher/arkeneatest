@@ -297,7 +297,6 @@
 
             $("#UOM").change(function ()
             {
-//        alert(this.value);
                 if (this.value != "") {
                     var e = document.getElementById("UOM");
                     var strUser = e.options[e.selectedIndex].text;
@@ -308,6 +307,31 @@
                     $("#selectuom").val('');
                 }
             });
+            
+            $("#UOM").change(function ()
+            {
+                 var objdata = '';
+                var i = 0;
+                var options;
+                 $("#UOM_Name").empty();
+                var options = '<option value="">Select UOM</option>';
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Inventory/load_uom_by_Uom_type',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {uom_Type_id: this.value},
+                    success: function (res) {
+                        var obj = $.parseJSON(res);
+                        for (i = 0; i < obj.length; i++) {
+                            options += '<option value="' + obj[i]['id'] + '">' + obj[i]['name'] + '</option>';
+                        }
+                        $("#UOM_Name").html(options);
+                    }
+                });
+              //  $("#UOM").empty();
+                
+            });
+
 
         </script>
     </body>

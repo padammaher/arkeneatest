@@ -74,6 +74,14 @@
                         $i = 1;
                         if (isset($assetlist) && !empty($assetlist)) {
                             foreach ($assetlist as $list) {
+                                 $parameter_count=0; 
+                                foreach($list['parametercount'] as $key)
+                                {  
+                                    if($key['isactive']==1){
+                                        $parameter_count++;  
+                                    }
+
+                                }
                                 ?>   
                                 <tr>
                                     <?php
@@ -84,7 +92,7 @@
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['code'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['location'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['client_name'] ?></td>
-                                    <td <?php echo $modal_idand_class; ?> ><?php echo count($list['parametercount']) ?></td>                              
+                                    <td <?php echo $modal_idand_class; ?> ><?php echo $parameter_count;  ?></td>                              
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['startdate'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['enddate'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['isactive'] == '1' ? "Active" : "In-active"; ?></td>

@@ -145,7 +145,17 @@
     <?php } ?>
                                 <input type="hidden" name="selectuom" id="selectuom">
 
-                            </div> 
+                            </div> <?php     // var_dump($sensor_inventory_data['uom_id'] ); ?> 
+                            <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM*</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">             
+                                        <select class="form-control" name="UOM_ID" id="UOM_ID" required="required">
+                                            <?php foreach ($uom_list as $uom){ ?>
+                                            <option value="<?php echo $uom['id'];  ?>"<?php if(isset($sensor_inventory_data['uom_id'])){ echo ($sensor_inventory_data['uom_id']==$uom['id'])?'selected':''; } ?>><?php  echo $uom['name']; ?></option>                   
+                                            <?php } ?> 
+                                        </select>             
+                                    </div>
+                                </div> 
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
@@ -153,12 +163,12 @@
                                     <label><?php $isactive = set_value('isactive'); ?>                          
 
                                         <input type="checkbox" name="isactive" class="flat" <?php
-    if (!empty($isactive)) {
-        echo ($isactive) == "on" ? 'checked' : '';
-    } else {
-        echo ($sensor_inventory_data['isactive']) == "1" ? 'checked' : '';
-    }
-    ?>> Active
+                                        if (!empty($isactive)) {
+                                            echo ($isactive) == "on" ? 'checked' : '';
+                                        } else {
+                                            echo ($sensor_inventory_data['isactive']) == "1" ? 'checked' : '';
+                                        }
+                                        ?>> Active
                                     </label>
                                 </div>
                             </div>    

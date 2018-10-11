@@ -34,11 +34,7 @@ if ($this->session->userdata('login_flag')) {
         <br />
 
         <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php
-        if (isset($login_flag) && $login_flag == 0) {
-            echo 'cursor-notallowed';
-        }
-        ?>">
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
             <!--            <div class="menu_section">
                             <h3>Home</h3>
@@ -64,14 +60,14 @@ if ($this->session->userdata('login_flag')) {
                                     </a>
                                 </li>
                             <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
-                                <li>
+                                <li class="notallow <?php if (isset($login_flag) && $login_flag == 0) { echo 'cursor-notallowed'; } ?>">
                                     <a>
                                         <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?>  
                                     </a>
                                 </li>
-                            <?php } elseif ($menu_name['menuName'] == 'Privilege') {
+                            <?php } else if ($menu_name['menuName'] == 'Privilege') {
                                 ?>
-                                <li>
+                                <li <?php if ($this->session->userdata('login_flag') == 0){ echo 'class=notallow cursor-notallowed'; } ?>>
                                     <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
                                         <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
@@ -80,7 +76,7 @@ if ($this->session->userdata('login_flag')) {
                                 ?>
 
                                 <!--<ul class="nav side-menu">-->
-                                <li>
+                                <li <?php if ($this->session->userdata('login_flag') == 0&&$menu_name['menuName'] != 'Forms') { echo 'class=notallow cursor-notallowed'; }?> >
                                     <a 
                                     <?php
                                     if (isset($menu_name['url'])) {
@@ -94,7 +90,7 @@ if ($this->session->userdata('login_flag')) {
                                         </span>
                                     </a>
                                     <?php
-                                    if ($this->session->userdata('login_flag') == 0) {
+                                    if ($this->session->userdata('login_flag') == 0&&$menu_name['menuName'] != 'Forms') {
                                         
                                     } else {
                                         ?>
@@ -153,12 +149,12 @@ if ($login_flag == 0 && $login_flag != '') {
     ?>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#sidebar-menu a").removeAttr("href");
-            $("#sidebar-menu a").css("cursor", "not-allowed");
-            $("#sidebar-menu a").addClass('not-allowed');
-            $(".navbar a").removeAttr("href");
-            $(".navbar a").css("cursor", "not-allowed");
-            $(".navbar a").addClass('not-allowed');
+            $(".notallow a").removeAttr("href");
+            $(".notallow a").css("cursor", "not-allowed");
+            $(".notallow a").addClass('not-allowed');
+//            $(".navbar a").removeAttr("href");
+//            $(".navbar a").css("cursor", "not-allowed");
+//            $(".navbar a").addClass('not-allowed');
         });
     </script>
 <?php } ?> 

@@ -575,7 +575,7 @@ class Assets extends MY_Model {
     }
 
     public function get_triger_count($rule_id) {
-        $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where('rule_id', $rule_id)->get()->result_array();
+        $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where(array('rule_id'=>$rule_id,'isdeleted'=>0))->get()->result_array();
         //print_r($asset_rule_data[0]['triger_count']); exit;
         if ($asset_rule_data) {
             return $asset_rule_data[0]['triger_count'];

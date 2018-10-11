@@ -83,11 +83,11 @@ class Auth extends MY_Controller {
             $this->data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
-            if ($user->login_flag == 0) {
-                $view = "index1";
-            } else {
+            //if ($user->login_flag == 0) {
+              //  $view = "index1";
+            //} else {
                 $view = "index2";
-            }
+            //}
             load_view_template($this->data, $view);
 
 //            $this->template->set_master_template('template.php');
