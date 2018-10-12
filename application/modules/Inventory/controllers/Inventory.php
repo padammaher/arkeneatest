@@ -681,7 +681,7 @@ class Inventory extends MY_Controller {
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
                 // print_r($data['sensor_inventory_list_data']);
                 $uom_type_tble_id='';
-                if(isset($data['sensor_inventory_list_data']))
+                if(!empty($data['sensor_inventory_list_data']))
                 {
                     $uom_type_tble_id=$data['sensor_inventory_list_data'][0]['uom_type_tbl_id'];
                 }
@@ -755,11 +755,13 @@ class Inventory extends MY_Controller {
                 $sensor_form_action = explode(" ", $this->input->post('sensor_form_action'));
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $add_sen_inv_form_action[1]);
                 $uom_type_tble_id='';
-                if(isset($data['sensor_inventory_list_data']))
+                // print_r($data['sensor_inventory_list_data']);
+                if(!empty($data['sensor_inventory_list_data']))
                 {
                     $uom_type_tble_id=$data['sensor_inventory_list_data'][0]['uom_type_tbl_id'];
                 }
                 // echo $uom_type_tble_id;
+                // exit;
                 $data['uom_list']= $this->Inventory_model->uom_list($uom_type_tble_id);
 
                 $unique_Data = array('sensor_no' => $this->input->post('sensornum'),
