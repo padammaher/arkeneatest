@@ -22,38 +22,17 @@
                                     <th width="20%" class="text-center">View</th>
                                 </tr>
                             </thead>
-                           <!--  <tbody>                                                             
-                            <?php
-                            //echo "<pre>";print_r($user_type[0]);
-                            if (isset($menu) && !empty($menu)) {
-                                foreach ($menu as $k => $data) {
-                                    ?>
-                                                       <tr>
-                                                            <td><?php echo $data->menuName ?></td>
-                                                            <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"  <?php if (isset($user_privilege_data[$k])) echo $user_privilege_data[$k]->addpermission == '1' ? 'checked' : ''; ?>></label></td>
-                                                            <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" <?php if (isset($user_privilege_data[$k])) echo $user_privilege_data[$k]->editpermission == '1' ? 'checked' : ''; ?>></label></td>
-                                                            <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]" <?php if (isset($user_privilege_data[$k])) echo $user_privilege_data[$k]->deletepermission == '1' ? 'checked' : ''; ?>></label></td>
-                                                            <td class="text-center"><label><input class="flat" type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]" <?php if (isset($user_privilege_data[$k])) echo $user_privilege_data[$k]->viewpermission == '1' ? 'checked' : ''; ?>></label></td>
-                                    
-                                                        </tr>
-                                    <?php
-                                }
-                            }
-                            else {
-                                ?>
-                                                <td colspan="5">No data found..!</td>       
-                            <?php }
-                            ?>
-                                
-                            </tbody> -->
-                            <tbody>
+                          
+                     <tbody>
                                 <?php
                                 //echo "<pre>";print_r($user_type[0]);
                                 if (isset($menu) && !empty($menu)) {
                                     foreach ($menu as $k => $data) {
+                                        $check_exists = 0;
                                         if (isset($user_privilege_data) && !empty($user_privilege_data)) {
                                             foreach ($user_privilege_data as $privilege) {
                                                 if ($data->id == $privilege->object) {
+                                                    $check_exists = 1;
                                                     ?>
                                                     <tr>
                                                         <td><?php echo $data->menuName ?></td>
@@ -64,6 +43,17 @@
                                                     </tr>
                                                     <?php
                                                 }
+                                            }
+                                            if ($check_exists != 1) {
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $data->menuName ?></td>
+                                                    <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"></td>
+                                                    <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" ></td>
+                                                    <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]"></td>
+                                                    <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]"></td>
+                                                </tr>
+                                                <?php
                                             }
                                         } else {
                                             ?>
@@ -82,6 +72,7 @@
                                     <tr><td colspan="5">No data found..!</td></tr>     
                                 <?php }
                                 ?>
+
                             </tbody>
                         </table>
                         <div class="item form-group">

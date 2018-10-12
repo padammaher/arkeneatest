@@ -304,7 +304,7 @@
                 // $("#trigger_button").prop("disabled", true);
                 // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
             }
-            if (inputVal.length == 9) {
+            if (inputVal.length > 9) {
                 // $("#trigger_button").prop("disabled", false);
             } 
             }

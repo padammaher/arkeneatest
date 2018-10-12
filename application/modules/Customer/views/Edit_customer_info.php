@@ -263,11 +263,11 @@
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
                 return false;
-            } else if (inputVal.length < 9) {
+            } else if (inputVal.length < 10) {
                 $("#customer_info_submit").prop("disabled", true);
                 $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
             }
-            if (inputVal.length == 9) {
+            if (inputVal.length > 9) {
                 $("#customer_info_submit").prop("disabled", false);
             }
         });
