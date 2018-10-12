@@ -77,11 +77,15 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Communication Type *</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">             
+                            <?php $setvalue=set_value('comm_type') ? set_value('comm_type') : '';
+                                  $setvalue= $setvalue !=''? 'selected' :'';
+                                  ?>
                             <select class="form-control" name="comm_type" id="comm_type" required="required">
-                                <option value="">Select Type</option>
-                                <option value="GSM">GSM</option>
-                                <option value="LORA">LORA</option>
-                                <option value="SIGFOX">SIGFOX</option>
+
+                                <option value="" >Select Type</option>                                
+                                <option value="GSM" <?php echo set_value('comm_type') == "GSM" ? $setvalue :'';?> >GSM</option>
+                                <option value="LORA" <?php echo set_value('comm_type') == "LORA" ? $setvalue :'';?> >LORA</option>
+                                <option value="SIGFOX" <?php echo set_value('comm_type') == "SIGFOX" ? $setvalue :'';?> >SIGFOX</option>
                             </select>             
                         </div>
                         <?php if (form_error('comm_type')) { ?>
@@ -92,7 +96,7 @@
                     <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">GSM Number</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" name="gsmnumber" id="gsmnumber" class="form-control" placeholder="GSM Number" value="<?php echo set_value('gsmnumber'); ?>"  pattern="[0-9\s]*" title="enter numbers only">
+                            <input type="text" name="gsmnumber" id="gsmnumber" class="form-control" placeholder="GSM Number" value="<?php echo set_value('gsmnumber'); ?>"  onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="11" minlength="10"  pattern="[0-9\s]*" maxlength="11" minlength="10" title="enter numbers only">
                         </div>
                         <?php if (form_error('gsmnumber')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('gsmnumber'); ?></span>
@@ -286,6 +290,27 @@
         });
     });
 
+    
+      $(document).ready(function () {
+        $("#gsmnumber").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
+           
+           if(inputVal.trim()==""){ $('span.error-keyup-3').remove(); }else{
+               if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                return false;
+            } else if (inputVal.length < 9) {
+                // $("#trigger_button").prop("disabled", true);
+                // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+            }
+            if (inputVal.length == 9) {
+                // $("#trigger_button").prop("disabled", false);
+            } 
+            }
+        });
+        });
+
     $('#service_type_count').keypress(function (event) {
         var keycode = event.which;
         if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
@@ -298,4 +323,6 @@
             event.preventDefault();
         }
     });
+
+
 </script>    

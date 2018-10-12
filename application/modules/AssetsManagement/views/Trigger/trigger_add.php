@@ -85,7 +85,7 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable1(this)" name="check_contact" id="<?php echo isset($trigger_edit_data['sms_contact_no']) ? $trigger_edit_data['sms_contact_no'] : ''; ?>" <?php echo (set_value('check_contact')) == 'on' ? 'checked' : ''; ?>> SMS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="contactno" value="<?php echo set_value('contactno', $trigger_edit_data['sms_contact_no']); ?>" class="form-control" id="contactno" placeholder="Enter Mobile Number" <?php if (!empty(set_value('check_contact'))) {
+                                <input type="text" name="contactno" value="<?php echo set_value('contactno', $trigger_edit_data['sms_contact_no']); ?>" class="form-control" id="contactno" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" pattern="[0-9]" maxlength="11" minlength="10" title="enter valid number" placeholder="Enter Mobile Number" <?php if (!empty(set_value('check_contact'))) {
     echo (set_value('check_contact')) == 'on' ? '' : 'readonly';
 } else {
     echo 'readonly';
@@ -102,7 +102,7 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
 <?php } else { ?>                                
                                     <input type="hidden" name="trigger_form_action"  value="add" />
 <?php } ?>    
-                                <button type="submit" class="btn btn-primary"><?php if (!empty($trigger_edit_list)) {
+                                <button type="submit" id="trigger_button" class="btn btn-primary"><?php if (!empty($trigger_edit_list)) {
     echo "Update";
 } else {
     echo "Save";
@@ -129,6 +129,8 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                                     {
                                         $("#email").attr("readonly", true);
                                         $("#email").val(vall.id);
+                                        $("#trigger_button").prop("disabled", false);
+                                         $('span.error-keyup-3').remove();
                                     }
                                 }
 
@@ -141,6 +143,46 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                                     {
                                         $("#contactno").attr("readonly", true);
                                         $("#contactno").val(vall.id);
+                                        // $("#trigger_button").prop("disabled", false);
                                     }
                                 }
+
+    $(document).ready(function () {
+        $("#contactno").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
+            if(inputVal.trim()==""){$("#trigger_button").prop("disabled", false);}
+            // if($('input[type="check_contact"]').checked==true)
+            if ($('input[name="check_contact"]').is(":checked") ==true){ 
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                return false;
+            } else if (inputVal.length < 9) {
+                $("#trigger_button").prop("disabled", true);
+                $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+            }
+            if (inputVal.length == 9) {
+                $("#trigger_button").prop("disabled", false);
+            } 
+          } else if($('input[name="check_contact"]').is(":checked") ==false){
+             $("#trigger_button").prop("disabled", false);
+             // alert("unchecked");
+          }
+        });
+   
+
+     $("#email").change(function (e) {
+        $('span.error-keyup-3').remove();
+        var emailAddress = $(this).val();
+
+         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;  
+           if(!emailReg.test(emailAddress)) {                  
+                 $(this).after('<span class="error error-keyup-3" style="color:red">Enter valid email id</span>');
+                 $("#trigger_button").prop("disabled", true);
+           }    else{
+            $("#trigger_button").prop("disabled", false);
+           }
+
+        }); 
+        });  
 </script>

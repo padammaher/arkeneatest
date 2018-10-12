@@ -94,8 +94,10 @@ class Inventory extends MY_Controller {
                 $this->form_validation->set_rules('devicemake', 'Make', 'required|alpha_numeric');
                 $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric');
                 $this->form_validation->set_rules('comm_type', 'Communication Type', 'required');
+                if( $this->input->post('comm_type') == "GSM" || $this->input->post('comm_type') == "gsm"){
                 // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
                 $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric');
+                    }
                 $this->form_validation->set_rules('comm_protocol', 'Communication Protocol', 'required|alpha');
                 $this->form_validation->set_rules('stockdate', 'Stock date', 'required');
                 $this->form_validation->set_rules('oem_ser_interval_type', 'OEM Service Interval', 'required');
@@ -241,7 +243,10 @@ class Inventory extends MY_Controller {
                     $this->form_validation->set_rules('devicemodel', 'Model', 'required|alpha_numeric');
                     $this->form_validation->set_rules('comm_type', 'Communication Type', 'required');
                     // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
-                    $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric');
+                     if( $this->input->post('comm_type') == "GSM" || $this->input->post('comm_type') == "gsm"){
+                // $this->form_validation->set_rules('specification', 'Asset specification', 'required');
+                        $this->form_validation->set_rules('gsmnumber', 'GSM Number', 'required|numeric');
+                    }
                     $this->form_validation->set_rules('comm_protocol', 'Communication Protocol', 'required|alpha');
                     $this->form_validation->set_rules('stockdate', 'Stock date', 'required');
                     $this->form_validation->set_rules('oem_ser_interval_type', 'OEM Service Interval', 'required');
@@ -670,8 +675,18 @@ class Inventory extends MY_Controller {
                 $sen_inv_id = $this->input->post('id');
                 $data['sensor_type'] = $this->Inventory_model->sensor_type_list($user_id);
                 $data['parameter_list'] = $this->Inventory_model->parameter_list($user_id);
+                
+               // print_r($data['uom_list']); exit;
                 $data['location_list'] = $this->Assets->CustomerLocation_list($user_id);
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $sen_inv_id);
+                // print_r($data['sensor_inventory_list_data']);
+                $uom_type_tble_id='';
+                if(!empty($data['sensor_inventory_list_data']))
+                {
+                    $uom_type_tble_id=$data['sensor_inventory_list_data'][0]['uom_type_tbl_id'];
+                }
+                // echo $uom_type_tble_id;
+                $data['uom_list']= $this->Inventory_model->uom_list($uom_type_tble_id);
                 if ($this->input->post('post') == 'edit') {
                     $data['permission'] = $this->users->get_permissions('Sensor Inventory');
                     //check user Permission
@@ -679,8 +694,7 @@ class Inventory extends MY_Controller {
                     $data['dataHeader']['title'] = "Edit Sensor Inventory";
                     load_view_template($data, 'SensorInventory/edit_sensor_inventory_1');
                 }
-//                  $sensor_form_action=explode(" ",$this->input->post('sensor_form_action'));
-//                  print_r($sensor_form_action);
+
                 else if ($this->input->post('post') == 'delete') {
                     $data['permission'] = $this->users->get_permissions('Sensor Inventory');
                     //check user Permission
@@ -702,6 +716,7 @@ class Inventory extends MY_Controller {
                 userPermissionCheck($data['permission'], 'view');
 
                 $data['sensor_inventory_list'] = $this->Inventory_model->sensor_inventory_list($user_id);
+               // print_r($data['sensor_inventory_list']); exit; 
                 $data['dataHeader']['title'] = "Sensor Inventory";
                 load_view_template($data, 'SensorInventory/sensor_inventory_list_1');
             }
@@ -739,6 +754,16 @@ class Inventory extends MY_Controller {
 
                 $sensor_form_action = explode(" ", $this->input->post('sensor_form_action'));
                 $data['sensor_inventory_list_data'] = $this->Inventory_model->edit_sensor_inventory_list($user_id, $add_sen_inv_form_action[1]);
+                $uom_type_tble_id='';
+                // print_r($data['sensor_inventory_list_data']);
+                if(!empty($data['sensor_inventory_list_data']))
+                {
+                    $uom_type_tble_id=$data['sensor_inventory_list_data'][0]['uom_type_tbl_id'];
+                }
+                // echo $uom_type_tble_id;
+                // exit;
+                $data['uom_list']= $this->Inventory_model->uom_list($uom_type_tble_id);
+
                 $unique_Data = array('sensor_no' => $this->input->post('sensornum'),
                     'sensor_type_id' => $this->input->post('sensortype'),
                     'make' => $this->input->post('make'),
@@ -746,6 +771,7 @@ class Inventory extends MY_Controller {
                     // 'description' =>$this->input->post('description'),
                     'parameter_id' => $this->input->post('Parameter'),
                     'uom_type_id' => $this->input->post('UOM'),
+                    'uom_id' => $this->input->post('UOM_ID'),
                     'createdby' => $user_id,
                     'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
                     'customer_location_id' => $this->input->post('Customerlocation'));
@@ -757,6 +783,7 @@ class Inventory extends MY_Controller {
                     'description' => $this->input->post('description'),
                     'parameter_id' => $this->input->post('Parameter'),
                     'uom_type_id' => $this->input->post('UOM'),
+                    'uom_id' => $this->input->post('UOM_ID'),
                     'createdat' => $todaysdate,
                     'createdby' => $user_id,
                     'isactive' => ($this->input->post('isactive')) == "on" ? '1' : '0',
@@ -771,6 +798,7 @@ class Inventory extends MY_Controller {
                 $this->form_validation->set_rules('Customerlocation', 'Customer location', 'required');
                 $this->form_validation->set_rules('Parameter', 'Parameter', 'required');
                 $this->form_validation->set_rules('UOM', 'UOM', 'required');
+                $this->form_validation->set_rules('UOM_ID', 'uom id', 'required');
 
 
                 if ($this->form_validation->run() == TRUE) {
@@ -823,6 +851,7 @@ class Inventory extends MY_Controller {
                     load_view_template($data, 'SensorInventory/add_sensor_inventory');
                 }
             } else {
+                
                 load_view_template($data, 'SensorInventory/add_sensor_inventory');
             }
         }
@@ -1052,6 +1081,14 @@ class Inventory extends MY_Controller {
         $uomtypedata = $this->Inventory_model->uomtype_list($parameter, $user_id);
 
         echo json_encode($uomtypedata);
+    }
+    function load_uom_by_Uom_type() {
+        $data = '';
+
+        $user_id = $this->session->userdata('user_id');
+        $uom_type = $this->input->post('uom_Type_id');
+       // print_r($parameter); exit;
+        $data = $this->Inventory_model->load_uom_by_uomtype($uom_type,$user_id);
     }
 
     function Check_devicenum_is_exist() {

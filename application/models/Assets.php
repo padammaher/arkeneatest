@@ -70,17 +70,17 @@ class Assets extends MY_Model {
     public function getCustomerLocationCount($user_id) {
         $location_id= $this->session->userdata('location_id');
         $group_id = $this->session->userdata('group_id');
-        $this->db->select('count(customer_business_location.id) as locationcount');
+        $this->db->select('count(distinct customer_business_location.id) as locationcount');
         $this->db->from('customer_business_location ');
         if ($group_id == '2') {
-            $this->db->join('users', 'users.location_id=customer_business_location.id', 'left');
-            $this->db->where('users.location_id', $location_id);
-            $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0));
+           $this->db->join('users', 'users.location_id=customer_business_location.id', 'left');
+           $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0,'customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0,'users.location_id'=> $location_id));
         } else {
-            // 
+             $this->db->where(array('customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0));
         }
-        $this->db->where(array('customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0));
         $query = $this->db->get();
+        //echo $this->db->last_query(); exit; 
+        
         $obj = $query->result_array();
         return $obj[0]['locationcount'];
     }
@@ -575,7 +575,7 @@ class Assets extends MY_Model {
     }
 
     public function get_triger_count($rule_id) {
-        $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where('rule_id', $rule_id)->get()->result_array();
+        $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where(array('rule_id'=>$rule_id,'isdeleted'=>0))->get()->result_array();
         //print_r($asset_rule_data[0]['triger_count']); exit;
         if ($asset_rule_data) {
             return $asset_rule_data[0]['triger_count'];
@@ -940,7 +940,7 @@ class Assets extends MY_Model {
         FROM
             `trigger`
         WHERE
-            `trigger`.`rule_id` = ".$set_rule_id.") AS `trigger_threshold_id_count`
+            `trigger`.`rule_id` = ".$set_rule_id." and `trigger`.`isdeleted`=0) AS `trigger_threshold_id_count`
 FROM
     asset
         LEFT JOIN
