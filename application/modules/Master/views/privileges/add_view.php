@@ -29,7 +29,7 @@
                                
                             </tr>
                         </thead>
-                        <tbody>
+                       <!--  <tbody>
                             
                             
                             <?php //echo "<pre>";print_r($user_type[0]);
@@ -52,7 +52,47 @@
                         <?php }
                         ?>
                             
-                        </tbody>
+                        </tbody> -->
+
+
+
+                        <tbody>
+                                <?php
+                                //echo "<pre>";print_r($user_type[0]);
+                                if (isset($menu) && !empty($menu)) {
+                                    foreach ($menu as $k => $data) {
+                                        if (isset($user_privilege_data) && !empty($user_privilege_data)) {
+                                            foreach ($user_privilege_data as $privilege) {
+                                                if ($data->id == $privilege->object) {
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $data->menuName ?></td>
+                                                        <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"  <?php echo $privilege->addpermission == '1' ? 'checked' : ''; ?>></td>
+                                                        <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" <?php echo $privilege->editpermission == '1' ? 'checked' : ''; ?>></td>
+                                                        <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]" <?php echo $privilege->deletepermission == '1' ? 'checked' : ''; ?>></td>
+                                                        <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]" <?php echo $privilege->viewpermission == '1' ? 'checked' : ''; ?>></td>
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                        } else {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $data->menuName ?></td>
+                                                <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_add_<?php echo $data->id ?>[]"></td>
+                                                <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_edit_<?php echo $data->id ?>[]" ></td>
+                                                <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_delete_<?php echo $data->id ?>[]"></td>
+                                                <td class="text-center"><input class="flat" type="checkbox" value="" id="permission_value" name="permission_view_<?php echo $data->id ?>[]"></td>
+                                            </tr>
+                                            <?php
+                                        }
+                                    }
+                                } else {
+                                    ?>
+                                    <tr><td colspan="5">No data found..!</td></tr>     
+                                <?php }
+                                ?>
+                            </tbody>
                     </table>
                               
                         <div class="item form-group">
