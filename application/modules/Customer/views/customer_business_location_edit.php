@@ -105,7 +105,7 @@
                                 </span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="Enter Mobile Number " required="required" value="<?php echo (isset($business_detail[0]->mobile)) ? $business_detail[0]->mobile : ''; ?>">
+                                <input name='mobile' id="mobile" type="text" class="form-control" maxlength="11" minlength="10"  placeholder="Enter Mobile Number " required="required" value="<?php echo (isset($business_detail[0]->mobile)) ? $business_detail[0]->mobile : ''; ?>">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -173,9 +173,10 @@
                 var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
                 if (!emailReg.test(emil)) {
                     $("#email_error").html('Please enter valid email');
+                    $("#customer_businees_location").prop("disabled", true);
                 } else {
                     $("#email_error").html("");
-
+                    $("#customer_businees_location").prop("disabled", false);
                     // alert('Thank you for your valid email');
                 }
             })

@@ -888,6 +888,11 @@ class Assets extends MY_Model {
     {
       $where="asset.id=" . $asset_id . " and asset.isactive='1' and asset.isdeleted='0'";  
     }
+     $asset_id = $this->session->userdata('asset_id');
+            if (!$asset_id) {
+                $this->session->set_flashdata('note_msg', 'session was expired');
+                return redirect('Assets_list');
+            }
         
         
         $query = "SELECT 

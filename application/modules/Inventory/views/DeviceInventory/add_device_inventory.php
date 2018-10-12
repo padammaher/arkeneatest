@@ -242,7 +242,7 @@
                     if (res >= 1)
                     {
                         $("#devicename").css('border', '1px solid #CE5454');
-                        $(".deivcenumexist").text('Device num already exist..!');
+                        $(".deivcenumexist").text('Device number already exist..!');
 //                            $("#postbutton").disabled=true;
                         document.getElementById("postbutton").disabled = true;
                     }
@@ -272,7 +272,7 @@
                     if (res >= 1)
                     {
                         $("#serialnumber").css('border', '1px solid #CE5454');
-                        $(".serialnumexist").text('Device num already exist..!');
+                        $(".serialnumexist").text('Serial number already exist..!');
 //                            $("#postbutton").disabled=true;
                         document.getElementById("postbutton").disabled = true;
                     }

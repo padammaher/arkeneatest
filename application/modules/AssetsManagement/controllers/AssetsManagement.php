@@ -953,6 +953,10 @@ class AssetsManagement extends MY_Controller {
         //check user Permission
         userPermissionCheck($data['permission'], 'add');
         $parameter_id = $this->session->userdata('parameter_id');
+        // if (!$parameter_id) {
+        //         $this->session->set_flashdata('note_msg', 'session was expired');
+        //         return redirect('Assets_list');
+        //     }
         $parameter_range_id = $this->session->userdata('parameter_range_id');
         $user_id = $this->session->userdata('user_id');
 
@@ -1042,10 +1046,10 @@ class AssetsManagement extends MY_Controller {
         } else {
             $update_id = $this->Assets->update_asset_rule_detail($data, $asset_rule_id);
             if ($update_id) {
-                $this->session->set_flashdata('success_msg', 'Assets rules Added Successfully');
+                $this->session->set_flashdata('success_msg', 'Assets rules updated Successfully');
                 redirect('Asset_Rule_list', 'refresh');
             } else {
-                $this->session->set_flashdata('error_msg', 'Assets rules Added faield ');
+                $this->session->set_flashdata('error_msg', 'Assets rules updated faield ');
                 redirect('Asset_Rule_list', 'refresh');
             }
         }
@@ -1099,6 +1103,10 @@ class AssetsManagement extends MY_Controller {
             } elseif ($this->session->userdata('asset_id')) {
                 $asset_id = $this->session->userdata('asset_id');
             }
+            if (!$asset_id) {
+                $this->session->set_flashdata('note_msg', 'session was expired');
+                return redirect('Assets_list');
+            }
 
             $this->session->set_userdata('asset_id', $asset_id);
             $this->session->unset_userdata('paramrange_post');
@@ -1121,6 +1129,11 @@ class AssetsManagement extends MY_Controller {
             $this->load->model('parametermodel');
             if ($this->session->userdata('user_id'))
                 $user_id = $this->session->userdata('user_id');
+             $asset_id = $this->session->userdata('asset_id');
+         if (!$asset_id) {
+                $this->session->set_flashdata('note_msg', 'session was expired');
+                return redirect('Assets_list');
+            }
 
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
@@ -1191,6 +1204,12 @@ class AssetsManagement extends MY_Controller {
             $this->load->model('parametermodel');
             if ($this->session->userdata('user_id'))
                 $user_id = $this->session->userdata('user_id');
+
+            $asset_id = $this->session->userdata('asset_id');
+         if (!$asset_id) {
+                $this->session->set_flashdata('note_msg', 'session was expired');
+                return redirect('Assets_list');
+            }
 
             if ($this->input->post('edit_id')) {
                 //Update the parameter range

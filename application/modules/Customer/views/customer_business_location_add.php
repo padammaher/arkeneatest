@@ -81,7 +81,8 @@
                 <span class="required">*</span>
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='pincode' id="pincode" type="number" class="form-control" placeholder="Enter Pincode Number" required="required">
+                  <!-- <input name='pincode' id="pincode" type="number" class="form-control" placeholder="Enter Pincode Number" required="required"> -->
+                  <input name="pincode" id="pincode" type="text" class="form-control" placeholder="Enter pincode" pattern="[0-9]+" maxlength="4" required="required" title="Only 4 digits are allowed">
                 </div>
               </div>
               <div class="item form-group">
@@ -96,7 +97,7 @@
                 <span class="required">*</span>
                  </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="Enter Mobile Number " required="required">
+                  <input name='mobile' id="mobile" type="text" class="form-control" maxlength="11" minlength="10"  placeholder="Enter Mobile Number " required="required">
                 </div>
               </div> 
               <div class="item form-group">
@@ -173,9 +174,10 @@ $('#customer_email').focusout(function(){
               var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             if( !emailReg.test( emil ) ) {
                    $("#email_error").html('Please enter valid email'); 
+                   $( "#customer_businees_location" ).prop( "disabled", true );
                 } else {
                   $("#email_error").html("");
-                 
+                 $( "#customer_businees_location" ).prop( "disabled", false );
                // alert('Thank you for your valid email');
                 }
                 })
@@ -198,12 +200,29 @@ $(document).ready(function () {
     }
    });
 });
-$('#pincode').keypress(function (event) {
-    var keycode = event.which;
-    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-        event.preventDefault();
-    }
-});
+// $('#pincode').keypress(function (event) {
+//     var keycode = event.which;
+//     if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+//         event.preventDefault();
+//     }
+// });
+
+ $('#pincode').keypress(function (e) {
+//        var pinVal = $(this).val();
+//        $('span.error-keyup-pin').remove();
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            $("#errmsg").html("Digits Only").show().fadeOut("slow");
+            return false;
+        }
+//        else if (pinVal.length > 3) {
+//            $("#customer_info_submit").prop("disabled", true);
+//            $(this).after('<span class="error error-keyup-pin" style="color:red">Maximum 4 number are allowed.</span>');
+//        }
+//        if (pinVal.length <= 3) {
+//            $("#customer_info_submit").prop("disabled", false);
+//        }
+    });
 $('#phone').keypress(function (event) {
     var keycode = event.which;
     if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
