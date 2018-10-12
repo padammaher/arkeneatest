@@ -85,7 +85,7 @@ foreach ($trigger_edit_list as $trigger_edit_data) {
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"><input type="checkbox"  onclick="undisable1(this)" name="check_contact" id="<?php echo isset($trigger_edit_data['sms_contact_no']) ? $trigger_edit_data['sms_contact_no'] : ''; ?>" <?php echo (set_value('check_contact')) == 'on' ? 'checked' : ''; ?>> SMS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="contactno" value="<?php echo set_value('contactno', $trigger_edit_data['sms_contact_no']); ?>" class="form-control" id="contactno" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" pattern="[0-9]" maxlength="11" minlength="10" title="enter valid number" placeholder="Enter Mobile Number" <?php if (!empty(set_value('check_contact'))) {
+                                <input type="text" name="contactno" value="<?php echo set_value('contactno', $trigger_edit_data['sms_contact_no']); ?>" class="form-control" id="contactno" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" maxlength="11" minlength="10" title="enter valid number" placeholder="Enter Mobile Number" <?php if (!empty(set_value('check_contact'))) {
     echo (set_value('check_contact')) == 'on' ? '' : 'readonly';
 } else {
     echo 'readonly';
