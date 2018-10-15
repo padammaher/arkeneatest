@@ -113,7 +113,7 @@ class Auth extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Home";
-            load_view_template($data, "index2");
+            load_view_template($data, "index3");
 
 //        $this->template->set_master_template('template.php');
 //        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));

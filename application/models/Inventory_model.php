@@ -366,7 +366,7 @@ class Inventory_model extends MY_Model {
         $this->db->join('device_inventory', 'device_sensor_mapping.device_id=device_inventory.id');
         $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
         $this->db->where('device_sensor_mapping.isdeleted', 0);
-        $this->db->where('device_sensor_mapping.isactive', 1);
+        // $this->db->where('device_sensor_mapping.isactive', 1);
         
         if($group_id =='2'){
          $this->db->where('device_inventory.customer_location_id', $this->Loginuser_location_id);        
