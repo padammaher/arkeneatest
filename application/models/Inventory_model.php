@@ -255,7 +255,7 @@ class Inventory_model extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         $this->db->select('id,number,serial_no,customer_location_id');
         $this->db->from('device_inventory');
-        $this->db->where('isactive', 1);
+        // $this->db->where('isactive', 1);
         $this->db->where(array('isdeleted'=>0));
         $this->db->where('device_inventory.id NOT IN (select device_sensor_mapping.device_id from device_sensor_mapping where device_sensor_mapping.isdeleted=0)');    
                             
@@ -418,7 +418,7 @@ class Inventory_model extends MY_Model {
                     $this->db->join('device_inventory', 'device_sensor_mapping.device_id=device_inventory.id');
                     $this->db->join('sensor_inventory', 'sensor_inventory.id=device_sensor_mapping.sensor_id');
                     $this->db->where('device_sensor_mapping.device_id', $returnIds);
-                    $this->db->where(array('device_sensor_mapping.isactive'=>1,'device_sensor_mapping.isdeleted'=>0));
+                    $this->db->where(array('device_sensor_mapping.isdeleted'=>0));
                     if($group_id==2){
                     $this->db->where(array('device_inventory.customer_location_id'=>$this->Loginuser_location_id));
                     }
