@@ -1,5 +1,6 @@
   <!-- <div class="right_col" role="main"> -->
  <!-- <?php print_r($dashboard_assets);?> -->
+ <meta http-equiv="refresh" content="300">
   <div class="row">
 			 <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel tile">
@@ -289,7 +290,7 @@
                           <select class="form-control" name="dashboard_asset_list" id="dashboard_asset_list">
                             <option value="">Asset List</option>
                    <?php foreach ($dashboard_assets as $assets_value) { ?>
-                            <option name="<?php echo $assets_value['customer_locationid'];?>" id="<?php echo $assets_value['customer_locationid'];?>" value="<?php echo $assets_value['asset_id'];?>"><?php echo $assets_value['code'];?></option>
+                            <option name="<?php echo $assets_value['start'];?>" id="<?php echo $assets_value['customer_locationid'];?>" value="<?php echo $assets_value['asset_id'];?>"><?php echo $assets_value['code'];?></option>
                   <?php  } ?>
                           </select>
                         </div>
@@ -304,8 +305,8 @@
 				  </div>
 				  
 				  <div class="col-md-4">
-                  <h4>Currnet Duration : 2h 11m 03s</h4>
-                  <h4>Service Due : 11h</h4>
+                  <h4>Currnet Duration : <span id="running_devicetime"></span></h4>
+                  <!-- <h4>Service Due : <span id="running_devicedue_hour"></span></h4> -->
 				  </div>
 				  
 				 
@@ -679,11 +680,18 @@
             {
 //       alert(this.value);
                  $("#running_devicename").html('');
+                 $("#running_device").html('');
+                 $("#running_devicetime").html('');
+                // $("#running_devicedue_hour").html('');
                 var objdata = '';
                 var i = 0;
                 var options;
                 var location_id = $(this).children(":selected").attr("id");
+                var starttime = $(this).children(":selected").attr("name");
                 if(this.value!=""){
+                  $("#running_devicetime").html(starttime);
+                  // $("#running_devicedue_hour").html(starttime);
+                  $("#running_device").html('Running');
                 $.ajax({
                     url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
                     type: 'post',
@@ -694,14 +702,48 @@
                        
                         for (i = 0; i < obj['objData'].length; i++) {
                               $("#running_devicename").html(obj['objData'][i]['number']);
+
                         }
                 
                     }
                 });
+                // startTime(starttime);
               } else{
                 $("#running_devicename").html('');
+                $("#running_device").html('');
+                $("#running_devicetime").html('');
+                // $("#running_devicedue_hour").html('');
               }
             });
+
+            // function checkTime(i) {
+            //   if (i < 10) {
+            //     i = "0" + i;
+            //   }
+            //   return i;
+            // }
+
+            // function startTime(datetime) {
+            //   // alert($("#running_devicetime").html());
+            //   // var today =  $("#running_devicetime").html();
+            //   var today =new Date();
+            //   var h = today.getHours();
+            //   var m = today.getMinutes();
+            //   var s = today.getSeconds();
+            //   // add a zero in front of numbers<10
+            //   // alert(today)
+            //   m = checkTime(m);
+            //   s = checkTime(s);
+            //   document.getElementById('running_devicetime').innerHTML = h + ":" + m + ":" + s;
+            //   t = setTimeout(function() {
+            //     startTime()
+            //   }, 11500);
+            // }
+    function timedRefresh(timeoutPeriod) {
+  setTimeout("location.reload(true);",timeoutPeriod);
+}
+
+window.onload = timedRefresh(300000);        
 </script>        
 
 
