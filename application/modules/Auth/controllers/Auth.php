@@ -83,11 +83,17 @@ class Auth extends MY_Controller {
             $this->data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
+            $this->data['dashboard_assets'] = $this->group_model->load_dashboard_batch_data($user_id);
             //if ($user->login_flag == 0) {
             //  $view = "index1";
             //} else {
+
             $view = "index3";
+
             //}
+
+
+
             load_view_template($this->data, $view);
 
 //            $this->template->set_master_template('template.php');
@@ -113,6 +119,7 @@ class Auth extends MY_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Home";
+            $data['dashboard_assets'] = $this->group_model->load_dashboard_batch_data($user_id);
             load_view_template($data, "index3");
 
 //        $this->template->set_master_template('template.php');
@@ -261,6 +268,7 @@ class Auth extends MY_Controller {
                 'value' => $this->form_validation->set_value('profile_image'),
             );
 
+            $data['dashboard_assets'] = $this->group_model->load_dashboard_batch_data($user_id);
             load_view_template($this->data, "index");
 
 //            $this->template->set_master_template('template.php');
@@ -1032,6 +1040,18 @@ class Auth extends MY_Controller {
         $data['dataHeader'] = $this->users->get_allData($user_id);
         $data['dataHeader']['title'] = "Error 403! Access Denied";
         load_view_template($data, '403.php');
+    }
+
+    function load_data_by_asset() {
+        $dashboarddata = '';
+
+        $user_id = $this->session->userdata('user_id');
+        $asset_id = $this->input->post('asset_id');
+        $location_id = $this->input->post('location_id');
+
+        $dashboarddata = $this->group_model->get_data_by_assets($asset_id, $location_id, $user_id);
+
+        echo json_encode($dashboarddata);
     }
 
 }
