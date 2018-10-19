@@ -84,9 +84,9 @@ class Auth extends MY_Controller {
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
             //if ($user->login_flag == 0) {
-              //  $view = "index1";
+            //  $view = "index1";
             //} else {
-                $view = "index2";
+            $view = "index3";
             //}
             load_view_template($this->data, $view);
 
