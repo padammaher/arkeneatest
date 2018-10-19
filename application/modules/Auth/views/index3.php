@@ -1,4 +1,5 @@
   <!-- <div class="right_col" role="main"> -->
+ <!-- <?php print_r($dashboard_assets);?> -->
   <div class="row">
 			 <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel tile">
@@ -285,12 +286,11 @@
                  <div class="form-group">
                         <label class="control-label col-md-2 col-sm-2 col-xs-12 pd0">Select Asset</label>
                         <div class="col-md-9 col-sm-9 col-xs-12 pd0">
-                          <select class="form-control">
-                            <option>Choose option</option>
-                            <option>Option one</option>
-                            <option>Option two</option>
-                            <option>Option three</option>
-                            <option>Option four</option>
+                          <select class="form-control" name="dashboard_asset_list" id="dashboard_asset_list">
+                            <option value="">Asset List</option>
+                   <?php foreach ($dashboard_assets as $assets_value) { ?>
+                            <option id="<?php echo $assets_value['customer_locationid'];?>" value="<?php echo $assets_value['asset_id'];?>"><?php echo $assets_value['code'];?></option>
+                  <?php  } ?>
                           </select>
                         </div>
                       </div>
@@ -673,7 +673,30 @@
               </div>
             </div>
           </div>
-        
+<script type="text/javascript">
+  
+            $("#dashboard_asset_list").change(function ()
+            {
+//       alert(this.value);
+                var objdata = '';
+                var i = 0;
+                var options;
+                var location_id = $(this).children(":selected").attr("id");
+                $.ajax({
+                    url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
+                    type: 'post',
+                    dataType: 'text',
+                    data: {asset_id: this.value,location_id:location_id},
+                    success: function (res) {
+                        var obj = $.parseJSON(res);
+                        for (i = 0; i < obj.length; i++) {
+                              // alert(obj[i]['number']);
+                        }
+                
+                    }
+                });
+            });
+</script>        
 
 
 
