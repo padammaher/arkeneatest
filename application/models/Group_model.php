@@ -92,9 +92,25 @@ class Group_model extends MY_Model {
         }
 
         $query = $this->db->get();
-       // echo $this->db->last_query();
-        $objData = $query->result_array();
-        return $objData;
+       // echo $this->db->last_query();        
+        $data['objData'] = $query->result_array();
+
+
+        $query2="select parameter.id,parameter_range.min_value,parameter_range.max_value,
+                (CASE 
+                  WHEN parameter.id ='1' THEN (select batchdata.p1 from batchdata where batchdata.asset_id='6' order by batchdata.id desc limit 1)  
+                  WHEN parameter.id ='2' THEN (select batchdata.p2 from batchdata where batchdata.asset_id='6' order by batchdata.id desc limit 1)  
+                  WHEN parameter.id ='3' THEN (select batchdata.p3 from batchdata where batchdata.asset_id='6' order by batchdata.id desc limit 1)  
+                  WHEN parameter.id ='4' THEN (select batchdata.p4 from batchdata where batchdata.asset_id='6' order by batchdata.id desc limit 1)  
+                  WHEN parameter.id ='5' THEN (select batchdata.p5 from batchdata where batchdata.asset_id='6' order by batchdata.id desc limit 1)  
+                  ELSE 0
+                END) AS 'current_value'
+                from parameter
+                inner join parameter_range on parameter.id = parameter_range.parameter_id
+                group by parameter.id";
+
+        $data['chart_data']=$this->db->query($query2)->result_array();
+        return $data;
     }
 
 }

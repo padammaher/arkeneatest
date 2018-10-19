@@ -289,7 +289,7 @@
                           <select class="form-control" name="dashboard_asset_list" id="dashboard_asset_list">
                             <option value="">Asset List</option>
                    <?php foreach ($dashboard_assets as $assets_value) { ?>
-                            <option id="<?php echo $assets_value['customer_locationid'];?>" value="<?php echo $assets_value['asset_id'];?>"><?php echo $assets_value['code'];?></option>
+                            <option name="<?php echo $assets_value['customer_locationid'];?>" id="<?php echo $assets_value['customer_locationid'];?>" value="<?php echo $assets_value['asset_id'];?>"><?php echo $assets_value['code'];?></option>
                   <?php  } ?>
                           </select>
                         </div>
@@ -299,8 +299,8 @@
 				
 				  
 				<div class="col-md-4">
-                  <h4>Devcie Name : PDS-4 Neutron Ave Chollrkop-08</h4>
-                  <h4>Device Status : Running</h4>
+                  <h4>Devcie Name : <span id="running_devicename"></span></h4>
+                  <h4>Device Status : <span id="running_device"></span></h4>
 				  </div>
 				  
 				  <div class="col-md-4">
@@ -678,10 +678,12 @@
             $("#dashboard_asset_list").change(function ()
             {
 //       alert(this.value);
+                 $("#running_devicename").html('');
                 var objdata = '';
                 var i = 0;
                 var options;
                 var location_id = $(this).children(":selected").attr("id");
+                if(this.value!=""){
                 $.ajax({
                     url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
                     type: 'post',
@@ -689,12 +691,16 @@
                     data: {asset_id: this.value,location_id:location_id},
                     success: function (res) {
                         var obj = $.parseJSON(res);
-                        for (i = 0; i < obj.length; i++) {
-                              // alert(obj[i]['number']);
+                       
+                        for (i = 0; i < obj['objData'].length; i++) {
+                              $("#running_devicename").html(obj['objData'][i]['number']);
                         }
                 
                     }
                 });
+              } else{
+                $("#running_devicename").html('');
+              }
             });
 </script>        
 
