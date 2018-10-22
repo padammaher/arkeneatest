@@ -4760,6 +4760,8 @@ cursor: not-allowed;
 .companyid {
 	display:none;
 }
-
+.gauge-head{
+    text-align: center;
+}
 	
 }
