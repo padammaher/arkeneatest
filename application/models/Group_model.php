@@ -60,13 +60,14 @@ class Group_model extends MY_Model {
                                             `batchdata`.`p4`,
                                             `batchdata`.`p5`,
                                             `batchdata`.`runcode_id`,
-                                            `batchdata`.`createddate`')
+                                             `batchdata`.`createddate`,
+                                             `runcode`.`start`,
+                                             `runcode`.`end`')
                 ->from('batchdata')
                 ->join('runcode', 'batchdata.runcode_id=runcode.id', 'inner')
                 ->join('asset', 'asset.id= batchdata.asset_id', 'inner')
                 ->where('batchdata.runcode_id =(select id from runcode order by runcode.id desc limit 1)', NULL, FALSE)
                 ->get();
-
         return $batch_data_result = $batch_data_query->result_array();
     }
 

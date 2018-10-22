@@ -1,10 +1,4 @@
-<!-- <div class="right_col" role="main"> -->
-<?php
-//echo "<pre>";
-//echo print_r($dashboard_assets);
-//exit();
-//print_r($dashboard_assets); 
-?>
+<meta http-equiv="refresh" content="300">
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel tile">
@@ -258,14 +252,9 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
-
-
 <div class="clearfix"></div>
-
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -302,7 +291,7 @@
                                             $selected = "";
                                         }
                                         ?>
-                                        <option name="<?php echo $assets_value['customer_locationid']; ?>" id="<?php echo $assets_value['customer_locationid']; ?>" value="<?php echo $assets_value['asset_id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $assets_value['code']; ?></option>
+                                        <option name="<?php echo $assets_value['start']; ?>" id="<?php echo $assets_value['customer_locationid']; ?>" value="<?php echo $assets_value['asset_id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $assets_value['code']; ?></option>
                                         <?php
                                         $index++;
                                     }
@@ -312,18 +301,15 @@
                         </div>
                     </div>
 
-
-
                     <div class="col-md-4">
                         <h4>Devcie Name : <span id="running_devicename"></span></h4>
                         <h4>Device Status : <span id="running_device"></span></h4>
                     </div>
 
                     <div class="col-md-4">
-                        <h4>Currnet Duration : 2h 11m 03s</h4>
-                        <h4>Service Due : 11h</h4>
+                        <h4>Currnet Duration : <span id="running_devicetime"></span></h4>
+                        <!-- <h4>Service Due : <span id="running_devicedue_hour"></span></h4> -->
                     </div>
-
 
                 </div>
                 <hr>
@@ -343,20 +329,14 @@
                     <h4 class="gauge-head" id="echart_gauge3head"></h4>
                     <div id="echart_gauge3" style="height:270px;"></div>
                 </div>
+                </ul>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </div>
 
 <div class="clearfix"></div>
-
-
 
 <div class="row">
     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -562,19 +542,13 @@
                             <td>Active</td>
 
                         </tr>
-
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-
     <div class="col-md-6 col-sm-6 col-xs-12">
-
-
-
         <div class="row">
 
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -693,25 +667,40 @@
     $(document).ready(function () {
         var asset = $("#dashboard_asset_list").children(":selected").val();
         var location = $("#dashboard_asset_list").children(":selected").attr("id");
-        $.ajax({
-            url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
-            type: 'post',
-            dataType: 'text',
-            data: {asset_id: asset, location_id: location},
-            success: function (res) {
-                var obj = $.parseJSON(res);
-                if (obj['objData'].length !== 0) {
-                    $("#running_devicename").html(obj['objData'][0]['number']);
+        var starttime = $("#dashboard_asset_list").children(":selected").attr("name");
+        if (asset.length != 0) {
+            $("#running_devicetime").html(starttime);
+            $("#running_device").html('Running');
+            $.ajax({
+                url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
+                type: 'post',
+                dataType: 'text',
+                data: {asset_id: asset, location_id: location},
+                success: function (res) {
+                    var obj = $.parseJSON(res);
+                    if (obj['objData'].length !== 0) {
+                        $("#running_devicename").html(obj['objData'][0]['number']);
+                    }
+                    init_echarts(obj['chart_data']);
                 }
-                init_echarts(obj['chart_data']);
-            }
-        });
-
+            });
+        } else {
+            $("#running_devicename").html('');
+            $("#running_device").html('');
+            $("#running_devicetime").html('');
+        }
         $("#dashboard_asset_list").change(function ()
         {
             $("#running_devicename").html('');
+            $("#running_device").html('');
+            $("#running_devicetime").html('');
+            var starttime = $(this).children(":selected").attr("name");
             var location_id = $(this).children(":selected").attr("id");
             if (this.value != "") {
+
+                $("#running_devicetime").html(starttime);
+                // $("#running_devicedue_hour").html(starttime);
+                $("#running_device").html('Running');
                 $.ajax({
                     url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
                     type: 'post',
@@ -719,18 +708,51 @@
                     data: {asset_id: this.value, location_id: location_id},
                     success: function (res) {
                         var obj = $.parseJSON(res);
-                        if (obj['objData'].length !== 0) {
+
+                        if (obj['objData'].length != 0) {
                             $("#running_devicename").html(obj['objData'][0]['number']);
                         }
                         init_echarts(obj['chart_data']);
                     }
                 });
+
             } else {
                 $("#running_devicename").html('');
+                $("#running_device").html('');
+                $("#running_devicetime").html('');
+                // $("#running_devicedue_hour").html('');
             }
         });
-
     });
+    // function checkTime(i) {
+    //   if (i < 10) {
+    //     i = "0" + i;
+    //   }
+    //   return i;
+    // }
+
+    // function startTime(datetime) {
+    //   // alert($("#running_devicetime").html());
+    //   // var today =  $("#running_devicetime").html();
+    //   var today =new Date();
+    //   var h = today.getHours();
+    //   var m = today.getMinutes();
+    //   var s = today.getSeconds();
+    //   // add a zero in front of numbers<10
+    //   // alert(today)
+    //   m = checkTime(m);
+    //   s = checkTime(s);
+    //   document.getElementById('running_devicetime').innerHTML = h + ":" + m + ":" + s;
+    //   t = setTimeout(function() {
+    //     startTime()
+    //   }, 11500);
+    // }
+    function timedRefresh(timeoutPeriod) {
+        setTimeout("location.reload(true);", timeoutPeriod);
+    }
+
+    window.onload = timedRefresh(300000);
+
 </script>        
 <script>
     function init_echarts(data) {
@@ -739,8 +761,6 @@
             return;
         }
         console.log('init_echarts');
-
-
         var theme = {
             color: [
                 '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
@@ -944,7 +964,6 @@
                 fontFamily: 'Arial, Verdana, sans-serif'
             }
         };
-
         //echart Gauge
 
         if ($('#echart_gauge').length) {
@@ -1050,10 +1069,10 @@
                             width: 100,
                             height: 40,
                             offsetCenter: ['-60%', 10],
-                            formatter: '{value}',
+                            formatter: '{value}%',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 30
+                                fontSize: 25
                             }
                         },
                         data: [{
@@ -1062,20 +1081,19 @@
                             }]
                     }]
             });
-
         }
 
 
         if ($('#echart_gauge1').length) {
 
-            var echartGauge = echarts.init(document.getElementById('echart_gauge1'), theme);
+            var echartGauge1 = echarts.init(document.getElementById('echart_gauge1'), theme);
             $("#echart_gauge1head").html(data[1]['name']);
-            echartGauge.setOption({
+            echartGauge1.setOption({
                 tooltip: {
                     formatter: "{a} <br/>{b} : {c}%"
                 },
                 toolbox: {
-                    show: false,
+                    show: true,
                     feature: {
                         restore: {
                             show: true,
@@ -1169,10 +1187,10 @@
                             width: 100,
                             height: 40,
                             offsetCenter: ['-60%', 10],
-                            formatter: '{value}',
+                            formatter: '{value}%',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 30
+                                fontSize: 25
                             }
                         },
                         data: [{
@@ -1181,19 +1199,18 @@
                             }]
                     }]
             });
-
         }
 
         if ($('#echart_gauge2').length) {
 
-            var echartGauge = echarts.init(document.getElementById('echart_gauge2'), theme);
+            var echartGauge2 = echarts.init(document.getElementById('echart_gauge2'), theme);
             $("#echart_gauge2head").html(data[2]['name']);
-            echartGauge.setOption({
+            echartGauge2.setOption({
                 tooltip: {
                     formatter: "{a} <br/>{b} : {c}%"
                 },
                 toolbox: {
-                    show: false,
+                    show: true,
                     feature: {
                         restore: {
                             show: true,
@@ -1287,10 +1304,10 @@
                             width: 100,
                             height: 40,
                             offsetCenter: ['-60%', 10],
-                            formatter: '{value}',
+                            formatter: '{value}%',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 30
+                                fontSize: 25
                             }
                         },
                         data: [{
@@ -1299,19 +1316,18 @@
                             }]
                     }]
             });
-
         }
 
         if ($('#echart_gauge3').length) {
 
-            var echartGauge = echarts.init(document.getElementById('echart_gauge3'), theme);
+            var echartGauge3 = echarts.init(document.getElementById('echart_gauge3'), theme);
             $("#echart_gauge3head").html(data[3]['name']);
-            echartGauge.setOption({
+            echartGauge3.setOption({
                 tooltip: {
                     formatter: "{a} <br/>{b} : {c}%"
                 },
                 toolbox: {
-                    show: false,
+                    show: true,
                     feature: {
                         restore: {
                             show: true,
@@ -1405,10 +1421,10 @@
                             width: 100,
                             height: 40,
                             offsetCenter: ['-60%', 10],
-                            formatter: '{value}',
+                            formatter: '{value}%',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 30
+                                fontSize: 25
                             }
                         },
                         data: [{
@@ -1417,126 +1433,123 @@
                             }]
                     }]
             });
-
         }
 
-        if ($('#echart_gauge4').length) {
-
-            var echartGauge = echarts.init(document.getElementById('echart_gauge4'), theme);
-
-            echartGauge.setOption({
-                tooltip: {
-                    formatter: "{a} <br/>{b} : {c}%"
-                },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        restore: {
-                            show: true,
-                            title: "Restore"
-                        },
-                        saveAsImage: {
-                            show: true,
-                            title: "Save Image"
-                        }
-                    }
-                },
-                series: [{
-                        name: 'KVA',
-                        type: 'gauge',
-                        center: ['50%', '50%'],
-                        startAngle: 140,
-                        endAngle: -140,
-                        min: 0,
-                        max: 100,
-                        precision: 0,
-                        splitNumber: 10,
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                color: [
-                                    [0.2, 'lightgreen'],
-                                    [0.4, 'orange'],
-                                    [0.8, 'skyblue'],
-                                    [1, '#ff4500']
-                                ],
-                                width: 30
-                            }
-                        },
-                        axisTick: {
-                            show: true,
-                            splitNumber: 5,
-                            length: 8,
-                            lineStyle: {
-                                color: '#eee',
-                                width: 1,
-                                type: 'solid'
-                            }
-                        },
-                        axisLabel: {
-                            show: true,
-                            formatter: function (v) {
-                                switch (v + '') {
-                                    case '10':
-                                        return 'a';
-                                    case '30':
-                                        return 'b';
-                                    case '60':
-                                        return 'c';
-                                    case '90':
-                                        return 'd';
-                                    default:
-                                        return '';
-                                }
-                            },
-                            textStyle: {
-                                color: '#333'
-                            }
-                        },
-                        splitLine: {
-                            show: true,
-                            length: 30,
-                            lineStyle: {
-                                color: '#eee',
-                                width: 2,
-                                type: 'solid'
-                            }
-                        },
-                        pointer: {
-                            length: '80%',
-                            width: 8,
-                            color: 'auto'
-                        },
-                        title: {
-                            show: true,
-                            offsetCenter: ['-65%', -10],
-                            textStyle: {
-                                color: '#333',
-                                fontSize: 15
-                            }
-                        },
-                        detail: {
-                            show: true,
-                            backgroundColor: 'rgba(0,0,0,0)',
-                            borderWidth: 0,
-                            borderColor: '#ccc',
-                            width: 100,
-                            height: 40,
-                            offsetCenter: ['-60%', 10],
-                            formatter: '{value}%',
-                            textStyle: {
-                                color: 'auto',
-                                fontSize: 30
-                            }
-                        },
-                        data: [{
-                                value: 50,
-                                name: 'KVA'
-                            }]
-                    }]
-            });
-
-        }
+//        if ($('#echart_gauge4').length) {
+//
+//            var echartGauge = echarts.init(document.getElementById('echart_gauge4'), theme);
+//            echartGauge.setOption({
+//                tooltip: {
+//                    formatter: "{a} <br/>{b} : {c}%"
+//                },
+//                toolbox: {
+//                    show: true,
+//                    feature: {
+//                        restore: {
+//                            show: true,
+//                            title: "Restore"
+//                        },
+//                        saveAsImage: {
+//                            show: true,
+//                            title: "Save Image"
+//                        }
+//                    }
+//                },
+//                series: [{
+//                        name: 'KVA',
+//                        type: 'gauge',
+//                        center: ['50%', '50%'],
+//                        startAngle: 140,
+//                        endAngle: -140,
+//                        min: 0,
+//                        max: 100,
+//                        precision: 0,
+//                        splitNumber: 10,
+//                        axisLine: {
+//                            show: true,
+//                            lineStyle: {
+//                                color: [
+//                                    [0.2, 'lightgreen'],
+//                                    [0.4, 'orange'],
+//                                    [0.8, 'skyblue'],
+//                                    [1, '#ff4500']
+//                                ],
+//                                width: 30
+//                            }
+//                        },
+//                        axisTick: {
+//                            show: true,
+//                            splitNumber: 5,
+//                            length: 8,
+//                            lineStyle: {
+//                                color: '#eee',
+//                                width: 1,
+//                                type: 'solid'
+//                            }
+//                        },
+//                        axisLabel: {
+//                            show: true,
+//                            formatter: function (v) {
+//                                switch (v + '') {
+//                                    case '10':
+//                                        return 'a';
+//                                    case '30':
+//                                        return 'b';
+//                                    case '60':
+//                                        return 'c';
+//                                    case '90':
+//                                        return 'd';
+//                                    default:
+//                                        return '';
+//                                }
+//                            },
+//                            textStyle: {
+//                                color: '#333'
+//                            }
+//                        },
+//                        splitLine: {
+//                            show: true,
+//                            length: 30,
+//                            lineStyle: {
+//                                color: '#eee',
+//                                width: 2,
+//                                type: 'solid'
+//                            }
+//                        },
+//                        pointer: {
+//                            length: '80%',
+//                            width: 8,
+//                            color: 'auto'
+//                        },
+//                        title: {
+//                            show: true,
+//                            offsetCenter: ['-65%', -10],
+//                            textStyle: {
+//                                color: '#333',
+//                                fontSize: 15
+//                            }
+//                        },
+//                        detail: {
+//                            show: true,
+//                            backgroundColor: 'rgba(0,0,0,0)',
+//                            borderWidth: 0,
+//                            borderColor: '#ccc',
+//                            width: 100,
+//                            height: 40,
+//                            offsetCenter: ['-60%', 10],
+//                            formatter: '{value}%',
+//                            textStyle: {
+//                                color: 'auto',
+//                                fontSize: 25
+//                            }
+//                        },
+//                        data: [{
+//                                value: 50,
+//                                name: 'KVA'
+//                            }]
+//                    }]
+//            });
+//        }
 
 
     }
