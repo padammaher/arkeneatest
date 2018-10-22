@@ -780,7 +780,7 @@
             $("#running_devicetime").html(starttime);
             $("#running_device").html('Running');
             $.ajax({
-                url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
+                url: '<?php echo base_url(); ?>Dashboard/load_data_by_asset',
                 type: 'post',
                 dataType: 'text',
                 data: {asset_id: asset, location_id: location},
@@ -810,7 +810,7 @@
                 // $("#running_devicedue_hour").html(starttime);
                 $("#running_device").html('Running');
                 $.ajax({
-                    url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
+                    url: '<?php echo base_url(); ?>Dashboard/load_data_by_asset',
                     type: 'post',
                     dataType: 'text',
                     data: {asset_id: this.value, location_id: location_id},
