@@ -636,11 +636,11 @@
                             <span class="sparkline_bar" style="height: 180px;">
                                 <canvas width="300" height="260" style="display: inline-block; vertical-align: top; width: 94px; height: 160px;"></canvas>
                             </span>
-                        </div>	
+                        </div>  
 
                         <div class="col-md-6"><h4>Generator Controls</h4>
                             <input type="checkbox" class="js-switch" checked />
-                        </div>							
+                        </div>              
 
                     </div>
                 </div>
