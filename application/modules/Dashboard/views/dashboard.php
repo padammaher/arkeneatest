@@ -636,11 +636,11 @@
                             <span class="sparkline_bar" style="height: 180px;">
                                 <canvas width="300" height="260" style="display: inline-block; vertical-align: top; width: 94px; height: 160px;"></canvas>
                             </span>
-                        </div>  
+                        </div>	
 
                         <div class="col-md-6"><h4>Generator Controls</h4>
                             <input type="checkbox" class="js-switch" checked />
-                        </div>              
+                        </div>							
 
                     </div>
                 </div>
@@ -780,7 +780,7 @@
             $("#running_devicetime").html(starttime);
             $("#running_device").html('Running');
             $.ajax({
-                url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
+                url: '<?php echo base_url(); ?>Dashboard/load_data_by_asset',
                 type: 'post',
                 dataType: 'text',
                 data: {asset_id: asset, location_id: location},
@@ -810,7 +810,7 @@
                 // $("#running_devicedue_hour").html(starttime);
                 $("#running_device").html('Running');
                 $.ajax({
-                    url: '<?php echo base_url(); ?>Auth/load_data_by_asset',
+                    url: '<?php echo base_url(); ?>Dashboard/load_data_by_asset',
                     type: 'post',
                     dataType: 'text',
                     data: {asset_id: this.value, location_id: location_id},

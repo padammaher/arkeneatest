@@ -109,28 +109,6 @@ class Auth extends MY_Controller {
         }
     }
 
-    public function dashboard() {
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('auth/login', 'refresh');
-        } else {
-
-
-            $user_id = $this->session->userdata('user_id');
-            $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['dataHeader']['title'] = "Home";
-            $data['dashboard_assets'] = $this->group_model->load_dashboard_batch_data($user_id);
-            load_view_template($data, "index3");
-
-//        $this->template->set_master_template('template.php');
-//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-//        $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
-//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-//        $this->template->render();
-        }
-    }
-
     public function restricted() {
         if (!$this->ion_auth->logged_in()) {
             // redirect them to the login page
@@ -297,7 +275,7 @@ class Auth extends MY_Controller {
                 //if the login is successful
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('/', 'refresh');
+                redirect('Dashboard', 'refresh');
             } else {
                 // if the login was un-successful
                 // redirect them back to the login page

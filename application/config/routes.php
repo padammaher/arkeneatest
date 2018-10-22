@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | Examples:	my-controller/index	-> my_controller/index
   |		my-controller/my-method	-> my_controller/my_method
  */
-$route['default_controller'] = 'auth';
+$route['default_controller'] = 'Dashboard';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['acces_forbidden'] = "Auth/accessDenied";
@@ -144,7 +144,7 @@ $route['Asset_Rule_list'] = 'assetsManagement/asset_rule_list';
 
 ///////////////////// customer information /////////
 $route['Customerinfo'] = 'Customer/customer_info';
-$route['Dashboard'] = 'Auth/dashboard';
+$route['Dashboard'] = 'Dashboard';
 $route['Editcustomerinfo'] = 'Customer/edit_customer_detail';
 $route['UpdateInfo'] = 'Customer/update_cutomer_info';
 $route['ManageUsers'] = 'Customer/client_user_list';
