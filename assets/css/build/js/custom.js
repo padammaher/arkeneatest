@@ -2759,7 +2759,7 @@ if (typeof NProgress != 'undefined') {
 		init_SmartWizard();
 		init_EasyPieChart();
 		init_charts();
-		init_echarts();
+//		init_echarts();
 		init_morris_charts();
 		init_skycons();
 		init_select2();
