@@ -11,15 +11,24 @@ class ParameterModel extends MY_Model {
 //    protected $soft_delete_key = 'isactive';
 
     function get_parameterlist($user_id, $id = null) {
+        $asset_id=$this->session->userdata('asset_id');
         $this->db->select('parameter.id,parameter.name,parameter.description,uom_type.name as uomtype_name,parameter.isactive');
         $this->db->from('parameter');
-        $this->db->join('uom_type', 'parameter.uom_type_id=uom_type.id');
+        $this->db->join('uom_type', 'parameter.uom_type_id=uom_type.id','left');
         if ($id != null) {
             $this->db->where('parameter.id', $id);
+            // $this->db->where('parameter.id NOT IN (select parameter_id from parameter_range where asset_id="'.$asset_id.'" and isdeleted=0)',NULL , FALSE);
+        }else{
+        $this->db->where('parameter.id NOT IN (select parameter_id from parameter_range where asset_id="'.$asset_id.'" and isdeleted=0 and parameter.id=parameter_range.parameter_id)',NULL , FALSE);
         }
+
+        // parameter.id NOT IN (select parameter_id from parameter_range where asset_id=1 and isdeleted=0
+ // and parameter.id=parameter_range.parameter_id);
+        // $this->db->where('asset.id NOT IN (select asset_user.asset_id from asset_user where isdeleted=0 and asset_user.asset_id=asset.id)', NULL, FALSE);
         $this->db->where(array('parameter.isdeleted' => 0));
 //        $this->db->where('parameter.isactive', 1);
         $query = $this->db->get();
+        // echo $this->db->last_query();
         $result = $query->result_array();
 
         return $result;

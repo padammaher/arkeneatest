@@ -70,7 +70,7 @@
                     </thead>
                     <tbody>
                         <?php
-//var_dump($assetlist);  
+// var_dump($assetlist);  
                         $i = 1;
                         if (isset($assetlist) && !empty($assetlist)) {
                             foreach ($assetlist as $list) {
@@ -140,6 +140,8 @@
                                                     </a>
                                                 <?php } ?>
                                             </form> &nbsp;
+                                            
+                                          <?php if (!empty($list['device_inventory_id'])) { ?>  
                                             <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
                                                 <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
                                                 <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
@@ -148,6 +150,7 @@
                                                     <i class="fa fa-list-ul text-info"></i> 
                                                 </a>
                                             </form>&nbsp;
+                                        <?php } ?>
                                             <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
