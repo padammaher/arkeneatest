@@ -28,6 +28,10 @@
                             <form class="form-horizontal form-label-left" id="parameter_range_form" action="<?php echo base_url() ?>asset_parameter_add" method="POST">
                                 <!--<input type="hidden" name="formaction" value="<?php echo base_url() ?>asset_parameter_add">-->
                             <?php } ?> <?php $parameter_list;
+
+                            // print_r($result);
+
+                            $param_id='';
                             if (isset($result[0]['param_id'])) {
                                 $param_id = $result[0]['param_id'];
                             } elseif (set_value('parameter')) {
@@ -35,13 +39,17 @@
                             } elseif (isset($post) && !empty($post)) {
                                 $param_id = $post['parameter'];
                             }
+
                             ?>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter <span>*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                     <select class="form-control" name="parameter" id="parameter" required>
-                                            <option value="">Select Parameter</option>
-                                             <?php if (isset($param_id) && $result[0]['param_id'] == $param_id) { if(isset($param_id)){
+                    <?php if  (isset($parameter_list) && !empty($parameter_list)) { ?>
+                             <select class="form-control" name="parameter" id="parameter" required> 
+                             <option value="">Select Parameter</option>  
+                                     <?php if (isset($param_id) && !empty($param_id)) { ?>                                          
+                                            <?php
+                                              if(isset($param_id) && $result[0]['param_id'] == $param_id){
                                                    $selected = "selected";
                                                     } else {
                                                         $selected = "";
@@ -50,10 +58,9 @@
 
                                             
                                             <option value="<?php echo $result[0]['param_id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $result[0]['parameter']; ?></option>
+
                                         <?php } ?>
-                                    <?php if (isset($parameter_list) && !empty($parameter_list)) { ?>
-                                       
-                                           
+                                    <?php  if (isset($parameter_list) && !empty($parameter_list)) { ?>
                                             <?php
                                             foreach ($parameter_list as $param) {
                                                 if ($param['isactive'] == 1) {
@@ -70,17 +77,9 @@
                                             ?>
                                         
                                         <?php
-                                    }  else if(isset($result) && !empty($result))                                        
-                                    {   if (isset($param_id) && $result[0]['param_id'] == $param_id) {
-                                                        $selected = "selected";
-                                                    } else {
-                                                        $selected = "";
-                                                    }
-                                     ?>
-                                        
-                                        <option value="<?php echo $result[0]['param_id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $result[0]['parameter']; ?></option>
-                                    
-                                    <?php }
+                                    } ?></select>
+                                <?php 
+                                } 
 
                                     else {
                                         ?>
@@ -88,7 +87,7 @@
                                         <?php
                                     }
                                     ?>
-                                    </select>
+                                    
                                 </div>
                                 <?php if (form_error('parameter')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('parameter'); ?></span>
