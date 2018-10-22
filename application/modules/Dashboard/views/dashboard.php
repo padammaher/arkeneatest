@@ -664,7 +664,7 @@
                 $("#echart_gaugehead" + i).html(data[i]['name']);
                 echartGauge.setOption({
                     tooltip: {
-                        formatter: "{a} <br/>{b} : {c}%"
+                        formatter: "{b} : {c}"
                     },
                     toolbox: {
                         show: false,
