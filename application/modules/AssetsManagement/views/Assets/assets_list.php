@@ -151,7 +151,7 @@
                                                 </a>
                                             
                                         <?php } else { ?>
-                                                <a title="Please add device for this asset" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please add device for this asset"> <i class="fa fa-list-ul not-allowed"></i></a>
+                                                <a title="Please add device for this asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please add device for this asset"> <i class="fa fa-list-ul not-allowed"></i></a>
                                         <?php } ?>
                                             </form>&nbsp;
                                             <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
