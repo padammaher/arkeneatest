@@ -69,12 +69,12 @@
             <div class="x_content">
                 <div id="newsticker-demo">    
 
-                    <div class="newsticker-jcarousellite">
+                    <div class="newsticker-jcarousellite alarmsec">
                         <ul>
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
@@ -82,35 +82,21 @@
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
@@ -118,31 +104,49 @@
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+
+                            <li>
+
+                                <div class="info">
+                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+
+                            <li>
+
+                                <div class="info">
+                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
+
+
                         </ul>
                     </div>
 
@@ -175,7 +179,7 @@
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
@@ -183,35 +187,16 @@
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
                                 </div>
+
                                 <div class="clear"></div>
                             </li>
+
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
@@ -219,29 +204,36 @@
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
                                 </div>
+
                                 <div class="clear"></div>
                             </li>
+
+
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
                                 </div>
                                 <div class="clear"></div>
                             </li>
+
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
                                 </div>
+
                                 <div class="clear"></div>
                             </li>
+
                             <li>
 
                                 <div class="info">
-                                    <span class="cat">Some assets may not have the exact same parameters being monitored. </span>
+                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
                                 </div>
+
                                 <div class="clear"></div>
                             </li>
                         </ul>
@@ -252,6 +244,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 
 <div class="clearfix"></div>
@@ -726,8 +720,7 @@
     });
     // function checkTime(i) {
     //   if (i < 10) {
-    //     i = "0" + i;
-    //   }
+    //     i = "0" + i;     //   }
     //   return i;
     // }
 
@@ -760,215 +753,11 @@
         if (typeof (echarts) === 'undefined') {
             return;
         }
-        console.log('init_echarts');
-        var theme = {
-            color: [
-                '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-                '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-            ],
-            title: {
-                itemGap: 8,
-                textStyle: {
-                    fontWeight: 'normal',
-                    color: '#408829'
-                }
-            },
-            dataRange: {
-                color: ['#1f610a', '#97b58d']
-            },
-            toolbox: {
-                color: ['#408829', '#408829', '#408829', '#408829']
-            },
-            tooltip: {
-                backgroundColor: 'rgba(0,0,0,0.5)',
-                axisPointer: {
-                    type: 'line',
-                    lineStyle: {
-                        color: '#408829',
-                        type: 'dashed'
-                    },
-                    crossStyle: {
-                        color: '#408829'
-                    },
-                    shadowStyle: {
-                        color: 'rgba(200,200,200,0.3)'
-                    }
-                }
-            },
-            dataZoom: {
-                dataBackgroundColor: '#eee',
-                fillerColor: 'rgba(64,136,41,0.2)',
-                handleColor: '#408829'
-            },
-            grid: {
-                borderWidth: 0
-            },
-            categoryAxis: {
-                axisLine: {
-                    lineStyle: {
-                        color: '#408829'
-                    }
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: ['#eee']
-                    }
-                }
-            },
-            valueAxis: {
-                axisLine: {
-                    lineStyle: {
-                        color: '#408829'
-                    }
-                },
-                splitArea: {
-                    show: true,
-                    areaStyle: {
-                        color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-                    }
-                },
-                splitLine: {
-                    lineStyle: {
-                        color: ['#eee']
-                    }
-                }
-            },
-            timeline: {
-                lineStyle: {
-                    color: '#408829'
-                },
-                controlStyle: {
-                    normal: {color: '#408829'},
-                    emphasis: {color: '#408829'}
-                }
-            },
-            k: {
-                itemStyle: {
-                    normal: {
-                        color: '#68a54a',
-                        color0: '#a9cba2',
-                        lineStyle: {
-                            width: 1,
-                            color: '#408829',
-                            color0: '#86b379'
-                        }
-                    }
-                }
-            },
-            map: {
-                itemStyle: {
-                    normal: {
-                        areaStyle: {
-                            color: '#ddd'
-                        },
-                        label: {
-                            textStyle: {
-                                color: '#c12e34'
-                            }
-                        }
-                    },
-                    emphasis: {
-                        areaStyle: {
-                            color: '#99d2dd'
-                        },
-                        label: {
-                            textStyle: {
-                                color: '#c12e34'
-                            }
-                        }
-                    }
-                }
-            },
-            force: {
-                itemStyle: {
-                    normal: {
-                        linkStyle: {
-                            strokeColor: '#408829'
-                        }
-                    }
-                }
-            },
-            chord: {
-                padding: 4,
-                itemStyle: {
-                    normal: {
-                        lineStyle: {
-                            width: 1,
-                            color: 'rgba(128, 128, 128, 0.5)'
-                        },
-                        chordStyle: {
-                            lineStyle: {
-                                width: 1,
-                                color: 'rgba(128, 128, 128, 0.5)'
-                            }
-                        }
-                    },
-                    emphasis: {
-                        lineStyle: {
-                            width: 1,
-                            color: 'rgba(128, 128, 128, 0.5)'
-                        },
-                        chordStyle: {
-                            lineStyle: {
-                                width: 1,
-                                color: 'rgba(128, 128, 128, 0.5)'
-                            }
-                        }
-                    }
-                }
-            },
-            gauge: {
-                startAngle: 225,
-                endAngle: -45,
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
-                        width: 8
-                    }
-                },
-                axisTick: {
-                    splitNumber: 10,
-                    length: 12,
-                    lineStyle: {
-                        color: 'auto'
-                    }
-                },
-                axisLabel: {
-                    textStyle: {
-                        color: 'auto'
-                    }
-                },
-                splitLine: {
-                    length: 18,
-                    lineStyle: {
-                        color: 'auto'
-                    }
-                },
-                pointer: {
-                    length: '90%',
-                    color: 'auto'
-                },
-                title: {
-                    textStyle: {
-                        color: '#333'
-                    }
-                },
-                detail: {
-                    textStyle: {
-                        color: 'auto'
-                    }
-                }
-            },
-            textStyle: {
-                fontFamily: 'Arial, Verdana, sans-serif'
-            }
-        };
         //echart Gauge
 
         if ($('#echart_gauge').length) {
 
-            var echartGauge = echarts.init(document.getElementById('echart_gauge'), theme);
+            var echartGauge = echarts.init(document.getElementById('echart_gauge'));
             $("#echart_gaugehead").html(data[0]['name']);
             echartGauge.setOption({
                 tooltip: {
@@ -1016,21 +805,16 @@
                             lineStyle: {
                                 color: '#eee',
                                 width: 1,
-                                type: 'solid'
-                            }
+                                type: 'solid'}
                         },
                         axisLabel: {
                             show: true,
                             formatter: function (v) {
                                 switch (v + '') {
-                                    case '10':
-                                        return 'a';
-                                    case '30':
-                                        return 'b';
-                                    case '60':
-                                        return 'c';
-                                    case '90':
-                                        return 'd';
+                                    case data[0]['min_value']:
+                                        return data[0]['min_value'];
+                                    case (parseInt(data[0]['max_value']) - parseInt(data[0]['min_value'])) + '' + data[0]['min_value']:
+                                        return data[0]['max_value'];
                                     default:
                                         return '';
                                 }
@@ -1038,7 +822,8 @@
                             textStyle: {
                                 color: '#333'
                             }
-                        },
+                        }
+                        ,
                         splitLine: {
                             show: true,
                             length: 30,
@@ -1048,13 +833,11 @@
                                 type: 'solid'
                             }
                         },
-                        pointer: {
-                            length: '80%',
+                        pointer: {length: '80%',
                             width: 8,
                             color: 'auto'
                         },
-                        title: {
-                            show: true,
+                        title: {show: true,
                             offsetCenter: ['-65%', -10],
                             textStyle: {
                                 color: '#333',
@@ -1072,7 +855,7 @@
                             formatter: '{value}%',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 25
+                                fontSize: 20
                             }
                         },
                         data: [{
@@ -1083,10 +866,9 @@
             });
         }
 
-
         if ($('#echart_gauge1').length) {
 
-            var echartGauge1 = echarts.init(document.getElementById('echart_gauge1'), theme);
+            var echartGauge1 = echarts.init(document.getElementById('echart_gauge1'));
             $("#echart_gauge1head").html(data[1]['name']);
             echartGauge1.setOption({
                 tooltip: {
@@ -1141,14 +923,10 @@
                             show: true,
                             formatter: function (v) {
                                 switch (v + '') {
-                                    case '10':
-                                        return 'a';
-                                    case '30':
-                                        return 'b';
-                                    case '60':
-                                        return 'c';
-                                    case '90':
-                                        return 'd';
+                                    case data[1]['min_value']:
+                                        return data[1]['min_value'];
+                                    case (parseInt(data[1]['max_value']) - parseInt(data[1]['min_value'])) + '' + data[1]['min_value']:
+                                        return data[1]['max_value'];
                                     default:
                                         return '';
                                 }
@@ -1166,13 +944,11 @@
                                 type: 'solid'
                             }
                         },
-                        pointer: {
-                            length: '80%',
+                        pointer: {length: '80%',
                             width: 8,
                             color: 'auto'
                         },
-                        title: {
-                            show: true,
+                        title: {show: true,
                             offsetCenter: ['-65%', -10],
                             textStyle: {
                                 color: '#333',
@@ -1187,10 +963,10 @@
                             width: 100,
                             height: 40,
                             offsetCenter: ['-60%', 10],
-                            formatter: '{value}%',
+                            formatter: '{value}',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 25
+                                fontSize: 20
                             }
                         },
                         data: [{
@@ -1203,7 +979,7 @@
 
         if ($('#echart_gauge2').length) {
 
-            var echartGauge2 = echarts.init(document.getElementById('echart_gauge2'), theme);
+            var echartGauge2 = echarts.init(document.getElementById('echart_gauge2'));
             $("#echart_gauge2head").html(data[2]['name']);
             echartGauge2.setOption({
                 tooltip: {
@@ -1258,14 +1034,10 @@
                             show: true,
                             formatter: function (v) {
                                 switch (v + '') {
-                                    case '10':
-                                        return 'a';
-                                    case '30':
-                                        return 'b';
-                                    case '60':
-                                        return 'c';
-                                    case '90':
-                                        return 'd';
+                                    case data[2]['min_value']:
+                                        return data[2]['min_value'];
+                                    case (parseInt(data[2]['max_value']) - parseInt(data[2]['min_value'])) + '' + data[2]['min_value']:
+                                        return data[2]['max_value'];
                                     default:
                                         return '';
                                 }
@@ -1283,13 +1055,11 @@
                                 type: 'solid'
                             }
                         },
-                        pointer: {
-                            length: '80%',
+                        pointer: {length: '80%',
                             width: 8,
                             color: 'auto'
                         },
-                        title: {
-                            show: true,
+                        title: {show: true,
                             offsetCenter: ['-65%', -10],
                             textStyle: {
                                 color: '#333',
@@ -1304,10 +1074,10 @@
                             width: 100,
                             height: 40,
                             offsetCenter: ['-60%', 10],
-                            formatter: '{value}%',
+                            formatter: '{value}',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 25
+                                fontSize: 20
                             }
                         },
                         data: [{
@@ -1320,7 +1090,7 @@
 
         if ($('#echart_gauge3').length) {
 
-            var echartGauge3 = echarts.init(document.getElementById('echart_gauge3'), theme);
+            var echartGauge3 = echarts.init(document.getElementById('echart_gauge3'));
             $("#echart_gauge3head").html(data[3]['name']);
             echartGauge3.setOption({
                 tooltip: {
@@ -1375,14 +1145,10 @@
                             show: true,
                             formatter: function (v) {
                                 switch (v + '') {
-                                    case '10':
-                                        return 'a';
-                                    case '30':
-                                        return 'b';
-                                    case '60':
-                                        return 'c';
-                                    case '90':
-                                        return 'd';
+                                    case data[3]['min_value']:
+                                        return data[3]['min_value'];
+                                    case (parseInt(data[3]['max_value']) - parseInt(data[3]['min_value'])) + '' + data[3]['min_value']:
+                                        return data[3]['max_value'];
                                     default:
                                         return '';
                                 }
@@ -1390,23 +1156,19 @@
                             textStyle: {
                                 color: '#333'
                             }
-                        },
-                        splitLine: {
-                            show: true,
-                            length: 30,
+                        }, splitLine: {
+                            show: true, length: 30,
                             lineStyle: {
                                 color: '#eee',
                                 width: 2,
                                 type: 'solid'
                             }
                         },
-                        pointer: {
-                            length: '80%',
+                        pointer: {length: '80%',
                             width: 8,
                             color: 'auto'
                         },
-                        title: {
-                            show: true,
+                        title: {show: true,
                             offsetCenter: ['-65%', -10],
                             textStyle: {
                                 color: '#333',
@@ -1421,10 +1183,10 @@
                             width: 100,
                             height: 40,
                             offsetCenter: ['-60%', 10],
-                            formatter: '{value}%',
+                            formatter: '{value}',
                             textStyle: {
                                 color: 'auto',
-                                fontSize: 25
+                                fontSize: 20
                             }
                         },
                         data: [{
@@ -1434,123 +1196,6 @@
                     }]
             });
         }
-
-//        if ($('#echart_gauge4').length) {
-//
-//            var echartGauge = echarts.init(document.getElementById('echart_gauge4'), theme);
-//            echartGauge.setOption({
-//                tooltip: {
-//                    formatter: "{a} <br/>{b} : {c}%"
-//                },
-//                toolbox: {
-//                    show: true,
-//                    feature: {
-//                        restore: {
-//                            show: true,
-//                            title: "Restore"
-//                        },
-//                        saveAsImage: {
-//                            show: true,
-//                            title: "Save Image"
-//                        }
-//                    }
-//                },
-//                series: [{
-//                        name: 'KVA',
-//                        type: 'gauge',
-//                        center: ['50%', '50%'],
-//                        startAngle: 140,
-//                        endAngle: -140,
-//                        min: 0,
-//                        max: 100,
-//                        precision: 0,
-//                        splitNumber: 10,
-//                        axisLine: {
-//                            show: true,
-//                            lineStyle: {
-//                                color: [
-//                                    [0.2, 'lightgreen'],
-//                                    [0.4, 'orange'],
-//                                    [0.8, 'skyblue'],
-//                                    [1, '#ff4500']
-//                                ],
-//                                width: 30
-//                            }
-//                        },
-//                        axisTick: {
-//                            show: true,
-//                            splitNumber: 5,
-//                            length: 8,
-//                            lineStyle: {
-//                                color: '#eee',
-//                                width: 1,
-//                                type: 'solid'
-//                            }
-//                        },
-//                        axisLabel: {
-//                            show: true,
-//                            formatter: function (v) {
-//                                switch (v + '') {
-//                                    case '10':
-//                                        return 'a';
-//                                    case '30':
-//                                        return 'b';
-//                                    case '60':
-//                                        return 'c';
-//                                    case '90':
-//                                        return 'd';
-//                                    default:
-//                                        return '';
-//                                }
-//                            },
-//                            textStyle: {
-//                                color: '#333'
-//                            }
-//                        },
-//                        splitLine: {
-//                            show: true,
-//                            length: 30,
-//                            lineStyle: {
-//                                color: '#eee',
-//                                width: 2,
-//                                type: 'solid'
-//                            }
-//                        },
-//                        pointer: {
-//                            length: '80%',
-//                            width: 8,
-//                            color: 'auto'
-//                        },
-//                        title: {
-//                            show: true,
-//                            offsetCenter: ['-65%', -10],
-//                            textStyle: {
-//                                color: '#333',
-//                                fontSize: 15
-//                            }
-//                        },
-//                        detail: {
-//                            show: true,
-//                            backgroundColor: 'rgba(0,0,0,0)',
-//                            borderWidth: 0,
-//                            borderColor: '#ccc',
-//                            width: 100,
-//                            height: 40,
-//                            offsetCenter: ['-60%', 10],
-//                            formatter: '{value}%',
-//                            textStyle: {
-//                                color: 'auto',
-//                                fontSize: 25
-//                            }
-//                        },
-//                        data: [{
-//                                value: 50,
-//                                name: 'KVA'
-//                            }]
-//                    }]
-//            });
-//        }
-
 
     }
 </script>
