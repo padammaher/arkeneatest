@@ -24,6 +24,17 @@ class Dashboard extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Home";
             $data['dashboard_assets'] = $this->dashboard_model->load_dashboard_batch_data($user_id);
+            $data['total_alarms'] = $this->dashboard_model->get_total_alarms($user_id);
+            $data['total_assets'] = $this->dashboard_model->get_total_assets($user_id);
+            if (isset($data['total_assets'])) {
+                $active_asset = array();
+                foreach ($data['total_assets'] as $asset) {
+                    if ($asset->isactive == 1) {
+                        $active_asset[] = $asset;
+                    }
+                }
+            }
+            $data['total_active_assets'] = isset($active_asset) ? count($active_asset) : 0;
             load_view_template($data, "dashboard");
         }
     }
