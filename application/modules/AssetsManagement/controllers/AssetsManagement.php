@@ -1210,7 +1210,7 @@ class AssetsManagement extends MY_Controller {
                 $this->session->set_flashdata('note_msg', 'session was expired');
                 return redirect('Assets_list');
             }
-
+            // echo $this->input->post('edit_id');exit;
             if ($this->input->post('edit_id')) {
                 //Update the parameter range
                 $this->form_validation->set_rules('parameter', 'Parameter', 'required');
