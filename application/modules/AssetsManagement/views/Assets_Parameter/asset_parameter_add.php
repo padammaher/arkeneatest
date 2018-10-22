@@ -40,8 +40,15 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter <span>*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                      <select class="form-control" name="parameter" id="parameter" required>
-                                            <option value="" disabled>Select Parameter</option>
-                                             <?php if (isset($param_id) && $result[0]['param_id'] == $param_id) { ?>
+                                            <option value="">Select Parameter</option>
+                                             <?php if (isset($param_id) && $result[0]['param_id'] == $param_id) { if(isset($param_id)){
+                                                   $selected = "selected";
+                                                    } else {
+                                                        $selected = "";
+                                                    }
+                                                    ?>
+
+                                            
                                             <option value="<?php echo $result[0]['param_id']; ?>" <?php echo isset($selected) ? $selected : ''; ?>><?php echo $result[0]['parameter']; ?></option>
                                         <?php } ?>
                                     <?php if (isset($parameter_list) && !empty($parameter_list)) { ?>
