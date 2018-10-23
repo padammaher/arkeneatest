@@ -18,17 +18,17 @@
                 <div class="row tile_count">
                     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-map-marker"></i> Total Alarms</span>
-                        <div class="count">36</div>
+                        <div class="count"><?php echo isset($total_alarms) ? count($total_alarms) : 0; ?></div>
                         <span class="count_bottom"><i class="green">4% </i> From last Week</span>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-users"></i> Total Active Assets</span>
-                        <div class="count">190</div>
+                        <div class="count"><?php echo isset($total_active_assets) ? $total_active_assets : 0; ?></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-gears"></i> Total Assets</span>
-                        <div class="count green">210</div>
+                        <div class="count green"><?php echo isset($total_assets) ? count($total_assets) : 0; ?></div>
                         <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
@@ -41,12 +41,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </div>
 
 <div class="clearfix"></div>
@@ -664,7 +658,7 @@
                 $("#echart_gaugehead" + i).html(data[i]['name']);
                 echartGauge.setOption({
                     tooltip: {
-                        formatter: "{a} <br/>{b} : {c}%"
+                        formatter: "{b} : {c}"
                     },
                     toolbox: {
                         show: false,

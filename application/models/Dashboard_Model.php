@@ -70,4 +70,29 @@ class Dashboard_Model extends MY_Model {
         return $data;
     }
 
+    function get_total_alarms($user_id) {
+        $location_id = $this->session->userdata('location_id');
+        $group_id = $this->session->userdata('group_id');
+        $this->db->select('trigger.id');
+        $this->db->join('asset', 'trigger.asset_id=asset.id');
+        if ($group_id != 1) {
+            $this->db->where('asset.customer_locationid', $location_id);
+        }
+        $this->db->where('asset.isdeleted', 0);
+        $response = $this->db->get('trigger')->result();
+        return $response;
+    }
+
+    function get_total_assets($user_id) {
+        $location_id = $this->session->userdata('location_id');
+        $group_id = $this->session->userdata('group_id');
+        $this->db->select('asset.id,isactive');
+        if ($group_id != 1) {
+            $this->db->where('customer_locationid', $location_id);
+        }
+        $this->db->where('isdeleted', 0);
+        $response = $this->db->get('asset')->result();
+        return $response;
+    }
+
 }
