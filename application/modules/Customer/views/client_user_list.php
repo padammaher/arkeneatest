@@ -110,7 +110,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="lft-td">User Name
+                                                        <td class="lft-td">Email ID
                                                         </td>
                                                         <td><?php echo $clientinfo->username; ?>
                                                         </td>
