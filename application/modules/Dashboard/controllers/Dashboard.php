@@ -39,6 +39,7 @@ class Dashboard extends MY_Controller {
             if ($group_id != 1) {
                 $view = "dashboard";
             } else {
+                $user = $this->ion_auth->user($user_id)->row();
                 if ($user->login_flag == 0) {
                     //list the users
                     $data['users'] = $this->ion_auth->users()->result();
@@ -47,7 +48,7 @@ class Dashboard extends MY_Controller {
                     }
 
                     $user_id = $this->session->userdata('user_id');
-                    $user = $this->ion_auth->user($user_id)->row();
+//                    $user = $this->ion_auth->user($user_id)->row();
                     $groups = $this->ion_auth->groups()->result_array();
                     $currentGroups = $this->ion_auth->get_users_groups($user_id)->result();
                     // display the edit user form
@@ -115,6 +116,34 @@ class Dashboard extends MY_Controller {
         $dashboarddata = $this->dashboard_model->get_data_by_assets($asset_id, $location_id, $user_id);
 
         echo json_encode($dashboarddata);
+    }
+
+    public function _get_csrf_nonce() {
+        $this->load->helper('string');
+        $key = random_string('alnum', 8);
+        $value = random_string('alnum', 20);
+        $this->session->set_flashdata('csrfkey', $key);
+        $this->session->set_flashdata('csrfvalue', $value);
+
+        return array($key => $value);
+    }
+
+    public function _valid_csrf_nonce() {
+        $csrfkey = $this->input->post($this->session->flashdata('csrfkey'));
+        if ($csrfkey && $csrfkey == $this->session->flashdata('csrfvalue')) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function _render_page($view, $data = null, $returnhtml = false) {//I think this makes more sense
+        $this->viewdata = (empty($data)) ? $this->data : $data;
+
+        $view_html = $this->load->view($view, $this->viewdata, $returnhtml);
+
+        if ($returnhtml)
+            return $view_html; //This will return html on 3rd argument being true
     }
 
 }
