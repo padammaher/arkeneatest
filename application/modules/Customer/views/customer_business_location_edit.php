@@ -89,7 +89,7 @@
                                 <span class="required">* </span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input name='pincode' id="pincode" type="number" class="form-control" placeholder="Enter Pincode Number" required="required" value="<?php echo (isset($business_detail[0]->pincode)) ? $business_detail[0]->pincode : ''; ?>">
+                                <input name='pincode' id="pincode" type="text" class="form-control" placeholder="Enter Pincode Number" pattern="[0-9]+" maxlength="4" required="required" title="Only 4 digits are allowed" value="<?php echo (isset($business_detail[0]->pincode)) ? $business_detail[0]->pincode : ''; ?>">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -105,7 +105,7 @@
                                 </span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input name='mobile' id="mobile" type="number" class="form-control"  placeholder="Enter Mobile Number " required="required" value="<?php echo (isset($business_detail[0]->mobile)) ? $business_detail[0]->mobile : ''; ?>">
+                                <input name='mobile' id="mobile" type="text" class="form-control" maxlength="11" minlength="10"  placeholder="Enter Mobile Number " required="required" value="<?php echo (isset($business_detail[0]->mobile)) ? $business_detail[0]->mobile : ''; ?>">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -173,31 +173,54 @@
                 var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
                 if (!emailReg.test(emil)) {
                     $("#email_error").html('Please enter valid email');
+                    $("#customer_businees_location").prop("disabled", true);
                 } else {
                     $("#email_error").html("");
-
+                    $("#customer_businees_location").prop("disabled", false);
                     // alert('Thank you for your valid email');
                 }
             })
         });
     });
 
-    $('#mobile').keyup(function () {
-        $('span.error-keyup-3').remove();
-        var inputVal = $(this).val();
-        //characterReg = /^[2-9]\d{2}-\d{3}-\d{4}$/;
-        var characterReg = /^([a-zA-Z0-9]{0,10})$/;
-        if (!characterReg.test(inputVal)) {
-            $("#customer_businees_location").prop("disabled", true);
-            $(this).after('<span class="error error-keyup-3" style="color:red">minimun 10 characters.</span>');
-        } else if (inputVal.length < 10) {
-            $("#customer_businees_location").prop("disabled", true);
-            $(this).after('<span class="error error-keyup-3" style="color:red">Maximum 10 characters.</span>');
-        }
-        if (inputVal.length == 10) {
-            $("#customer_businees_location").prop("disabled", false);
-        }
-    });
+    // $('#mobile').keyup(function () {
+    //     $('span.error-keyup-3').remove();
+    //     var inputVal = $(this).val();
+    //     //characterReg = /^[2-9]\d{2}-\d{3}-\d{4}$/;
+    //     var characterReg = /^([a-zA-Z0-9]{0,10})$/;
+    //     if (!characterReg.test(inputVal)) {
+    //         $("#customer_businees_location").prop("disabled", true);
+    //         $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+    //     } else if (inputVal.length < 10) {
+    //         $("#customer_businees_location").prop("disabled", true);
+    //         $(this).after('<span class="error error-keyup-3" style="color:red">Maximum 10 characters.</span>');
+    //     }
+    //     if (inputVal.length > 9) {
+    //         $("#customer_businees_location").prop("disabled", false);
+    //     }
+    // });
+
+      $(document).ready(function () {
+        $("#mobile").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
+            if(inputVal.trim()==""){$("#customer_businees_location").prop("disabled", false);}
+            // if($('input[type="check_contact"]').checked==true)
+             
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                return false;
+            } else if (inputVal.length < 10) {
+                $("#customer_businees_location").prop("disabled", true);
+                $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+            }
+            if (inputVal.length > 9) {
+                $("#customer_businees_location").prop("disabled", false);
+            } 
+          
+        });
+
+
     $('#pincode').keypress(function (event) {
         var keycode = event.which;
         if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
@@ -209,6 +232,7 @@
         if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
             event.preventDefault();
         }
+    });
     });
 </script>
 

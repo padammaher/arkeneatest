@@ -27,14 +27,14 @@
                                     <input type="text" class="form-control static-text" placeholder="Customer Name" value="<?php echo (isset($admin_company_name)) ? $admin_company_name : ''; ?>" disabled>
                                     <input name="user_id" type="hidden" class="form-control static-text" placeholder="Asset Sr. No." value="<?php echo $user->id; ?>">
                                 </div>
-                             </div>
-<!--                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="company_name" id="company_name" class="form-control static-text" placeholder="Enter Company Name" value="<?php echo (isset($user->company_name)) ? $user->company_name : ''; ?>">
-                                </div>
-                            </div>-->
+                            </div>
+                            <!--                             <div class="item form-group">
+                                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name
+                                                            </label>
+                                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                <input type="text" name="company_name" id="company_name" class="form-control static-text" placeholder="Enter Company Name" value="<?php echo (isset($user->company_name)) ? $user->company_name : ''; ?>">
+                                                            </div>
+                                                        </div>-->
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Address
                                 </label>
@@ -263,11 +263,11 @@
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
                 return false;
-            } else if (inputVal.length < 9) {
+            } else if (inputVal.length < 10) {
                 $("#customer_info_submit").prop("disabled", true);
                 $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
             }
-            if (inputVal.length == 9) {
+            if (inputVal.length > 9) {
                 $("#customer_info_submit").prop("disabled", false);
             }
         });

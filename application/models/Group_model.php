@@ -31,7 +31,7 @@ class Group_model extends MY_Model {
         $this->db->where('id', $id);
         $query = $this->db->get();
         $objData = $query->result_array();
-      //  var_dump($objData);
+        //  var_dump($objData);
         return $objData[0];
     }
 

@@ -27,7 +27,7 @@
                             <tr><th>Sr.No</th>
                                 <th>Name</th>
                                 <th>Customer Location</th>
-                                <th>User Name</th>                          
+                                <th>Email ID</th>                          
                                 <th>Status</th>     
                                 <th>Actions</th>                          
                             </tr>
@@ -80,7 +80,7 @@
                             ?>
                             <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
-                                    Modal content
+                                    
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;
@@ -110,7 +110,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="lft-td">User Name
+                                                        <td class="lft-td">Email ID
                                                         </td>
                                                         <td><?php echo $clientinfo->username; ?>
                                                         </td>

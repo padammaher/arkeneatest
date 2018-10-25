@@ -70,7 +70,7 @@
                     </thead>
                     <tbody>
                         <?php
-//var_dump($assetlist);  
+// var_dump($assetlist);  
                         $i = 1;
                         if (isset($assetlist) && !empty($assetlist)) {
                             foreach ($assetlist as $list) {
@@ -140,13 +140,19 @@
                                                     </a>
                                                 <?php } ?>
                                             </form> &nbsp;
+                                            
+                                          
                                             <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
                                                 <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
                                                 <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
-
+                                            <?php if (!empty($list['device_inventory_id'])) { ?>      
                                                 <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
                                                     <i class="fa fa-list-ul text-info"></i> 
                                                 </a>
+                                            
+                                        <?php } else { ?>
+                                                <a title="Please add device for this asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please add device for this asset"> <i class="fa fa-list-ul not-allowed"></i></a>
+                                        <?php } ?>
                                             </form>&nbsp;
                                             <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>

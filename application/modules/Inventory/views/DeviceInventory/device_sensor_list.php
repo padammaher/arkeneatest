@@ -42,7 +42,7 @@
                                         <td <?php echo $modal_idand_class; ?>><?php echo $i; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['number']; ?></td>
                                         <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['sensor_no']; ?></td>
-                                        <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['isactive'] == 1 ? 'Active' : 'In_active'; ?></td>
+                                        <td <?php echo $modal_idand_class; ?>><?php echo $device_sen_list['isactive'] == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td>
                                             <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="dev_sen<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $device_sen_list['id']; ?>" name="id" id="dev_id<?php echo $i; ?>" />

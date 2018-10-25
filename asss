@@ -1,0 +1,34 @@
+ RewriteEngine on
+ RewriteBase /
+ 
+ # If the user types "index.php" or "admin.php".
+ #RewriteCond $1 !^(index\.php|admin\.php|images|robots\.txt)
+ 
+
+ RewriteCond %{REQUEST_FILENAME} !-f
+ #RewriteRule ^admin/resource/(.*) resource/$1 [L,QSA]
+ #RewriteRule ^admin/assets/(.*) assets/$1 [L,QSA]
+
+
+ #RewriteCond %{REQUEST_FILENAME} !-f
+ #RewriteCond %{REQUEST_FILENAME} !-d
+ #RewriteRule ^admin\.php/admin(.*) admin/$1 [L,QSA]
+
+ 
+ # If the user enter in any admin section, like "admin/section".
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteRule ^admin\/(.*)$ admin\.php/$1 [L,QSA]
+
+
+ # If the user types just "admin".
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteRule ^admin$ admin\.php [L,QSA]
+
+# If the user types any site section, like "site/section".
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteRule ^(.*)$ index\.php/$1 [L,QSA]
+
+

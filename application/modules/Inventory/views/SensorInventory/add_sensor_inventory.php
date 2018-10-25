@@ -138,7 +138,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM*</label>
               <div class="col-md-6 col-sm-6 col-xs-12">             
                   <select class="form-control" name="UOM_ID" id="UOM_ID" required="required">
-                    <option value="<?php // if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo '';} ?>"><?php //if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo "Select UOM Type";}?></option>                   
+                    <!-- <option value="<?php // if(!empty(set_value('UOM'))) {echo set_value('UOM');} else {echo '';} ?>"><?php //if(!empty(set_value('selectuom'))){ echo set_value('selectuom');} else { echo "Select UOM Type";}?></option>                    -->
                 </select>             
                 </div>
               </div> 

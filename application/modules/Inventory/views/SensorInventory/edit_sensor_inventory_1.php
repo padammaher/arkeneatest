@@ -145,13 +145,15 @@
     <?php } ?>
                                 <input type="hidden" name="selectuom" id="selectuom">
 
-                            </div> <?php     // var_dump($sensor_inventory_data['uom_id'] ); ?> 
+                            </div> <?php     // var_dump($sensor_inventory_data['uom_id'] ); print_r($uom_list); ?> 
                             <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM*</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">             
                                         <select class="form-control" name="UOM_ID" id="UOM_ID" required="required">
                                             <?php foreach ($uom_list as $uom){ ?>
-                                            <option value="<?php echo $uom['id'];  ?>"<?php if(isset($sensor_inventory_data['uom_id'])){ echo ($sensor_inventory_data['uom_id']==$uom['id'])?'selected':''; } ?>><?php  echo $uom['name']; ?></option>                   
+                                            <option value="<?php echo $uom['id'];  ?>"
+                                                <?php if(isset($sensor_inventory_data['uom_id'])){ 
+                                                    echo ($sensor_inventory_data['uom_id']==$uom['id']) ? 'selected':''; } ?>><?php  echo $uom['name']; ?></option>                   
                                             <?php } ?> 
                                         </select>             
                                     </div>

@@ -83,11 +83,17 @@ class Auth extends MY_Controller {
             $this->data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
             $this->data['dataHeader'] = $this->users->get_allData($user_id);
 
+            $this->data['dashboard_assets'] = $this->group_model->load_dashboard_batch_data($user_id);
             //if ($user->login_flag == 0) {
-              //  $view = "index1";
+            //  $view = "index1";
             //} else {
-                $view = "index2";
+
+            $view = "index3";
+
             //}
+
+
+
             load_view_template($this->data, $view);
 
 //            $this->template->set_master_template('template.php');
@@ -100,27 +106,6 @@ class Auth extends MY_Controller {
 //            }
 //            $this->template->write_view('footer', 'snippets/footer', '', TRUE);
 //            $this->template->render();
-        }
-    }
-
-    public function dashboard() {
-        if (!$this->ion_auth->logged_in()) {
-            // redirect them to the login page
-            redirect('auth/login', 'refresh');
-        } else {
-
-
-            $user_id = $this->session->userdata('user_id');
-            $data['dataHeader'] = $this->users->get_allData($user_id);
-            $data['dataHeader']['title'] = "Home";
-            load_view_template($data, "index2");
-
-//        $this->template->set_master_template('template.php');
-//        $this->template->write_view('header', 'snippets/header', (isset($data) ? $data : NULL));
-//        $this->template->write_view('sidebar', 'snippets/sidebar', (isset($this->data) ? $this->data : NULL));
-//        $this->template->write_view('content', 'index2', (isset($this->data) ? $this->data : NULL), TRUE);
-//        $this->template->write_view('footer', 'snippets/footer', '', TRUE);
-//        $this->template->render();
         }
     }
 
@@ -261,6 +246,7 @@ class Auth extends MY_Controller {
                 'value' => $this->form_validation->set_value('profile_image'),
             );
 
+            $data['dashboard_assets'] = $this->group_model->load_dashboard_batch_data($user_id);
             load_view_template($this->data, "index");
 
 //            $this->template->set_master_template('template.php');
@@ -289,7 +275,7 @@ class Auth extends MY_Controller {
                 //if the login is successful
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('/', 'refresh');
+                redirect('Dashboard', 'refresh');
             } else {
                 // if the login was un-successful
                 // redirect them back to the login page
@@ -1031,6 +1017,18 @@ class Auth extends MY_Controller {
         $data['dataHeader'] = $this->users->get_allData($user_id);
         $data['dataHeader']['title'] = "Error 403! Access Denied";
         load_view_template($data, '403.php');
+    }
+
+    function load_data_by_asset() {
+        $dashboarddata = '';
+
+        $user_id = $this->session->userdata('user_id');
+        $asset_id = $this->input->post('asset_id');
+        $location_id = $this->input->post('location_id');
+
+        $dashboarddata = $this->group_model->get_data_by_assets($asset_id, $location_id, $user_id);
+
+        echo json_encode($dashboarddata);
     }
 
 }
