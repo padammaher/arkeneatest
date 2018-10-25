@@ -68,6 +68,7 @@
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                   <label>
+                      
                     <input name="status" type="checkbox" class="flat" value="1" checked="checked"> Active
                   </label>
                 </div>

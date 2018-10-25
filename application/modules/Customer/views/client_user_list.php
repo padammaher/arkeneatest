@@ -27,7 +27,7 @@
                             <tr><th>Sr.No</th>
                                 <th>Name</th>
                                 <th>Customer Location</th>
-                                <th>User Name</th>                          
+                                <th>Email ID</th>                          
                                 <th>Status</th>     
                                 <th>Actions</th>                          
                             </tr>

@@ -337,7 +337,7 @@ class Inventory_model extends MY_Model {
 
     public function uomtype_list($parameter, $user_id) {
         $group_id = $this->session->userdata('group_id');
-        $this->db->select('uom_type.id,uom_type.name,uom_type.uom_id,count(`uom_type`.`id`) as `typecount`');
+        $this->db->select('uom_type.id,uom_type.name,count(`uom_type`.`id`) as `typecount`');
         $this->db->from('uom_type');
         $this->db->join('parameter', 'parameter.uom_type_id=uom_type.id', 'inner');
         $this->db->where('parameter.isactive', 1);
@@ -348,6 +348,7 @@ class Inventory_model extends MY_Model {
         }
         $this->db->group_by('parameter.id');
         $query = $this->db->get();
+        // echo $this->
         $objData = $query->result_array();
         return $objData;
     }

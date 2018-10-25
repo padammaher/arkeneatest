@@ -74,7 +74,22 @@
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                                <input type="checkbox" name="status" id="status" class="flat" <?php echo (isset($client_details[0]->active) && $client_details[0]->active == 1)? 'checked' : ''; ?>> Active
+                                <?php echo $isactive=set_value('status');
+                                $active='';
+                                if(isset($client_details[0]->active)
+                                 && $client_details[0]->active == 1)
+                                {
+                                    $active='checked';
+                                }
+
+                                  if(!empty($isactive))
+                                      { $isactive=="on" ? 'checked':''; }
+                                 else { $isactive='checked';}  $active=$isactive; ?>
+
+
+                                 <?php //echo (isset($client_details[0]->active) && $client_details[0]->active == 1)? 'checked' : ''; ?>
+
+                                <input type="checkbox" name="status" id="status" class="flat" <?php echo $active;?> >
                             </div>
                         </div>					  
                         <div class="ln_solid">

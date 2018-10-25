@@ -46,7 +46,7 @@
                     <option value="">Select Country
                     </option>
                     <?php foreach($country as $contries){ ?> 
-                   <option value="<?php echo $contries->id;?>" <?php echo set_value('country',$contries->id)== $contries->id ? 'selected':'';?> ><?php echo $contries->name;?> </option>
+                   <option value="<?php echo $contries->id;?>" <?php echo (set_value('country') == $contries->id) ? 'selected':'';?> ><?php echo $contries->name;?> </option>
                    <?php } ?> 
                   </select>
                 </div>
@@ -110,10 +110,15 @@
                 </div>
               </div>
                <div class="item form-group">
-                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> </span></label>
                   <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                      <input type="checkbox" name="status" id="status" class="flat" <?php $isactive=set_value('status');
-                      if(!empty($isactive)) {echo $isactive=="on" ? 'selected':'';}else {echo 'selected';} ?> > 
+                    <?php echo $isactive=set_value('status');
+                    $active='';
+                      if(!empty($isactive))
+                          { $isactive=="on" ? 'checked':'';}
+                     else { $isactive='checked';} ?>
+
+                      <input type="checkbox" name="status" id="status" class="flat" <?php echo $isactive;?>> 
                 </div>
                </div>
               <div class="ln_solid">
