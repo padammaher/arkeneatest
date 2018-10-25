@@ -44,7 +44,7 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Parameter <span>*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <?php if  (isset($parameter_list) && !empty($parameter_list)) { ?>
+                    <?php if  (!empty($param_id) || !empty($parameter_list)) { ?>
                              <select class="form-control" name="parameter" id="parameter" required> 
                              <option value="">Select Parameter</option>  
                                      <?php if (isset($param_id) && !empty($param_id)) { ?>                                          
