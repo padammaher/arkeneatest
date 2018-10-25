@@ -20,7 +20,7 @@ $back_action = $this->input->post('back_action');
 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="assetcode" required readonly>
                                     <!--<option value="">Select Asset Code</option>-->
@@ -97,7 +97,7 @@ $back_action = $this->input->post('back_action');
     <?php } ?>
                         </div>  
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> </span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <?php 
                                 if (isset($asset_location_data['isactive']) && $asset_location_data['isactive'] == 1) {

@@ -77,19 +77,26 @@
                                 <?php echo $isactive=set_value('status');
                                 $active='';
                                 if(isset($client_details[0]->active)
-                                 && $client_details[0]->active == 1)
+                                 && $client_details[0]->active == 1 && empty($isactive))
                                 {
                                     $active='checked';
+                                }else{
+                                    $active='';
                                 }
-
-                                  if(!empty($isactive))
-                                      { $isactive=="on" ? 'checked':''; }
-                                 else { $isactive='checked';}  $active=$isactive; ?>
+                                
+                                if(!empty($isactive))
+                                      { $isactive='checked'; $active=$isactive; }
+                                  else if(!isset($client_details[0]->active) && empty($isactive))
+                                  {
+                                    $isactive="checked";$active=$isactive;
+                                  }
+                                      
+                                  ?>
 
 
                                  <?php //echo (isset($client_details[0]->active) && $client_details[0]->active == 1)? 'checked' : ''; ?>
 
-                                <input type="checkbox" name="status" id="status" class="flat" <?php echo $active;?> >
+                                <input type="checkbox" name="status" id="status" class="flat" <?php echo $active;?> > Active
                             </div>
                         </div>					  
                         <div class="ln_solid">

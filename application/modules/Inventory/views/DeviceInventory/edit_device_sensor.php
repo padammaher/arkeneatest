@@ -48,7 +48,7 @@ $back_action = $this->input->post('back_action');
                         //                        echo count($temp_sensor_ids);
                         ?>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">   
 
                                 <select class="form-control" name="deviceid" id="deviceid" required="required" <?php
