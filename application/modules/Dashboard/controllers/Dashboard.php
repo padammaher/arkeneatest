@@ -35,7 +35,73 @@ class Dashboard extends MY_Controller {
                 }
             }
             $data['total_active_assets'] = isset($active_asset) ? count($active_asset) : 0;
-            load_view_template($data, "dashboard");
+            $group_id = $this->session->userdata('group_id');
+            if ($group_id != 1) {
+                $view = "dashboard";
+            } else {
+                if ($user->login_flag == 0) {
+                    //list the users
+                    $data['users'] = $this->ion_auth->users()->result();
+                    foreach ($data['users'] as $k => $user) {
+                        $data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+                    }
+
+                    $user_id = $this->session->userdata('user_id');
+                    $user = $this->ion_auth->user($user_id)->row();
+                    $groups = $this->ion_auth->groups()->result_array();
+                    $currentGroups = $this->ion_auth->get_users_groups($user_id)->result();
+                    // display the edit user form
+                    $data['csrf'] = $this->_get_csrf_nonce();
+
+                    // set the flash data error message if there is one
+                    $data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+                    // pass the user to the view
+                    $data['user'] = $user;
+                    $data['groups'] = $groups;
+                    $data['currentGroups'] = $currentGroups;
+
+                    $data['first_name'] = array(
+                        'name' => 'first_name',
+                        'id' => 'first_name',
+                        'type' => 'text',
+                        'value' => $this->form_validation->set_value('first_name', $user->first_name),
+                    );
+                    $data['last_name'] = array(
+                        'name' => 'last_name',
+                        'id' => 'last_name',
+                        'type' => 'text',
+                        'value' => $this->form_validation->set_value('last_name', $user->last_name),
+                    );
+                    $data['company'] = array(
+                        'name' => 'company',
+                        'id' => 'company',
+                        'type' => 'text',
+                        'value' => $this->form_validation->set_value('company', $user->company),
+                    );
+                    $data['phone'] = array(
+                        'name' => 'phone',
+                        'id' => 'phone',
+                        'type' => 'text',
+                        'value' => $this->form_validation->set_value('phone', $user->phone),
+                    );
+                    $data['password'] = array(
+                        'name' => 'password',
+                        'id' => 'password',
+                        'type' => 'password'
+                    );
+                    $data['password_confirm'] = array(
+                        'name' => 'password_confirm',
+                        'id' => 'password_confirm',
+                        'type' => 'password'
+                    );
+                    $data['country_list'] = (array('' => 'Select Country')) + $this->country->dropdown('name');
+                    $view = "pre_dashboard";
+                } else {
+                    $view = "dashboard";
+                }
+            }
+            load_view_template($data, $view);
         }
     }
 
