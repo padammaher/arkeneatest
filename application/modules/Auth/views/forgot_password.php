@@ -38,7 +38,7 @@
                         <?php echo form_open("auth/forgot_password"); ?>
                         <h1>Forgot Password</h1>
                         <div>
-                            <label for="Email" style="color:white; font-family:courier; text-align: left;">Email </label>
+                            
                             <?php echo form_input($identity); ?>
                             <div class="lgnErorr1"></div>
                         </div>
@@ -57,7 +57,7 @@
                             <br />
 
                             <div>
-                                <img src="<?php echo base_url() ?>assets/images/elogo.png">
+                               <!-- <img src="<?php echo base_url() ?>assets/images/elogo.png">-->
                                 <p>Copyright 2018 - ePhytionSee | All Rights Reserved</p>
                             </div>
                         </div>

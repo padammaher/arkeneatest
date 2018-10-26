@@ -355,12 +355,16 @@ class Auth extends MY_Controller {
                 'id' => 'new',
                 'type' => 'password',
                 'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+                'placeholder' => 'Enter new password',
+                'class' => 'form-control',
             );
             $this->data['new_password_confirm'] = array(
                 'name' => 'new_confirm',
                 'id' => 'new_confirm',
                 'type' => 'password',
                 'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+                'placeholder' => 'Enter new password',
+                'class' => 'form-control',
             );
             $this->data['user_id'] = array(
                 'name' => 'user_id',
@@ -400,6 +404,8 @@ class Auth extends MY_Controller {
             // setup the input
             $this->data['identity'] = array('name' => 'identity',
                 'id' => 'identity',
+                'placeholder' => 'Enter your email Id',
+                'class' => 'form-control',
             );
             if ($this->config->item('identity', 'ion_auth') != 'email') {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
@@ -461,12 +467,14 @@ class Auth extends MY_Controller {
                     'id' => 'new',
                     'type' => 'password',
                     'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+                    'class' => 'form-control',
                 );
                 $this->data['new_password_confirm'] = array(
                     'name' => 'new_confirm',
                     'id' => 'new_confirm',
                     'type' => 'password',
                     'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+                    'class' => 'form-control',
                 );
                 $this->data['user_id'] = array(
                     'name' => 'user_id',
