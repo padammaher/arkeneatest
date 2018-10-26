@@ -59,7 +59,7 @@ $back_action = $this->input->post('back_action');
     ?>
                         </div> 
                         <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> </span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                     <input type="checkbox" name="status" id="status" class="flat" <?php echo (isset($asset_user_data['isactive']) && $asset_user_data['isactive'] == 1) ?'checked': ''; ?>> Active
                                 </div>

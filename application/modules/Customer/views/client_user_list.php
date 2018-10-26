@@ -27,7 +27,7 @@
                             <tr><th>Sr.No</th>
                                 <th>Name</th>
                                 <th>Customer Location</th>
-                                <th>User Name</th>                          
+                                <th>Email ID</th>                          
                                 <th>Status</th>     
                                 <th>Actions</th>                          
                             </tr>
@@ -110,7 +110,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="lft-td">User Name
+                                                        <td class="lft-td">Email ID
                                                         </td>
                                                         <td><?php echo $clientinfo->username; ?>
                                                         </td>

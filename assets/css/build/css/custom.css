@@ -184,10 +184,7 @@ html , body{
     padding: 5px 6px;
     border-radius: 50%
 }
-.site_title img {
-    max-height: 66px;
-    max-width: 180px;
-}
+
 .nav-sm .main_container .top_nav {
     display: block;
     margin-left: 70px;
@@ -3328,6 +3325,24 @@ ul.project_files li a i {
     margin-bottom: -6px;
 }
 
+label {
+    font-weight: 500 !important;
+    text-shadow: none;
+}
+
+
+#newsticker-demo {
+    max-height: 175px;
+    min-height: 175px;
+}
+
+#errorpassword {
+    color: red;
+    text-shadow: none;
+    line-height: 15px;
+    margin-bottom: 10px;
+}
+
 .input-group-btn .btn { margin-bottom:0; }
 
 /*!
@@ -3649,9 +3664,9 @@ form:after {
 .login_content form input[type="email"],
 .login_content form input[type="password"] {
     border-radius: 3px;
-    -ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    /*-ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
     -o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
-    box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+    box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;*/
     border: 1px solid #c8c8c8;
     color: #777;
     margin: 0 0 20px;
@@ -4288,6 +4303,10 @@ ul.notifications {
     line-height: 11px;
     margin-top: 4px;
 }
+
+
+
+
 @media (max-width: 460px) {
     .dataTables_wrapper .col-sm-6 {
         width: 100%;
@@ -4613,8 +4632,12 @@ body {
 }
 
 .site_title img {
-    max-height: 50px;
-    max-width: 180px;
+    /* max-height: 50px; */
+    /* max-width: 174px; */
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+    overflow: hidden;
 }
 
 .text-warning {
