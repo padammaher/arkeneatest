@@ -1,13 +1,17 @@
 <?php
-if ($this->session->userdata('login_flag')) {
-    $login_flag = $this->session->userdata('login_flag');
-}
+//if ($this->session->userdata('login_flag')) {
+$login_flag = $this->session->userdata('login_flag');
+//}
 ?> 
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="<?php echo base_url(); ?>Dashboard" class="site_title">
-                <?php if (isset($dataHeader['group_id']) && $dataHeader['group_id'] != 1) { ?>
+            <a href="<?php echo base_url(); ?>Dashboard" class="site_title <?php
+            if ($login_flag == 0) {
+                echo 'not-allowed';
+            }
+            ?>">
+                   <?php if (isset($dataHeader['group_id']) && $dataHeader['group_id'] != 1) { ?>
                     <img src="data:image/gif;base64,<?php echo $dataHeader['admin_company_logo'][0]['company_logo']; ?>">
                 <?php } else { ?>
                     <img src="data:image/gif;base64,<?php echo $dataHeader['company_logo']; ?>"> 
@@ -34,7 +38,11 @@ if ($this->session->userdata('login_flag')) {
         <br />
 
         <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php
+        if ($login_flag == 0) {
+            echo 'notallow';
+        }
+        ?>">
 
             <!--            <div class="menu_section">
                             <h3>Home</h3>
@@ -60,14 +68,22 @@ if ($this->session->userdata('login_flag')) {
                                     </a>
                                 </li>
                             <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
-                                <li class="notallow <?php if (isset($login_flag) && $login_flag == 0) { echo 'cursor-notallowed'; } ?>">
+                                <li class="notallow <?php
+                                if (isset($login_flag) && $login_flag == 0) {
+                                    echo 'cursor-notallowed';
+                                }
+                                ?>">
                                     <a>
                                         <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?>  
                                     </a>
                                 </li>
                             <?php } else if ($menu_name['menuName'] == 'Privilege') {
                                 ?>
-                                <li <?php if ($this->session->userdata('login_flag') == 0){ echo 'class=notallow cursor-notallowed'; } ?>>
+                                <li <?php
+                                if ($this->session->userdata('login_flag') == 0) {
+                                    echo 'class=notallow cursor-notallowed';
+                                }
+                                ?>>
                                     <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
                                         <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
                                     </a>
@@ -76,7 +92,11 @@ if ($this->session->userdata('login_flag')) {
                                 ?>
 
                                 <!--<ul class="nav side-menu">-->
-                                <li <?php if ($this->session->userdata('login_flag') == 0&&$menu_name['menuName'] != 'Forms') { echo 'class=notallow cursor-notallowed'; }?> >
+                                <li <?php
+                                if ($this->session->userdata('login_flag') == 0 && $menu_name['menuName'] != 'Forms') {
+                                    echo 'class=notallow cursor-notallowed';
+                                }
+                                ?> >
                                     <a 
                                     <?php
                                     if (isset($menu_name['url'])) {
@@ -90,27 +110,49 @@ if ($this->session->userdata('login_flag')) {
                                         </span>
                                     </a>
                                     <?php
-                                    if ($this->session->userdata('login_flag') == 0&&$menu_name['menuName'] != 'Forms') {
+                                    if ($this->session->userdata('login_flag') == 0) {
                                         
                                     } else {
-                                        ?>
-                                        <ul class="nav child_menu">
-                                            <?php
-                                            foreach ($dataHeader['menulist'] as $sub_menu) {
-                                                $nav_ids_value = explode(',', $sub_menu['nav_ids']);
-                                                if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
-                                                    ?>                              
-                                                    <li>
-                                                        <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
-                                                            <?php echo $sub_menu['menuName']; ?>
-                                                        </a>
-                                                    </li>
-                                                    <?php
-                                                }
-                                            }
+                                        if ($menu_name['menuName'] != 'Masters' && $this->session->userdata('group_id') != 1) {
                                             ?>
-                                        </ul> 
-                                    <?php } ?>
+                                            <ul class="nav child_menu">
+                                                <?php
+                                                foreach ($dataHeader['menulist'] as $sub_menu) {
+                                                    $nav_ids_value = explode(',', $sub_menu['nav_ids']);
+                                                    if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
+                                                        ?>                              
+                                                        <li>
+                                                            <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
+                                                                <?php echo $sub_menu['menuName']; ?>
+                                                            </a>
+                                                        </li>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </ul> 
+                                            <?php } else {
+                                            ?>
+                                            <ul class="nav child_menu">
+                                                <?php
+                                                foreach ($dataHeader['menulist'] as $sub_menu) {
+                                                    $nav_ids_value = explode(',', $sub_menu['nav_ids']);
+                                                    if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
+                                                        ?>                              
+                                                        <li>
+                                                            <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
+                                                                <?php echo $sub_menu['menuName']; ?>
+                                                            </a>
+                                                        </li>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </ul> 
+                                        <?php
+                                        }
+                                    }
+                                    ?>
                                 </li>
                                 <!--</ul>-->
                                 <?php
@@ -152,9 +194,9 @@ if ($login_flag == 0 && $login_flag != '') {
             $(".notallow a").removeAttr("href");
             $(".notallow a").css("cursor", "not-allowed");
             $(".notallow a").addClass('not-allowed');
-//            $(".navbar a").removeAttr("href");
-//            $(".navbar a").css("cursor", "not-allowed");
-//            $(".navbar a").addClass('not-allowed');
+    //            $(".navbar a").removeAttr("href");
+    //            $(".navbar a").css("cursor", "not-allowed");
+    //            $(".navbar a").addClass('not-allowed');
         });
     </script>
 <?php } ?> 
