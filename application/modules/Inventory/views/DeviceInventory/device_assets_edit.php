@@ -15,7 +15,7 @@ $back_action = $this->input->post('back_action');
                     
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Device Number *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">             
                                 <select class="form-control" name="deviceid" id="deviceid"  required="required" readonly>                                                  
                                     <option value="<?php echo $dev_asset_data['device_inventory_id']; ?>" selected><?php echo $dev_asset_data['number']; ?></option>
@@ -28,7 +28,7 @@ $back_action = $this->input->post('back_action');
                         </div> 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Asset Code *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="assetid" id="assetid" required="required">
                                     <option 
@@ -55,7 +55,7 @@ $back_action = $this->input->post('back_action');
                         </div> 
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Wef Date</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Wef Date *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
 
                                 <div class="xdisplay_inputx item form-group has-feedback">
