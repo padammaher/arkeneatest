@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
-        
+         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
         <title>Change Password</title>
 
@@ -30,18 +30,18 @@
                                 ?>
                 </div>      
                     <section class="login_content">
-                       <?php echo form_open('auth/reset_password/' . $code);?>
+                       <?php echo form_open('auth/reset_password/' . $code,array('id'=>'change_password_form'));?>
                         <h1>Change Password</h1>
                         <div>
                             <label style="color: white; font-style: normal;" for="new"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br />
 		<?php echo form_input($new_password);?>
-                            <div id="errorpassword"> </div>
+                            <div class="errorfornewpawword" id="errorfornewpawword"> </div>
                             <div class="lgnErorr1"></div>
                         </div>
                         <div> <label style="color: white; font-style: normal;" for="new_password">
                          <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm');?> </label><br />
 		    <?php echo form_input($new_password_confirm);?>
-                         <div id="errorpasswordmatch"> </div>
+                         <div class="errorfornewconfirmpawword" id="errornewcomparefield"> </div>
                             <div class="lgnErorr2"></div>
                         </div>
                         <div>
@@ -70,43 +70,56 @@
         </div>
     </body>
 </html>
-<script>
- $(document).ready(function () {
-        $('#new').focusout(function () {
-            var str = $('#new').val();
-            var upper_text = new RegExp('[A-Z]');
-            var lower_text = new RegExp('[a-z]');
-            var number_check = new RegExp('[0-9]');
-            var special_char = new RegExp('[!/\'^£$%&*()}{@#~?><>,|=_+¬-\]');
 
-            var flag = 'T';
-
-            if (str.match(upper_text) && str.match(lower_text) && str.match(special_char) && str.match(number_check) && str.length > 7) {
-                $('#errorpassword').html("");
-                $("#resset_password").prop("disabled", false);
-            } else {
-                $('#d12').css("color", "red");
-                $('#errorpassword').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span> add atleast one upper,lower,special character, one number, and minimum 8 character length");
-                $('#errorpassword').css("color", "red");
-
-                $("#resset_password").prop("disabled", true);
-            }
-        });
-    });
-</script>
-
+<style> 
+    .error{
+        color: red; 
+    }
+    </style>
 <script type="text/javascript">
-    $(function () {
-        $("#resset_password").click(function () {
-            var password = $("#new").val();
-            var confirmPassword = $("#new_confirm").val();
-            if (password != confirmPassword) {
-                $('#errorpasswordmatch').css("color", "red");
-                 $('#errorpasswordmatch').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'>Password Not Match</span> ");
-                return false;
-            }
-             $('#errorpasswordmatch').html("");
-            return true;
-        });
-    });
+ $.validator.addMethod("pwcheck", function(value) {
+   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+       && /[a-z]/.test(value) // has a lowercase letter
+       && /\d/.test(value) // has a digit
+}, "add atleast one upper,lower,special character, one number");
+
+
+    $("#change_password_form").validate({
+    rules: {
+        new: {
+            required: true,
+            minlength: 8,
+            maxlength: 18,
+            pwcheck:true,
+        },
+        new_confirm: {
+            required: true,
+            minlength: 8,
+            maxlength: 18,
+            equalTo: "#new"
+        }
+    },
+    messages: {
+        new: {
+            required: "Enter username name",
+            minlength: "Enter minimum 2 character",
+            maxlength: "Enter maximum 50 character",
+        },
+         new_confirm: {
+            required: "Enter Password",
+            minlength: "Enter minimum 2 character",
+            maxlength: "Enter maximum 50 character",
+            equalTo:"Password Does Not Match"
+        }
+    },
+    errorElement: 'div',
+    errorPlacement: function (error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+            $(placement).append(error)
+        } else {
+            error.insertAfter(element);
+        }
+    }
+});
 </script>
