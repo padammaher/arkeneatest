@@ -816,9 +816,9 @@ class Ion_auth_model extends CI_Model {
         $this->load->library('email');
         $this->email->initialize($config);
 
-        $this->email->from('mitroz.padamm@gmail.com', 'WorkWide');
+        $this->email->from('mitroz.padamm@gmail.com', 'ePhytionSee');
         $this->email->to($user_email);
-        $this->email->subject('Task Status');
+        $this->email->subject('Reset your password ');
         $this->email->message('<!DOCTYPE html>
 <html><head>
   <title>Rating Reminder

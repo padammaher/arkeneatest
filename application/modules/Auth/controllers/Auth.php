@@ -405,7 +405,9 @@ class Auth extends MY_Controller {
             $this->data['identity'] = array('name' => 'identity',
                 'id' => 'identity',
                 'placeholder' => 'Enter your email Id',
-                'class' => 'form-control',
+                'class' => 'form-control browser-default',
+                'data-error' => '.errorEmailfield',
+                
             );
             if ($this->config->item('identity', 'ion_auth') != 'email') {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
@@ -464,16 +466,20 @@ class Auth extends MY_Controller {
                 $this->data['new_password'] = array(
                     'name' => 'new',
                     'id' => 'new',
+                    'class' => 'form-control browser-default',
+                    'data-error' => '.errorfornewpawword',
                     'type' => 'password',
                     'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-                    'class' => 'form-control',
+                    
                 );
                 $this->data['new_password_confirm'] = array(
                     'name' => 'new_confirm',
                     'id' => 'new_confirm',
                     'type' => 'password',
+                    'class' => 'form-control browser-default',
+                    'data-error' => '.errorfornewconfirmpawword',
                     'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-                    'class' => 'form-control',
+                    
                 );
                 $this->data['user_id'] = array(
                     'name' => 'user_id',
