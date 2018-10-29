@@ -405,7 +405,9 @@ class Auth extends MY_Controller {
             $this->data['identity'] = array('name' => 'identity',
                 'id' => 'identity',
                 'placeholder' => 'Enter your email Id',
-                'class' => 'form-control',
+                'class' => 'form-control browser-default',
+                'data-error' => '.errorEmailfield',
+                
             );
             if ($this->config->item('identity', 'ion_auth') != 'email') {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');

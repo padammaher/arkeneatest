@@ -101,12 +101,12 @@
     },
     messages: {
         new: {
-            required: "Enter username name",
+            required: "Please Enter New Password",
             minlength: "Enter minimum 2 character",
             maxlength: "Enter maximum 50 character",
         },
          new_confirm: {
-            required: "Enter Password",
+            required: "Please Enter New Password",
             minlength: "Enter minimum 2 character",
             maxlength: "Enter maximum 50 character",
             equalTo:"Password Does Not Match"
