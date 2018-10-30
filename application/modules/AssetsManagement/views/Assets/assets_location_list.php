@@ -85,7 +85,7 @@
                                                     <?php } ?>
                                                 </form>  &nbsp;
                                                 <?php } else {?> 
-                                                
+                                                &nbsp;
                                                 <a title="Please first active the asset location" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset location"> <i class="fa fa-group text-warning not-allowed"></i></a>
                                                 <?php } ?>&nbsp;
                                                 <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">

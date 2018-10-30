@@ -84,6 +84,7 @@
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Red Value
+                                <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input name="red_value" required id="red_value" type="text" class="form-control" placeholder="Enter Red Value" value="<?php echo (isset($asset_detail[0]->red_value)) ? $asset_detail[0]->red_value : ''; ?>">
