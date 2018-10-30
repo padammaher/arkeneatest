@@ -27,7 +27,8 @@
                 <div class="x_content" id="sensor-inventory-list">
                     <table id="datatable" class="table table-striped table-bordered item-table" >
                         <thead>
-                            <tr><th>Sr.No</th>
+                            <tr>
+                                <th>Sr.No</th>
                                 <th>Sensor_Num</th>
                                 <th>Device_Num</th>
                                 <th>Sensor_Type</th>                          
@@ -121,7 +122,7 @@
                             } else {
                                 ?>
                                 <tr>
-                                    <td>No data found..!</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>  
+                                    <td>No data found..!</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td> 
                                 </tr>
                                 <?php
                             }

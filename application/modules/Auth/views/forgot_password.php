@@ -35,16 +35,12 @@
                     <?php } ?> 
                     <section class="login_content">
                         <br>
-                        <?php echo form_open("auth/forgot_password"); ?>
+                        <?php echo form_open("auth/forgot_password",array('id'=>'sendemail_forgot_password')); ?>
                         <h1>Forgot Password</h1>
                         <div>
-                            <label for="Email" style="color:white; font-family:courier; text-align: left;">Email </label>
+                            
                             <?php echo form_input($identity); ?>
-                            <div class="lgnErorr1"></div>
-                        </div>
-                        <div>
-                            <?php // echo form_input($password);     ?>
-                            <div class="lgnErorr2"></div>
+                            <div class="errorEmailfield"></div>
                         </div>
                         <div>
                             <button class="btn btn-default submit" type="submit">Submit</button> 
@@ -57,7 +53,7 @@
                             <br />
 
                             <div>
-                                <img src="<?php echo base_url() ?>assets/images/elogo.png">
+                               <!-- <img src="<?php echo base_url() ?>assets/images/elogo.png">-->
                                 <p>Copyright 2018 - ePhytionSee | All Rights Reserved</p>
                             </div>
                         </div>
@@ -68,8 +64,10 @@
         </div>
     </body>
 </html>
+
  <script src="<?php echo base_url('assets/css/jquery/dist/jquery.min.js'); ?>" type="text/javascript"></script>
-    <script>
+ <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>   
+ <script>
         $(document).ready(function () {
             $("#error_msg").css("display", "none");
         <?php if ($this->session->flashdata('error_message')) { ?>
@@ -81,3 +79,34 @@
         <?php } ?>
         });
     </script>
+<style> 
+    .error{
+        color: red; 
+    }
+    </style>
+<script type="text/javascript">
+    $("#sendemail_forgot_password").validate({
+    rules: {
+        identity: {
+            required: true,
+            email:true 
+        },
+    },
+    messages: {
+        identity: {
+            required: "Please Enter Email Id",
+            email: "please Enter Valid Email",
+        }
+            
+        },
+    errorElement: 'div',
+    errorPlacement: function (error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+            $(placement).append(error)
+        } else {
+            error.insertAfter(element);
+        }
+    }
+});
+</script>
