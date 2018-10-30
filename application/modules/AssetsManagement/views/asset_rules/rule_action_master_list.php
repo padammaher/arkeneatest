@@ -113,12 +113,18 @@
                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i> 
                                                 </a>  
                                             </form> 
+                                           
                                             <form name="triggerlistewrwer" id="triggerlist<?php echo $i; ?>" method="post" action="<?php echo base_url(); ?>trigger_list">
+                                                 <?php if($asset_rule['rule_status'] == 1 && $asset_rule['rule_status'] != "") { ?>
                                                 <a class="trigger_data" id="<?php echo $i; ?>">
                                                     <input type="hidden" name="rule_id" id="rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">
                                                     <i class="fa fa-podcast" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Trigger"></i> 
                                                 </a>
+                                                 <?php } else {?>                                                
+                                                <a title="Please first active the rule" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the rule"> <i class="fa fa-podcast not-allowed"></i></a>
+                                                <?php } ?>
                                             </form> 
+                                             
                                             <form name="delete_asset_rule" id="delete_asset_rule<?php echo $i; ?>"  method="post" action="<?php echo base_url(); ?>Delete_Rule">
                                                 <a  class="delete_asset" id="<?php echo $i; ?>">
                                                     <input type="hidden" name="asset_rule_id" id="asset_rule_id" value="<?php echo ($asset_rule['id']) ? $asset_rule['id'] : ''; ?>">

@@ -67,8 +67,8 @@
                                                     <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                         <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                     </a>
-                                                </form> &nbsp;
-
+                                                </form> 
+                                                <?php if($asset_loc_list['isactive'] == 1 && $asset_loc_list['isactive'] != "") { ?>&nbsp;
                                                 <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
                                                     <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
                                                     <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
@@ -84,6 +84,10 @@
                                                         </a>
                                                     <?php } ?>
                                                 </form>  &nbsp;
+                                                <?php } else {?> 
+                                                
+                                                <a title="Please first active the asset location" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset location"> <i class="fa fa-group text-warning not-allowed"></i></a>
+                                                <?php } ?>&nbsp;
                                                 <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">
                                                     <input type="hidden" value="<?php echo $asset_loc_list['id']; ?>" name="asset_location_post_id"/>
                                                     <input type="hidden" name="asset_location_post" id="post<?php echo $i; ?>"/>

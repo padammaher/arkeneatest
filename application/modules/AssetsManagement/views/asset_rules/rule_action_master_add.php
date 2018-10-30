@@ -139,13 +139,13 @@
                                   }
                                       
                                   ?>
-                                        <input name="rule_status" id="rule_status" type="checkbox" class="flat" <?php echo $active; ?> >
+                                        <input name="rule_status" id="rule_status" type="checkbox" class="flat" <?php echo $active; ?> > Active
                                     </div> 
                                 <!-- </label> -->
                             </div>
                         </div>
-                        <div class="ln_solid">
-                        </div>
+                        <!-- <div class="ln_solid"> -->
+                        <!-- </div> -->
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <button type="submit" id="submit_asset_rule" class="btn btn-primary">

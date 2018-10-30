@@ -66,8 +66,8 @@
                                                     <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                         <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                     </a>                                                   
-                                                </form>&nbsp;
-
+                                                </form>
+                                                <?php if($InventoryListRowData['isactive'] == 1 && $InventoryListRowData['isactive'] != "") { ?>&nbsp;
                                                 <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
                                                     <input type="hidden" value="<?php echo $InventoryListRowData['dev_sen_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
                                                     <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
@@ -104,7 +104,11 @@
 
                                                     <?php } ?>
                                                 </form> &nbsp;
-
+                                                <?php } else { ?>&nbsp; 
+                                                <a title="Please first active the device" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the device"> <i class="fa fa-dashboard text-success not-allowed"></i></a>
+                                                <a title="Please first active the device" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the device"> <i class="fa fa-gears text-warning not-allowed"></i></a>
+                                                &nbsp;
+                                                <?php } ?>
                                                 <form action="<?php echo base_url(); ?>Device_inventory_edit" method="post" id="updateasset<?php echo $i; ?>">
                                                     <input type="hidden" value="<?php echo $InventoryListRowData['id']; ?>" name="id"/>
                                                     <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
