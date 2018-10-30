@@ -101,14 +101,14 @@
     },
     messages: {
         new: {
-            required: "Please Enter New Password",
-            minlength: "Enter minimum 2 character",
-            maxlength: "Enter maximum 50 character",
+            required: "New Password should not be blank",
+            minlength: "Enter minimum 8 character",
+            maxlength: "Enter maximum 18 character",
         },
          new_confirm: {
-            required: "Please Enter New Password",
-            minlength: "Enter minimum 2 character",
-            maxlength: "Enter maximum 50 character",
+            required: "Confirm Password should not be blank",
+            minlength: "Enter minimum 8 character",
+            maxlength: "Enter maximum 18 character",
             equalTo:"Password Does Not Match"
         }
     },
