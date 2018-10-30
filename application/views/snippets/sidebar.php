@@ -1,13 +1,15 @@
 <?php
 //if ($this->session->userdata('login_flag')) {
 $login_flag = $this->session->userdata('login_flag');
+$group_id = $this->session->userdata('group_id');
+
 //}
 ?> 
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
             <a href="<?php echo base_url(); ?>Dashboard" class="site_title <?php
-            if ($login_flag == 0) {
+            if ($login_flag == 0 && $group_id == 1) {
                 echo 'not-allowed';
             }
             ?>">
@@ -39,7 +41,7 @@ $login_flag = $this->session->userdata('login_flag');
 
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php
-        if ($login_flag == 0) {
+        if ($login_flag == 0 && $group_id == 1) {
             echo 'notallow';
         }
         ?>">
@@ -93,7 +95,7 @@ $login_flag = $this->session->userdata('login_flag');
 
                                 <!--<ul class="nav side-menu">-->
                                 <li <?php
-                                if ($this->session->userdata('login_flag') == 0 && $menu_name['menuName'] != 'Forms') {
+                                if ($this->session->userdata('login_flag') == 0 && $group_id != 1 && $menu_name['menuName'] != 'Forms') {
                                     echo 'class=notallow cursor-notallowed';
                                 }
                                 ?> >
@@ -110,7 +112,7 @@ $login_flag = $this->session->userdata('login_flag');
                                         </span>
                                     </a>
                                     <?php
-                                    if ($this->session->userdata('login_flag') == 0) {
+                                    if ($this->session->userdata('login_flag') == 0 && $this->session->userdata('group_id') == 1) {
                                         
                                     } else {
                                         if ($menu_name['menuName'] != 'Masters' && $this->session->userdata('group_id') != 1) {
@@ -131,7 +133,7 @@ $login_flag = $this->session->userdata('login_flag');
                                                 }
                                                 ?>
                                             </ul> 
-                                            <?php } else {
+                                        <?php } elseif ($this->session->userdata('group_id') == 1) {
                                             ?>
                                             <ul class="nav child_menu">
                                                 <?php
@@ -149,7 +151,7 @@ $login_flag = $this->session->userdata('login_flag');
                                                 }
                                                 ?>
                                             </ul> 
-                                        <?php
+                                            <?php
                                         }
                                     }
                                     ?>
@@ -194,9 +196,9 @@ if ($login_flag == 0 && $login_flag != '') {
             $(".notallow a").removeAttr("href");
             $(".notallow a").css("cursor", "not-allowed");
             $(".notallow a").addClass('not-allowed');
-    //            $(".navbar a").removeAttr("href");
-    //            $(".navbar a").css("cursor", "not-allowed");
-    //            $(".navbar a").addClass('not-allowed');
+            //            $(".navbar a").removeAttr("href");
+            //            $(".navbar a").css("cursor", "not-allowed");
+            //            $(".navbar a").addClass('not-allowed');
         });
     </script>
 <?php } ?> 

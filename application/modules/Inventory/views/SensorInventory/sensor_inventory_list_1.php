@@ -1,3 +1,9 @@
+<style>
+    .item-table form {
+    float: none !important;
+    margin-right: 5px;
+}
+</style>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -27,7 +33,8 @@
                 <div class="x_content" id="sensor-inventory-list">
                     <table id="datatable" class="table table-striped table-bordered item-table" >
                         <thead>
-                            <tr><th>Sr.No</th>
+                            <tr>
+                                <th>Sr.No</th>
                                 <th>Sensor_Num</th>
                                 <th>Device_Num</th>
                                 <th>Sensor_Type</th>                          
@@ -67,8 +74,8 @@
                                                     <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                         <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                     </a>
-                                                </form>&nbsp;
-
+                                                </form>
+                                                <?php if($inventory_list['isactive'] == 1 && $inventory_list['isactive'] != "") { ?>&nbsp;
                                                 <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
                                                     <input type="hidden" value="<?php echo $inventory_list['device_sensor_mapping_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
                                                     <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
@@ -102,7 +109,10 @@
                                                     <?php } ?>
 
                                                 </form> &nbsp; 
-
+                                                <?php } else { ?> &nbsp;
+                                                 <a title="Please first active the sensor" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the sensor"> <i class="fa fa-dashboard text-success not-allowed"></i></a>
+                                                <a title="Please first active the sensor" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the sensor"> <i class="fa fa-gears text-warning not-allowed"></i></a>
+                                                &nbsp;<?php } ?>
                                                 <form action="<?php echo base_url(); ?>Sensor_inventory_list" method="post" id="updateasset<?php echo $i; ?>">
                                                     <input type="hidden" value="<?php echo $inventory_list['id']; ?>" name="id"/>
                                                     <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
@@ -118,7 +128,7 @@
                             } else {
                                 ?>
                                 <tr>
-                                    <td>No data found..!</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>  
+                                    <td>No data found..!</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td> 
                                 </tr>
                                 <?php
                             }

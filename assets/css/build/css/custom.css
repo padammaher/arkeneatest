@@ -4739,6 +4739,27 @@ cursor: not-allowed;
     text-align: center !important;
 }
 
+#tags {
+    float: left;
+    border: 1px solid #ccc;
+    padding: 0 !important;
+    width: 100%;
+}
+
+#tags input {
+    background: none !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 6px 12px !important;
+    width: auto !important;
+    float: left;
+}
+
+.item-table form {
+    float: left;
+    margin-right: 5px;
+}
+
 @-webkit-keyframes fadeIn {
     from {
         -webkit-transform: scale(0.5);
@@ -4803,6 +4824,19 @@ cursor: not-allowed;
         transform: translateY(0px);
     }
 }
+
+
+@media screen and (max-width: 1024px) {
+    
+    ul.to_do span {
+    margin-top: -6px;
+    display: block;
+    float: none;
+    margin-top: 3px;
+}
+    
+}
+
 
 @media screen and (max-width: 768px) {
     .datehold {

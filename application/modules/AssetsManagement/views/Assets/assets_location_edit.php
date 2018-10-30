@@ -45,7 +45,7 @@ $back_action = $this->input->post('back_action');
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Address</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Address *</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <textarea name="asset_address" class="form-control" rows="2" style="resize: vertical;" placeholder="Enter Address" required="required"><?php echo set_value('asset_address', $asset_location_data['address']); ?></textarea>
                             </div>
@@ -56,13 +56,14 @@ $back_action = $this->input->post('back_action');
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Latitude</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="asset_lat"  id="asset_lat"  class="form-control" value="<?php echo set_value('asset_lat', $asset_location_data['latitude']); ?>" placeholder="Enter Latitude" required="required" onchange="CheckDecimallatitude(Add_Task.asset_lat)">
+                                <input type="text" name="asset_lat"  id="asset_lat"  class="form-control" value="<?php echo set_value('asset_lat', $asset_location_data['latitude']); ?>" placeholder="Enter Latitude" 
+                                onchange="CheckDecimallatitude(Add_Task.asset_lat)">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Longitude</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="asset_long" id="asset_long" class="form-control" value="<?php echo set_value('asset_long', $asset_location_data['longitude']); ?>" placeholder="Enter Longitude" required="required" onchange="CheckDecimalLongitude(Add_Task.asset_long)">
+                                <input type="text" name="asset_long" id="asset_long" class="form-control" value="<?php echo set_value('asset_long', $asset_location_data['longitude']); ?>" placeholder="Enter Longitude"  onchange="CheckDecimalLongitude(Add_Task.asset_long)">
                             </div>
                         </div>
                         <div class="item form-group">
