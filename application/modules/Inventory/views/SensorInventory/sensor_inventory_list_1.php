@@ -1,3 +1,9 @@
+<style>
+    .item-table form {
+    float: none !important;
+    margin-right: 5px;
+}
+</style>
 <div class="">
     <div class="page-title">
         <div class="title_left">

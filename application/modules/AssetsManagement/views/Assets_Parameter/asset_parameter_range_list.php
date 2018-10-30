@@ -1,3 +1,9 @@
+<style>
+    .item-table form {
+    float: none !important;
+    margin-right: 5px;
+}
+</style>
 <?php if(isset($parameter_range_info)){ $parameter_count=0; 
     foreach($parameter_range_info as $key)
     {  

@@ -1,3 +1,9 @@
+<style>
+    .item-table form {
+    float: none !important;
+    margin-right: 5px;
+}
+</style>
 <div class="row tile_count asset-stats">
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-map-marker"></i> Total Customer Location</span>
@@ -99,6 +105,7 @@
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['isactive'] == '1' ? "Active" : "In-active"; ?></td>
                                     <td>
                                         <div style="display: -webkit-inline-box;">
+                                            
                                             <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
@@ -109,7 +116,7 @@
         <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
         </a> -->
                                             </form>
-                                            <?php if($list['isactive'] == 1 && $list['isactive'] != "") { ?>&nbsp;
+                                            <?php if($list['isactive'] == '1' && $list['isactive'] != "" ) { ?>&nbsp;
                                             <form  action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
                                                 <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
