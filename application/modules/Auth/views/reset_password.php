@@ -109,10 +109,11 @@
             minlength: "Enter minimum 2 character",
             maxlength: "Enter maximum 50 character",
         },
+    
          new_confirm: {
-            required: "New Password should not be blank",
-            minlength: "Enter minimum 2 character",
-            maxlength: "Enter maximum 50 character",
+            required: "Confirm Password should not be blank",
+            minlength: "Enter minimum 8 character",
+            maxlength: "Enter maximum 18 character",
             equalTo:"Password Does Not Match"
         }
     },
