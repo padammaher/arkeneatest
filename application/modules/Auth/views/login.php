@@ -157,12 +157,23 @@
         $("#login_form").validate({
             rules: {
                 identity: {
-                    required: true
+                    required: true,
+                    email:true, 
                 },
                 password: {
                     required: true
                 }
             },
+             messages: {
+                    identity: {
+                        required: "Please enter valid email address",
+                        email: "Please enter valid email address",
+                       
+                    },
+                     password: {
+                        required: "Please enter a password",                       
+                    }
+                },
             errorElement: 'div',
             errorPlacement: function (error, element) {
                 var placement = $(element).data('error');
