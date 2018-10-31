@@ -75,6 +75,7 @@
 
                             <div>
                                <!--- <img src="<?php echo base_url() ?>assets/images/elogo.png">--->
+                                <img src="<?php echo base_url() ?>assets/images/elogo.png">
                                 <p>Copyright 2018 - ePhytionSee | All Rights Reserved</p>
                             </div>
                         </div>
