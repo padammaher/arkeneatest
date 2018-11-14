@@ -32,17 +32,21 @@
                     <section class="login_content">
                        <?php echo form_open('auth/reset_password/' . $code,array('id'=>'change_password_form'));?>
                         <h1>Change Password</h1>
+                        <div class="errorfornewpawword" id="errorfornewpawword"> </div>
+                         <div class="lgnErorr1"></div>
                         <div>
                             <label style="color: white; font-style: normal;" for="new"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br />
 		<?php echo form_input($new_password);?>
-                            <div class="errorfornewpawword" id="errorfornewpawword"> </div>
-                            <div class="lgnErorr1"></div>
+                            
+                           
                         </div>
+                         
+                          <div class="errorfornewconfirmpawword" id="errornewcomparefield"> </div>
+                            <div class="lgnErorr2"></div>
                         <div> <label style="color: white; font-style: normal;" for="new_password">
                          <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm');?> </label><br />
 		    <?php echo form_input($new_password_confirm);?>
-                         <div class="errorfornewconfirmpawword" id="errornewcomparefield"> </div>
-                            <div class="lgnErorr2"></div>
+                        
                         </div>
                         <div>
                             <?php echo form_input($user_id);?>
@@ -101,14 +105,15 @@
     },
     messages: {
         new: {
-            required: "Please Enter New Password",
+            required: "Password should not be blank",
             minlength: "Enter minimum 2 character",
             maxlength: "Enter maximum 50 character",
         },
+    
          new_confirm: {
-            required: "Please Enter New Password",
-            minlength: "Enter minimum 2 character",
-            maxlength: "Enter maximum 50 character",
+            required: "Confirm Password should not be blank",
+            minlength: "Enter minimum 8 character",
+            maxlength: "Enter maximum 18 character",
             equalTo:"Password Does Not Match"
         }
     },

@@ -37,10 +37,11 @@
                         <br>
                         <?php echo form_open("auth/forgot_password",array('id'=>'sendemail_forgot_password')); ?>
                         <h1>Forgot Password</h1>
+                         <div class="errorEmailfield"></div>
                         <div>
                             
                             <?php echo form_input($identity); ?>
-                            <div class="errorEmailfield"></div>
+                           
                         </div>
                         <div>
                             <button class="btn btn-default submit" type="submit">Submit</button> 
@@ -54,6 +55,8 @@
 
                             <div>
                                <!-- <img src="<?php echo base_url() ?>assets/images/elogo.png">-->
+                                
+                                <img src="<?php echo base_url() ?>assets/images/elogo.png">
                                 <p>Copyright 2018 - ePhytionSee | All Rights Reserved</p>
                             </div>
                         </div>
@@ -94,8 +97,8 @@
     },
     messages: {
         identity: {
-            required: "Please Enter Email Id",
-            email: "please Enter Valid Email",
+            required: "Email Id can not be blank",
+            email: "Please enter valid email Id",
         }
             
         },

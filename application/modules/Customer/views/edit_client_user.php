@@ -72,7 +72,7 @@
                         </div>	
                         <?php } ?>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> </span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <?php echo $isactive=set_value('status');
                                 $active='';

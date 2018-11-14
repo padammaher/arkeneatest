@@ -4760,6 +4760,12 @@ cursor: not-allowed;
     margin-right: 5px;
 }
 
+.error {
+    color: red;
+    text-decoration: none;
+    text-shadow: none;
+}
+
 @-webkit-keyframes fadeIn {
     from {
         -webkit-transform: scale(0.5);
@@ -4842,6 +4848,43 @@ cursor: not-allowed;
     .datehold {
         display: none !important;
     }
+    
+    .page-title .title_right {
+        width: 100%;
+    }
+    
+    .page-title .title_left span {
+        margin-left: 0;
+        border: none;
+        line-height: 26px;
+    }
+    
+    .page-title .title_right .pull-right {
+    margin: 0 0 10px 0;
+    width: 100%;
+    }
+    
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 10px 6px;
+}
+
+.flex-item a {
+    padding: 5px 2px;
+}
+
+.ln_solid {
+    float: left;
+}
+    
+.form-control.has-feedback-left {
+    padding-left: 12.5%;
+}
+
+.x_panel .item .btn {
+    float:right;
+}
+
+
 
 }
 
