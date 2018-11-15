@@ -52,15 +52,17 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                <select class="form-control" name="uom" id="uom" >
+                                <select class="form-control" name="uom" id="uom" required="required">
                                     <option value=''>Select UOM</option>
-                                    <?php foreach ($uom_data as $um) { if($um['isactive']==1){ ?> 
-                                        <option value="<?php echo $um['id']; ?>" <?php
-                                                if (isset($asset_detail[0]->uom)) {
-                                                    echo ($um['id'] == $asset_detail[0]->uom) ? 'selected' : '';
-                                                }
-                                                ?> ><?php echo $um['name']; ?> </option>
-                                    <?php } } ?> 
+                                    <?php foreach ($uom_data as $um) {
+                                        if ($um['isactive'] == 1) { ?> 
+                                            <option value="<?php echo $um['id']; ?>" <?php
+                                            if (isset($asset_detail[0]->uom)) {
+                                                echo ($um['id'] == $asset_detail[0]->uom) ? 'selected' : '';
+                                            }
+                                            ?> ><?php echo $um['name']; ?> </option>
+    <?php }
+} ?> 
                                 </select>
                             </div>
                         </div>
@@ -111,345 +113,352 @@
                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
                                 <label class="">
                                     <!-- <div class="icheckbox_flat-green checked" style="position: relative;"> </div></label> -->
-                                <?php  $isactive=set_value('rule_status');
-                                // print_r($asset_detail[0]->rule_status);
-                                //  $asset_detail[0]->rule_status;
-                                // $active='';
-                                // if(isset($asset_detail[0]->rule_status)  && $asset_detail[0]->rule_status == 1 && empty($isactive))
-                                // {
-                                //     $active='checked'; 
-                                // }else if(!empty($isactive))
-                                //       { $isactive=="on" ? 'checked':''; $active=$isactive;}
-                                       ?>
-
-                                <?php  $isactive=set_value('rule_status');
-                                $active='';
-                                if(isset($asset_detail[0]->rule_status)
-                                 && $asset_detail[0]->rule_status == 1 && empty($isactive))
-                                {
-                                    $active='checked';
-                                }else{
-                                    $active='';
-                                }
-                                
-                                if(!empty($isactive))
-                                      { $isactive='checked'; $active=$isactive; }
-                                  else if(!isset($asset_detail[0]->rule_status) && empty($isactive))
-                                  {
-                                    $isactive="checked";$active=$isactive;
-                                  }
-                                      
-                                  ?>
-                                        <input name="rule_status" id="rule_status" type="checkbox" class="flat" <?php echo $active; ?> > Active
-                                    </div> 
-                                <!-- </label> -->
-                            </div>
-                        </div>
-                        <!-- <div class="ln_solid"> -->
-                        <!-- </div> -->
-                        <div class="item form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" id="submit_asset_rule" class="btn btn-primary">
                                     <?php
-                                    if (isset($asset_detail[0]->id)) {
-                                        echo "Update";
+                                    $isactive = set_value('rule_status');
+                                    // print_r($asset_detail[0]->rule_status);
+                                    //  $asset_detail[0]->rule_status;
+                                    // $active='';
+                                    // if(isset($asset_detail[0]->rule_status)  && $asset_detail[0]->rule_status == 1 && empty($isactive))
+                                    // {
+                                    //     $active='checked'; 
+                                    // }else if(!empty($isactive))
+                                    //       { $isactive=="on" ? 'checked':''; $active=$isactive;}
+                                    ?>
+
+                                    <?php
+                                    $isactive = set_value('rule_status');
+                                    $active = '';
+                                    if (isset($asset_detail[0]->rule_status) && $asset_detail[0]->rule_status == 1 && empty($isactive)) {
+                                        $active = 'checked';
                                     } else {
-                                        echo "Save";
+                                        $active = '';
+                                    }
+
+                                    if (!empty($isactive)) {
+                                        $isactive = 'checked';
+                                        $active = $isactive;
+                                    } else if (!isset($asset_detail[0]->rule_status) && empty($isactive)) {
+                                        $isactive = "checked";
+                                        $active = $isactive;
                                     }
                                     ?>
-                                </button>
-                                <a href="<?php echo base_url() ?>Asset_Rule_list">
-                                    <button type="button" class="btn btn-default">Cancel
-                                    </button>
-                                </a>
+                                    <input name="rule_status" id="rule_status" type="checkbox" class="flat" <?php echo $active; ?> > Active
+                                    </div> 
+                                    <!-- </label> -->
+                                    </div>
+                                    </div>
+                                    <!-- <div class="ln_solid"> -->
+                                    <!-- </div> -->
+                                    <div class="item form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <button type="submit" id="submit_asset_rule" class="btn btn-primary">
+                                                <?php
+                                                if (isset($asset_detail[0]->id)) {
+                                                    echo "Update";
+                                                } else {
+                                                    echo "Save";
+                                                }
+                                                ?>
+                                            </button>
+                                            <a href="<?php echo base_url() ?>Asset_Rule_list">
+                                                <button type="button" class="btn btn-default">Cancel
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    </form>
                             </div>
                         </div>
-                </form>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<script>
-    $('#green_value').keypress(function (event) {
-        var keycode = event.which;
-        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-            event.preventDefault();
-        }
-    });
-    $('#orange_value').keypress(function (event) {
-        var keycode = event.which;
-        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-            event.preventDefault();
-        }
-    });
-    $('#red_value').keypress(function (event) {
-        var keycode = event.which;
-        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-            event.preventDefault();
-        }
-    });
-    
-//    function compare_rule_value() {
-//
-//        var green_value = document.getElementById("green_value").value;
-//        var orange_value = document.getElementById("orange_value").value;
-//        var red_value = document.getElementById("red_value").value;
-//
-//        var min_limit = '<?php
-                                    if (isset($paramete_limit)) {
-                                        echo $paramete_limit[0]['min_value'];
-                                    } else {
-                                        echo 1;
-                                    }
-                                    ?>//';
-//        var max_limit = '<?php
-                                    if (isset($paramete_limit)) {
-                                        echo $paramete_limit[0]['max_value'];
-                                    } else {
-                                        echo 1;
-                                    }
-                                    ?>//';
-//        if (parseInt(green_value) < min_limit || parseInt(green_value) > max_limit) {
-//            $('#green_error').html('Please add Values within the Max & Min value');
-//            $("#submit_asset_rule").prop("disabled", true);
-//        } else if (parseInt(orange_value) < min_limit || parseInt(orange_value) > max_limit) {
-//            $('#green_error').html('');
-//            $('#orange_error').html('Please add Values within the Max & Min value');
-//            $("#submit_asset_rule").prop("disabled", true);
-//        } else if (parseInt(red_value) < min_limit || parseInt(red_value) > max_limit) {
-//            $('#orange_error').html('');
-//            $('#red_error').html('Please add Values within the Max & Min value');
-//            $("#submit_asset_rule").prop("disabled", true);
-//        } else if (green_value && orange_value && red_value) {
-//            if (parseInt(green_value) >= parseInt(orange_value)) {
-//                $('#orange_error').html('please add value greter than green value ');
-//                $("#submit_asset_rule").prop("disabled", true);
-//            } else {
-//                $("#submit_asset_rule").prop("disabled", false);
-//                $('#orange_error').html("");
-//            }
-//            if (parseInt(orange_value) >= parseInt(red_value)) {
-//                $("#submit_asset_rule").prop("disabled", true);
-//                $('#red_error').html('please add value greter than orange value ');
-//            } else {
-//                $('#red_error').html('');
-//                $("#submit_asset_rule").prop("disabled", false);
-//            }
-//
-//        } else if (green_value && orange_value) {
-//            if (parseInt(green_value) >= parseInt(orange_value)) {
-//                $("#submit_asset_rule").prop("disabled", true);
-//                $('#orange_error').html('please add value greter than green value');
-//            } else {
-//                $('#orange_error').html("");
-//                $("#submit_asset_rule").prop("disabled", false);
-//            }
-//        } else if (red_value) {
-//            $("#submit_asset_rule").prop("disabled", true);
-//            $('#red_error').html('please add green value,orange value then add red value ');
-//        } else if (green_value) {
-//            $("#submit_asset_rule").prop("disabled", false);
-//            $('#green_error').html('');
-//        }
-//    }
+        <script>
+            $('#green_value').keypress(function (event) {
+                var keycode = event.which;
+                if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+                    event.preventDefault();
+                }
+            });
+            $('#orange_value').keypress(function (event) {
+                var keycode = event.which;
+                if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+                    event.preventDefault();
+                }
+            });
+            $('#red_value').keypress(function (event) {
+                var keycode = event.which;
+                if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+                    event.preventDefault();
+                }
+            });
 
-// $('#add_asset').on('submit', function() {
-//    
-//        var green_value = document.getElementById("green_value").value;
-//        var orange_value = document.getElementById("orange_value").value;
-//        var red_value = document.getElementById("red_value").value;
-//        var err = 0;
-//         var min_limit = '<?php
-                                    if (isset($paramete_limit)) {
-                                        echo $paramete_limit[0]['min_value'];
-                                    } else {
-                                        echo 1;
-                                    }
-                                    ?>//';
-//        var max_limit = '<?php
-                                    if (isset($paramete_limit)) {
-                                        echo $paramete_limit[0]['max_value'];
-                                    } else {
-                                        echo 1;
-                                    }
-                                    ?>//';
-//                                            
-//        if(parseInt(green_value)<min_limit||parseInt(green_value)>max_limit){
-//               $('#green_error').html('Please add Values within the Max & Min value');
-//               err=1;
-//        }else{
-//             $('#green_error').html("");
-//        }
-//        if(parseInt(orange_value)<parseInt(green_value))
-//        {
-//             err=1;
-//            $('#orange_error').html('please add value greter than green value ');
-//        }else if(parseInt(orange_value)<min_limit||parseInt(orange_value)>max_limit){
-//            $('#orange_error').html('please add value greter than green value ');
-//             err=1;
-//        }else{
-//             $('#orange_error').html("");
-//        }
-//        if(parseInt(red_value)<parseInt(orange_value)){
-//             err=1;
-//            $('#red_error').html('please add green value,orange value then add red value ');
-//        }if(parseInt(red_value)<min_limit||parseInt(red_value)>max_limit){
-//             err=1;
-//            $('#red_error').html('please add green value,orange value then add red value ');
-//        }else{
-//           $('#red_error').html("");
-//        }
-//        if(parseInt(red_value)<parseInt(green_value)){
-//             err=1;
-//           $('#red_error').html('please add green value,orange value then add red value ');
-//        }else{
-//            $('#red_error').html("");
-//        }
-//       if(err==1){
-//           alert(err);
-//             return false;
-//        }
-//        
-// });
-// 
- var rederr = 0; 
- var grrenerr = 0;
- var orange = 0; 
-$(document).ready(function(){
-   
-   
-   
-      var min_limit = '<?php
-                                    if (isset($paramete_limit)) {
-                                        echo $paramete_limit[0]['min_value'];
-                                    } else {
-                                        echo 1;
-                                    }
-                                    ?>';
-        var max_limit = '<?php
-                                    if (isset($paramete_limit)) {
-                                        echo $paramete_limit[0]['max_value'];
-                                    } else {
-                                        echo 1;
-                                    }
-                                    ?>';
-    $("#green_value").focusout(function(){
-        var green_value = document.getElementById("green_value").value;
-        var orange_value = document.getElementById("orange_value").value;
-        var red_value = document.getElementById("red_value").value;
-         var err = 0;
-       if(parseInt(green_value)<min_limit||parseInt(green_value)>max_limit){
-           err = 1;
-             grrenerr = 1;
-             $("#submit_asset_rule").prop("disabled", true);
-               $('#green_error').html('Please add Values within the min '+min_limit+' & Max'+ max_limit +' value');
-        }
-       if(orange_value)
-        if(parseInt(orange_value)<=parseInt(green_value)){
-            err = 1;
-             grrenerr = 1;
-             $("#submit_asset_rule").prop("disabled", true);
-            $('#green_error').html('please add value less than orange value');
-       }
-       if(red_value)
-       if(parseInt(red_value)<=parseInt(green_value)){
-           err = 1;
-            grrenerr = 1;
-            $("#submit_asset_rule").prop("disabled", true);
-            $('#green_error').html('please add value less than red value');
-       }
-       if(err==0&&green_value){
-           $("#submit_asset_rule").prop("disabled", false);
-            $('#green_error').html("");
-             grrenerr = 0;
-       }
-       if(rederr == 0&&grrenerr == 0&&orange == 0){
-            $("#submit_asset_rule").prop("disabled", false);
-       }else{
-            $("#submit_asset_rule").prop("disabled", true);
-       }
-       
-    });
-    
-     $("#orange_value").focusout(function(){
-        var green_value = document.getElementById("green_value").value;
-        var orange_value = document.getElementById("orange_value").value;
-        var red_value = document.getElementById("red_value").value;
-          var err = 0;
-       if(parseInt(orange_value)<min_limit||parseInt(orange_value)>max_limit){
-           orange = 1;
-            $("#submit_asset_rule").prop("disabled", true);
-             var err = 1;
-               $('#orange_error').html('Please add Values within the min '+min_limit+' & Max'+ max_limit +' value');
-        }
-        
-       if(green_value)
-        if(parseInt(orange_value)<=parseInt(green_value)){
-             var err = 1; orange = 1;
-             $("#submit_asset_rule").prop("disabled", true);
-            $('#orange_error').html('please add value greter than green value');
-       }
-       if(red_value)
-       if(parseInt(red_value)<=parseInt(green_value)){
-            var err = 1; orange = 1;
-            $("#submit_asset_rule").prop("disabled", true);
-            $('#orange_error').html('please add value less than red value');
-       }
-       if(err==0&&orange_value){ orange = 0;
-             $("#submit_asset_rule").prop("disabled", false);
-            $('#orange_error').html("");
-       }
-      
-       if(rederr ==0&&grrenerr == 0&&orange == 0){
-            $("#submit_asset_rule").prop("disabled", false);
-       }else{
-            $("#submit_asset_rule").prop("disabled", true);
-       }
-    });
-    
-    $("#red_value").focusout(function(){
-        var err = 0;
-        
-        var green_value = document.getElementById("green_value").value;
-        var orange_value = document.getElementById("orange_value").value;
-        var red_value = document.getElementById("red_value").value;
-         
-       if(parseInt(red_value)<min_limit||parseInt(red_value)>max_limit){
-           var err = 1; rederr = 1;
-            $("#submit_asset_rule").prop("disabled", true);
-               $('#red_error').html('Please add Values within the min '+min_limit+' & Max'+ max_limit +' value');
-        }
-       if(green_value)
-        if(parseInt(red_value)<=parseInt(green_value)){
-           var err = 1;   rederr = 1;
-            $("#submit_asset_rule").prop("disabled", true);
-            $('#red_error').html('please add value greter than green value');
-       }
-       if(orange_value)
-       if(parseInt(red_value)<=parseInt(orange_value)){
-           var err = 1; rederr = 1;
-            $("#submit_asset_rule").prop("disabled", true);
-            $('#red_error').html('please add value greter than orange value');
-       }
-       if(err==0 &&red_value){ rederr = 0;
-           $("#submit_asset_rule").prop("disabled", false);
-            $('#red_error').html("");
-       }
-       
-       if(rederr == 0&&grrenerr == 0&&orange == 0){
-            $("#submit_asset_rule").prop("disabled", false);
-       }else{
-            $("#submit_asset_rule").prop("disabled", true);
-       }
-       
-    });
-});
- 
+        //    function compare_rule_value() {
+        //
+        //        var green_value = document.getElementById("green_value").value;
+        //        var orange_value = document.getElementById("orange_value").value;
+        //        var red_value = document.getElementById("red_value").value;
+        //
+        //        var min_limit = '<?php
+                                                if (isset($paramete_limit)) {
+                                                    echo $paramete_limit[0]['min_value'];
+                                                } else {
+                                                    echo 1;
+                                                }
+                                                ?>//';
+        //        var max_limit = '<?php
+                                                if (isset($paramete_limit)) {
+                                                    echo $paramete_limit[0]['max_value'];
+                                                } else {
+                                                    echo 1;
+                                                }
+                                                ?>//';
+        //        if (parseInt(green_value) < min_limit || parseInt(green_value) > max_limit) {
+        //            $('#green_error').html('Please add Values within the Max & Min value');
+        //            $("#submit_asset_rule").prop("disabled", true);
+        //        } else if (parseInt(orange_value) < min_limit || parseInt(orange_value) > max_limit) {
+        //            $('#green_error').html('');
+        //            $('#orange_error').html('Please add Values within the Max & Min value');
+        //            $("#submit_asset_rule").prop("disabled", true);
+        //        } else if (parseInt(red_value) < min_limit || parseInt(red_value) > max_limit) {
+        //            $('#orange_error').html('');
+        //            $('#red_error').html('Please add Values within the Max & Min value');
+        //            $("#submit_asset_rule").prop("disabled", true);
+        //        } else if (green_value && orange_value && red_value) {
+        //            if (parseInt(green_value) >= parseInt(orange_value)) {
+        //                $('#orange_error').html('please add value greter than green value ');
+        //                $("#submit_asset_rule").prop("disabled", true);
+        //            } else {
+        //                $("#submit_asset_rule").prop("disabled", false);
+        //                $('#orange_error').html("");
+        //            }
+        //            if (parseInt(orange_value) >= parseInt(red_value)) {
+        //                $("#submit_asset_rule").prop("disabled", true);
+        //                $('#red_error').html('please add value greter than orange value ');
+        //            } else {
+        //                $('#red_error').html('');
+        //                $("#submit_asset_rule").prop("disabled", false);
+        //            }
+        //
+        //        } else if (green_value && orange_value) {
+        //            if (parseInt(green_value) >= parseInt(orange_value)) {
+        //                $("#submit_asset_rule").prop("disabled", true);
+        //                $('#orange_error').html('please add value greter than green value');
+        //            } else {
+        //                $('#orange_error').html("");
+        //                $("#submit_asset_rule").prop("disabled", false);
+        //            }
+        //        } else if (red_value) {
+        //            $("#submit_asset_rule").prop("disabled", true);
+        //            $('#red_error').html('please add green value,orange value then add red value ');
+        //        } else if (green_value) {
+        //            $("#submit_asset_rule").prop("disabled", false);
+        //            $('#green_error').html('');
+        //        }
+        //    }
 
-</script>
-<style>
-    .required{
-        color:greay; 
-    }
-</style>
+        // $('#add_asset').on('submit', function() {
+        //    
+        //        var green_value = document.getElementById("green_value").value;
+        //        var orange_value = document.getElementById("orange_value").value;
+        //        var red_value = document.getElementById("red_value").value;
+        //        var err = 0;
+        //         var min_limit = '<?php
+                                                if (isset($paramete_limit)) {
+                                                    echo $paramete_limit[0]['min_value'];
+                                                } else {
+                                                    echo 1;
+                                                }
+                                                ?>//';
+        //        var max_limit = '<?php
+                                                if (isset($paramete_limit)) {
+                                                    echo $paramete_limit[0]['max_value'];
+                                                } else {
+                                                    echo 1;
+                                                }
+                                                ?>//';
+        //                                            
+        //        if(parseInt(green_value)<min_limit||parseInt(green_value)>max_limit){
+        //               $('#green_error').html('Please add Values within the Max & Min value');
+        //               err=1;
+        //        }else{
+        //             $('#green_error').html("");
+        //        }
+        //        if(parseInt(orange_value)<parseInt(green_value))
+        //        {
+        //             err=1;
+        //            $('#orange_error').html('please add value greter than green value ');
+        //        }else if(parseInt(orange_value)<min_limit||parseInt(orange_value)>max_limit){
+        //            $('#orange_error').html('please add value greter than green value ');
+        //             err=1;
+        //        }else{
+        //             $('#orange_error').html("");
+        //        }
+        //        if(parseInt(red_value)<parseInt(orange_value)){
+        //             err=1;
+        //            $('#red_error').html('please add green value,orange value then add red value ');
+        //        }if(parseInt(red_value)<min_limit||parseInt(red_value)>max_limit){
+        //             err=1;
+        //            $('#red_error').html('please add green value,orange value then add red value ');
+        //        }else{
+        //           $('#red_error').html("");
+        //        }
+        //        if(parseInt(red_value)<parseInt(green_value)){
+        //             err=1;
+        //           $('#red_error').html('please add green value,orange value then add red value ');
+        //        }else{
+        //            $('#red_error').html("");
+        //        }
+        //       if(err==1){
+        //           alert(err);
+        //             return false;
+        //        }
+        //        
+        // });
+        // 
+            var rederr = 0;
+            var grrenerr = 0;
+            var orange = 0;
+            $(document).ready(function () {
+
+
+
+                var min_limit = '<?php
+                                                if (isset($paramete_limit)) {
+                                                    echo $paramete_limit[0]['min_value'];
+                                                } else {
+                                                    echo 1;
+                                                }
+                                                ?>';
+                var max_limit = '<?php
+                                                if (isset($paramete_limit)) {
+                                                    echo $paramete_limit[0]['max_value'];
+                                                } else {
+                                                    echo 1;
+                                                }
+                                                ?>';
+                $("#green_value").focusout(function () {
+                    var green_value = document.getElementById("green_value").value;
+                    var orange_value = document.getElementById("orange_value").value;
+                    var red_value = document.getElementById("red_value").value;
+                    var err = 0;
+                    if (parseInt(green_value) < min_limit || parseInt(green_value) > max_limit) {
+                        err = 1;
+                        grrenerr = 1;
+                        $("#submit_asset_rule").prop("disabled", true);
+                        $('#green_error').html('Please add Values within the min ' + min_limit + ' & Max' + max_limit + ' value');
+                    }
+                    if (orange_value)
+                        if (parseInt(orange_value) <= parseInt(green_value)) {
+                            err = 1;
+                            grrenerr = 1;
+                            $("#submit_asset_rule").prop("disabled", true);
+                            $('#green_error').html('please add value less than orange value');
+                        }
+                    if (red_value)
+                        if (parseInt(red_value) <= parseInt(green_value)) {
+                            err = 1;
+                            grrenerr = 1;
+                            $("#submit_asset_rule").prop("disabled", true);
+                            $('#green_error').html('please add value less than red value');
+                        }
+                    if (err == 0 && green_value) {
+                        $("#submit_asset_rule").prop("disabled", false);
+                        $('#green_error').html("");
+                        grrenerr = 0;
+                    }
+                    if (rederr == 0 && grrenerr == 0 && orange == 0) {
+                        $("#submit_asset_rule").prop("disabled", false);
+                    } else {
+                        $("#submit_asset_rule").prop("disabled", true);
+                    }
+
+                });
+
+                $("#orange_value").focusout(function () {
+                    var green_value = document.getElementById("green_value").value;
+                    var orange_value = document.getElementById("orange_value").value;
+                    var red_value = document.getElementById("red_value").value;
+                    var err = 0;
+                    if (parseInt(orange_value) < min_limit || parseInt(orange_value) > max_limit) {
+                        orange = 1;
+                        $("#submit_asset_rule").prop("disabled", true);
+                        var err = 1;
+                        $('#orange_error').html('Please add Values within the min ' + min_limit + ' & Max' + max_limit + ' value');
+                    }
+
+                    if (green_value)
+                        if (parseInt(orange_value) <= parseInt(green_value)) {
+                            var err = 1;
+                            orange = 1;
+                            $("#submit_asset_rule").prop("disabled", true);
+                            $('#orange_error').html('please add value greter than green value');
+                        }
+                    if (red_value)
+                        if (parseInt(red_value) <= parseInt(green_value)) {
+                            var err = 1;
+                            orange = 1;
+                            $("#submit_asset_rule").prop("disabled", true);
+                            $('#orange_error').html('please add value less than red value');
+                        }
+                    if (err == 0 && orange_value) {
+                        orange = 0;
+                        $("#submit_asset_rule").prop("disabled", false);
+                        $('#orange_error').html("");
+                    }
+
+                    if (rederr == 0 && grrenerr == 0 && orange == 0) {
+                        $("#submit_asset_rule").prop("disabled", false);
+                    } else {
+                        $("#submit_asset_rule").prop("disabled", true);
+                    }
+                });
+
+                $("#red_value").focusout(function () {
+                    var err = 0;
+
+                    var green_value = document.getElementById("green_value").value;
+                    var orange_value = document.getElementById("orange_value").value;
+                    var red_value = document.getElementById("red_value").value;
+
+                    if (parseInt(red_value) < min_limit || parseInt(red_value) > max_limit) {
+                        var err = 1;
+                        rederr = 1;
+                        $("#submit_asset_rule").prop("disabled", true);
+                        $('#red_error').html('Please add Values within the min ' + min_limit + ' & Max' + max_limit + ' value');
+                    }
+                    if (green_value)
+                        if (parseInt(red_value) <= parseInt(green_value)) {
+                            var err = 1;
+                            rederr = 1;
+                            $("#submit_asset_rule").prop("disabled", true);
+                            $('#red_error').html('please add value greter than green value');
+                        }
+                    if (orange_value)
+                        if (parseInt(red_value) <= parseInt(orange_value)) {
+                            var err = 1;
+                            rederr = 1;
+                            $("#submit_asset_rule").prop("disabled", true);
+                            $('#red_error').html('please add value greter than orange value');
+                        }
+                    if (err == 0 && red_value) {
+                        rederr = 0;
+                        $("#submit_asset_rule").prop("disabled", false);
+                        $('#red_error').html("");
+                    }
+
+                    if (rederr == 0 && grrenerr == 0 && orange == 0) {
+                        $("#submit_asset_rule").prop("disabled", false);
+                    } else {
+                        $("#submit_asset_rule").prop("disabled", true);
+                    }
+
+                });
+            });
+
+
+        </script>
+        <style>
+            .required{
+                color:greay; 
+            }
+        </style>

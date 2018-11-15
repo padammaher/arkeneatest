@@ -407,7 +407,6 @@ class Auth extends MY_Controller {
                 'placeholder' => 'Enter your email Id',
                 'class' => 'form-control browser-default',
                 'data-error' => '.errorEmailfield',
-                
             );
             if ($this->config->item('identity', 'ion_auth') != 'email') {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
@@ -470,7 +469,6 @@ class Auth extends MY_Controller {
                     'data-error' => '.errorfornewpawword',
                     'type' => 'password',
                     'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-                    
                 );
                 $this->data['new_password_confirm'] = array(
                     'name' => 'new_confirm',
@@ -479,7 +477,6 @@ class Auth extends MY_Controller {
                     'class' => 'form-control browser-default',
                     'data-error' => '.errorfornewconfirmpawword',
                     'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
-                    
                 );
                 $this->data['user_id'] = array(
                     'name' => 'user_id',
@@ -490,7 +487,7 @@ class Auth extends MY_Controller {
                 $this->data['csrf'] = $this->_get_csrf_nonce();
                 $this->data['code'] = $code;
                 $this->template->set_master_template('login_template.php');
-                $this->template->write_view('content', 'auth/reset_password', (isset($this->data) ? $this->data : NULL), TRUE);
+                $this->template->write_view('content', 'reset_password', (isset($this->data) ? $this->data : NULL), TRUE);
                 $this->template->write_view('footer', 'snippets/footer', '', TRUE);
                 $this->template->render();
             } else {

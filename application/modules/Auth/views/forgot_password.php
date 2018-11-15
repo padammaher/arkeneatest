@@ -35,14 +35,15 @@
                     <?php } ?> 
                     <section class="login_content">
                         <br>
-                        <?php echo form_open("auth/forgot_password",array('id'=>'sendemail_forgot_password')); ?>
+                        <?php echo form_open("auth/forgot_password", array('id' => 'sendemail_forgot_password')); ?>
                         <h1>Forgot Password</h1>
-                         <div class="errorEmailfield"></div>
+
                         <div>
-                            
+
                             <?php echo form_input($identity); ?>
-                           
+
                         </div>
+                        <div class="errorEmailfield"></div>
                         <div>
                             <button class="btn btn-default submit" type="submit">Submit</button> 
                             <?php echo form_close(); ?>
@@ -55,7 +56,7 @@
 
                             <div>
                                <!-- <img src="<?php echo base_url() ?>assets/images/elogo.png">-->
-                                
+
                                 <img src="<?php echo base_url() ?>assets/images/elogo.png">
                                 <p>Copyright 2018 - ePhytionSee | All Rights Reserved</p>
                             </div>
@@ -68,48 +69,55 @@
     </body>
 </html>
 
- <script src="<?php echo base_url('assets/css/jquery/dist/jquery.min.js'); ?>" type="text/javascript"></script>
- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>   
- <script>
-        $(document).ready(function () {
-            $("#error_msg").css("display", "none");
-        <?php if ($this->session->flashdata('error_message')) { ?>
-                         $("#error_msg").css("display", "block");
-                        setTimeout(function () {
-                            $('#error_msg').fadeOut('fast');
+<script src="<?php echo base_url('assets/css/jquery/dist/jquery.min.js'); ?>" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>   
+<script>
+    $(document).ready(function () {
+        $("#error_msg").css("display", "none");
+<?php if ($this->session->flashdata('error_message')) { ?>
+            $("#error_msg").css("display", "block");
+            setTimeout(function () {
+                $('#error_msg').fadeOut('fast');
 
-                        }, 3000);
-        <?php } ?>
-        });
-    </script>
+            }, 3000);
+<?php } ?>
+    });
+</script>
 <style> 
     .error{
         color: red; 
     }
-    </style>
+    .errorEmailfield{
+        margin-bottom: 20px;
+        text-align: left;
+    }
+    /*    #identity{
+            margin-bottom: 10px !important;
+        }*/
+</style>
 <script type="text/javascript">
     $("#sendemail_forgot_password").validate({
-    rules: {
-        identity: {
-            required: true,
-            email:true 
+        rules: {
+            identity: {
+                required: true,
+                email: true
+            },
         },
-    },
-    messages: {
-        identity: {
-            required: "Email Id can not be blank",
-            email: "Please enter valid email Id",
-        }
-            
+        messages: {
+            identity: {
+                required: "Email Id can not be blank",
+                email: "Please enter valid email Id",
+            }
+
         },
-    errorElement: 'div',
-    errorPlacement: function (error, element) {
-        var placement = $(element).data('error');
-        if (placement) {
-            $(placement).append(error)
-        } else {
-            error.insertAfter(element);
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
         }
-    }
-});
+    });
 </script>

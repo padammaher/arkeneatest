@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
-        
+
 
         <title>Change Password</title>
 
@@ -19,38 +19,38 @@
             <a class="hiddenanchor" id="signin"></a>
 
             <div class="login_wrapper">
-                  
+
                 <div class="animate form login_form">
-                  <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
-                                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                <strong></strong> <?php
-                                if ($this->session->flashdata('message')) {
-                                    echo $this->session->flashdata('message');
-                                }
-                                ?>
-                </div>      
+                    <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong></strong> <?php
+                        if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                        }
+                        ?>
+                    </div>      
                     <section class="login_content">
-                       <?php echo form_open('auth/reset_password/' . $code);?>
-                        <h1>Change Password</h1>
+                        <?php echo form_open('auth/reset_password/' . $code); ?>
+                        <h1>Change Password auth</h1>
                         <div>
-                            <label style="color: white; font-style: normal;" for="new"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br />
-		<?php echo form_input($new_password);?>
+                            <label style="color: white; font-style: normal;" for="new"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length); ?></label> <br />
+                            <?php echo form_input($new_password); ?>
                             <div id="errorpassword"> </div>
                             <div class="lgnErorr1"></div>
                         </div>
                         <div> <label style="color: white; font-style: normal;" for="new_password">
-                         <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm');?> </label><br />
-		    <?php echo form_input($new_password_confirm);?>
-                         <div id="errorpasswordmatch"> </div>
+                                <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm'); ?> </label><br />
+                            <?php echo form_input($new_password_confirm); ?>
+                            <div id="errorpasswordmatch"> </div>
                             <div class="lgnErorr2"></div>
                         </div>
                         <div>
-                            <?php echo form_input($user_id);?>
+                            <?php echo form_input($user_id); ?>
                             <?php echo form_hidden($csrf); ?>
-                            
-                            
+
+
                             <button id="resset_password" class="btn btn-default submit" type="submit">Submit</button> 
-                           
+
                         </div>
                         <div class="clearfix"></div>
 
@@ -59,7 +59,7 @@
                             <br />
 
                             <div>
-                               <!--- <img src="<?php echo base_url() ?>assets/images/elogo.png">-->
+                                <img src="<?php echo base_url() ?>assets/images/elogo.png">
                                 <p>Copyright 2018 - ePhytionSee | All Rights Reserved</p>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
     </body>
 </html>
 <script>
- $(document).ready(function () {
+    $(document).ready(function () {
         $('#new').focusout(function () {
             var str = $('#new').val();
             var upper_text = new RegExp('[A-Z]');
@@ -102,10 +102,10 @@
             var confirmPassword = $("#new_confirm").val();
             if (password != confirmPassword) {
                 $('#errorpasswordmatch').css("color", "red");
-                 $('#errorpasswordmatch').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'>Password Not Match</span> ");
+                $('#errorpasswordmatch').html("<span class='glyphicon glyphicon-remove' aria-hidden='true'>Password Not Match</span> ");
                 return false;
             }
-             $('#errorpasswordmatch').html("");
+            $('#errorpasswordmatch').html("");
             return true;
         });
     });

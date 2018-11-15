@@ -27,25 +27,25 @@
                             <strong>Success!</strong> <?php echo $this->session->flashdata('success_message'); ?>
                         </div>   
                     <?php } ?> 
-                     <?php if ($this->session->flashdata('error_message')) { ?>
+                    <?php if ($this->session->flashdata('error_message')) { ?>
                         <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                             <strong>failed!</strong> <?php echo $this->session->flashdata('error_message'); ?>
                         </div>   
                     <?php } ?> 
-                     <?php if ($message) { ?>
+                    <?php if ($message) { ?>
                         <div class="alert alert-danger fade in" id="server_msg" style="display: none;">
                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                             <strong>failed!</strong> <?php echo $message; ?>
                         </div>   
                     <?php } ?> 
-                       
+
                     <section class="login_content">
                         <?php echo form_open("auth/login", array('id' => 'login_form')); ?> 
                         <h1>Login Form</h1>
                         <div>
                             <?php echo form_input($identity); ?>
-                            <div class="lgnErorr1">
+                            <div class="lgnErorr1 customerr">
                                 <?php if (form_error('identity')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('identity'); ?></span>
                                 <?php } ?>
@@ -53,7 +53,7 @@
                         </div>
                         <div>
                             <?php echo form_input($password); ?>
-                            <div class="lgnErorr2">
+                            <div class="lgnErorr2 customerr">
                                 <?php if (form_error('password')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('password'); ?></span>
                                 <?php } ?>
@@ -128,53 +128,52 @@
         </div>
     </body>
     <script src="<?php echo base_url('assets/css/jquery/dist/jquery.min.js'); ?>" type="text/javascript"></script>
-     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script>
         $(document).ready(function () {
-            <?php if ($this->session->flashdata('error_message')) { ?>
+<?php if ($this->session->flashdata('error_message')) { ?>
                 $("#error_msg").css("display", "block");
                 setTimeout(function () {
                     $('#error_msg').fadeOut('fast');
 
                 }, 3000);
-              <?php } ?>
-               <?php if ($this->session->flashdata('success_message')) { ?>
+<?php } ?>
+<?php if ($this->session->flashdata('success_message')) { ?>
                 $("#sucess_msg").css("display", "block");
                 setTimeout(function () {
                     $('#sucess_msg').fadeOut('fast');
 
                 }, 3000);
-              <?php } ?>
-                  <?php if ($message) { ?>
+<?php } ?>
+<?php if ($message) { ?>
                 $("#server_msg").css("display", "block");
                 setTimeout(function () {
                     $('#server_msg').fadeOut('fast');
 
                 }, 3000);
-              <?php } ?>
-                  
+<?php } ?>
+
         });
-        
+
         $("#login_form").validate({
             rules: {
                 identity: {
                     required: true,
-                    email:true, 
+                    email: true,
                 },
                 password: {
                     required: true
                 }
             },
-             messages: {
-                    identity: {
-                        required: "Please enter valid email address",
-                        email: "Please enter valid email address",
-                       
-                    },
-                     password: {
-                        required: "Please enter a password",                       
-                    }
+            messages: {
+                identity: {
+                    required: "Please enter valid email address",
+                    email: "Please enter valid email address",
                 },
+                password: {
+                    required: "Please enter a password",
+                }
+            },
             errorElement: 'div',
             errorPlacement: function (error, element) {
                 var placement = $(element).data('error');
@@ -185,15 +184,19 @@
                 }
             }
         });
-        
-        
-        
-        
+
+
+
+
     </script>
     <style>
         .error{
             color: red;
         }
+        .customerr{
+            text-align: left;
+            margin-bottom: 10px;
+        }
     </style>
-    
+
 </html>

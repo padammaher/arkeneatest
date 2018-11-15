@@ -40,35 +40,36 @@
                                                 <option value="<?php echo $sensor_type_data['id']; ?>" <?php echo set_value('sensortype') == $sensor_type_data['id'] ? 'selected' : ''; ?> selected><?php echo $sensor_type_data['name']; ?></option>
                                             <?php } else { ?>                    
                                                 <option value="<?php echo $sensor_type_data['id']; ?>" <?php echo set_value('sensortype') == $sensor_type_data['id'] ? 'selected' : ''; ?> ><?php echo $sensor_type_data['name']; ?></option>
-                                            <?php }
+                                                <?php
+                                            }
                                         }
                                         ?>
                                     </select>                               
                                 </div>
                                 <?php if (form_error('sensortype')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('sensortype'); ?></span>
-    <?php } ?>
+                                <?php } ?>
                             </div> 
 
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Make *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="make" value="<?php echo set_value('make', $sensor_inventory_data['make']); ?>" class="form-control" placeholder="Seimens" required="required">
+                                    <input type="text" name="make" value="<?php echo set_value('make', $sensor_inventory_data['make']); ?>" class="form-control" placeholder="Enter Make" required="required">
                                 </div>
                                 <?php if (form_error('make')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('make'); ?></span>
-    <?php } ?>
+                                <?php } ?>
                             </div>
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Model *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="model" value="<?php echo set_value('model', $sensor_inventory_data['model']); ?>" class="form-control" placeholder="T001A" required="required">
+                                    <input type="text" name="model" value="<?php echo set_value('model', $sensor_inventory_data['model']); ?>" class="form-control" placeholder="Enter Model" required="required">
                                 </div>
                                 <?php if (form_error('model')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('model'); ?></span>
-    <?php } ?>
+                                <?php } ?>
                             </div>
 
                             <!--user wise location-->        
@@ -82,20 +83,20 @@
 //           if($deviceinventory_data['customer_location_id']) 
                                             ?>
                                             <option value="<?php echo $loc_list['id']; ?>" <?php echo (set_value('Customerlocation', $sensor_inventory_data['customer_location_id'])) == $loc_list['id'] ? 'selected' : ''; ?> ><?php echo $loc_list['location_name']; ?></option>
-                                <?php } ?>
+                                        <?php } ?>
 
                                     </select>
                                 </div>
                                 <?php if (form_error('Customerlocation')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Customerlocation'); ?></span>
-    <?php }
-    ?>
+                                <?php }
+                                ?>
                             </div>
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="description" value="<?php echo set_value('description', $sensor_inventory_data['description']); ?>" class="form-control" placeholder="Oil Temperature" required="required">
+                                    <input type="text" name="description" value="<?php echo set_value('description', $sensor_inventory_data['description']); ?>" class="form-control" placeholder="Enter Description">
                                 </div>
                             </div>
 
@@ -110,28 +111,29 @@
                                             if ($parameter_list_data['id'] == $sensor_inventory_data['parameter_tbl_id']) {
                                                 ?>
                                                 <option value="<?php echo $parameter_list_data['id']; ?>" <?php echo set_value('Parameter') == $parameter_list_data['id'] ? 'selected' : ''; ?> selected><?php echo $parameter_list_data['name']; ?></option>
-        <?php } else { ?>
+                                            <?php } else { ?>
                                                 <option value="<?php echo $parameter_list_data['id']; ?>" <?php echo set_value('Parameter') == $parameter_list_data['id'] ? 'selected' : ''; ?> ><?php echo $parameter_list_data['name']; ?></option>                       
-                                    <?php }
-                                }
-                                ?>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </select>             
                                 </div>
-    <?php if (form_error('Parameter')) { ?>
+                                <?php if (form_error('Parameter')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('Parameter'); ?></span>
-    <?php } ?>
+                                <?php } ?>
                             </div> 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM Type *</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">             
                                     <select class="form-control" name="UOM" id="UOM" required="required">
                                         <option value="<?php
-                                                    if (!empty(set_value('UOM'))) {
-                                                        echo set_value('UOM');
-                                                    } else {
-                                                        echo $sensor_inventory_data['uom_type_tbl_id'];
-                                                    }
-                                                    ?>"><?php
+                                        if (!empty(set_value('UOM'))) {
+                                            echo set_value('UOM');
+                                        } else {
+                                            echo $sensor_inventory_data['uom_type_tbl_id'];
+                                        }
+                                        ?>"><?php
                                                     if (!empty(set_value('selectuom'))) {
                                                         echo set_value('selectuom');
                                                     } else {
@@ -140,24 +142,27 @@
                                                     ?></option>                   
                                     </select>             
                                 </div>
-    <?php if (form_error('UOM')) { ?>
+                                <?php if (form_error('UOM')) { ?>
                                     <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('UOM'); ?></span>
-    <?php } ?>
+                                <?php } ?>
                                 <input type="hidden" name="selectuom" id="selectuom">
 
-                            </div> <?php     // var_dump($sensor_inventory_data['uom_id'] ); print_r($uom_list); ?> 
+                            </div> <?php // var_dump($sensor_inventory_data['uom_id'] ); print_r($uom_list);     ?> 
                             <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM*</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">             
-                                        <select class="form-control" name="UOM_ID" id="UOM_ID" required="required">
-                                            <?php foreach ($uom_list as $uom){ ?>
-                                            <option value="<?php echo $uom['id'];  ?>"
-                                                <?php if(isset($sensor_inventory_data['uom_id'])){ 
-                                                    echo ($sensor_inventory_data['uom_id']==$uom['id']) ? 'selected':''; } ?>><?php  echo $uom['name']; ?></option>                   
-                                            <?php } ?> 
-                                        </select>             
-                                    </div>
-                                </div> 
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">UOM*</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">             
+                                    <select class="form-control" name="UOM_ID" id="UOM_ID" required="required">
+                                        <?php foreach ($uom_list as $uom) { ?>
+                                            <option value="<?php echo $uom['id']; ?>"
+                                            <?php
+                                            if (isset($sensor_inventory_data['uom_id'])) {
+                                                echo ($sensor_inventory_data['uom_id'] == $uom['id']) ? 'selected' : '';
+                                            }
+                                            ?>><?php echo $uom['name']; ?></option>                   
+                                                <?php } ?> 
+                                    </select>             
+                                </div>
+                            </div> 
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
@@ -185,7 +190,7 @@
 
                                 </div>
                             </div>
-<?php } ?>
+                        <?php } ?>
                     </form>					
 
                 </div>

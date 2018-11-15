@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.ico') ?>" type="image/x-icon" />
-         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
         <title>Change Password</title>
 
@@ -19,42 +19,40 @@
             <a class="hiddenanchor" id="signin"></a>
 
             <div class="login_wrapper">
-                  
+
                 <div class="animate form login_form">
-                  <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
-                                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                <strong></strong> <?php
-                                if ($this->session->flashdata('message')) {
-                                    echo $this->session->flashdata('message');
-                                }
-                                ?>
-                </div>      
+                    <div class="alert alert-danger fade in" id="error_msg" style="display: none;">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong></strong> <?php
+                        if ($this->session->flashdata('message')) {
+                            echo $this->session->flashdata('message');
+                        }
+                        ?>
+                    </div>      
                     <section class="login_content">
-                       <?php echo form_open('auth/reset_password/' . $code,array('id'=>'change_password_form'));?>
+                        <?php echo form_open('auth/reset_password/' . $code, array('id' => 'change_password_form')); ?>
                         <h1>Change Password</h1>
-                        <div class="errorfornewpawword" id="errorfornewpawword"> </div>
-                         <div class="lgnErorr1"></div>
+
                         <div>
-                            <label style="color: white; font-style: normal;" for="new"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br />
-		<?php echo form_input($new_password);?>
-                            
-                           
+                            <label style="color: white; font-style: normal;" for="new"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length); ?></label> <br />
+                            <?php echo form_input($new_password); ?>
                         </div>
-                         
-                          <div class="errorfornewconfirmpawword" id="errornewcomparefield"> </div>
-                            <div class="lgnErorr2"></div>
+                        <div class="errorfornewpawword errorfield" id="errorfornewpawword"> </div>
+                        <div class="lgnErorr1"></div>
+
                         <div> <label style="color: white; font-style: normal;" for="new_password">
-                         <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm');?> </label><br />
-		    <?php echo form_input($new_password_confirm);?>
-                        
+                                <?php echo lang('reset_password_new_password_confirm_label', 'new_password_confirm'); ?> </label><br />
+                            <?php echo form_input($new_password_confirm); ?>
                         </div>
+                        <div class="errorfornewconfirmpawword errorfield" id="errornewcomparefield"> </div>
+                        <div class="lgnErorr2"></div>
                         <div>
-                            <?php echo form_input($user_id);?>
+                            <?php echo form_input($user_id); ?>
                             <?php echo form_hidden($csrf); ?>
-                            
-                            
+
+
                             <button id="resset_password" class="btn btn-default submit" type="submit">Submit</button> 
-                           
+
                         </div>
                         <div class="clearfix"></div>
 
@@ -79,52 +77,59 @@
     .error{
         color: red; 
     }
-    </style>
+    .errorfield{
+        text-align: left;
+        margin-bottom: 10px;
+
+    }
+    #new_confirm,#new{
+        margin-bottom:5px;
+    }
+</style>
 <script type="text/javascript">
- $.validator.addMethod("pwcheck", function(value) {
-   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-       && /[a-z]/.test(value) // has a lowercase letter
-       && /\d/.test(value) // has a digit
-}, "add atleast one upper,lower,special character, one number");
+    $.validator.addMethod("pwcheck", function (value) {
+        return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+                && /[a-z]/.test(value) // has a lowercase letter
+                && /\d/.test(value) // has a digit
+    }, "add atleast one upper,lower,special character, one number");
 
 
     $("#change_password_form").validate({
-    rules: {
-        new: {
-            required: true,
-            minlength: 8,
-            maxlength: 18,
-            pwcheck:true,
+        rules: {
+            new : {
+                required: true,
+                minlength: 8,
+                maxlength: 18,
+                pwcheck: true,
+            },
+            new_confirm: {
+                required: true,
+                minlength: 8,
+                maxlength: 18,
+                equalTo: "#new"
+            }
         },
-        new_confirm: {
-            required: true,
-            minlength: 8,
-            maxlength: 18,
-            equalTo: "#new"
-        }
-    },
-    messages: {
-        new: {
-            required: "Password should not be blank",
-            minlength: "Enter minimum 2 character",
-            maxlength: "Enter maximum 50 character",
+        messages: {
+            new : {
+                required: "Password should not be blank",
+                minlength: "Enter minimum 2 character",
+                maxlength: "Enter maximum 50 character",
+            },
+            new_confirm: {
+                required: "Confirm Password should not be blank",
+                minlength: "Enter minimum 8 character",
+                maxlength: "Enter maximum 18 character",
+                equalTo: "Password Does Not Match"
+            }
         },
-    
-         new_confirm: {
-            required: "Confirm Password should not be blank",
-            minlength: "Enter minimum 8 character",
-            maxlength: "Enter maximum 18 character",
-            equalTo:"Password Does Not Match"
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
         }
-    },
-    errorElement: 'div',
-    errorPlacement: function (error, element) {
-        var placement = $(element).data('error');
-        if (placement) {
-            $(placement).append(error)
-        } else {
-            error.insertAfter(element);
-        }
-    }
-});
+    });
 </script>
