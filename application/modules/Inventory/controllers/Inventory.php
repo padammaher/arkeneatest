@@ -322,6 +322,7 @@ class Inventory extends MY_Controller {
             $data['sensorid_list'] = $this->Inventory_model->sensorid_list($user_id);
 //             sensor_inventory
 
+
             $todaysdate = date('Y-m-d');
             $user_id = $this->session->userdata('user_id');
 

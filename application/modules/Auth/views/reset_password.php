@@ -99,26 +99,26 @@
             new : {
                 required: true,
                 minlength: 8,
-                maxlength: 18,
+                maxlength: 20,
                 pwcheck: true,
             },
             new_confirm: {
                 required: true,
                 minlength: 8,
-                maxlength: 18,
+                maxlength: 20,
                 equalTo: "#new"
             }
         },
         messages: {
             new : {
                 required: "Password should not be blank",
-                minlength: "Enter minimum 2 character",
-                maxlength: "Enter maximum 50 character",
+                minlength: "Enter minimum 8 character",
+                maxlength: "Enter maximum 20 character",
             },
             new_confirm: {
                 required: "Confirm Password should not be blank",
                 minlength: "Enter minimum 8 character",
-                maxlength: "Enter maximum 18 character",
+                maxlength: "Enter maximum 20 character",
                 equalTo: "Password Does Not Match"
             }
         },

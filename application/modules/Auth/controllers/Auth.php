@@ -506,16 +506,16 @@ class Auth extends MY_Controller {
 
                     if ($change) {
                         // if the password was successfully changed
-                        $this->session->set_flashdata('message', $this->ion_auth->messages());
+                        $this->session->set_flashdata('success_message', $this->ion_auth->messages());
                         redirect("auth/login", 'refresh');
                     } else {
-                        $this->session->set_flashdata('message', $this->ion_auth->errors());
+                        $this->session->set_flashdata('error_message', $this->ion_auth->errors());
                         redirect('auth/reset_password/' . $code, 'refresh');
                     }
                 }
             }
         } else {
-            $this->session->set_flashdata('message', $this->ion_auth->errors());
+            $this->session->set_flashdata('error_message', $this->ion_auth->errors());
             redirect("auth/forgot_password", 'refresh');
         }
     }
