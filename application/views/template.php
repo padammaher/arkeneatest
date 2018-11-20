@@ -159,72 +159,72 @@
 
             </div>  
         </div>       
-         <script src="<?php echo base_url(); ?>assets/css/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="<?php echo base_url(); ?>assets/css/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="<?php echo base_url(); ?>assets/css/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="<?php echo base_url(); ?>assets/css/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="<?php echo base_url(); ?>assets/css/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="<?php echo base_url(); ?>assets/css/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="<?php echo base_url(); ?>assets/css/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="<?php echo base_url(); ?>assets/css/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="<?php echo base_url(); ?>assets/css/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.pie.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.time.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.stack.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="<?php echo base_url(); ?>assets/css/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="<?php echo base_url(); ?>assets/css/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="<?php echo base_url(); ?>assets/css/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="<?php echo base_url(); ?>assets/css/moment/min/moment.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/bootstrap-daterangepicker/daterangepicker.js"></script>
-    
-    <!-- ECharts -->
-   <script src="<?php echo base_url(); ?>assets/css/echarts/dist/echarts.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/echarts/map/js/world.js"></script>
-    
-    
+        <script src="<?php echo base_url(); ?>assets/css/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="<?php echo base_url(); ?>assets/css/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="<?php echo base_url(); ?>assets/css/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="<?php echo base_url(); ?>assets/css/nprogress/nprogress.js"></script>
+        <!-- Chart.js -->
+        <script src="<?php echo base_url(); ?>assets/css/Chart.js/dist/Chart.min.js"></script>
+        <!-- gauge.js -->
+        <script src="<?php echo base_url(); ?>assets/css/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="<?php echo base_url(); ?>assets/css/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="<?php echo base_url(); ?>assets/css/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="<?php echo base_url(); ?>assets/css/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.pie.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.time.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.stack.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="<?php echo base_url(); ?>assets/css/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="<?php echo base_url(); ?>assets/css/DateJS/build/date.js"></script>
+        <!-- JQVMap -->
+        <script src="<?php echo base_url(); ?>assets/css/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="<?php echo base_url(); ?>assets/css/moment/min/moment.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+        <!-- ECharts -->
+        <script src="<?php echo base_url(); ?>assets/css/echarts/dist/echarts.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/echarts/map/js/world.js"></script>
+
+
         <script src="<?php echo base_url(); ?>assets/css/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/jszip/dist/jszip.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/pdfmake/build/pdfmake.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/css/pdfmake/build/vfs_fonts.js"></script>
-    
-       <!-- jQuery Sparklines -->
-    <script src="<?php echo base_url(); ?>assets/css/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-    
-       <!-- jQuery Knob -->
-    <script src="<?php echo base_url(); ?>assets/css/jquery-knob/dist/jquery.knob.min.js"></script>
-    
-     <!-- Switchery -->
-    <script src="<?php echo base_url(); ?>assets/css/switchery/dist/switchery.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/buttons.flash.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/jszip/dist/jszip.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/pdfmake/build/pdfmake.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/pdfmake/build/vfs_fonts.js"></script>
+
+        <!-- jQuery Sparklines -->
+        <script src="<?php echo base_url(); ?>assets/css/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+
+        <!-- jQuery Knob -->
+        <script src="<?php echo base_url(); ?>assets/css/jquery-knob/dist/jquery.knob.min.js"></script>
+
+        <!-- Switchery -->
+        <script src="<?php echo base_url(); ?>assets/css/switchery/dist/switchery.min.js"></script>
         <!----data tables js-->
 
         <!-- form validatin -->
@@ -232,7 +232,7 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
         <!-- CORE JS Jquery Validation - START -->
-  <script src="<?php echo base_url(); ?>assets/css/build/js/custom.js"></script>
+        <script src="<?php echo base_url(); ?>assets/css/build/js/custom.js"></script>
         <script>
             //            $(document).ready(function () {
             //                $('.datepicker').datepicker({
@@ -314,14 +314,14 @@
                     $("#selectuom").val('');
                 }
             });
-            
-           
+
+
             $("#UOM").change(function ()
             {
-                 var objdata = '';
+                var objdata = '';
                 var i = 0;
                 var options;
-                 $("#UOM_ID").empty();
+                $("#UOM_ID").empty();
                 var options = '<option value="">Select UOM</option>';
                 $.ajax({
                     url: '<?php echo base_url(); ?>Inventory/load_uom_by_Uom_type',
@@ -336,30 +336,30 @@
                         $("#UOM_ID").html(options);
                     }
                 });
-              //  $("#UOM").empty();
-                
+                //  $("#UOM").empty();
+
             });
 
 
         </script>
-           <script src="<?php echo base_url(); ?>assets/js/jcarousellite_1.0.1c4.js" type="text/javascript"></script>
-        
-          <!-- <script src="<?php echo base_url(); ?>assets/js/jcarousellite_1.0.1.pack.js" type="text/javascript"></script> -->
-            <!-- <script src="<?php echo base_url(); ?>assets/js/jquery-latest.pack.js" type="text/javascript"></script> -->
+        <script src="<?php echo base_url(); ?>assets/js/jcarousellite_1.0.1c4.js" type="text/javascript"></script>
+
+  <!-- <script src="<?php echo base_url(); ?>assets/js/jcarousellite_1.0.1.pack.js" type="text/javascript"></script> -->
+    <!-- <script src="<?php echo base_url(); ?>assets/js/jquery-latest.pack.js" type="text/javascript"></script> -->
         <script type="text/javascript">
-$(function() {
-$(".newsticker-jcarousellite").jCarouselLite({
-vertical: true,
-hoverPause:true,
-visible: 5,
-auto:500,
-speed:1000
-});
-});
+            $(function () {
+                $(".newsticker-jcarousellite").jCarouselLite({
+                    vertical: true,
+                    hoverPause: true,
+                    visible: 5,
+                    auto: 500,
+                    speed: 1000
+                });
+            });
 
 
 
 
-</script>
+        </script>
     </body>
 </html>
