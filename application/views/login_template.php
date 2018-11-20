@@ -28,18 +28,7 @@
     <!-- BEGIN BODY -->
     <!-- <body class="sidebar-collapse"> -->
     <body>
-
-
         {content}
-
-
-
-
-
-
         <!-- CORE JS Jquery Validation - START -->
-
-
     </body>
-
 </html>
