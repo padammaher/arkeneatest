@@ -129,6 +129,13 @@ button.btn.btn-default {
     vertical-align: middle;
 }
 }
+.mapdiv {
+    border-radius: 4px 4px 0 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+     box-shadow: 0 1px 15px 1px rgba(208, 201, 243, .5); 
+    /*border-right: none;*/
+    /*box-shadow: -6px 1px 7px -1px rgba(208, 201, 243, .5);*/
+}
 </style>
 <div class="">
     <div class="page-title">
@@ -244,15 +251,15 @@ button.btn.btn-default {
             </script>
            <?php // } } ?> 
             </div>
-        <div id="map" style="width: 100%; height: 300px;"> </div>
+        <!--<div id="map" style="width: 100%; height: 300px;"> </div>-->
         </div>
 <!-- Start--static map code for reference-->       
-<!--        <div class="col-md-12 col-sm-12 col-xs-12">
-        <div style="padding:10px">
-            <div id="map" style="width: 100%; height: 300px;"></div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div style="" class="mapdiv">
+            <div id="map" style="width: 100%; height: 500px;"></div>
         </div>
         </div>
-        <script type="text/javascript">
+ <!--        <script type="text/javascript">
         var map;
         
         function initMap() {                            
@@ -276,7 +283,7 @@ button.btn.btn-default {
               title: latitude + ', ' + longitude 
             });            
         }
-        </script>-->
+        </script>
         <!--<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY ?>&callback=initMap"-->
         <!--async defer></script>-->
 <!--End static map code for reference-->        
