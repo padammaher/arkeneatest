@@ -162,7 +162,7 @@ $route['privilege'] = "Master/privilegemaster/list_privilleges";
 $route['addPrivileges/(:any)'] = "Master/privilegemaster/add_privileges/$1";
 $route['addPrivileges'] = "Master/privilegemaster/add_privileges";
 //$route['editPrivileges'] = "Master/privilegemaster/edit_privileges/$1";
-
+$route['asset_routing'] = "AssetsManagement/asset_routing";
 
 
 

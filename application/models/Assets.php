@@ -7,13 +7,13 @@ class Assets extends MY_Model {
 
     public $_table = 'asset';
     public $primary_key = 'id';
-        public function __construct() {
+
+    public function __construct() {
         parent::__construct();
 
-      $this->Loginuser_location_id=$this->session->userdata('location_id');                
-
+        $this->Loginuser_location_id = $this->session->userdata('location_id');
     }
-    
+
     protected function data_process($row) {
         $row[$this->callback_parameters[0]] = $this->_process($row[$this->callback_parameters[0]]);
 
@@ -48,50 +48,47 @@ class Assets extends MY_Model {
 
     public function delete_assets($id1) {
         // var_dump($id);die;
-        $todays=date("Y-m-d");
-        $where_condtion="startdate<='".$todays."' and enddate>='".$todays."'";
-        $Sql_query=$this->db->select('id')->from('asset')->where('id',$id1)->where($where_condtion)->get()->num_rows();
+        $todays = date("Y-m-d");
+        $where_condtion = "startdate<='" . $todays . "' and enddate>='" . $todays . "'";
+        $Sql_query = $this->db->select('id')->from('asset')->where('id', $id1)->where($where_condtion)->get()->num_rows();
 //        echo $this->db->last_query();
 //        ======= ** delete(update) query ***====================
-         $assets_data = array('isdeleted' => 1);
-         $this->db->where('asset.id', $id1);
-         
-        if($Sql_query>0)
-        {
-           return false;
-        }
-        else
-        {
-           return $this->db->update('asset', $assets_data);
+        $assets_data = array('isdeleted' => 1);
+        $this->db->where('asset.id', $id1);
+
+        if ($Sql_query > 0) {
+            return false;
+        } else {
+            return $this->db->update('asset', $assets_data);
         }
 //             return $this->db->delete('asset');
     }
 
     public function getCustomerLocationCount($user_id) {
-        $location_id= $this->session->userdata('location_id');
+        $location_id = $this->session->userdata('location_id');
         $group_id = $this->session->userdata('group_id');
         $this->db->select('count(distinct customer_business_location.id) as locationcount');
         $this->db->from('customer_business_location ');
         if ($group_id == '2') {
-           $this->db->join('users', 'users.location_id=customer_business_location.id', 'left');
-           $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0,'customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0,'users.location_id'=> $location_id));
+            $this->db->join('users', 'users.location_id=customer_business_location.id', 'left');
+            $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0, 'customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0, 'users.location_id' => $location_id));
         } else {
-             $this->db->where(array('customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0));
+            $this->db->where(array('customer_business_location.isactive' => 1, 'customer_business_location.isdeleted' => 0));
         }
         $query = $this->db->get();
         //echo $this->db->last_query(); exit; 
-        
+
         $obj = $query->result_array();
         return $obj[0]['locationcount'];
     }
 
     public function getAssetCount($user_id) {
-        $location_id= $this->session->userdata('location_id');
+        $location_id = $this->session->userdata('location_id');
         $group_id = $this->session->userdata('group_id');
         $this->db->select('count(id) as assetcount');
         $this->db->from('asset');
-        if($group_id=='2'){
-        $this->db->where('customer_locationid', $location_id);
+        if ($group_id == '2') {
+            $this->db->where('customer_locationid', $location_id);
         }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
@@ -100,12 +97,12 @@ class Assets extends MY_Model {
     }
 
     public function getDeviceCount($user_id) {
-         $group_id = $this->session->userdata('group_id');
-         $location_id= $this->session->userdata('location_id');
+        $group_id = $this->session->userdata('group_id');
+        $location_id = $this->session->userdata('location_id');
         $this->db->select('count(id) as devicecount');
         $this->db->from('device_inventory');
-        if($group_id=='2'){
-        $this->db->where('customer_location_id', $location_id);
+        if ($group_id == '2') {
+            $this->db->where('customer_location_id', $location_id);
         }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
@@ -114,13 +111,13 @@ class Assets extends MY_Model {
     }
 
     public function getSensorCount($user_id) {
-         $group_id = $this->session->userdata('group_id');
-         $location_id= $this->session->userdata('location_id');
+        $group_id = $this->session->userdata('group_id');
+        $location_id = $this->session->userdata('location_id');
         $this->db->select('count(id) as sensorcount');
         $this->db->from('sensor_inventory');
-         if($group_id=='2'){
-        $this->db->where('customer_location_id', $location_id);
-         }
+        if ($group_id == '2') {
+            $this->db->where('customer_location_id', $location_id);
+        }
         $this->db->where(array('isactive' => 1, 'isdeleted' => 0));
         $query = $this->db->get();
         $obj = $query->result_array();
@@ -129,7 +126,7 @@ class Assets extends MY_Model {
 
     public function assets_list($user_id, $id = NULL) {
         $group_id = $this->session->userdata('group_id');
-       
+
         $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id,asset.isactive,users.first_name as `client_name`,users.username as `client_username`,asset_location.id as locid,customer_business_location.location_name as location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename, CONCAT(users.first_name," ",users.last_name) AS first_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable,asset.startdate,asset.enddate,asset_location.id as assetlocid,device_inventory.id as device_inventory_id');
         //    $this->db->select('asset.id,asset.code,asset_user.id as `asset_user_tbl_id`,asset_location.id as locid,asset_location.location,asset_category.id as asset_catid, asset_category.name as assetcategoryname,asset_type.id as asset_typeid,asset_type.name as assettypename,users.first_name,users.last_name,asset.customer_locationid,asset.asset_catid,asset.asset_typeid,asset.specification,asset.serial_no,asset.make,asset.model,asset.description,asset.ismovable');            
         $this->db->from('asset');
@@ -138,9 +135,9 @@ class Assets extends MY_Model {
         $this->db->join('asset_user', 'asset_user.asset_id= asset.id and `asset_user`.`id` in(select asset_user.id from asset_user where asset_user.isdeleted=0)', 'left');
         $this->db->join('asset_category', 'asset_category.id= asset.asset_catid');
         $this->db->join('asset_type', 'asset_type.id= asset.asset_typeid');
-        $this->db->join('users', 'users.id=asset_user.assetuser_id','left');
-        $this->db->join('device_asset', 'device_asset.asset_id=asset.id','left');
-        $this->db->join('device_inventory', 'device_asset.device_id=device_inventory.id','left');
+        $this->db->join('users', 'users.id=asset_user.assetuser_id', 'left');
+        $this->db->join('device_asset', 'device_asset.asset_id=asset.id', 'left');
+        $this->db->join('device_inventory', 'device_asset.device_id=device_inventory.id', 'left');
 //        $this->db->where('asset_location.id IN (select asset_location.id from asset_location where asset_location.isdeleted=0)', NULL, FALSE);
 //        $this->db->group_by('asset.id');
         if (isset($id) && $id !== NULL) {
@@ -148,8 +145,7 @@ class Assets extends MY_Model {
         }
         if ($group_id == '2') {
 //            $this->db->where(array('asset.createdby' => $user_id));
-              $this->db->where(array('customer_business_location.id' => $this->Loginuser_location_id));
-            
+            $this->db->where(array('customer_business_location.id' => $this->Loginuser_location_id));
         }
         $this->db->where(array('asset.isdeleted' => 0));
         $query = $this->db->get();
@@ -167,7 +163,7 @@ class Assets extends MY_Model {
     }
 
     public function assets_list_info($user_id, $id = NULL) {
-        $location_id= $this->session->userdata('location_id');
+        $location_id = $this->session->userdata('location_id');
         $assets_list[0]['customerlocationcount'] = $this->getCustomerLocationCount($user_id);
         $assets_list['assetcount'] = $this->getAssetCount($user_id);
         $assets_list['devicecount'] = $this->getDeviceCount($user_id);
@@ -199,7 +195,7 @@ class Assets extends MY_Model {
         if ($group_id == '2') {
             $this->db->join('users', 'users.location_id=customer_business_location.id');
 //            $this->db->where('users.id', $user_id);
-             $this->db->where(array('users.location_id' => $this->Loginuser_location_id));
+            $this->db->where(array('users.location_id' => $this->Loginuser_location_id));
             $this->db->where('users.isdeleted', 0);
         }
 
@@ -257,8 +253,8 @@ class Assets extends MY_Model {
         $this->db->join('asset', 'asset.id=asset_location.asset_id', 'inner');
         $this->db->join('users', 'users.location_id=asset.customer_locationid', 'inner');
         $this->db->join('asset_user', 'asset_user.asset_id=asset.id and `asset_user`.`id` in(select asset_user.id from asset_user where asset_user.isdeleted=0)', 'left');
-        $this->db->group_by('asset_location.id','desc');
-        
+        $this->db->group_by('asset_location.id', 'desc');
+
 
         $this->db->where('asset_location.isdeleted', 0);
 
@@ -353,7 +349,7 @@ class Assets extends MY_Model {
 //            $this->db->where('createdby', $user_id);
             $this->db->where('users.location_id', $this->Loginuser_location_id);
         }
-        $this->db->group_by('asset.id','desc');
+        $this->db->group_by('asset.id', 'desc');
         $query = $this->db->get();
         // echo $this->db->last_query();
         $objData = $query->result_array();
@@ -364,11 +360,11 @@ class Assets extends MY_Model {
         $group_id = $this->session->userdata('group_id');
         $this->db->select('asset.id,asset.code');
         $this->db->from('asset');
-        $this->db->join('users','`users`.`location_id`= `asset`.`customer_locationid`','inner');
+        $this->db->join('users', '`users`.`location_id`= `asset`.`customer_locationid`', 'inner');
         $this->db->where('asset.isactive', 1);
         $this->db->where('asset.isdeleted', 0);
         $this->db->where('asset.id NOT IN (select asset_id from asset_location where asset_location.isdeleted=0)');
-        
+
 //        $query = "SELECT asset.id,asset.code FROM asset
 //                where asset.isactive='1' and isdeleted='0' 
 //                and asset.createdby=" . $user_id . " and id not in(select asset_id from asset_location)";
@@ -376,7 +372,7 @@ class Assets extends MY_Model {
 //            $this->db->where('createdby', $user_id);   
             $this->db->where('users.location_id', $this->Loginuser_location_id);
         }
-        $this->db->group_by('asset.id','desc');
+        $this->db->group_by('asset.id', 'desc');
         $query = $this->db->get();
         return $obj = $query->result_array();
     }
@@ -392,18 +388,17 @@ class Assets extends MY_Model {
 //        return $objData;
 //    }
 
-    public function asset_userid_list($user_id ,$location_id=NULL) {
+    public function asset_userid_list($user_id, $location_id = NULL) {
         $groupid = $this->session->userdata('group_id');
         $this->db->select('users.id,users.first_name as client_name');
         $this->db->from('users');
-        $this->db->join('`asset`','`users`.`location_id`= `asset`.`customer_locationid`','inner');
+        $this->db->join('`asset`', '`users`.`location_id`= `asset`.`customer_locationid`', 'inner');
 
         if ($groupid == 2) {
 //            $this->db->where('id', $user_id);
             $this->db->where('users.location_id', $this->Loginuser_location_id);
-        }else if($location_id)
-        {
-           $this->db->where('users.location_id',$location_id);
+        } else if ($location_id) {
+            $this->db->where('users.location_id', $location_id);
         }
         $this->db->where(array('users.active' => 1, 'users.isdeleted' => 0));
         $this->db->group_by('users.id');
@@ -452,9 +447,9 @@ class Assets extends MY_Model {
         return $this->db->update('asset_user', $update_data);
 //        return $this->db->delete('asset_user');
     }
-    
-        public function Load_Locationwise_user_list($assetcode,$location_id, $user_id) {       
-        $group_id = $this->session->userdata('group_id');        
+
+    public function Load_Locationwise_user_list($assetcode, $location_id, $user_id) {
+        $group_id = $this->session->userdata('group_id');
         $this->db->select('id,first_name as client_name');
         $this->db->from('users');
         $this->db->where('users.location_id', $location_id);
@@ -463,7 +458,7 @@ class Assets extends MY_Model {
         $objData = $query->result_array();
         return $objData;
     }
-    
+
     public function parameter_range_list($asset_id, $param_range_id = NULL) {
         $this->db->select('parameter_range.id,parameter.name as parameter,parameter.id as param_id,min_value,max_value,scaling_factor,uom.name as uom,uom_id,bits_per_sign,parameter_range.isactive');
         $this->db->from('parameter_range');
@@ -494,7 +489,7 @@ class Assets extends MY_Model {
 
         $query = $this->db->select('id,code,startdate,enddate')
                 ->from('asset')
-                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate'],'isdeleted'=>$unique_Data['isdeleted']))
+                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate'], 'isdeleted' => $unique_Data['isdeleted']))
                 ->get();
         // $result=$query->
 //                  echo $this->db->last_query();
@@ -513,7 +508,7 @@ class Assets extends MY_Model {
 
         $query = $this->db->select('id,code,startdate,enddate')
                 ->from('asset')
-                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate'],'isdeleted'=>$unique_Data['isdeleted']))
+                ->where(array('code' => $unique_Data['code'], 'enddate>=' => $unique_Data['startdate'], 'isdeleted' => $unique_Data['isdeleted']))
                 ->get();
         // $result=$query->
 //                  echo $this->db->last_query();
@@ -577,7 +572,7 @@ class Assets extends MY_Model {
     }
 
     public function get_triger_count($rule_id) {
-        $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where(array('rule_id'=>$rule_id,'isdeleted'=>0))->get()->result_array();
+        $asset_rule_data = $this->db->select('count(id) as triger_count')->from('trigger')->where(array('rule_id' => $rule_id, 'isdeleted' => 0))->get()->result_array();
         //print_r($asset_rule_data[0]['triger_count']); exit;
         if ($asset_rule_data) {
             return $asset_rule_data[0]['triger_count'];
@@ -729,7 +724,7 @@ class Assets extends MY_Model {
     public function get_uom_list_type($uom_type_id) {
         $this->db->select('id,name,isactive');
         $this->db->from('uom');
-        $this->db->where(array('uom_type_id'=>$uom_type_id,'isdeleted'=>0));
+        $this->db->where(array('uom_type_id' => $uom_type_id, 'isdeleted' => 0));
         $query = $this->db->get();
         $uom_list_data = $query->result_array();
         return $uom_list_data;
@@ -783,10 +778,10 @@ class Assets extends MY_Model {
         $this->db->from('trigger');
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.rule_id' => $rule_id));
 //        $this->db->where('trigger.isactive', 1);
-        if($groupid == '2'){
+        if ($groupid == '2') {
 //        $this->db->where('trigger.createby', $user_id);                     
         }
-        $this->db->where('trigger.isdeleted',0);
+        $this->db->where('trigger.isdeleted', 0);
         $query = $this->db->get();
 //        echo $this->db->last_query();
         $result = $query->result_array();
@@ -802,12 +797,13 @@ class Assets extends MY_Model {
                                     trigger.trigger_threshold_id,
                                     trigger.email,
                                     trigger.sms_contact_no,
+                                    trigger.comment as trigger_message,
                                     trigger.createdate,
                                     trigger.createby,trigger.isactive');
         $this->db->from('trigger');
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.id' => $trigger_post_id));
         //        $this->db->where('trigger.isactive', 1);
-        if($groupid=='2'){
+        if ($groupid == '2') {
 //          $this->db->where('trigger.createby', $user_id);   
         }
         $query = $this->db->get();
@@ -834,7 +830,7 @@ class Assets extends MY_Model {
         $this->db->select('trigger.id,trigger.trigger_threshold_id');
         $this->db->from('trigger');
         $this->db->where(array('trigger.asset_id' => $asset_id, 'trigger.rule_id' => $rule_id, 'isactive' => 1, 'isdeleted' => 0));
-        
+
         $result = $this->db->get()->result();
 //         $result=$query->resut_array();
         return $result;
@@ -884,19 +880,18 @@ class Assets extends MY_Model {
 
     public function showdescription($set_rule_id = NULL, $user_id, $asset_id) {
         $groupid = $this->session->userdata('group_id');
-    if($groupid=='2'){
-        $where="asset.id=" . $asset_id . " and asset.customer_locationid=" . $this->Loginuser_location_id . " and asset.isactive='1' and asset.isdeleted='0'";
-    }else
-    {
-      $where="asset.id=" . $asset_id . " and asset.isactive='1' and asset.isdeleted='0'";  
-    }
-     $asset_id = $this->session->userdata('asset_id');
-            if (!$asset_id) {
-                $this->session->set_flashdata('note_msg', 'session was expired');
-                return redirect('Assets_list');
-            }
-        
-        
+        if ($groupid == '2') {
+            $where = "asset.id=" . $asset_id . " and asset.customer_locationid=" . $this->Loginuser_location_id . " and asset.isactive='1' and asset.isdeleted='0'";
+        } else {
+            $where = "asset.id=" . $asset_id . " and asset.isactive='1' and asset.isdeleted='0'";
+        }
+        $asset_id = $this->session->userdata('asset_id');
+        if (!$asset_id) {
+            $this->session->set_flashdata('note_msg', 'session was expired');
+            return redirect('Assets_list');
+        }
+
+
         $query = "SELECT 
     asset.code,
     asset.specification,
@@ -909,37 +904,37 @@ class Assets extends MY_Model {
         FROM
             asset_parameter_rule
         WHERE
-            asset_parameter_rule.id = ".$set_rule_id.") AS `rule_name`,
+            asset_parameter_rule.id = " . $set_rule_id . ") AS `rule_name`,
     (SELECT 
             asset_parameter_rule.rule_des
         FROM
             asset_parameter_rule
         WHERE
-            asset_parameter_rule.id = ".$set_rule_id.") AS `rule_des`,
+            asset_parameter_rule.id = " . $set_rule_id . ") AS `rule_des`,
     (SELECT 
             asset_parameter_rule.green_value
         FROM
             asset_parameter_rule
         WHERE
-            asset_parameter_rule.id = ".$set_rule_id.") AS `green_value`,
+            asset_parameter_rule.id = " . $set_rule_id . ") AS `green_value`,
     (SELECT 
             asset_parameter_rule.orange_value
         FROM
             asset_parameter_rule
         WHERE
-            asset_parameter_rule.id = ".$set_rule_id.") AS `orange_value`,
+            asset_parameter_rule.id = " . $set_rule_id . ") AS `orange_value`,
     (SELECT 
             asset_parameter_rule.red_value
         FROM
             asset_parameter_rule
         WHERE
-            asset_parameter_rule.id = ".$set_rule_id.") AS `red_value`,
+            asset_parameter_rule.id = " . $set_rule_id . ") AS `red_value`,
     (SELECT 
             asset_parameter_rule.wef_date
         FROM
             asset_parameter_rule
         WHERE
-            asset_parameter_rule.id = ".$set_rule_id.") AS `wef_date`,
+            asset_parameter_rule.id = " . $set_rule_id . ") AS `wef_date`,
     parameter.name AS `parameter_name`,
     parameter_range.id AS parameter_range_tbl_id,
     (SELECT 
@@ -947,7 +942,7 @@ class Assets extends MY_Model {
         FROM
             `trigger`
         WHERE
-            `trigger`.`rule_id` = ".$set_rule_id." and `trigger`.`isdeleted`=0) AS `trigger_threshold_id_count`
+            `trigger`.`rule_id` = " . $set_rule_id . " and `trigger`.`isdeleted`=0) AS `trigger_threshold_id_count`
 FROM
     asset
         LEFT JOIN
@@ -957,7 +952,7 @@ FROM
         LEFT JOIN
     users ON users.id = asset_user.assetuser_id    
         LEFT JOIN
-    asset_parameter_rule ON asset_parameter_rule.id = '".$set_rule_id."'
+    asset_parameter_rule ON asset_parameter_rule.id = '" . $set_rule_id . "'
 		LEFT JOIN
     parameter_range ON parameter_range.id = asset_parameter_rule.parameter_range_id
         LEFT JOIN
@@ -965,7 +960,7 @@ FROM
     
         LEFT JOIN
     `trigger` ON `trigger`.`rule_id` = asset_parameter_rule.id
-WHERE  ".$where." 	    
+WHERE  " . $where . " 	    
  group by asset.id ";
 //        echo $query;
         $res = $this->db->query($query);

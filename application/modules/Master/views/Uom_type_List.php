@@ -40,10 +40,10 @@
                                             <form action="<?php echo base_url(); ?>updateUomTypeList" method="post" id="updateuomtype<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $r['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
-                                                <a title="Edit" class="edit" id="<?php echo $i; ?>" style="padding-left: 5%;">  
+                                                <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                 </a>
-                                                <a title="Delete" class="delete" id="<?php echo $i; ?>" style="padding-left: 5%;">
+                                                <a title="Delete" class="delete" id="<?php echo $i; ?>">
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
                                                 </a> 
                                             </form>

@@ -35,6 +35,8 @@ class Dashboard extends MY_Controller {
                 }
             }
             $data['total_active_assets'] = isset($active_asset) ? count($active_asset) : 0;
+            $data['Device_status'] = "";
+            $data['asset_alerts'] = "";
             $group_id = $this->session->userdata('group_id');
             if ($group_id != 1) {
                 $view = "dashboard";

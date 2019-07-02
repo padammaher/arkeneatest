@@ -570,8 +570,6 @@
 
         </div>
         <div class="row">
-
-
             <!-- Start to do list -->
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
