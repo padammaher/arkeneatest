@@ -24,7 +24,7 @@
                     ?>
                     <form class="form-horizontal form-label-left" action="<?php echo base_url() ?>trigger_add" method="POST">
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Alarm Trigger Name <span>*</span></label>
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Alarm Trigger Name <span>*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <?php // print_r($this->input->post());   ?>
                                 <input type="text" name="trigger_name" value="<?php echo set_value('trigger_name', $trigger_edit_data['trigger_name']); ?>" class="form-control" placeholder="Enter Alarm Trigger Name" required="required">
@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Trigger Threshold <span> *</span></label>
+                            <label class="control-label col-md-4 col-sm-3 col-xs-12">Trigger Threshold <span> *</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select name="trigger_threshold" class="form-control" required>  
                                     <option value="">Select Type</option>
