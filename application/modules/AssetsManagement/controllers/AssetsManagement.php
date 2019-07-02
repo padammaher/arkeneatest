@@ -1529,11 +1529,19 @@ class AssetsManagement extends MY_Controller {
     }
 
     public function asset_routing() {
-        $user_id = $this->session->userdata('user_id');
-        $data['dataHeader'] = $this->users->get_allData($user_id);
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                
+            } else {
+                $user_id = $this->session->userdata('user_id');
+                $data['dataHeader'] = $this->users->get_allData($user_id);
 //        $data['assets'] = $this->Assets->get_all_assets();
-
-        load_view_template($data, 'Asset_routing/asset_route');
+                load_view_template($data, 'Asset_routing/asset_route');
+            }
+        }
     }
 
     public function get_asset_autocomplete() {
