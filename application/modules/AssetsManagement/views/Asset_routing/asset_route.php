@@ -129,6 +129,14 @@
             vertical-align: middle;
         }
     }
+    .mapdiv {
+        border-radius: 4px 4px 0 0;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 15px 1px rgba(208, 201, 243, .5); 
+        /*border-right: none;*/
+        /*box-shadow: -6px 1px 7px -1px rgba(208, 201, 243, .5);*/
+    }
+
 </style>
 <div class="">
     <div class="page-title">
@@ -212,12 +220,12 @@
                                     lat: <?php echo $ukey['fse_lat']; ?>,
                                     long: <?php echo $ukey['fse_long']; ?>
                             };
-<?php // } } }            ?>
+<?php // } } }              ?>
 
                             var locations = [
-<?php // if(count($userdetail)>0){ foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']){           ?>
+<?php // if(count($userdetail)>0){ foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']){             ?>
                             [broadway_<?php echo $k ?>.info, broadway_<?php echo $k ?>.lat, broadway_<?php echo $k ?>.long, <?php echo $k ?>],
-<?php //  } } }           ?>
+<?php //  } } }             ?>
                             ];
                                     var map = new google.maps.Map(document.getElementById('map'), {
 <?php if (isset($filters)) { ?> zoom: 10,<?php } else { ?>   zoom: 10, <?php } ?>
@@ -227,7 +235,7 @@
 //                    foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']&&$cunt!=1){ $cunt=1; 
 ?>
                                     center: new google.maps.LatLng(<?php echo $ukey['fse_lat']; ?>, <?php echo $ukey['fse_long']; ?>),
-<?php //  } } }           ?>
+<?php //  } } }             ?>
 
                                     mapTypeId: google.maps.MapTypeId.ROADMAP
                                     });
@@ -250,42 +258,13 @@
                 </script>
                 <?php // } }   ?> 
             </div>
-            <div id="map" style="width: 100%; height: 300px;"> </div>
         </div>
         <!-- Start--static map code for reference-->       
-        <!--        <div class="col-md-12 col-sm-12 col-xs-12">
-                <div style="padding:10px">
-                    <div id="map" style="width: 100%; height: 300px;"></div>
-                </div>
-                </div>
-                <script type="text/javascript">
-                var map;
-                
-                function initMap() {                            
-                    var latitude = 27.7172453; // YOUR LATITUDE VALUE
-                    var longitude = 85.3239605; // YOUR LONGITUDE VALUE
-                    
-                    var myLatLng = {lat: latitude, lng: longitude};
-                    
-                    map = new google.maps.Map(document.getElementById('map'), {
-                      center: myLatLng,
-                      zoom: 14                    
-                    });
-                            
-                    var marker = new google.maps.Marker({
-                      position: myLatLng,
-                      map: map,
-                      //title: 'Hello World'
-                      
-                      // setting latitude & longitude as title of the marker
-                      // title is shown when you hover over the marker
-                      title: latitude + ', ' + longitude 
-                    });            
-                }
-                </script>-->
-                <!--<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY ?>&callback=initMap"-->
-        <!--async defer></script>-->
-        <!--End static map code for reference-->        
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div style="" class="mapdiv">
+                <div id="map" style="width: 100%; height: 500px;"></div>
+            </div>
+        </div>
     </div>
 </div>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY ?>&callback=initMap"></script>
