@@ -990,4 +990,15 @@ WHERE  " . $where . "
         return $result;
     }
 
+    public function get_all_assets() {
+        $result = $this->db->select('serial_no,code,id,isactive')->where('isactive', 1)->get('asset')->result_array();
+        if (isset($result) && !empty($result)) {
+            foreach ($result as $k => $row) {
+                $row_set[$k]['label'] = htmlentities(stripslashes($row['code']));
+                $row_set[$k]['key'] = htmlentities(stripslashes($row['id']));
+            }
+            echo json_encode($row_set);
+        }
+    }
+
 }
