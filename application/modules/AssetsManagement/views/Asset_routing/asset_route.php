@@ -94,7 +94,12 @@
             height: 100%;
         }
         
-    */        .ui-autocomplete {
+    */    
+    .ui-autocomplete {
+        position: absolute;
+
+        z-index: 999999999999999 !important;
+        border: 1px solid #d4d4d4;
         list-style-type: none;
         margin: 0px;
         padding: 0px;
@@ -103,24 +108,26 @@
         overflow-x: hidden;
     }
     .ui-menu-item {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff; 
+        border-bottom: 1px solid #d4d4d4; 
         list-style-type: none !important;
         margin:0px;
         padding:0px;
 
-
     }
     .popup .close:hover {
         color:#0554a4;
-    }/*
-        
-        .ui-helper-hidden-accessible {
-            display: none;
-        }
-        .alert-danger {
-        color: red !important;
-        background: none !important;
-        border: none !important;
     }
+    .ui-helper-hidden-accessible {
+        display: none;
+    }/*
+    .alert-danger {
+    color: red !important;
+    background: none !important;
+    border: none !important;
+}
     */
     @media (min-width: 768px){
         .form-inline .form-control {
@@ -157,18 +164,30 @@
             <div class="x_panel">
                 <div class="x_content" id="">
                     <!--<div class="row">-->
-                    <form class="form-inline form-label-left" action="<?php echo base_url() ?>asset_routing" method="POST">
+                    <form class="form-inline form-label-left" action="<?php echo base_url() ?>asset_routing" method="POST" id="asset_routing">
                         <div class="">                            
                             <label class="control-label col-md-1 col-sm-2 col-xs-6">Asset Name</label>
                             <div class="col-md-4">                
-                                <input type="text" name="asset_name" id="asset_name" class="form-control ui-autocomplete-input" value="<?php echo set_value('asset_name'); ?>" class="form-control" placeholder="Asset Name">
+                                <input type="text" name="asset_name" id="asset_name" class="form-control ui-autocomplete-input" value="<?php echo set_value('asset_name'); ?>" class="form-control" placeholder="Asset Name" required>
                                 <div id="autocomplete-container" style=""></div>
                             </div>
                         </div>
                         <div class="">
                             <label class="control-label col-md-1 col-sm-2 col-xs-6">Location</label>
-                            <div class="col-md-4">                                
-                                <input type="text" name="assetlocation" value="<?php echo set_value('assetlocation'); ?>" class="form-control" placeholder="Asset Location">
+                            <div class="col-md-4">        
+                                <select name="assetlocation" class="form-control" id="assetlocation" required>
+                                    <option value="">Select Location</option>
+                                    <?php
+                                    if (isset($location) && !empty($location)) {
+                                        foreach ($location as $l) {
+                                            ?>
+                                            <option value="<?php echo $l['id']; ?>" <?php echo set_value('assetlocation') == $l['id'] ? 'selected' : ''; ?>><?php echo $l['location_name']; ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <!--<input type="text" name="assetlocation" value="<?php echo set_value('assetlocation'); ?>" class="form-control" placeholder="Asset Location">-->
                             </div>
                         </div>                      
                         <div class="">
@@ -220,12 +239,12 @@
                                     lat: <?php echo $ukey['fse_lat']; ?>,
                                     long: <?php echo $ukey['fse_long']; ?>
                             };
-<?php // } } }              ?>
+<?php // } } }                              ?>
 
                             var locations = [
-<?php // if(count($userdetail)>0){ foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']){             ?>
+<?php // if(count($userdetail)>0){ foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']){                             ?>
                             [broadway_<?php echo $k ?>.info, broadway_<?php echo $k ?>.lat, broadway_<?php echo $k ?>.long, <?php echo $k ?>],
-<?php //  } } }             ?>
+<?php //  } } }                             ?>
                             ];
                                     var map = new google.maps.Map(document.getElementById('map'), {
 <?php if (isset($filters)) { ?> zoom: 10,<?php } else { ?>   zoom: 10, <?php } ?>
@@ -235,7 +254,7 @@
 //                    foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']&&$cunt!=1){ $cunt=1; 
 ?>
                                     center: new google.maps.LatLng(<?php echo $ukey['fse_lat']; ?>, <?php echo $ukey['fse_long']; ?>),
-<?php //  } } }             ?>
+<?php //  } } }                             ?>
 
                                     mapTypeId: google.maps.MapTypeId.ROADMAP
                                     });
@@ -272,7 +291,7 @@
 <script type="text/javascript">
                             $(function () {
                             $("#asset_name").autocomplete({
-                            
+            
                                     source: function (request, response) {
                                     $.ajax({
                                     url: "<?php echo base_url(); ?>AssetsManagement/get_asset_autocomplete",
