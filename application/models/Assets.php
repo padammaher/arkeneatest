@@ -1001,4 +1001,11 @@ WHERE  " . $where . "
         }
     }
 
+    public function get_assetlocation() {
+        $this->db->select('customer_business_location.location_name,id');
+        $this->db->from('customer_business_location');
+        $location_data = $this->db->get()->result_array();
+        return $location_data;
+    }
+
 }

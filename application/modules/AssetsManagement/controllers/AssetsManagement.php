@@ -1538,7 +1538,7 @@ class AssetsManagement extends MY_Controller {
             } else {
                 $user_id = $this->session->userdata('user_id');
                 $data['dataHeader'] = $this->users->get_allData($user_id);
-//        $data['assets'] = $this->Assets->get_all_assets();
+                $data['location'] = $this->Assets->get_assetlocation();
                 load_view_template($data, 'Asset_routing/asset_route');
             }
         }
