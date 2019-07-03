@@ -272,7 +272,7 @@
 <script type="text/javascript">
                             $(function () {
                             $("#asset_name").autocomplete({
-                            alert("data");
+                            
                                     source: function (request, response) {
                                     $.ajax({
                                     url: "<?php echo base_url(); ?>AssetsManagement/get_asset_autocomplete",
@@ -280,7 +280,7 @@
                                             type: "POST",
                                             data: request,
                                             success: function (data) {
-                                            alert(data);
+                                            
                                                     response(data);
                                             }
                                     });
