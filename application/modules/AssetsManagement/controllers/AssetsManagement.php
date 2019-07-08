@@ -1533,11 +1533,16 @@ class AssetsManagement extends MY_Controller {
             // redirect them to the login page
             redirect('auth/login', 'refresh');
         } else {
+            $user_id = $this->session->userdata('user_id');
+            $data['dataHeader'] = $this->users->get_allData($user_id);
             if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                
+                $asset = $this->input->post('asset_id');
+                $location = $this->input->post('assetlocation');
+                $data['assets'] = $this->Assets->get_assets_filter($asset, $location);
+                $data['location'] = $this->Assets->get_assetlocation();
+                load_view_template($data, 'Asset_routing/asset_route');
             } else {
-                $user_id = $this->session->userdata('user_id');
-                $data['dataHeader'] = $this->users->get_allData($user_id);
+                $data['assets'] = $this->Assets->get_default_assets();
                 $data['location'] = $this->Assets->get_assetlocation();
                 load_view_template($data, 'Asset_routing/asset_route');
             }
@@ -1546,7 +1551,14 @@ class AssetsManagement extends MY_Controller {
 
     public function get_asset_autocomplete() {
         $keyword = $this->input->post('term');
-        $this->Assets->get_all_assets();
+        $this->Assets->get_asset_autocomplete($keyword);
+    }
+
+    public function shawtask() {
+        if ($this->input->post('id')) {
+            $data["assetdetails"] = $this->Assets->getassetdetails($this->input->post('id'));
+            $this->load->view('Asset_routing/assetdetails', $data);
+        }
     }
 
 }

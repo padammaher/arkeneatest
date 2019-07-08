@@ -24,7 +24,7 @@
     .nav_menu {
         margin-bottom: 0;
     }
-    .rgt_col {top: 116px !important;}
+    
     .hgt100vh {
         height:100vh;
     }
@@ -95,6 +95,7 @@
         }
         
     */    
+    .rgt_col {top: 0px !important;}
     .ui-autocomplete {
         position: absolute;
 
@@ -143,6 +144,15 @@
         /*border-right: none;*/
         /*box-shadow: -6px 1px 7px -1px rgba(208, 201, 243, .5);*/
     }
+    .mapdiv span strong{
+        cursor: pointer;
+    }
+    .latlong{
+        width:55%;
+        float:right;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
 
 </style>
 <div class="">
@@ -170,10 +180,11 @@
                             <div class="col-md-4">                
                                 <input type="text" name="asset_name" id="asset_name" class="form-control ui-autocomplete-input" value="<?php echo set_value('asset_name'); ?>" class="form-control" placeholder="Asset Name" required>
                                 <div id="autocomplete-container" style=""></div>
+                                <input type="hidden" name="asset_id" id="asset_id" value="">
                             </div>
                         </div>
                         <div class="">
-                            <label class="control-label col-md-1 col-sm-2 col-xs-6">Location</label>
+                            <label class="control-label col-md-1 col-sm-2 col-xs-6">Customer Location</label>
                             <div class="col-md-4">        
                                 <select name="assetlocation" class="form-control" id="assetlocation" required>
                                     <option value="">Select Location</option>
@@ -194,6 +205,9 @@
                             <div class="col-md-2">                                
                                 <button type="submit" id="asset_route_button" class="btn btn-primary btn-block">Filter</button>                                
                             </div>
+                            <!--                            <div class="col-md-1">  
+                                                            <button type="button" id="asset_route_reset" class="btn btn-primary btn-block">Clear</button>                                
+                                                        </div>-->
                         </div>                      
                     </form>
                     <!--</div>-->
@@ -216,12 +230,12 @@
             <div class="map-frame">
 
                 <?php
-                $userdetail = array();
-                $cntl = 1;
-                $tsk_status = '';
-                $ukey['id'] = '11';
-                $ukey['fse_name'] = 'India';
-                $k = 1;
+//                $userdetail = array();
+//                $cntl = 1;
+//                $tsk_status = '';
+//                $ukey['id'] = '11';
+//                $ukey['fse_name'] = 'India';
+//                $k = 1;
 //           if(count($userdetail)>0 && $userdetail){ $cntl=0; 
 //            foreach ($userdetail as $k => $ukey){ 
 //                if($ukey['fse_lat']&&$ukey['fse_long']){ $cntl=1; }} 
@@ -231,30 +245,53 @@
                     var map;
                             function initMap() {
 <?php
-//                     if(count($userdetail)>0){
-//                    foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']){  
+if (count($assets) > 0) {
+    foreach ($assets as $k => $ukey) {
+        if ($ukey['lat'] && $ukey['long']) {
+            if ($ukey['status'] == 1) {
+                $style = "color:green";
+            }
+            ?>
+                                        var broadway_<?php echo $k ?> = {
+                                        info: '<span onclick=getdetail(<?php echo $ukey['assetid']; ?>)><strong style="<?php echo $style; ?>"><?php echo trim($ukey['code']); ?></strong></span><br><?php echo (isset($ukey['location'])) ? $ukey['location'] : ''; ?>',
+                                                lat: <?php echo $ukey['lat']; ?>,
+                                                long: <?php echo $ukey['long']; ?>
+                                        };
+            <?php
+        }
+    }
+}
 ?>
-                            var broadway_<?php echo $k ?> = {
-                            info: '<span onclick=getdetail(<?php echo $ukey['id'] . "," . $tsk_status; ?>)><strong><?php echo trim($ukey['fse_name']); ?></strong></span><br><?php echo (isset($ukey['locationaddress'])) ? $ukey['locationaddress'] : ''; ?><br><?php echo (isset($ukey['fse_type'])) ? $ukey['fse_type'] : ""; ?>',
-                                    lat: <?php echo $ukey['fse_lat']; ?>,
-                                    long: <?php echo $ukey['fse_long']; ?>
-                            };
-<?php // } } }                              ?>
 
                             var locations = [
-<?php // if(count($userdetail)>0){ foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']){                             ?>
-                            [broadway_<?php echo $k ?>.info, broadway_<?php echo $k ?>.lat, broadway_<?php echo $k ?>.long, <?php echo $k ?>],
-<?php //  } } }                             ?>
+<?php
+if (count($assets) > 0) {
+    foreach ($assets as $k => $ukey) {
+        if ($ukey['lat'] && $ukey['long']) {
+            ?>
+                                        [broadway_<?php echo $k ?>.info, broadway_<?php echo $k ?>.lat, broadway_<?php echo $k ?>.long, <?php echo $k ?>],
+            <?php
+        }
+    }
+}
+?>
                             ];
                                     var map = new google.maps.Map(document.getElementById('map'), {
 <?php if (isset($filters)) { ?> zoom: 10,<?php } else { ?>   zoom: 10, <?php } ?>
 
 <?php
-// $cunt=0;  if(count($userdetail)>0){
-//                    foreach ($userdetail as $k => $ukey){ if($ukey['fse_lat']&&$ukey['fse_long']&&$cunt!=1){ $cunt=1; 
+$cunt = 0;
+if (count($assets) > 0) {
+    foreach ($assets as $k => $ukey) {
+        if ($ukey['lat'] && $ukey['long'] && $cunt != 1) {
+            $cunt = 1;
+            ?>
+                                                center: new google.maps.LatLng(<?php echo $ukey['lat']; ?>, <?php echo $ukey['long']; ?>),
+            <?php
+        }
+    }
+}
 ?>
-                                    center: new google.maps.LatLng(<?php echo $ukey['fse_lat']; ?>, <?php echo $ukey['fse_long']; ?>),
-<?php //  } } }                             ?>
 
                                     mapTypeId: google.maps.MapTypeId.ROADMAP
                                     });
@@ -275,7 +312,7 @@
 
                             }
                 </script>
-                <?php // } }   ?> 
+                <?php // } }        ?> 
             </div>
         </div>
         <!-- Start--static map code for reference-->       
@@ -283,43 +320,93 @@
             <div style="" class="mapdiv">
                 <div id="map" style="width: 100%; height: 500px;"></div>
             </div>
+            <div class="rgt_col scrollbar" id="style-2" style="display:none;"> 
+                <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="this" aria-label="Close" onclick="$('.rgt_col').hide();">
+                    <span aria-hidden="true">&times; </span>
+                </button>
+                <div id="usertask" style="margin-top: 25px;"> 
+                    <?php // $this->load->view('usertasklist');      ?> 
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_MAP_API_KEY ?>&callback=initMap"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<script>
+
+                            function getdetail(id){
+//                            $(".scrollbar").css('display', 'block');
+                            var id = id;
+                                    var BASE_URL = "<?php echo base_url(); ?>";
+                                    $.ajax({
+                                    type:'POST',
+                                            url:BASE_URL + 'AssetsManagement/shawtask',
+                                            data:{'id':id},
+                                            success:function(data){
+                                            $('#usertask').html(data);
+                                                    $(".scrollbar").css('display', 'block');
+                                            }
+                                    });
+                            }
+</script> 
 <script type="text/javascript">
-                            $(function () {
-                            $("#asset_name").autocomplete({
+    $(function () {
+    $("#asset_name").autocomplete({
 //                            alert("data");
-                            source: function (request, response) {
-                            $.ajax({
-                            url: "<?php echo base_url(); ?>AssetsManagement/get_asset_autocomplete",
-                                    dataType: "json",
-                                    type: "POST",
-                                    data: request,
-                                    success: function (data) {
-                                    response(data);
-                                    }
-                            });
-                            },
-//                        focus: function (event, ui) {
-//                            $("#name_fse").val(ui.item.label);
-//                            return false;
-//                        },
-//                        select: function (event, ui) {
-//                           // $('#fse_id').val(ui.item.key);
-//                           // $("#name_fse").val(ui.item.label);
-//                            return false;
-//                        },
-                                    change: function (e, u) {
-                                    if (u.item == null) {
-                                    $(this).val("");
-                                            return false;
-                                    }
-                                    },
-                                    appendTo: '#autocomplete-container',
-                                    minLength: 1
-                            });
-                            });
+    source: function (request, response) {
+    $.ajax({
+    url: "<?php echo base_url(); ?>AssetsManagement/get_asset_autocomplete",
+            dataType: "json",
+            type: "POST",
+            data: request,
+            success: function (data) {
+            response(data);
+                    $("#assetlocation").attr('disabled', 'disabled')
+            }
+    });
+    },
+            focus: function (event, ui) {
+            $("#asset_name").val(ui.item.label);
+                    return false;
+            },
+            select: function (event, ui) {
+            $('#asset_id').val(ui.item.key);
+                    $("#asset_name").val(ui.item.label);
+                    $('#assetlocation').val('');
+                    return false;
+            },
+            change: function (e, u) {
+            if (u.item == null) {
+            $(this).val("");
+                    return false;
+            }
+            },
+            appendTo: '#autocomplete-container',
+            minLength: 1
+    });
+    });</script>
+<script>
+            $(document).ready(function(){
+//    if ($("#asset_name").val().length > 0){
+//    $("#assetlocation").attr('disabled', 'disabled');
+//    } else if ($("#assetlocation").val().length > 0){
+//    $("#asset_name").attr('disabled', 'disabled');
+//    }
+
+    $("#asset_name").change(function(){
+    $('#assetlocation').val('');
+            $("#assetlocation").attr('disabled', 'disabled');
+    });
+            $("#assetlocation").change(function(){
+    $("#asset_name").val("");
+            $("#asset_name").attr('disabled', 'disabled');
+    });
+            $("#asset_route_reset").click(function(){
+    $('#assetlocation').val('');
+            $("#asset_name").val("");
+            $("#assetlocation").removeAttr('disabled');
+            $("#asset_name").removeAttr('disabled');
+    });
+    });
 </script>

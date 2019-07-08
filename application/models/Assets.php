@@ -990,8 +990,12 @@ WHERE  " . $where . "
         return $result;
     }
 
-    public function get_all_assets() {
-        $result = $this->db->select('serial_no,code,id,isactive')->where('isactive', 1)->get('asset')->result_array();
+    public function get_asset_autocomplete($keyword = NULL) {
+        $this->db->select('serial_no,code,id,isactive')->where('isactive', 1);
+        if ($keyword !== NULL) {
+            $this->db->like('asset.code', $keyword);
+        }
+        $result = $this->db->get('asset')->result_array();
         if (isset($result) && !empty($result)) {
             foreach ($result as $k => $row) {
                 $row_set[$k]['label'] = htmlentities(stripslashes($row['code']));
@@ -1006,6 +1010,114 @@ WHERE  " . $where . "
         $this->db->from('customer_business_location');
         $location_data = $this->db->get()->result_array();
         return $location_data;
+    }
+
+    public function get_default_assets() {
+        $this->db->select('asset.code,asset.id as assetid,customer_business_location.id as locationid,asset_location.latitude as lat,asset_location.longitude as long');
+        $this->db->from('asset');
+        $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
+        $this->db->join('asset_location', 'asset_location.asset_id= asset.id and asset_location.id IN (select asset_location.id from asset_location where asset_location.isdeleted=0)', 'left');
+        if ($this->session->userdata('group_id') != 1) {
+            $this->db->join('asset_user', 'asset_user.asset_id= asset.id and `asset_user`.`id` in(select asset_user.id from asset_user where asset_user.isdeleted=0)', 'left');
+            $this->db->where('asset_user.assetuser_id', $this->session->userdata('user_id'));
+        }
+        $this->db->where('customer_business_location.id', $this->session->userdata('location_id'));
+        $this->db->where('asset.isactive', 1);
+        $result = $this->db->get()->result_array();
+        $asset_data = array();
+        if (isset($result) && !empty($result)) {
+            foreach ($result as $asset) {
+                $this->db->select('asset.code,asset.id as assetid,batchdata.status,batchdata.lng as long,batchdata.lat,asset_location.location,asset_location.address');
+                $this->db->from('batchdata');
+                $this->db->join('asset', 'batchdata.asset_id=asset.id');
+                $this->db->join('asset_location', 'batchdata.location_id=asset_location.id');
+                $this->db->where('batchdata.asset_id', $asset['assetid']);
+                $this->db->order_by('batchdata.id', 'desc');
+                $this->db->limit(1);
+                $result1 = $this->db->get()->result_array();
+                if (isset($result1) && !empty($result1)) {
+                    foreach ($result1 as $asset) {
+                        $asset_data[] = $asset;
+                    }
+                }
+            }
+        }
+        return $asset_data;
+//        echo "<pre>";
+//        echo $this->db->last_query();
+//        echo print_r($asset_data);
+//        exit();
+    }
+
+    public function getassetdetails($assetid) {
+        $this->db->select('asset.code,batchdata.*,asset_type.name as assettype,batchdata.status,batchdata.lng,batchdata.lat');
+        $this->db->from('batchdata');
+        $this->db->join('asset', 'batchdata.asset_id=asset.id');
+        $this->db->join('asset_location', 'batchdata.location_id=asset_location.id');
+        $this->db->join('runcode', 'batchdata.runcode_id=runcode.id');
+        $this->db->join('asset_type', 'asset.asset_typeid=asset_type.id');
+        $this->db->where('batchdata.asset_id', $assetid);
+        $this->db->order_by('batchdata.id', 'desc');
+        $this->db->limit(1);
+        $result = $this->db->get()->result_array();
+
+        $this->db->select('parameter.name,uom.name as unit,asset_parameter_rule.green_value,asset_parameter_rule.orange_value,asset_parameter_rule.red_value');
+        $this->db->join('parameter_range', 'parameter.id=parameter_range.parameter_id');
+        $this->db->join('asset_parameter_rule', 'parameter_range.id=asset_parameter_rule.parameter_range_id', 'left');
+        $this->db->join('uom', 'asset_parameter_rule.uom=uom.id', 'left');
+        $this->db->where('parameter_range.asset_id', $assetid);
+        $parameterinfo = $this->db->where('parameter.isactive', 1)->where('parameter.isdeleted', 0)->order_by('parameter.id', 'asc')->get('parameter')->result_array();
+
+        if (isset($parameterinfo) && !empty($parameterinfo)) {
+            $param_array = array();
+            $i = 1;
+            foreach ($parameterinfo as $parameter) {
+                if (!in_array($parameter['name'], $param_array)) {
+                    $param_array[] = $parameter['name'];
+                    $result[0]['parameter_p' . $i] = $parameter['name'];
+                    $result[0]['parameter_unit' . $i] = $parameter['unit'];
+                    $result[0]['parameter_green' . $i] = $parameter['green_value'];
+                    $result[0]['parameter_orange' . $i] = $parameter['orange_value'];
+                    $result[0]['parameter_red' . $i] = $parameter['red_value'];
+                    $i++;
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function get_assets_filter($asset = NULL, $location = NULL) {
+        $this->db->select('asset.code,asset.id as assetid,customer_business_location.id as locationid,asset_location.latitude as lat,asset_location.longitude as long');
+        $this->db->from('asset');
+        $this->db->join('customer_business_location', 'customer_business_location.id= asset.customer_locationid', 'left');
+        $this->db->join('asset_location', 'asset_location.asset_id= asset.id and asset_location.id IN (select asset_location.id from asset_location where asset_location.isdeleted=0)', 'left');
+        if ($asset != NULL || !empty($asset)) {
+            $this->db->where('asset.id', $asset);
+        }
+        if ($location != NULL || !empty($location)) {
+            $this->db->where('customer_business_location.id', $location);
+        }
+        $this->db->where('asset.isactive', 1);
+        $result = $this->db->get()->result_array();
+        $asset_data = array();
+        if (isset($result) && !empty($result)) {
+            foreach ($result as $asset) {
+                $this->db->select('asset.code,asset.id as assetid,batchdata.status,batchdata.lng as long,batchdata.lat,asset_location.location,asset_location.address');
+                $this->db->from('batchdata');
+                $this->db->join('asset', 'batchdata.asset_id=asset.id');
+                $this->db->join('asset_location', 'batchdata.location_id=asset_location.id');
+                $this->db->where('batchdata.asset_id', $asset['assetid']);
+                $this->db->order_by('batchdata.id', 'desc');
+                $this->db->limit(1);
+                $result1 = $this->db->get()->result_array();
+                if (isset($result1) && !empty($result1)) {
+                    foreach ($result1 as $asset) {
+                        $asset_data[] = $asset;
+                    }
+                }
+            }
+        }
+        return $asset_data;
     }
 
 }
