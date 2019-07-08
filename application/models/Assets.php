@@ -1050,12 +1050,14 @@ WHERE  " . $where . "
     }
 
     public function getassetdetails($assetid) {
-        $this->db->select('asset.code,batchdata.*,asset_type.name as assettype,batchdata.status,batchdata.lng,batchdata.lat');
+        $this->db->select('asset.code,device_inventory.number,batchdata.*,asset_type.name as assettype,batchdata.status,batchdata.lng,batchdata.lat');
         $this->db->from('batchdata');
         $this->db->join('asset', 'batchdata.asset_id=asset.id');
         $this->db->join('asset_location', 'batchdata.location_id=asset_location.id');
         $this->db->join('runcode', 'batchdata.runcode_id=runcode.id');
         $this->db->join('asset_type', 'asset.asset_typeid=asset_type.id');
+        $this->db->join('device_asset', 'asset.id=device_asset.asset_id');
+        $this->db->join('device_inventory', 'device_asset.device_id=device_inventory.id');
         $this->db->where('batchdata.asset_id', $assetid);
         $this->db->order_by('batchdata.id', 'desc');
         $this->db->limit(1);

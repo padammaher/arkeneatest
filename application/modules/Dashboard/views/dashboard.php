@@ -170,66 +170,91 @@
 
                     <div class="newsticker-jcarousellite newsticker-jcarousellite1 ">
                         <ul>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
-
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
+                            <?php
+                            if (isset($device_status) && !empty($device_status)) {
+                                foreach ($device_status as $device) {
+                                    ?>
+                                    <li>
+                                        <div class="info">
+                                            <?php
+                                            if (isset($device['status']) && $device['status'] == 1) {
+                                                $status = 'started';
+                                                $date = date('dS M Y | H:i a', strtotime($device['start']));
+                                                $labelclass = 'label-success';
+                                            } elseif (isset($device['status']) && $device['status'] == 0) {
+                                                $status = 'stopped';
+                                                $date = date('dS M Y | H:i a', strtotime($device['end']));
+                                                $labelclass = 'label-danger';
+                                            }
+                                            ?>
+                                            <span class="cat"><strong><?php echo isset($device['number']) ? $device['number'] : ''; ?></strong> is <span class="label <?php echo isset($labelclass) ? $labelclass : ''; ?>"><?php echo isset($status) ? $status : ''; ?></span> on <?php echo isset($date) ? $date : ''; ?></span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                            ?>
+                            <!--                            <li>
+                            
+                                                            <div class="info">
+                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                        </li>
+                            
+                                                        <li>
+                            
+                                                            <div class="info">
+                                                                <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
+                                                            </div>
+                            
+                                                            <div class="clear"></div>
+                                                        </li>
+                            
+                                                        <li>
+                            
+                                                            <div class="info">
+                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                        </li>
+                            
+                                                        <li>
+                            
+                                                            <div class="info">
+                                                                <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
+                                                            </div>
+                            
+                                                            <div class="clear"></div>
+                                                        </li>
+                            
+                            
+                                                        <li>
+                            
+                                                            <div class="info">
+                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
+                                                            </div>
+                                                            <div class="clear"></div>
+                                                        </li>
+                            
+                                                        <li>
+                            
+                                                            <div class="info">
+                                                                <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
+                                                            </div>
+                            
+                                                            <div class="clear"></div>
+                                                        </li>
+                            
+                                                        <li>
+                            
+                                                            <div class="info">
+                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
+                                                            </div>
+                            
+                                                            <div class="clear"></div>
+                                                        </li>-->
                         </ul>
                     </div>
 

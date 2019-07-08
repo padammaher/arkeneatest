@@ -95,4 +95,34 @@ class Dashboard_Model extends MY_Model {
         return $response;
     }
 
+    function get_device_status() {
+//        $this->db->select('asset.id');
+//        $this->db->where('asset.isactive', 1);
+//        $result = $this->db->get('asset')->result_array();
+//        $device_info = array();
+//        if (isset($result) && !empty($result)) {
+//            foreach ($result as $asset) {
+        $this->db->select('batchdata.status,device_inventory.number,runcode.start,runcode.end');
+        $this->db->join('asset', 'batchdata.asset_id=asset.id');
+        $this->db->join('device_inventory', 'batchdata.device_id=device_inventory.id');
+        $this->db->join('runcode', 'batchdata.runcode_id=runcode.id');
+//                $this->db->where('asset.id', $asset['id']);
+        $this->db->where('batchdata.createddate', date("Y-m-d"));
+        $this->db->order_by('batchdata.id', 'desc');
+//                $this->db->limit(1);
+        $device = $this->db->get('batchdata')->result_array();
+//                if (isset($device) && !empty($device)) {
+//                    foreach ($device as $d) {
+//                        $device_info[] = $d;
+//                    }
+//                }
+//            }
+//        }
+        return $device;
+    }
+
+    function get_alarms() {
+        
+    }
+
 }

@@ -12,7 +12,7 @@ if (isset($assetdetails)) {
                 <div class="tskhld">
                     <h5>Current Status</h5>
                     <hr>
-                    <h5>Device <?php echo (isset($asset['code'])) ? '(' . $asset['code'] . ')' : ''; ?> Status</h5>
+                    <h5>Device <?php echo (isset($asset['code'])) ? '(' . $asset['number'] . ')' : ''; ?> Status</h5>
                     <p class="green"><?php echo isset($asset['status']) && $asset['status'] == 1 ? 'Active' : 'IN-Active'; ?></p>
                     <hr>
                     <?php echo (isset($asset['parameter_p1'])) ? '<h5>' . $asset['parameter_p1'] . '</h5>' : ''; ?>
