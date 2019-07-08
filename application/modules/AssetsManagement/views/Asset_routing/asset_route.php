@@ -409,4 +409,5 @@ if (count($assets) > 0) {
             $("#asset_name").removeAttr('disabled');
     });
     });
+
 </script>
