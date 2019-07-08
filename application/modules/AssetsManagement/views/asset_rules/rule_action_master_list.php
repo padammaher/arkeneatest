@@ -235,31 +235,31 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
-                            $(document).ready(function () {
-                                $(".edit_asset").click(function () {
-                                    var id = $(this).attr('id');
-                                    $("#post" + id).val('edit');
-                                    $("#edit_asset_rule" + id).submit();
-                                });
-                                $(".delete_asset").click(function () {
-                                    var id = $(this).attr('id');
+    $(document).ready(function () {
+        $(".edit_asset").click(function () {
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+            $("#edit_asset_rule" + id).submit();
+        });
+        $(".delete_asset").click(function () {
+            var id = $(this).attr('id');
 
-                                    $("#delete_confirmation").modal('show');
-                                    $(".ok").click(function () {
-                                        // $("#post" + id).val('delete');
-                                        $("#delete_asset_rule" + id).submit();
-                                    });
-                                });
+            $("#delete_confirmation").modal('show');
+            $(".ok").click(function () {
+                // $("#post" + id).val('delete');
+                $("#delete_asset_rule" + id).submit();
+            });
+        });
 
-                                $(".trigger_data").click(function () {
-                                    var id = $(this).attr('id');
-                                    $("#post" + id).val('edit');
-                                    $("#triggerlist" + id).submit();
-                                });
+        $(".trigger_data").click(function () {
+            var id = $(this).attr('id');
+            $("#post" + id).val('edit');
+            $("#triggerlist" + id).submit();
+        });
 
-                            });
+    });
 </script>
 
 <style>

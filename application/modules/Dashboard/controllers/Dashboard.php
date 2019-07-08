@@ -38,6 +38,7 @@ class Dashboard extends MY_Controller {
             $data['Device_status'] = "";
             $data['asset_alerts'] = "";
             $data['device_status'] = $this->dashboard_model->get_device_status();
+            $data['alarms_info'] = $this->dashboard_model->get_alarms();
             $group_id = $this->session->userdata('group_id');
             if ($group_id != 1) {
                 $view = "dashboard";

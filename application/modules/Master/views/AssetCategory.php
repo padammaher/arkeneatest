@@ -74,7 +74,7 @@
 <div id="detailsModal" class="modal fade" role="dialog"></div>
 <?php // echo $this->load->view('master/modal/assetcategory');          ?>
 
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
         $('body').on('click', '.edit', function () {

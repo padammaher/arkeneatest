@@ -65,103 +65,48 @@
 
                     <div class="newsticker-jcarousellite alarmsec">
                         <ul>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-
+                            <?php
+                            if (isset($alarms_info) && !empty($alarms_info)) {
+                                foreach ($alarms_info as $alarm) {
+                                    if (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'high') {
+                                        $labelclass = 'label-danger';
+                                        $alert_txt = 'is at the';
+                                    } elseif (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'warnning') {
+                                        $labelclass = 'label-warning';
+                                        $alert_txt = 'is at the';
+                                    } elseif (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'low') {
+                                        $labelclass = 'label-danger';
+                                        $alert_txt = 'is at the';
+                                    } elseif (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'normal') {
+                                        $labelclass = 'label-success';
+                                        $alert_txt = 'has returned to';
+                                    }
+                                    $date = date('dS M Y | H:i a', strtotime($alarm['start']));
+                                    $alert_value = $alarm['start'];
+                                    ?>
+                                    <li>
+                                        <div class="info">
+                                            <span class="cat"><strong><?php echo isset($alarm['device']) ? $alarm['device'] : ''; ?></strong>  - <span class="label <?php echo isset($labelclass) ? $labelclass : ''; ?>"> <?php echo isset($alarm['alert_type']) ? $alarm['alert_type'] : ''; ?> </span> &nbsp; <?php echo isset($alarm['parametername']) ? $alarm['parametername'] : ''; ?> <?php echo isset($alert_txt) ? $alert_txt : ''; ?>  <span class="pa"><?php echo isset($alarm['alert_value']) ? $alarm['alert_value'] : ''; ?> <?php echo isset($alarm['uom']) ? $alarm['uom'] : ''; ?></span> on <?php echo isset($date) ? $date : ''; ?></span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
-
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="x_panel tile">
             <div class="x_title">
                 <h2>Device Status</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>

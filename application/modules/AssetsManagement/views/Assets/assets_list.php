@@ -1,8 +1,8 @@
 <style>
     .item-table form {
-    float: none !important;
-    margin-right: 5px;
-}
+        float: none !important;
+        margin-right: 5px;
+    }
 </style>
 <div class="row tile_count asset-stats">
     <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
@@ -80,32 +80,31 @@
                         $i = 1;
                         if (isset($assetlist) && !empty($assetlist)) {
                             foreach ($assetlist as $list) {
-                                 $parameter_count=0; 
-                                foreach($list['parametercount'] as $key)
-                                {  
-                                    if($key['isactive']==1){
-                                        $parameter_count++;  
+                                $parameter_count = 0;
+                                foreach ($list['parametercount'] as $key) {
+                                    if ($key['isactive'] == 1) {
+                                        $parameter_count++;
                                     }
-
                                 }
                                 ?>   
                                 <tr>
-                                    <?php $classAct_and_Not= $list['isactive'] == '1' ? "" : "not-allowed";
-                                    
-                                    $setId_to_modal = $list['id'];
-                                    $modal_idand_class = "data-toggle='modal' href='#assest_list_modal_" . $setId_to_modal . "'";
-                                    ?>
+                                <?php
+                                $classAct_and_Not = $list['isactive'] == '1' ? "" : "not-allowed";
+
+                                $setId_to_modal = $list['id'];
+                                $modal_idand_class = "data-toggle='modal' href='#assest_list_modal_" . $setId_to_modal . "'";
+                                ?>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $i; ?> </td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['code'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['location'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['client_name'] ?></td>
-                                    <td <?php echo $modal_idand_class; ?> ><?php echo $parameter_count;  ?></td>                              
+                                    <td <?php echo $modal_idand_class; ?> ><?php echo $parameter_count; ?></td>                              
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['startdate'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['enddate'] ?></td>
                                     <td <?php echo $modal_idand_class; ?> ><?php echo $list['isactive'] == '1' ? "Active" : "In-active"; ?></td>
                                     <td>
                                         <div style="display: -webkit-inline-box;">
-                                            
+
                                             <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
@@ -116,58 +115,58 @@
         <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
         </a> -->
                                             </form>
-                                            <?php if($list['isactive'] == '1' && $list['isactive'] != "" ) { ?>&nbsp;
-                                            <form  action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
-                                                <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
-                                                <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                                <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
-                                                <?php if (!empty($list['assetlocid'])) { ?>  
-                                                    <a class="manage_location <?php echo $classAct_and_Not;?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
-                                                        <i class="fa fa-map-marker text-success " data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
-                                                    </a>   
-                                                <?php } else { ?>   
-                                                    <input type="hidden" name="manage_location_add" id="manage_location_add" value="manage_location_add" /> 
-                                                    <a class="manage_location_add "  data-toggle="tooltip" data-placement="top" title="" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-original-title="Manage Asset Location">
-                                                        <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
-                                                    </a> 
-                                                <?php } ?>
-                                            </form>&nbsp;  
+                                            <?php if ($list['isactive'] == '1' && $list['isactive'] != "") { ?>&nbsp;
+                                                <form  action="<?php echo base_url(); ?>Assets_location_list" method="post" id="asset_location<?php echo $i; ?>">
+                                                    <input type="hidden" value="<?php echo $list['assetlocid']; ?>" name="asset_location_post_id" id="asset_location_post_id<?php echo $i; ?>" />
+                                                    <input type="hidden" name="asset_location_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                                    <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
+                                                    <?php if (!empty($list['assetlocid'])) { ?>  
+                                                        <a class="manage_location <?php echo $classAct_and_Not; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location">
+                                                            <i class="fa fa-map-marker text-success " data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                        </a>   
+                                                    <?php } else { ?>   
+                                                        <input type="hidden" name="manage_location_add" id="manage_location_add" value="manage_location_add" /> 
+                                                        <a class="manage_location_add "  data-toggle="tooltip" data-placement="top" title="" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-original-title="Manage Asset Location">
+                                                            <i class="fa fa-map-marker text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Asset Location"></i> 
+                                                        </a> 
+                                                    <?php } ?>
+                                                </form>&nbsp;  
 
-                                            <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
-                                                <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
-                                                <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                                <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
-                                                <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
-                                                    <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                        <i class="fa fa-group text-warning"></i> 
-                                                    </a>
-                                                <?php } else { ?>
-                                                    <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />        
-                                                    <a  title="Manage Users" class="manage_user_add" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                        <i class="fa fa-group text-warning "></i> 
-                                                    </a>
-                                                <?php } ?>
-                                            </form> &nbsp;
-                                            
-                                          
-                                            <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
-                                                <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
-                                                <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
-                                            <?php if (!empty($list['device_inventory_id'])) { ?>      
-                                                <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
-                                                    <i class="fa fa-list-ul text-info"></i> 
-                                                </a>
-                                            
-                                        <?php } else { ?>
-                                                <a title="Please add device for this asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please add device for this asset"> <i class="fa fa-list-ul not-allowed"></i></a>
-                                                
-                                        <?php } ?>
-                                            </form>&nbsp;
+                                                <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                                                    <input type="hidden" value="<?php echo $list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
+                                                    <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                                    <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_list" />       
+                                                    <?php if (!empty($list['asset_user_tbl_id'])) { ?>  
+                                                        <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                            <i class="fa fa-group text-warning"></i> 
+                                                        </a>
+                                                    <?php } else { ?>
+                                                        <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />        
+                                                        <a  title="Manage Users" class="manage_user_add" name="<?php echo $list['id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                            <i class="fa fa-group text-warning "></i> 
+                                                        </a>
+                                                    <?php } ?>
+                                                </form> &nbsp;
+
+
+                                                <form action="<?php echo base_url(); ?>asset_parameter_range_list" method="post" id="asset_parameter_range<?php echo $i; ?>">                   
+                                                    <input type="hidden" value="<?php echo $list['id']; ?>" name="asset_id"/>
+                                                    <input type="hidden" name="asset_para_range_post" id="asset_para_range_post<?php echo $i; ?>" value="edit" />       
+                                                    <?php if (!empty($list['device_inventory_id'])) { ?>      
+                                                        <a title="Manage Parameter" class="asset_para_range" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Parameter">
+                                                            <i class="fa fa-list-ul text-info"></i> 
+                                                        </a>
+
+                                                    <?php } else { ?>
+                                                        <a title="Please add device for this asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please add device for this asset"> <i class="fa fa-list-ul not-allowed"></i></a>
+
+                                                    <?php } ?>
+                                                </form>&nbsp;
                                             <?php } else { ?>&nbsp
-                                            <a title="Please first active the asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset"> <i class="fa fa-map-marker text-success not-allowed"></i></a>
-                                            <a title="Please first active the asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset"> <i class="fa fa-group text-warning not-allowed"></i></a>
-                                            <a title="Please first active the asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset"> <i class="fa fa-list-ul not-allowed"></i></a>
-                                            &nbsp;<?php } ?>
+                                                <a title="Please first active the asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset"> <i class="fa fa-map-marker text-success not-allowed"></i></a>
+                                                <a title="Please first active the asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset"> <i class="fa fa-group text-warning not-allowed"></i></a>
+                                                <a title="Please first active the asset" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset"> <i class="fa fa-list-ul not-allowed"></i></a>
+                                                &nbsp;<?php } ?>
                                             <form action="<?php echo base_url(); ?>Assets_edit" method="post" id="Assets_edit<?php echo $i; ?>">
                                                 <input type="hidden" value="<?php echo $list['id']; ?>" name="id"/>
                                                 <input type="hidden" name="post" id="post<?php echo $i; ?>"/>
@@ -196,7 +195,7 @@
     </div>
 </div>
 <?php $this->load->view('modal/asset_list_modal') ?>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
         $('body').on('click', '.edit', function () {
@@ -238,7 +237,7 @@
             var id = $(this).attr('id');
             // var flag = confirm('Are you sure you want to delete this item?');
             // if (flag == true) {           
-               var id = $(this).attr('id');
+            var id = $(this).attr('id');
             // $("#post" + id).val('delete');
             $("#asset_location" + id).submit();
             // }

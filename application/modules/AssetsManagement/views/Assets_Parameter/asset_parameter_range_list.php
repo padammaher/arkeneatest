@@ -1,16 +1,16 @@
 <style>
     .item-table form {
-    float: none !important;
-    margin-right: 5px;
-}
+        float: none !important;
+        margin-right: 5px;
+    }
 </style>
-<?php if(isset($parameter_range_info)){ $parameter_count=0; 
-    foreach($parameter_range_info as $key)
-    {  
-        if($key['isactive']==1){
-            $parameter_count++;  
+<?php
+if (isset($parameter_range_info)) {
+    $parameter_count = 0;
+    foreach ($parameter_range_info as $key) {
+        if ($key['isactive'] == 1) {
+            $parameter_count++;
         }
-          
     }
 }
 ?> 
@@ -87,12 +87,12 @@
                                                 <a title="Edit" class="edit" id="<?php echo $i; ?>">  
                                                     <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                 </a>
-                                                <?php if($r['isactive'] == 1 && $r['isactive'] != "") { ?>
-                                                <a title="Edit" class="manage" id="<?php echo $i; ?>">
-                                                    <i class="fa fa-dedent" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Rule"></i>
-                                                </a>
-                                                <?php } else {?>                                                
-                                                <a title="Please first active the asset parameter range" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset parameter range"> <i class="fa fa-dedent not-allowed"></i></a>
+                                                <?php if ($r['isactive'] == 1 && $r['isactive'] != "") { ?>
+                                                    <a title="Edit" class="manage" id="<?php echo $i; ?>">
+                                                        <i class="fa fa-dedent" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Rule"></i>
+                                                    </a>
+                                                <?php } else { ?>                                                
+                                                    <a title="Please first active the asset parameter range" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset parameter range"> <i class="fa fa-dedent not-allowed"></i></a>
                                                 <?php } ?>
                                                 <a title="Delete" class="delete" id="<?php echo $i; ?>" >
                                                     <i class="fa fa-trash red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i> 
@@ -116,7 +116,7 @@
     </div>
 </div>
 <div id="detailsModal" class="modal fade" role="dialog"></div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
         var update_url = "<?php echo base_url() . 'asset_parameter_update'; ?>";

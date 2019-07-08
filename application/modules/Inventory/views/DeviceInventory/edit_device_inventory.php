@@ -238,44 +238,44 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $("#comm_type").change(function () {
-                                        if ($("#comm_type").val() != "" && $("#comm_type").val() == "GSM") {
-                                            $("#gsmnumber").attr('required', 'required');
-                                        }
-                                        else
-                                        {
-                                            $("#gsmnumber").removeAttr('required');
-                                        }
-                                    });
+    $(document).ready(function () {
+        $("#comm_type").change(function () {
+            if ($("#comm_type").val() != "" && $("#comm_type").val() == "GSM") {
+                $("#gsmnumber").attr('required', 'required');
+            }
+            else
+            {
+                $("#gsmnumber").removeAttr('required');
+            }
+        });
 
-                                });
+    });
 
 
-                                $(document).ready(function () {
+    $(document).ready(function () {
 
-                                    $("#gsmnumber").keypress(function (e) {
-                                        $('span.error-keyup-3').remove();
-                                        var inputVal = $(this).val();
-                                        // phonenumber(inputVal);
-                                        if (inputVal.trim() == "") {
-                                            $('span.error-keyup-3').remove();
-                                        } else {
-                                            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                                                $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
-                                                return false;
-                                            } else if (inputVal.length < 9) {
-                                                // $("#trigger_button").prop("disabled", true);
-                                                // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
-                                            }
-                                            if (inputVal.length > 9) {
-                                                // $("#trigger_button").prop("disabled", false);
-                                            }
-                                        }
-                                    });
-                                });
+        $("#gsmnumber").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
+            // phonenumber(inputVal);
+            if (inputVal.trim() == "") {
+                $('span.error-keyup-3').remove();
+            } else {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                    return false;
+                } else if (inputVal.length < 9) {
+                    // $("#trigger_button").prop("disabled", true);
+                    // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+                }
+                if (inputVal.length > 9) {
+                    // $("#trigger_button").prop("disabled", false);
+                }
+            }
+        });
+    });
 
 
 </script>        

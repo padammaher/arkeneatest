@@ -1,8 +1,8 @@
 <style>
     .item-table form {
-    float: none !important;
-    margin-right: 5px;
-}
+        float: none !important;
+        margin-right: 5px;
+    }
 </style>
 <div class="">
     <div class="page-title">
@@ -74,25 +74,25 @@
                                                         <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                     </a>
                                                 </form> 
-                                                <?php if($asset_loc_list['isactive'] == 1 && $asset_loc_list['isactive'] != "") { ?>&nbsp;
-                                                <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
-                                                    <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
-                                                    <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
-                                                    <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_location_list" />       
-                                                    <?php if (!empty($asset_loc_list['asset_user_tbl_id'])) { ?>  
-                                                        <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                            <i class="fa fa-group text-warning"></i> 
-                                                        </a>
-                                                    <?php } else { ?>
-                                                        <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />                                                       
-                                                        <a  title="Manage Users" class="manage_user_add" name="<?php echo $asset_loc_list['asset_tbl_id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
-                                                            <i class="fa fa-group text-warning"></i> 
-                                                        </a>
-                                                    <?php } ?>
-                                                </form>  &nbsp;
-                                                <?php } else {?> 
-                                                &nbsp;
-                                                <a title="Please first active the asset location" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset location"> <i class="fa fa-group text-warning not-allowed"></i></a>
+                                                <?php if ($asset_loc_list['isactive'] == 1 && $asset_loc_list['isactive'] != "") { ?>&nbsp;
+                                                    <form action="<?php echo base_url(); ?>User_asset_edit" method="post" id="asset_user<?php echo $i; ?>">
+                                                        <input type="hidden" value="<?php echo $asset_loc_list['asset_user_tbl_id']; ?>" id="asset_user_post_id<?php echo $i; ?>" name="asset_user_post_id"/>
+                                                        <input type="hidden" name="asset_user_post" id="asset_user_post<?php echo $i; ?>" value="edit" />       
+                                                        <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Assets_location_list" />       
+                                                        <?php if (!empty($asset_loc_list['asset_user_tbl_id'])) { ?>  
+                                                            <a title="Manage Users" class="manage_user" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                                <i class="fa fa-group text-warning"></i> 
+                                                            </a>
+                                                        <?php } else { ?>
+                                                            <input type="hidden" name="manage_asset_add" id="manage_asset_add" value="manage_asset_add" />                                                       
+                                                            <a  title="Manage Users" class="manage_user_add" name="<?php echo $asset_loc_list['asset_tbl_id']; ?>" id="<?php echo $i; ?>" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Users">
+                                                                <i class="fa fa-group text-warning"></i> 
+                                                            </a>
+                                                        <?php } ?>
+                                                    </form>  &nbsp;
+                                                <?php } else { ?> 
+                                                    &nbsp;
+                                                    <a title="Please first active the asset location" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the asset location"> <i class="fa fa-group text-warning not-allowed"></i></a>
                                                 <?php } ?>&nbsp;
                                                 <form action="<?php echo base_url(); ?>Assets_location_list" method="post" id="Assets_location_list<?php echo $i; ?>">
                                                     <input type="hidden" value="<?php echo $asset_loc_list['id']; ?>" name="asset_location_post_id"/>
@@ -128,7 +128,7 @@
 
 </div>
 <?php $this->load->view('modal/asset_location_list_modal') ?>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
         $('body').on('click', '.edit', function () {

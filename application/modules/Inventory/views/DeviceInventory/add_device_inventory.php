@@ -91,7 +91,7 @@
                         </div>
                         <?php if (form_error('comm_type')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('comm_type'); ?></span>
-<?php } ?>
+                        <?php } ?>
                     </div> 
 
                     <div class="item form-group">
@@ -102,7 +102,7 @@
                         </div>
                         <?php if (form_error('gsmnumber')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('gsmnumber'); ?></span>
-<?php } ?>
+                        <?php } ?>
                     </div>
 
                     <div class="item form-group">
@@ -112,7 +112,7 @@
                         </div>
                         <?php if (form_error('comm_protocol')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('comm_protocol'); ?></span>
-<?php } ?>
+                        <?php } ?>
                     </div>					
 
                     <div class="item form-group">
@@ -128,7 +128,7 @@
                         </div>
                         <?php if (form_error('stockdate')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('stockdate'); ?></span>
-<?php } ?>
+                        <?php } ?>
                     </div>
 
 
@@ -148,14 +148,14 @@
                             </div>
                             <?php if (form_error('oem_ser_interval_type')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('oem_ser_interval_type'); ?></span>
-<?php } ?>
+                            <?php } ?>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-12">
                             <input type="text" class="form-control" id="oem_ser_interval_type_count" name="oem_ser_interval_type_count" value="<?php echo set_value('oem_ser_interval_type_count'); ?>" placeholder="" required="required">
                         </div>
                         <?php if (form_error('oem_ser_interval_type_count')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('oem_ser_interval_type_count'); ?></span>
-<?php } ?>
+                        <?php } ?>
                     </div>
 
                     <div class="item form-group">
@@ -174,14 +174,14 @@
                             </div>
                             <?php if (form_error('service_after')) { ?>
                                 <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('service_after'); ?></span>
-<?php } ?>
+                            <?php } ?>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-12">
                             <input type="text" class="form-control" id="service_type_count" name="service_type_count" value="<?php echo set_value('service_type_count'); ?>" placeholder="" required="required">
                         </div>
                         <?php if (form_error('service_type_count')) { ?>
                             <span class="mrtp10 text-center englable" style="color:#ff3333; font-size: 15px; "><?php echo form_error('service_type_count'); ?></span>
-<?php } ?>
+                        <?php } ?>
                     </div>
 
                     <div class="item form-group">
@@ -216,117 +216,117 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $("#comm_type").change(function () {
-                                        if ($("#comm_type").val() != "" && $("#comm_type").val() == "GSM") {
-                                            $("#gsmnumber").attr('required', 'required');
-                                        }
-                                        else
-                                        {
-                                            $("#gsmnumber").removeAttr('required');
-                                        }
-                                    });
+    $(document).ready(function () {
+        $("#comm_type").change(function () {
+            if ($("#comm_type").val() != "" && $("#comm_type").val() == "GSM") {
+                $("#gsmnumber").attr('required', 'required');
+            }
+            else
+            {
+                $("#gsmnumber").removeAttr('required');
+            }
+        });
 
 
 
-                                    $("#devicename").change(function ()
-                                    {
+        $("#devicename").change(function ()
+        {
 
-                                        var options;
-                                        $.ajax({
-                                            url: '<?php echo base_url(); ?>Inventory/Check_devicenum_is_exist',
-                                            type: 'post',
-                                            dataType: 'text',
-                                            data: {devicenum: this.value},
-                                            success: function (res) {
-                                                if (res >= 1)
-                                                {
-                                                    $("#devicename").css('border', '1px solid #CE5454');
-                                                    $(".deivcenumexist").text('Device number already exist..!');
+            var options;
+            $.ajax({
+                url: '<?php echo base_url(); ?>Inventory/Check_devicenum_is_exist',
+                type: 'post',
+                dataType: 'text',
+                data: {devicenum: this.value},
+                success: function (res) {
+                    if (res >= 1)
+                    {
+                        $("#devicename").css('border', '1px solid #CE5454');
+                        $(".deivcenumexist").text('Device number already exist..!');
 //                            $("#postbutton").disabled=true;
-                                                    document.getElementById("postbutton").disabled = true;
-                                                }
-                                                else
-                                                {
-                                                    $(".deivcenumexist").text('');
+                        document.getElementById("postbutton").disabled = true;
+                    }
+                    else
+                    {
+                        $(".deivcenumexist").text('');
 //                            alert($(".serialnumexist").text());
-                                                    if ($(".serialnumexist").text() == "") {
-                                                        document.getElementById("postbutton").disabled = false;
-                                                    }
-                                                }
+                        if ($(".serialnumexist").text() == "") {
+                            document.getElementById("postbutton").disabled = false;
+                        }
+                    }
 
-                                            }
-                                        });
-                                    });
+                }
+            });
+        });
 
-                                    $("#serialnumber").change(function ()
-                                    {
+        $("#serialnumber").change(function ()
+        {
 
-                                        var options;
-                                        $.ajax({
-                                            url: '<?php echo base_url(); ?>Inventory/Check_serialnum_is_exist',
-                                            type: 'post',
-                                            dataType: 'text',
-                                            data: {serialnum: this.value},
-                                            success: function (res) {
-                                                if (res >= 1)
-                                                {
-                                                    $("#serialnumber").css('border', '1px solid #CE5454');
-                                                    $(".serialnumexist").text('Serial number already exist..!');
+            var options;
+            $.ajax({
+                url: '<?php echo base_url(); ?>Inventory/Check_serialnum_is_exist',
+                type: 'post',
+                dataType: 'text',
+                data: {serialnum: this.value},
+                success: function (res) {
+                    if (res >= 1)
+                    {
+                        $("#serialnumber").css('border', '1px solid #CE5454');
+                        $(".serialnumexist").text('Serial number already exist..!');
 //                            $("#postbutton").disabled=true;
-                                                    document.getElementById("postbutton").disabled = true;
-                                                }
-                                                else
-                                                {
-                                                    $(".serialnumexist").text('');
-                                                    if ($(".deivcenumexist").text() == "") {
-                                                        document.getElementById("postbutton").disabled = false;
-                                                    }
+                        document.getElementById("postbutton").disabled = true;
+                    }
+                    else
+                    {
+                        $(".serialnumexist").text('');
+                        if ($(".deivcenumexist").text() == "") {
+                            document.getElementById("postbutton").disabled = false;
+                        }
 //                             document.getElementById("postbutton").disabled = false;
-                                                }
+                    }
 
-                                            }
-                                        });
-                                    });
-                                });
+                }
+            });
+        });
+    });
 
 
-                                $(document).ready(function () {
-                                    $("#gsmnumber").keypress(function (e) {
-                                        $('span.error-keyup-3').remove();
-                                        var inputVal = $(this).val();
+    $(document).ready(function () {
+        $("#gsmnumber").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
 
-                                        if (inputVal.trim() == "") {
-                                            $('span.error-keyup-3').remove();
-                                        } else {
-                                            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                                                $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
-                                                return false;
-                                            } else if (inputVal.length < 9) {
-                                                // $("#trigger_button").prop("disabled", true);
-                                                // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
-                                            }
-                                            if (inputVal.length > 9) {
-                                                // $("#trigger_button").prop("disabled", false);
-                                            }
-                                        }
-                                    });
-                                });
+            if (inputVal.trim() == "") {
+                $('span.error-keyup-3').remove();
+            } else {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                    return false;
+                } else if (inputVal.length < 9) {
+                    // $("#trigger_button").prop("disabled", true);
+                    // $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+                }
+                if (inputVal.length > 9) {
+                    // $("#trigger_button").prop("disabled", false);
+                }
+            }
+        });
+    });
 
-                                $('#service_type_count').keypress(function (event) {
-                                    var keycode = event.which;
-                                    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                                        event.preventDefault();
-                                    }
-                                });
-                                $('#oem_ser_interval_type_count').keypress(function (event) {
-                                    var keycode = event.which;
-                                    if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-                                        event.preventDefault();
-                                    }
-                                });
+    $('#service_type_count').keypress(function (event) {
+        var keycode = event.which;
+        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+            event.preventDefault();
+        }
+    });
+    $('#oem_ser_interval_type_count').keypress(function (event) {
+        var keycode = event.which;
+        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+            event.preventDefault();
+        }
+    });
 
 
 </script>    

@@ -141,74 +141,74 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
-                                    function undisable(vall) {
+    function undisable(vall) {
 //                                    alert(vall.id);
-                                        if (vall.checked == true) {
-                                            $("#email").attr("readonly", false);
+        if (vall.checked == true) {
+            $("#email").attr("readonly", false);
 
-                                        }
-                                        else if (vall.checked == false)
-                                        {
-                                            $("#email").attr("readonly", true);
-                                            $("#email").val(vall.id);
-                                            $("#trigger_button").prop("disabled", false);
-                                            $('span.error-keyup-3').remove();
-                                        }
-                                    }
+        }
+        else if (vall.checked == false)
+        {
+            $("#email").attr("readonly", true);
+            $("#email").val(vall.id);
+            $("#trigger_button").prop("disabled", false);
+            $('span.error-keyup-3').remove();
+        }
+    }
 
-                                    function undisable1(vall) {
+    function undisable1(vall) {
 //    document.getElementById("contactno").disabled = false;
-                                        if (vall.checked == true) {
-                                            $("#contactno").attr("readonly", false);
-                                        }
-                                        else if (vall.checked == false)
-                                        {
-                                            $("#contactno").attr("readonly", true);
-                                            $("#contactno").val(vall.id);
-                                            // $("#trigger_button").prop("disabled", false);
-                                        }
-                                    }
+        if (vall.checked == true) {
+            $("#contactno").attr("readonly", false);
+        }
+        else if (vall.checked == false)
+        {
+            $("#contactno").attr("readonly", true);
+            $("#contactno").val(vall.id);
+            // $("#trigger_button").prop("disabled", false);
+        }
+    }
 
-                                    $(document).ready(function () {
-                                        $("#contactno").keypress(function (e) {
-                                            $('span.error-keyup-3').remove();
-                                            var inputVal = $(this).val();
-                                            if (inputVal.trim() == "") {
-                                                $("#trigger_button").prop("disabled", false);
-                                            }
-                                            // if($('input[type="check_contact"]').checked==true)
-                                            if ($('input[name="check_contact"]').is(":checked") == true) {
-                                                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                                                    $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
-                                                    return false;
-                                                } else if (inputVal.length < 9) {
-                                                    $("#trigger_button").prop("disabled", true);
-                                                    $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
-                                                }
-                                                if (inputVal.length > 9) {
-                                                    $("#trigger_button").prop("disabled", false);
-                                                }
-                                            } else if ($('input[name="check_contact"]').is(":checked") == false) {
-                                                $("#trigger_button").prop("disabled", false);
-                                                // alert("unchecked");
-                                            }
-                                        });
+    $(document).ready(function () {
+        $("#contactno").keypress(function (e) {
+            $('span.error-keyup-3').remove();
+            var inputVal = $(this).val();
+            if (inputVal.trim() == "") {
+                $("#trigger_button").prop("disabled", false);
+            }
+            // if($('input[type="check_contact"]').checked==true)
+            if ($('input[name="check_contact"]').is(":checked") == true) {
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
+                    return false;
+                } else if (inputVal.length < 9) {
+                    $("#trigger_button").prop("disabled", true);
+                    $(this).after('<span class="error error-keyup-3" style="color:red">Enter minimum 10 number.</span>');
+                }
+                if (inputVal.length > 9) {
+                    $("#trigger_button").prop("disabled", false);
+                }
+            } else if ($('input[name="check_contact"]').is(":checked") == false) {
+                $("#trigger_button").prop("disabled", false);
+                // alert("unchecked");
+            }
+        });
 
 
-                                        $("#email").change(function (e) {
-                                            $('span.error-keyup-3').remove();
-                                            var emailAddress = $(this).val();
+        $("#email").change(function (e) {
+            $('span.error-keyup-3').remove();
+            var emailAddress = $(this).val();
 
-                                            var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-                                            if (!emailReg.test(emailAddress)) {
-                                                $(this).after('<span class="error error-keyup-3" style="color:red">Enter valid email id</span>');
-                                                $("#trigger_button").prop("disabled", true);
-                                            } else {
-                                                $("#trigger_button").prop("disabled", false);
-                                            }
+            var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if (!emailReg.test(emailAddress)) {
+                $(this).after('<span class="error error-keyup-3" style="color:red">Enter valid email id</span>');
+                $("#trigger_button").prop("disabled", true);
+            } else {
+                $("#trigger_button").prop("disabled", false);
+            }
 
-                                        });
-                                    });
+        });
+    });
 </script>

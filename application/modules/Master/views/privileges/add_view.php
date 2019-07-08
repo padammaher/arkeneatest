@@ -22,8 +22,8 @@
                                     <th width="20%" class="text-center">View</th>
                                 </tr>
                             </thead>
-                          
-                     <tbody>
+
+                            <tbody>
                                 <?php
                                 //echo "<pre>";print_r($user_type[0]);
                                 if (isset($menu) && !empty($menu)) {
@@ -87,7 +87,7 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
 //        $('body').on('click', '.delete', function () {        
