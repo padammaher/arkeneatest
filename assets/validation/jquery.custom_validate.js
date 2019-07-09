@@ -1,4 +1,7 @@
 /*Login */
+jQuery.validator.addMethod("noSpace", function (value, element) {
+    return value == '' || value.trim().length != 0;
+}, "The field should not be empty");
 
 $("#login_form").validate({
     rules: {
@@ -100,6 +103,34 @@ $("#reg_form").validate({
         },
         
       
+    },
+    //For custom messages
+    messages: {
+        uname: {
+            required: "Enter a username",
+            minlength: "Enter at least 5 characters"
+        },
+        curl: "Enter your website",
+    },
+    errorElement: 'div',
+    errorPlacement: function (error, element) {
+        var placement = $(element).data('error');
+        if (placement) {
+            $(placement).append(error)
+        } else {
+            error.insertAfter(element);
+        }
+    }
+});
+$("#asset_routing").validate({
+    rules: {
+        asset_name: {
+            required: true,
+            noSpace:true
+        },
+         assetlocation: {
+            required: true,
+        },
     },
     //For custom messages
     messages: {

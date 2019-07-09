@@ -164,7 +164,6 @@ $group_id = $this->session->userdata('group_id');
                     ?>
                 </ul>
             </div>
-
         </div>
         <!-- /sidebar menu -->
 

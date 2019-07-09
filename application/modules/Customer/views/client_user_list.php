@@ -80,7 +80,7 @@
                             ?>
                             <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
-                                    
+
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;
@@ -210,7 +210,7 @@
 </script> 
 
 
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
 

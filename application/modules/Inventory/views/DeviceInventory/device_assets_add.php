@@ -32,18 +32,18 @@ $back_action = $this->input->post('back_action');
                                         <option value="">Select Device Number</option>
                                     <?php } ?>                                    
                                     <?php
-                                    if (!empty($managed_dev_asset_Id)) { 
+                                    if (!empty($managed_dev_asset_Id)) {
                                         foreach ($device_list as $device_id_list) {
                                             if ($managed_dev_asset_Id == $device_id_list['id']) {
                                                 ?>
-                                                <option id="<?php echo $device_id_list['customer_location_id'];?>" value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid', $managed_dev_asset_Id) == $device_id_list['id'] ? 'selected' : '' ?> ><?php echo $device_id_list['number']; ?></option>
+                                                <option id="<?php echo $device_id_list['customer_location_id']; ?>" value="<?php echo $device_id_list['id']; ?>" <?php echo set_value('deviceid', $managed_dev_asset_Id) == $device_id_list['id'] ? 'selected' : '' ?> ><?php echo $device_id_list['number']; ?></option>
                                                 <?php
                                             }
                                         }
                                     } else {
                                         foreach ($device_list as $device_id_list_2) {
                                             ?>
-                                            <option id="<?php echo $device_id_list_2['customer_location_id'];?>" value="<?php echo $device_id_list_2['id']; ?>" <?php echo set_value('deviceid') == $device_id_list_2['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list_2['number']; ?></option>
+                                            <option id="<?php echo $device_id_list_2['customer_location_id']; ?>" value="<?php echo $device_id_list_2['id']; ?>" <?php echo set_value('deviceid') == $device_id_list_2['id'] ? 'selected' : ''; ?> ><?php echo $device_id_list_2['number']; ?></option>
 
 
                                             <?php
@@ -122,7 +122,7 @@ $back_action = $this->input->post('back_action');
 
 </div>
 
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -142,7 +142,7 @@ $back_action = $this->input->post('back_action');
                 url: '<?php echo base_url(); ?>Inventory/Load_Locationwise_assetids',
                 type: 'post',
                 dataType: 'text',
-                data: {deviceid: this.value,location_id:location_id},
+                data: {deviceid: this.value, location_id: location_id},
                 success: function (res) {
                     var obj = $.parseJSON(res);
 

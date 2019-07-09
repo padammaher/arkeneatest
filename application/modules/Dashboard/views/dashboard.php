@@ -65,103 +65,48 @@
 
                     <div class="newsticker-jcarousellite alarmsec">
                         <ul>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong>  - <span class="label label-warning">warning</span> pressure condition is at the  <span class="pa">420pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV003</strong>  - <span class="label label-danger">critical</span> pressure condition is at the  <span class="pa">20pa</span> on 18th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong>  - <span class="label label-success"> normal </span> &nbsp; pressure condition has returned to  <span class="pa">120pa</span> on 19th Oct 2018 | 11:45 am.</span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-
+                            <?php
+                            if (isset($alarms_info) && !empty($alarms_info)) {
+                                foreach ($alarms_info as $alarm) {
+                                    if (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'high') {
+                                        $labelclass = 'label-danger';
+                                        $alert_txt = 'is at the';
+                                    } elseif (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'warnning') {
+                                        $labelclass = 'label-warning';
+                                        $alert_txt = 'is at the';
+                                    } elseif (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'low') {
+                                        $labelclass = 'label-danger';
+                                        $alert_txt = 'is at the';
+                                    } elseif (isset($alarm['alert_type']) && strtolower($alarm['alert_type']) == 'normal') {
+                                        $labelclass = 'label-success';
+                                        $alert_txt = 'has returned to';
+                                    }
+                                    $date = date('dS M Y | H:i a', strtotime($alarm['start']));
+                                    $alert_value = $alarm['start'];
+                                    ?>
+                                    <li>
+                                        <div class="info">
+                                            <span class="cat"><strong><?php echo isset($alarm['device']) ? $alarm['device'] : ''; ?></strong>  - <span class="label <?php echo isset($labelclass) ? $labelclass : ''; ?>"> <?php echo isset($alarm['alert_type']) ? $alarm['alert_type'] : ''; ?> </span> &nbsp; <?php echo isset($alarm['parametername']) ? $alarm['parametername'] : ''; ?> <?php echo isset($alert_txt) ? $alert_txt : ''; ?>  <span class="pa"><?php echo isset($alarm['alert_value']) ? $alarm['alert_value'] : ''; ?> <?php echo isset($alarm['uom']) ? $alarm['uom'] : ''; ?></span> on <?php echo isset($date) ? $date : ''; ?></span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
-
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="x_panel tile">
             <div class="x_title">
                 <h2>Device Status</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
@@ -170,99 +115,52 @@
 
                     <div class="newsticker-jcarousellite newsticker-jcarousellite1 ">
                         <ul>
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
-
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
-
-                            <li>
-
-                                <div class="info">
-                                    <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                </div>
-
-                                <div class="clear"></div>
-                            </li>
+                            <?php
+                            if (isset($device_status) && !empty($device_status)) {
+                                foreach ($device_status as $device) {
+                                    ?>
+                                    <li>
+                                        <div class="info">
+                                            <?php
+                                            if (isset($device['status']) && $device['status'] == 1) {
+                                                $status = 'started';
+                                                $date = date('dS M Y | H:i a', strtotime($device['start']));
+                                                $labelclass = 'label-success';
+                                            } elseif (isset($device['status']) && $device['status'] == 0) {
+                                                $status = 'stopped';
+                                                $date = date('dS M Y | H:i a', strtotime($device['end']));
+                                                $labelclass = 'label-danger';
+                                            }
+                                            ?>
+                                            <span class="cat"><strong><?php echo isset($device['number']) ? $device['number'] : ''; ?></strong> is <span class="label <?php echo isset($labelclass) ? $labelclass : ''; ?>"><?php echo isset($status) ? $status : ''; ?></span> on <?php echo isset($date) ? $date : ''; ?></span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
 </div>
-
 <div class="clearfix"></div>
-
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel tile">
             <div class="x_title circle-hold">
-
-
-
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
-
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -303,7 +201,7 @@
                 <hr>
                 <?php
                 $chart_count = 0;
-                for ($cindex = 0; $cindex < count($dashboard_assets); $cindex++) {
+                for ($cindex = 0; $cindex < count($total_parameter); $cindex++) {
                     if ($chart_count < 4) {
                         ?>
                         <div class="col-md-3 col-sm-4 col-xs-12">
@@ -570,8 +468,6 @@
 
         </div>
         <div class="row">
-
-
             <!-- Start to do list -->
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
@@ -647,7 +543,6 @@
 </div>
 <script>
     function init_echarts(data) {
-
         if (typeof (echarts) === 'undefined') {
             return;
         }
@@ -657,18 +552,13 @@
                 var echartGauge = echarts.init(document.getElementById("echart_gauge" + i));
                 $("#echart_gaugehead" + i).html(data[i]['name']);
                 echartGauge.setOption({
-                    tooltip: {
-                        formatter: "{b} : {c}"
+                    tooltip: {formatter: "{b} : {c}"
                     },
-                    toolbox: {
-                        show: false,
-                        feature: {
-                            restore: {
-                                show: true,
+                    toolbox: {show: false,
+                        feature: {restore: {show: true,
                                 title: "Restore"
                             },
-                            saveAsImage: {
-                                show: true,
+                            saveAsImage: {show: true,
                                 title: "Save Image"
                             }
                         }
@@ -683,11 +573,8 @@
                             max: data[i]['max_value'],
                             precision: 0,
                             splitNumber: 10,
-                            axisLine: {
-                                show: true,
-                                lineStyle: {
-                                    color: [
-                                        [0.2, 'lightgreen'],
+                            axisLine: {show: true,
+                                lineStyle: {color: [[0.2, 'lightgreen'],
                                         [0.4, 'orange'],
                                         [0.8, 'skyblue'],
                                         [1, '#ff4500']
@@ -695,17 +582,14 @@
                                     width: 30
                                 }
                             },
-                            axisTick: {
-                                show: true,
+                            axisTick: {show: true,
                                 splitNumber: 5,
                                 length: 8,
-                                lineStyle: {
-                                    color: '#eee',
+                                lineStyle: {color: '#eee',
                                     width: 1,
                                     type: 'solid'}
                             },
-                            axisLabel: {
-                                show: true,
+                            axisLabel: {show: true,
                                 formatter: function (v) {
                                     switch (v + '') {
                                         case data[i]['min_value']:
@@ -716,16 +600,13 @@
                                             return '';
                                     }
                                 },
-                                textStyle: {
-                                    color: '#333'
+                                textStyle: {color: '#333'
                                 }
                             }
                             ,
-                            splitLine: {
-                                show: true,
+                            splitLine: {show: true,
                                 length: 30,
-                                lineStyle: {
-                                    color: '#eee',
+                                lineStyle: {color: '#eee',
                                     width: 2,
                                     type: 'solid'
                                 }
@@ -736,13 +617,11 @@
                             },
                             title: {show: true,
                                 offsetCenter: ['-65%', -10],
-                                textStyle: {
-                                    color: '#333',
+                                textStyle: {color: '#333',
                                     fontSize: 15
                                 }
                             },
-                            detail: {
-                                show: true,
+                            detail: {show: true,
                                 backgroundColor: 'rgba(0,0,0,0)',
                                 borderWidth: 0,
                                 borderColor: '#ccc',
@@ -750,8 +629,7 @@
                                 height: 40,
                                 offsetCenter: ['-60%', 10],
                                 formatter: '{value}',
-                                textStyle: {
-                                    color: 'auto',
+                                textStyle: {color: 'auto',
                                     fontSize: 20
                                 }
                             },
@@ -799,7 +677,6 @@
             var starttime = $(this).children(":selected").attr("name");
             var location_id = $(this).children(":selected").attr("id");
             if (this.value != "") {
-
                 $("#running_devicetime").html(starttime);
                 // $("#running_devicedue_hour").html(starttime);
                 $("#running_device").html('Running');

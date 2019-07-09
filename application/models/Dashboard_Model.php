@@ -95,4 +95,70 @@ class Dashboard_Model extends MY_Model {
         return $response;
     }
 
+    function get_device_status() {
+//        $this->db->select('asset.id');
+//        $this->db->where('asset.isactive', 1);
+//        $result = $this->db->get('asset')->result_array();
+//        $device_info = array();
+//        if (isset($result) && !empty($result)) {
+//            foreach ($result as $asset) {
+        $this->db->select('batchdata.status,device_inventory.number,runcode.start,runcode.end');
+        $this->db->join('asset', 'batchdata.asset_id=asset.id');
+        $this->db->join('device_inventory', 'batchdata.device_id=device_inventory.id');
+        $this->db->join('runcode', 'batchdata.runcode_id=runcode.id');
+//                $this->db->where('asset.id', $asset['id']);
+        $this->db->where('batchdata.createddate', date("Y-m-d"));
+//        $this->db->order_by('batchdata.id', 'desc');
+//                $this->db->limit(1);
+        $device = $this->db->get('batchdata')->result_array();
+//                if (isset($device) && !empty($device)) {
+//                    foreach ($device as $d) {
+//                        $device_info[] = $d;
+//                    }
+//                }
+//            }
+//        }
+        return $device;
+    }
+
+    function get_alarms() {
+        $this->db->select('asset.code as asset,asset.id,device_inventory.number as device,batchalert.alert_type,batchalert.alert_value,'
+                . 'batchalert.set_value,parameter.id as param_id,parameter.name as parametername,runcode.start');
+        $this->db->join('asset', 'batchalert.asset_id=asset.id');
+        $this->db->join('asset_location', 'batchalert.location_id=asset_location.id');
+        $this->db->join('runcode', 'batchalert.runcode_id=runcode.id');
+        $this->db->join('device_asset', 'asset.id=device_asset.asset_id');
+        $this->db->join('device_inventory', 'batchalert.device_id=device_inventory.id');
+        $this->db->join('parameter', 'batchalert.parameter_id=parameter.id');
+        $this->db->where('batchalert.date', date("Y-m-d"));
+        $result = $this->db->get('batchalert')->result_array();
+
+        $param = array();
+        if (isset($result) && !empty($result)) {
+            foreach ($result as $key => $r) {
+                $search = $r['id'] . '_' . $r['param_id'];
+                if (!array_key_exists($search, $param)) {
+                    $this->db->select('uom.name');
+                    $this->db->join('uom', 'parameter_range.uom_id=uom.id');
+                    $this->db->where('parameter_range.parameter_id', $r['param_id']);
+                    $this->db->where('parameter_range.asset_id', $r['id']);
+                    $this->db->limit(1);
+                    $parameterinfo = $this->db->get('parameter_range')->result_array();
+                    if (isset($parameterinfo) && !empty($parameterinfo)) {
+                        $result[$key]['uom'] = $parameterinfo[0]['name'];
+                        $param[$r['id'] . '_' . $r['param_id']] = $parameterinfo[0]['name'];
+                    }
+                } else {
+                    $result[$key]['uom'] = $param[$r['id'] . '_' . $r['param_id']];
+                }
+            }
+        }
+        return $result;
+    }
+
+    function get_parameter_count() {
+        $result = $this->db->select('id')->where('isactive', 1)->get('parameter')->result_array();
+        return $result;
+    }
+
 }

@@ -1,8 +1,8 @@
 <style>
     .item-table form {
-    float: none !important;
-    margin-right: 5px;
-}
+        float: none !important;
+        margin-right: 5px;
+    }
 </style>
 <div class="">
     <div class="page-title">
@@ -73,47 +73,47 @@
                                                         <i class="fa fa-pencil blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i>
                                                     </a>                                                   
                                                 </form>
-                                                <?php if($InventoryListRowData['isactive'] == 1 && $InventoryListRowData['isactive'] != "") { ?>&nbsp;
-                                                <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
-                                                    <input type="hidden" value="<?php echo $InventoryListRowData['dev_sen_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
-                                                    <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
-                                                    <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Device_inventory_list" />       
-                                                    <?php if (!empty($InventoryListRowData['dev_sen_id'])) { ?>
-                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $InventoryListRowData['id']; ?>'/>  
-                                                        <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $InventoryListRowData['id']; ?>">
-                                                            <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                                                        </a>
-                                                    <?php } else { ?>
+                                                <?php if ($InventoryListRowData['isactive'] == 1 && $InventoryListRowData['isactive'] != "") { ?>&nbsp;
+                                                    <form action="<?php echo base_url(); ?>Edit_device_sensors" method="post" id="device_sen<?php echo $i; ?>">                                                    
+                                                        <input type="hidden" value="<?php echo $InventoryListRowData['dev_sen_id']; ?>" name="dev_sen_post_id" id="dev_sen_post_id<?php echo $i; ?>" />
+                                                        <input type="hidden" name="dev_sen_post" id="dev_sen_post<?php echo $i; ?>" value='edit'/>
+                                                        <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Device_inventory_list" />       
+                                                        <?php if (!empty($InventoryListRowData['dev_sen_id'])) { ?>
+                                                            <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add<?php echo $i; ?>" value='<?php echo $InventoryListRowData['id']; ?>'/>  
+                                                            <a title="Device Sensor" class="dev_sensor" id="<?php echo $i; ?>" name="<?php echo $InventoryListRowData['id']; ?>">
+                                                                <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+                                                            </a>
+                                                        <?php } else { ?>
 
-                                                        <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add" value='dev_sen_post_add'/>  
-                                                        <a title="Device Sensor" class="dev_sensor_add" name="<?php echo $InventoryListRowData['id']; ?>" id="<?php echo $i; ?>">
-                                                            <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
-                                                        </a>
-                                                    <?php } ?>
-                                                </form>&nbsp;                                                         
+                                                            <input type="hidden" name="dev_sen_post_add" id="dev_sen_post_add" value='dev_sen_post_add'/>  
+                                                            <a title="Device Sensor" class="dev_sensor_add" name="<?php echo $InventoryListRowData['id']; ?>" id="<?php echo $i; ?>">
+                                                                <i class="fa fa-dashboard text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage Device Sensor"></i> 
+                                                            </a>
+                                                        <?php } ?>
+                                                    </form>&nbsp;                                                         
 
-                                                <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
-                                                    <input type="hidden" value="<?php echo $InventoryListRowData['device_asset_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>"/>
-                                                    <input type="hidden" name="dev_asset_post" id="dev_asset_post<?php echo $i; ?>" value='edit'/>
-                                                    <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Device_inventory_list" />       
+                                                    <form action="<?php echo base_url(); ?>Device_assets_edit" method="post" id="dev_asset<?php echo $i; ?>">                                                    
+                                                        <input type="hidden" value="<?php echo $InventoryListRowData['device_asset_id']; ?>" name="dev_asset_id" id="dev_asset_id<?php echo $i; ?>"/>
+                                                        <input type="hidden" name="dev_asset_post" id="dev_asset_post<?php echo $i; ?>" value='edit'/>
+                                                        <input type="hidden" name="back_action" id="back_action<?php echo $i; ?>" value="Device_inventory_list" />       
 
-                                                    <?php if (!empty($InventoryListRowData['device_asset_id'])) { ?>   
-                                                        <a title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
-                                                            <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
-                                                        </a>  
+                                                        <?php if (!empty($InventoryListRowData['device_asset_id'])) { ?>   
+                                                            <a title="Device Assets" class="dev_assets" id="<?php echo $i; ?>">
+                                                                <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
+                                                            </a>  
 
-                                                    <?php } else { ?>
-                                                        <input type="hidden" name="dev_asset_post_add" id="dev_asset_post_add" value='dev_asset_post_add'/>  
-                                                        <a  title="Device Assets" class="dev_assets_add" name="<?php echo $InventoryListRowData['id']; ?>"  id="<?php echo $i; ?>">
-                                                            <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
-                                                        </a>
+                                                        <?php } else { ?>
+                                                            <input type="hidden" name="dev_asset_post_add" id="dev_asset_post_add" value='dev_asset_post_add'/>  
+                                                            <a  title="Device Assets" class="dev_assets_add" name="<?php echo $InventoryListRowData['id']; ?>"  id="<?php echo $i; ?>">
+                                                                <i class="fa fa-gears text-warning" data-toggle="tooltip" data-placement="top" title="Manage Device Assets" data-orignal-title="Manage Device Assets"></i> 
+                                                            </a>
 
-                                                    <?php } ?>
-                                                </form> &nbsp;
+                                                        <?php } ?>
+                                                    </form> &nbsp;
                                                 <?php } else { ?>&nbsp; 
-                                                <a title="Please first active the device" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the device"> <i class="fa fa-dashboard text-success not-allowed"></i></a>
-                                                <a title="Please first active the device" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the device"> <i class="fa fa-gears text-warning not-allowed"></i></a>
-                                                &nbsp;
+                                                    <a title="Please first active the device" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the device"> <i class="fa fa-dashboard text-success not-allowed"></i></a>
+                                                    <a title="Please first active the device" class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Please first active the device"> <i class="fa fa-gears text-warning not-allowed"></i></a>
+                                                    &nbsp;
                                                 <?php } ?>
                                                 <form action="<?php echo base_url(); ?>Device_inventory_edit" method="post" id="updateasset<?php echo $i; ?>">
                                                     <input type="hidden" value="<?php echo $InventoryListRowData['id']; ?>" name="id"/>
@@ -145,7 +145,7 @@
 </div>
 <!--</div>-->
 <?php $this->load->view('modal/device_invetory_list_modal'); ?>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
         $('body').on('click', '.edit', function () {

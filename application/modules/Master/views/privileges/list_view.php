@@ -3,6 +3,12 @@
         <div class="title_left">
             <h4>Privileges List</h4>
         </div>
+        <div class="title_right">
+            <div class="pull-right"> 
+
+                <a href="<?php echo base_url('Dashboard'); ?>" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> Back To Dashboard</a>
+            </div>
+        </div>
 
     </div>
     <div class="clearfix"></div>
@@ -27,12 +33,12 @@
                                 foreach ($user_type as $k => $data) {
                                     ?>
                                     <tr>
-                                        <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $k + 1; ?></td>
-                                        <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->rolename; ?></td>
-                                        <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->roledescription ? $data->roledescription : ""; ?></td>
-                                        <td data-value="<?php echo $data->id . "_" . $k + 1; ?>"><?php echo $data->isactive == 1 ? 'Active' : 'In-active'; ?></td>
+                                        <td data-value="<?php echo $data->id . "_" . ($k + 1); ?>"><?php echo ($k + 1); ?></td>
+                                        <td data-value="<?php echo $data->id . "_" . ($k + 1); ?>"><?php echo $data->rolename; ?></td>
+                                        <td data-value="<?php echo $data->id . "_" . ($k + 1); ?>"><?php echo $data->roledescription ? $data->roledescription : ""; ?></td>
+                                        <td data-value="<?php echo $data->id . "_" . ($k + 1); ?>"><?php echo $data->isactive == 1 ? 'Active' : 'In-active'; ?></td>
                                         <td class="action">
-                                            <a title="Add Privelege" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo $k + 1; ?>">  
+                                            <a title="Add Privelege" href="<?php echo base_url() ?>addPrivileges/<?php echo $data->id; ?>" class="edit" id="<?php echo ($k + 1); ?>">  
                                                 <i class="fa fa-cog blue" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manage"></i>
                                             </a>
                                         </td>
@@ -52,7 +58,7 @@
     </div>
 
 </div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
 //        $('body').on('click', '.delete', function () {        

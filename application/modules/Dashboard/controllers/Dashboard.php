@@ -24,6 +24,10 @@ class Dashboard extends MY_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Home";
             $data['dashboard_assets'] = $this->dashboard_model->load_dashboard_batch_data($user_id);
+            $data['total_parameter'] = $this->dashboard_model->get_parameter_count();
+//            echo "<pre>";
+//            echo print_r($data['dashboard_assets']);
+//            exit();
             $data['total_alarms'] = $this->dashboard_model->get_total_alarms($user_id);
             $data['total_assets'] = $this->dashboard_model->get_total_assets($user_id);
             if (isset($data['total_assets'])) {
@@ -35,6 +39,10 @@ class Dashboard extends MY_Controller {
                 }
             }
             $data['total_active_assets'] = isset($active_asset) ? count($active_asset) : 0;
+            $data['Device_status'] = "";
+            $data['asset_alerts'] = "";
+            $data['device_status'] = $this->dashboard_model->get_device_status();
+            $data['alarms_info'] = $this->dashboard_model->get_alarms();
             $group_id = $this->session->userdata('group_id');
             if ($group_id != 1) {
                 $view = "dashboard";

@@ -53,7 +53,7 @@
                                     <tr>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $i; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->location_name; ?></td>
-<!--                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->address; ?></td>-->
+        <!--                                        <td class="flex-item<?php echo $i; ?>"><?php echo $location->address; ?></td>-->
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->contact_person_name; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->city_name; ?></td>
                                         <td class="flex-item<?php echo $i; ?>"><?php echo $location->state_name; ?></td>
@@ -101,7 +101,7 @@
                             <!-- Modal -->
                             <div id="detailsModal<?php echo $i; ?>" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
-                                    
+
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;
@@ -205,22 +205,22 @@
         </div>
     </div>
 </div>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
-                                $(document).ready(function () {
-                                    $('body').on('click', '.edit_location', function () {
-                                        var id = $(this).attr('id');
-                                        $("#edit_update_business_location" + id).submit();
-                                    });
+    $(document).ready(function () {
+        $('body').on('click', '.edit_location', function () {
+            var id = $(this).attr('id');
+            $("#edit_update_business_location" + id).submit();
+        });
 
-                                    $('body').on('click', '.delete_location', function () {
-                                        var id = $(this).attr('id');
-                                        $("#delete_confirmation").modal('show');
-                                        $(".ok").click(function () {
-                                            // $("#post" + id).val('delete');
-                                            $("#delete_update_business_location" + id).submit();
+        $('body').on('click', '.delete_location', function () {
+            var id = $(this).attr('id');
+            $("#delete_confirmation").modal('show');
+            $(".ok").click(function () {
+                // $("#post" + id).val('delete');
+                $("#delete_update_business_location" + id).submit();
 
-                                        });
-                                    });
-                                });
+            });
+        });
+    });
 </script>

@@ -74,7 +74,7 @@
 
 </div>
 <?php $this->load->view('modal/user_asset_list_modal'); ?>
-<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>
+<!--<script src="<?php echo base_url(); ?>assets/jquery/jquery-3.1.1.js"></script>-->
 <script type="text/javascript">
     $(document).ready(function () {
 

@@ -46,6 +46,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
+        <script src="<?php echo base_url(); ?>assets/css/jquery/dist/jquery.min.js"></script>
+
+
 
     </head>
     <!-- END HEAD -->
@@ -158,8 +161,8 @@
                 </footer>             
 
             </div>  
-        </div>       
-        <script src="<?php echo base_url(); ?>assets/css/jquery/dist/jquery.min.js"></script>
+        </div>    
+
         <!-- Bootstrap -->
         <script src="<?php echo base_url(); ?>assets/css/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->
@@ -229,8 +232,10 @@
 
         <!-- form validatin -->
 
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/validation/jquery.validate.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/validation/additional-methods.min.js"></script><!--
+        <script src="<?php echo base_url(); ?>assets/validation/jquery.custom_validate.js"></script>-->
+
         <!-- CORE JS Jquery Validation - START -->
         <script src="<?php echo base_url(); ?>assets/css/build/js/custom.js"></script>
         <script>

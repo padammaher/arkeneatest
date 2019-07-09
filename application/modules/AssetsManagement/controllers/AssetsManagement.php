@@ -1129,8 +1129,8 @@ class AssetsManagement extends MY_Controller {
             $this->load->model('parametermodel');
             if ($this->session->userdata('user_id'))
                 $user_id = $this->session->userdata('user_id');
-             $asset_id = $this->session->userdata('asset_id');
-         if (!$asset_id) {
+            $asset_id = $this->session->userdata('asset_id');
+            if (!$asset_id) {
                 $this->session->set_flashdata('note_msg', 'session was expired');
                 return redirect('Assets_list');
             }
@@ -1206,7 +1206,7 @@ class AssetsManagement extends MY_Controller {
                 $user_id = $this->session->userdata('user_id');
 
             $asset_id = $this->session->userdata('asset_id');
-         if (!$asset_id) {
+            if (!$asset_id) {
                 $this->session->set_flashdata('note_msg', 'session was expired');
                 return redirect('Assets_list');
             }
@@ -1375,7 +1375,6 @@ class AssetsManagement extends MY_Controller {
             redirect('auth/login', 'refresh');
         } else {
 
-
 //            if ($this->input->post('rule_id')) {
 //                echo$rule_id = $this->input->post('rule_id');
 //            } else {
@@ -1407,6 +1406,7 @@ class AssetsManagement extends MY_Controller {
                     'trigger_threshold_id' => $this->input->post('trigger_threshold'),
                     'email' => $this->input->post('email'),
                     'sms_contact_no' => $this->input->post('contactno'),
+                    'comment' => $this->input->post('trigger_message'),
                     'createby' => $user_id
                 );
 //             if(!empty($trigger_post_id)) 
@@ -1420,6 +1420,7 @@ class AssetsManagement extends MY_Controller {
                     'trigger_threshold_id' => $this->input->post('trigger_threshold'),
                     'email' => $this->input->post('email'),
                     'sms_contact_no' => $this->input->post('contactno'),
+                    'comment' => $this->input->post('trigger_message'),
                     'createdate' => $todaysdate,
                     'createby' => $user_id,
                     'isactive' => 1,
@@ -1525,6 +1526,39 @@ class AssetsManagement extends MY_Controller {
             $data = $devicedataVal->Cnt_number;
         }
         echo $data;
+    }
+
+    public function asset_routing() {
+        if (!$this->ion_auth->logged_in()) {
+            // redirect them to the login page
+            redirect('auth/login', 'refresh');
+        } else {
+            $user_id = $this->session->userdata('user_id');
+            $data['dataHeader'] = $this->users->get_allData($user_id);
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                $asset = $this->input->post('asset_id');
+                $location = $this->input->post('assetlocation');
+                $data['assets'] = $this->Assets->get_assets_filter($asset, $location);
+                $data['location'] = $this->Assets->get_assetlocation();
+                load_view_template($data, 'Asset_routing/asset_route');
+            } else {
+                $data['assets'] = $this->Assets->get_default_assets();
+                $data['location'] = $this->Assets->get_assetlocation();
+                load_view_template($data, 'Asset_routing/asset_route');
+            }
+        }
+    }
+
+    public function get_asset_autocomplete() {
+        $keyword = $this->input->post('term');
+        $this->Assets->get_asset_autocomplete($keyword);
+    }
+
+    public function shawtask() {
+        if ($this->input->post('id')) {
+            $data["assetdetails"] = $this->Assets->getassetdetails($this->input->post('id'));
+            $this->load->view('Asset_routing/assetdetails', $data);
+        }
     }
 
 }
