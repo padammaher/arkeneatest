@@ -72,10 +72,12 @@
                             <i class="fa fa-arrow-left">
                             </i> Asset Parameter Range List
                         </a>
-                        <a href="<?php echo base_url(); ?>Asset_Rule" class="btn btn-sm btn-primary"> 
-                            <i class="fa fa-plus">
-                            </i> Add Rule
-                        </a>
+                        <?php if (isset($asset_list) && count($asset_list) < 1) { ?>
+                            <a href="<?php echo base_url(); ?>Asset_Rule" class="btn btn-sm btn-primary"> 
+                                <i class="fa fa-plus">
+                                </i> Add Rule
+                            </a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
