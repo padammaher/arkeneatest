@@ -140,99 +140,27 @@
                                 }
                             }
                             ?>
-                            <!--                            <li>
-                            
-                                                            <div class="info">
-                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </li>
-                            
-                                                        <li>
-                            
-                                                            <div class="info">
-                                                                <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                                            </div>
-                            
-                                                            <div class="clear"></div>
-                                                        </li>
-                            
-                                                        <li>
-                            
-                                                            <div class="info">
-                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </li>
-                            
-                                                        <li>
-                            
-                                                            <div class="info">
-                                                                <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                                            </div>
-                            
-                                                            <div class="clear"></div>
-                                                        </li>
-                            
-                            
-                                                        <li>
-                            
-                                                            <div class="info">
-                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                                            </div>
-                                                            <div class="clear"></div>
-                                                        </li>
-                            
-                                                        <li>
-                            
-                                                            <div class="info">
-                                                                <span class="cat"><strong>DEV002</strong> is <span class="label label-success">started</span> on 18th Oct 2018 | 11:45 am  </span>
-                                                            </div>
-                            
-                                                            <div class="clear"></div>
-                                                        </li>
-                            
-                                                        <li>
-                            
-                                                            <div class="info">
-                                                                <span class="cat"><strong>DEV001</strong> is <span class="label label-danger">stopped</span> on 19th Oct 2018 | 11:45 am  </span>
-                                                            </div>
-                            
-                                                            <div class="clear"></div>
-                                                        </li>-->
                         </ul>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
-
 </div>
-
 <div class="clearfix"></div>
-
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel tile">
             <div class="x_title circle-hold">
-
-
-
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
-
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-
-
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -273,7 +201,7 @@
                 <hr>
                 <?php
                 $chart_count = 0;
-                for ($cindex = 0; $cindex < count($dashboard_assets); $cindex++) {
+                for ($cindex = 0; $cindex < count($total_parameter); $cindex++) {
                     if ($chart_count < 4) {
                         ?>
                         <div class="col-md-3 col-sm-4 col-xs-12">
@@ -615,7 +543,6 @@
 </div>
 <script>
     function init_echarts(data) {
-
         if (typeof (echarts) === 'undefined') {
             return;
         }
@@ -625,18 +552,13 @@
                 var echartGauge = echarts.init(document.getElementById("echart_gauge" + i));
                 $("#echart_gaugehead" + i).html(data[i]['name']);
                 echartGauge.setOption({
-                    tooltip: {
-                        formatter: "{b} : {c}"
+                    tooltip: {formatter: "{b} : {c}"
                     },
-                    toolbox: {
-                        show: false,
-                        feature: {
-                            restore: {
-                                show: true,
+                    toolbox: {show: false,
+                        feature: {restore: {show: true,
                                 title: "Restore"
                             },
-                            saveAsImage: {
-                                show: true,
+                            saveAsImage: {show: true,
                                 title: "Save Image"
                             }
                         }
@@ -651,11 +573,8 @@
                             max: data[i]['max_value'],
                             precision: 0,
                             splitNumber: 10,
-                            axisLine: {
-                                show: true,
-                                lineStyle: {
-                                    color: [
-                                        [0.2, 'lightgreen'],
+                            axisLine: {show: true,
+                                lineStyle: {color: [[0.2, 'lightgreen'],
                                         [0.4, 'orange'],
                                         [0.8, 'skyblue'],
                                         [1, '#ff4500']
@@ -663,17 +582,14 @@
                                     width: 30
                                 }
                             },
-                            axisTick: {
-                                show: true,
+                            axisTick: {show: true,
                                 splitNumber: 5,
                                 length: 8,
-                                lineStyle: {
-                                    color: '#eee',
+                                lineStyle: {color: '#eee',
                                     width: 1,
                                     type: 'solid'}
                             },
-                            axisLabel: {
-                                show: true,
+                            axisLabel: {show: true,
                                 formatter: function (v) {
                                     switch (v + '') {
                                         case data[i]['min_value']:
@@ -684,16 +600,13 @@
                                             return '';
                                     }
                                 },
-                                textStyle: {
-                                    color: '#333'
+                                textStyle: {color: '#333'
                                 }
                             }
                             ,
-                            splitLine: {
-                                show: true,
+                            splitLine: {show: true,
                                 length: 30,
-                                lineStyle: {
-                                    color: '#eee',
+                                lineStyle: {color: '#eee',
                                     width: 2,
                                     type: 'solid'
                                 }
@@ -704,13 +617,11 @@
                             },
                             title: {show: true,
                                 offsetCenter: ['-65%', -10],
-                                textStyle: {
-                                    color: '#333',
+                                textStyle: {color: '#333',
                                     fontSize: 15
                                 }
                             },
-                            detail: {
-                                show: true,
+                            detail: {show: true,
                                 backgroundColor: 'rgba(0,0,0,0)',
                                 borderWidth: 0,
                                 borderColor: '#ccc',
@@ -718,8 +629,7 @@
                                 height: 40,
                                 offsetCenter: ['-60%', 10],
                                 formatter: '{value}',
-                                textStyle: {
-                                    color: 'auto',
+                                textStyle: {color: 'auto',
                                     fontSize: 20
                                 }
                             },
@@ -767,7 +677,6 @@
             var starttime = $(this).children(":selected").attr("name");
             var location_id = $(this).children(":selected").attr("id");
             if (this.value != "") {
-
                 $("#running_devicetime").html(starttime);
                 // $("#running_devicedue_hour").html(starttime);
                 $("#running_device").html('Running');

@@ -156,4 +156,9 @@ class Dashboard_Model extends MY_Model {
         return $result;
     }
 
+    function get_parameter_count() {
+        $result = $this->db->select('id')->where('isactive', 1)->get('parameter')->result_array();
+        return $result;
+    }
+
 }
