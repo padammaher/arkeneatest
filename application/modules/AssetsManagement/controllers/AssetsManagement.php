@@ -937,7 +937,6 @@ class AssetsManagement extends MY_Controller {
 
         $data['parameter_id'] = $parameter_range_id;
         $data['asset_list'] = $this->Assets->get_asset_rule_list($parameter_range_id);
-
         load_view_template($data, 'asset_rules/rule_action_master_list');
 
 //        $this->template->set_master_template('template.php', (isset($data) ? $data : NULL));

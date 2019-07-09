@@ -564,11 +564,12 @@ class Assets extends MY_Model {
             }
         }
 
-        //print_r($asset_data); exit;
-        if ($asset_data)
-            return $asset_data;
-        else
-            return false;
+        return $asset_data;
+
+//        if ($asset_data)
+//            return $asset_data;
+//        else
+//            return false;
     }
 
     public function get_triger_count($rule_id) {

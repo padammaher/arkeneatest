@@ -70,15 +70,15 @@ $group_id = $this->session->userdata('group_id');
                                     </a>
                                 </li>
                             <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
-                                <li class="notallow <?php
+                                <!--                                <li class="notallow <?php
                                 if (isset($login_flag) && $login_flag == 0) {
                                     echo 'cursor-notallowed';
                                 }
                                 ?>">
-                                    <a>
-                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?>  
-                                    </a>
-                                </li>
+                                                                    <a>
+                                                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?>  
+                                                                    </a>
+                                                                </li>-->
                             <?php } else if ($menu_name['menuName'] == 'Privilege') {
                                 ?>
                                 <li <?php
@@ -191,13 +191,13 @@ $login_flag = $this->session->userdata('login_flag');
 if ($login_flag == 0 && $login_flag != '') {
     ?>
     <script type="text/javascript">
-        $(document).ready(function () {
+            $(document).ready(function () {
             $(".notallow a").removeAttr("href");
             $(".notallow a").css("cursor", "not-allowed");
             $(".notallow a").addClass('not-allowed');
             //            $(".navbar a").removeAttr("href");
             //            $(".navbar a").css("cursor", "not-allowed");
-            //            $(".navbar a").addClass('not-allowed');
+        //            $(".navbar a").addClass('not-allowed');
         });
     </script>
 <?php } ?> 
