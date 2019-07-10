@@ -19,7 +19,7 @@ class Triggers extends MY_Controller {
 
     // redirect if needed, otherwise display the user list
     public function index() {
-        
+        $asset_info = $this->Assets->get_assets_list();
     }
 
 }

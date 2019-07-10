@@ -27,7 +27,7 @@ class ParameterMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Parameter List";
-            $data['parameter_list'] = $this->parametermodel->get_parameterlist($user_id);
+            $data['parameter_list'] = $this->parametermodel->get_parameter_list($user_id);
             $this->session->unset_userdata('param_post');
             $this->session->unset_userdata('parame_post');
             load_view_template($data, 'master/ParameterList');
@@ -189,9 +189,9 @@ class ParameterMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $id = explode('_', $this->input->post('param_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->parametermodel->get_parameterlist($user_id, $id[0]);
+            $data['result'] = $this->parametermodel->get_parameter_list($user_id, $id[0]);
 
-            $view = $this->load->view('master/modal/parameter_type', $data);
+            $view = $this->load->view('Master/modal/parameter_type', $data);
             echo $view;
         }
     }

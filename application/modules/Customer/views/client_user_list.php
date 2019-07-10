@@ -1,4 +1,4 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>-->
 <!--<div class="right_col" role="main">-->
 <div class="">
     <div class="page-title">
