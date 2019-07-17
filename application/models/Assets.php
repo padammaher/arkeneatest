@@ -1123,4 +1123,34 @@ WHERE  " . $where . "
         return $asset_data;
     }
 
+    function corn_assets_list() {
+        $this->db->select('batchalert.*,asset.id as assetid,runcode.start,runcode.end')
+                ->from('batchalert')
+                ->join('runcode', 'batchalert.runcode_id=runcode.id', 'inner')
+                ->join('asset', 'asset.id= batchalert.asset_id', 'inner')
+                ->where('batchalert.runcode_id =(select id from runcode order by runcode.id desc limit 1)', NULL, FALSE)
+                ->where('batchalert.id IN (select id from batchalert where lower(batchalert.alert_type)="high" or lower(batchalert.alert_type)="low")', NULL, FALSE);
+        $result = $this->db->get()->result_array();
+        return $result;
+    }
+
+    function get_triggers($asset_id, $parameter_id) {
+        $this->db->select('trigger.*,uom.name as uom,parameter.name as parameter');
+        $this->db->join('asset_parameter_rule', 'trigger.rule_id=asset_parameter_rule.id');
+        $this->db->join('uom', 'asset_parameter_rule.uom=uom.id');
+        $this->db->join('parameter', 'asset_parameter_rule.parameter=parameter.id');
+        $this->db->where('asset_parameter_rule.parameter', $parameter_id);
+        $this->db->where('trigger.asset_id', $asset_id);
+        $this->db->where('lower(trigger.trigger_threshold_id)', 'Red');
+        $result = $this->db->get('trigger')->result_array();
+        return $result;
+    }
+
+    function insert_trigger_log($data) {
+        if ($data != null) {
+            return $this->db->insert('batchalert_cronstatus', $data);
+        } else
+            return false;
+    }
+
 }

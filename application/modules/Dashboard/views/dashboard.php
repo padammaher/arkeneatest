@@ -86,7 +86,7 @@
                                     ?>
                                     <li>
                                         <div class="info">
-                                            <span class="cat"><strong><?php echo isset($alarm['device']) ? $alarm['device'] : ''; ?></strong>  - <span class="label <?php echo isset($labelclass) ? $labelclass : ''; ?>"> <?php echo isset($alarm['alert_type']) ? $alarm['alert_type'] : ''; ?> </span> &nbsp; <?php echo isset($alarm['parametername']) ? $alarm['parametername'] : ''; ?> <?php echo isset($alert_txt) ? $alert_txt : ''; ?>  <span class="pa"><?php echo isset($alarm['alert_value']) ? $alarm['alert_value'] : ''; ?> <?php echo isset($alarm['uom']) ? $alarm['uom'] : ''; ?></span> on <?php echo isset($date) ? $date : ''; ?></span>
+                                            <span class="cat"><strong><?php echo isset($alarm['device']) ? $alarm['device'] : ''; ?></strong>  - <span class="label <?php echo isset($labelclass) ? $labelclass : ''; ?>"> <?php echo isset($alarm['alert_type']) ? $alarm['alert_type'] : ''; ?> </span> &nbsp; <?php echo isset($alarm['parametername']) ? $alarm['parametername'] : ''; ?> <?php echo isset($alert_txt) ? $alert_txt : ''; ?>  <span class="pa"><?php echo isset($alarm['set_value']) ? $alarm['set_value'] : ''; ?> <?php echo isset($alarm['uom']) ? $alarm['uom'] : ''; ?></span> on <?php echo isset($date) ? $date : ''; ?></span>
                                         </div>
                                         <div class="clear"></div>
                                     </li>
