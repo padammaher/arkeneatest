@@ -9,7 +9,7 @@ class ParameterMaster extends CI_Controller {
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
-        $this->load->model(array('users', 'group_model', 'country', 'parametermodel', 'uommodel'));
+        $this->load->model(array('users', 'group_model', 'country', 'ParameterModel', 'UomModel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
@@ -27,10 +27,10 @@ class ParameterMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Parameter List";
-            $data['parameter_list'] = $this->parametermodel->get_parameterlist($user_id);
+            $data['parameter_list'] = $this->ParameterModel->get_parameter_list($user_id);
             $this->session->unset_userdata('param_post');
             $this->session->unset_userdata('parame_post');
-            load_view_template($data, 'master/ParameterList');
+            load_view_template($data, 'Master/ParameterList');
         }
     }
 
@@ -65,7 +65,7 @@ class ParameterMaster extends CI_Controller {
                 }
 
 
-                $count = $this->parametermodel->insert_parameter($data);
+                $count = $this->ParameterModel->insert_parameter($data);
 
                 if (is_numeric($count) && $count > 0) {
                     $this->session->unset_userdata('param_post');
@@ -83,15 +83,15 @@ class ParameterMaster extends CI_Controller {
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Add Parameter";
-                $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
-                load_view_template($data, 'master/add_parameter');
+                $data['uom_types'] = $this->ParameterModel->get_uomtypes($user_id);
+                load_view_template($data, 'Master/add_parameter');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add Parameter";
-            $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
+            $data['uom_types'] = $this->ParameterModel->get_uomtypes($user_id);
 
-            load_view_template($data, 'master/add_parameter');
+            load_view_template($data, 'Master/add_parameter');
         }
     }
 
@@ -121,7 +121,7 @@ class ParameterMaster extends CI_Controller {
                     $data['isactive'] = 0;
                 }
 
-                $response = $this->parametermodel->parameter_update($id, $data);
+                $response = $this->ParameterModel->parameter_update($id, $data);
 
                 if (is_numeric($response) && $response > 0) {
                     $this->session->unset_userdata('parame_post');
@@ -135,8 +135,8 @@ class ParameterMaster extends CI_Controller {
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Parameter";
-                $data['uom_types'] = $this->uommodel->get_uomtypes($user_id);
-                load_view_template($data, 'master/edit_parameter');
+                $data['uom_types'] = $this->UomModel->get_uomtypes($user_id);
+                load_view_template($data, 'Master/edit_parameter');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -144,12 +144,12 @@ class ParameterMaster extends CI_Controller {
             //check user Permission
             userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
-//            $check = $this->parametermodel->check_parameter_in_use($id);
+//            $check = $this->ParameterModel->check_parameter_in_use($id);
 //            if ($check > 0) {
 //                $this->session->set_flashdata('error_msg', 'Parameter is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->parametermodel->parameter_update($id, $data);
+            $response = $this->ParameterModel->parameter_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Sucessfully deleted an parameter');
             } else {
@@ -171,13 +171,13 @@ class ParameterMaster extends CI_Controller {
             }
 
             if (isset($id)) {
-                $data['result'] = $this->parametermodel->get_parameter($id);
-                $data['uom_types'] = $this->parametermodel->get_uomtypes($user_id);
+                $data['result'] = $this->ParameterModel->get_parameter($id);
+                $data['uom_types'] = $this->ParameterModel->get_uomtypes($user_id);
                 $data['param_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Parameter";
-                load_view_template($data, 'master/edit_parameter');
+                load_view_template($data, 'Master/edit_parameter');
             } else {
                 echo "Something Went wrong";
             }
@@ -189,9 +189,9 @@ class ParameterMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $id = explode('_', $this->input->post('param_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->parametermodel->get_parameterlist($user_id, $id[0]);
+            $data['result'] = $this->ParameterModel->get_parameter_list($user_id, $id[0]);
 
-            $view = $this->load->view('master/modal/parameter_type', $data);
+            $view = $this->load->view('Master/modal/parameter_type', $data);
             echo $view;
         }
     }

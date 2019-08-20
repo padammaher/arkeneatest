@@ -9,7 +9,7 @@ class AssetMaster extends CI_Controller {
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
-        $this->load->model(array('users', 'group_model', 'country', 'assetmodel'));
+        $this->load->model(array('users', 'group_model', 'country', 'AssetModel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
@@ -29,9 +29,9 @@ class AssetMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Asset Category";
-            $data['asset_categories'] = $this->assetmodel->get_AssetCategoryList($user_id);
+            $data['asset_categories'] = $this->AssetModel->get_AssetCategoryList($user_id);
 
-            load_view_template($data, 'master/AssetCategory');
+            load_view_template($data, 'Master/AssetCategory');
         }
     }
 
@@ -47,11 +47,11 @@ class AssetMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Asset Type";
-            $data['asset_type'] = $this->assetmodel->get_assettypeList($user_id);
+            $data['asset_type'] = $this->AssetModel->get_assettypeList($user_id);
             $this->session->unset_userdata('assettype_post');
             $this->session->unset_userdata('assettypee_post');
 
-            load_view_template($data, 'master/AssetType');
+            load_view_template($data, 'Master/AssetType');
         }
     }
 
@@ -83,7 +83,7 @@ class AssetMaster extends CI_Controller {
                     $data['isactive'] = 0;
                 }
 
-                $count = $this->assetmodel->insert_asset_category($data);
+                $count = $this->AssetModel->insert_asset_category($data);
 
                 if (is_numeric($count) && $count > 0) {
                     $this->session->unset_userdata('assetcat_post');
@@ -101,12 +101,12 @@ class AssetMaster extends CI_Controller {
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Add Asset Category";
-                load_view_template($data, 'master/add_asset_category');
+                load_view_template($data, 'Master/add_asset_category');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add Asset Category";
-            load_view_template($data, 'master/add_asset_category');
+            load_view_template($data, 'Master/add_asset_category');
         }
     }
 
@@ -133,7 +133,7 @@ class AssetMaster extends CI_Controller {
                     $data['isactive'] = 0;
                 }
 
-                $response = $this->assetmodel->assetcategory_update($id, $data);
+                $response = $this->AssetModel->assetcategory_update($id, $data);
 
                 if ($response > 0) {
                     $this->session->unset_userdata('assetcate_post');
@@ -146,10 +146,10 @@ class AssetMaster extends CI_Controller {
                 }
             } else {
 //                $data['ast_cat_id'] = $this->input->post('edit_id');
-//                $data['result'] = $this->assetmodel->get_asset_category($this->input->post('edit_id'));
+//                $data['result'] = $this->AssetModel->get_asset_category($this->input->post('edit_id'));
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Asset Category";
-                load_view_template($data, 'master/edit_asset_category');
+                load_view_template($data, 'Master/edit_asset_category');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -157,12 +157,12 @@ class AssetMaster extends CI_Controller {
             //check user Permission
             userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
-//            $check = $this->assetmodel->check_category_in_use($id);
+//            $check = $this->AssetModel->check_category_in_use($id);
 //            if (count($check) > 0) {
 //                $this->session->set_flashdata('error_msg', 'Asset category is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->assetmodel->assetcategory_update($id, $data);
+            $response = $this->AssetModel->assetcategory_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Sucessfully deleted an asset category');
             } else {
@@ -183,12 +183,12 @@ class AssetMaster extends CI_Controller {
             }
 //            $id = $this->input->post('id');
             if (isset($id)) {
-                $data['result'] = $this->assetmodel->get_asset_category($id);
+                $data['result'] = $this->AssetModel->get_asset_category($id);
                 $data['ast_cat_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Asset Category";
-                load_view_template($data, 'master/edit_asset_category');
+                load_view_template($data, 'Master/edit_asset_category');
             } else {
                 echo "Something Went wrong";
             }
@@ -225,7 +225,7 @@ class AssetMaster extends CI_Controller {
                 }
 
 
-                $count = $this->assetmodel->insert_asset_type($data);
+                $count = $this->AssetModel->insert_asset_type($data);
 
                 if (is_numeric($count) && $count > 0) {
                     $this->session->unset_userdata('assettype_post');
@@ -243,12 +243,12 @@ class AssetMaster extends CI_Controller {
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Add Asset Type";
-                load_view_template($data, 'master/add_asset_type');
+                load_view_template($data, 'Master/add_asset_type');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add Asset Type";
-            load_view_template($data, 'master/add_asset_type');
+            load_view_template($data, 'Master/add_asset_type');
         }
     }
 
@@ -275,7 +275,7 @@ class AssetMaster extends CI_Controller {
                     $data['isactive'] = 0;
                 }
 
-                $response = $this->assetmodel->assettype_update($id, $data);
+                $response = $this->AssetModel->assettype_update($id, $data);
 
                 if ($response > 0) {
                     $this->session->unset_userdata('assettypee_post');
@@ -289,7 +289,7 @@ class AssetMaster extends CI_Controller {
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Asset Type";
-                load_view_template($data, 'master/edit_asset_type');
+                load_view_template($data, 'Master/edit_asset_type');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -297,12 +297,12 @@ class AssetMaster extends CI_Controller {
             //check user Permission
             userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
-//            $check = $this->assetmodel->check_assettype_in_use($id);
+//            $check = $this->AssetModel->check_assettype_in_use($id);
 //            if (count($check) > 0) {
 //                $this->session->set_flashdata('error_msg', 'Asset type is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->assetmodel->assettype_update($id, $data);
+            $response = $this->AssetModel->assettype_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an asset type');
             } else {
@@ -322,12 +322,12 @@ class AssetMaster extends CI_Controller {
                 $id = $post_data['edit_id'];
             }
             if (isset($id)) {
-                $data['result'] = $this->assetmodel->get_asset_type($id);
+                $data['result'] = $this->AssetModel->get_asset_type($id);
                 $data['ast_type_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Asset Type";
-                load_view_template($data, 'master/edit_asset_type');
+                load_view_template($data, 'Master/edit_asset_type');
             } else {
                 echo "Something Went wrong";
             }
@@ -338,9 +338,9 @@ class AssetMaster extends CI_Controller {
         if ($this->input->post('category_id')) {
             $id = explode('_', $this->input->post('category_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->assetmodel->get_asset_category($id[0]);
+            $data['result'] = $this->AssetModel->get_asset_category($id[0]);
 
-            $view = $this->load->view('master/modal/assetcategory', $data);
+            $view = $this->load->view('Master/modal/assetcategory', $data);
             echo $view;
         }
     }
@@ -349,9 +349,9 @@ class AssetMaster extends CI_Controller {
         if ($this->input->post('assettype_id')) {
             $id = explode('_', $this->input->post('assettype_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->assetmodel->get_asset_type($id[0]);
+            $data['result'] = $this->AssetModel->get_asset_type($id[0]);
 
-            $view = $this->load->view('master/modal/asset_type', $data);
+            $view = $this->load->view('Master/modal/asset_type', $data);
             echo $view;
         }
     }

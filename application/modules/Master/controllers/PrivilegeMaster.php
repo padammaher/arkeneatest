@@ -9,7 +9,7 @@ class PrivilegeMaster extends CI_Controller {
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
-        $this->load->model(array('users', 'group_model', 'country', 'privilegemodel'));
+        $this->load->model(array('users', 'group_model', 'country', 'PrivilegeModel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
@@ -28,8 +28,8 @@ class PrivilegeMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Privileges List";
-            $data['user_type'] = $this->privilegemodel->getUserTypeList($id = NULL, $user_id);
-            load_view_template($data, 'master/privileges/list_view');
+            $data['user_type'] = $this->PrivilegeModel->getUserTypeList($id = NULL, $user_id);
+            load_view_template($data, 'Master/privileges/list_view');
         }
     }
 
@@ -50,7 +50,7 @@ class PrivilegeMaster extends CI_Controller {
                 $groupid_and_roleid = explode("_", $_POST['id_and_groupid']);
 
                 $menucount = 0;
-                $objects = $this->privilegemodel->getMenuList();
+                $objects = $this->PrivilegeModel->getMenuList();
                 foreach ($objects as $k => $data) {
                     $data_insert[$k]['object'] = $data->id;
                     $data_insert[$k]['role'] = $groupid_and_roleid[1];
@@ -84,7 +84,7 @@ class PrivilegeMaster extends CI_Controller {
                     $menucount++;
                 }
 
-                $asset_user_list_data = $this->privilegemodel->update_Privileges('privileges', $data_insert, $groupid_and_roleid);
+                $asset_user_list_data = $this->PrivilegeModel->update_Privileges('privileges', $data_insert, $groupid_and_roleid);
 //                   echo $asset_user_list_data;
                 if ($asset_user_list_data) {
                     $this->session->set_flashdata('success_msg', 'Privilleges successfully updated');
@@ -97,10 +97,10 @@ class PrivilegeMaster extends CI_Controller {
                 $user_id = $this->session->userdata('user_id');
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Add Admin Privileges";
-                $data['menu'] = $this->privilegemodel->getMenuList();
-                $data['user_type'] = $this->privilegemodel->getUserTypeList($id, $user_id);
-                $data['user_privilege_data'] = $this->privilegemodel->getUser_privilege_dataList($id, $user_id);
-                load_view_template($data, 'master/privileges/add_view');
+                $data['menu'] = $this->PrivilegeModel->getMenuList();
+                $data['user_type'] = $this->PrivilegeModel->getUserTypeList($id, $user_id);
+                $data['user_privilege_data'] = $this->PrivilegeModel->getUser_privilege_dataList($id, $user_id);
+                load_view_template($data, 'Master/privileges/add_view');
             }
         }
     }
