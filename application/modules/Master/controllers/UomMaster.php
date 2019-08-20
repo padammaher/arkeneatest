@@ -9,7 +9,7 @@ class UomMaster extends CI_Controller {
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
-        $this->load->model(array('users', 'group_model', 'country', 'uommodel'));
+        $this->load->model(array('users', 'group_model', 'country', 'UomModel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
@@ -27,9 +27,9 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "UOM Type List";
-            $data['uom_type_list'] = $this->uommodel->uom_types($user_id);
+            $data['uom_type_list'] = $this->UomModel->uom_types($user_id);
 
-            load_view_template($data, 'master/Uom_type_List');
+            load_view_template($data, 'Master/Uom_type_List');
         }
     }
 
@@ -45,10 +45,10 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "UOM List";
-//            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
-            $data['uom_type_list'] = $this->uommodel->get_uomlistrecords();
+//            $data['uom_type_list'] = $this->UomModel->get_uomtypes($user_id);
+            $data['uom_type_list'] = $this->UomModel->get_uomlistrecords();
 
-            load_view_template($data, 'master/UomList');
+            load_view_template($data, 'Master/UomList');
         }
     }
 
@@ -84,15 +84,15 @@ class UomMaster extends CI_Controller {
                     if (is_array($uom_name_array)) {
                         foreach ($uom_name_array as $uom_name) {
                             if ($uom_name && $uom_name != 'null') {
-                                $qmlist = $this->uommodel->get_uom_data($uom_type_id);
+                                $qmlist = $this->UomModel->get_uom_data($uom_type_id);
                                 foreach ($qmlist as $qm_name) {
                                     if (!in_array($qm_name['name'], $uom_name_array)) {
                                         $data = array('isdeleted' => 1);
-                                        $this->uommodel->update_uom_record($uom_type_id, $qm_name['name'], $data);
+                                        $this->UomModel->update_uom_record($uom_type_id, $qm_name['name'], $data);
                                     }
                                 }
 
-                                $alreadyexist = $this->uommodel->check_exist_uom($uom_type_id, $uom_name);
+                                $alreadyexist = $this->UomModel->check_exist_uom($uom_type_id, $uom_name);
 
                                 if (count($alreadyexist) > 0) {
                                     $count = 1;
@@ -108,7 +108,7 @@ class UomMaster extends CI_Controller {
                                     } else {
                                         $uom_data['isactive'] = 0;
                                     }
-                                    $count = $this->uommodel->insert_uom($uom_data);
+                                    $count = $this->UomModel->insert_uom($uom_data);
                                 }
                             }
                         }
@@ -123,7 +123,7 @@ class UomMaster extends CI_Controller {
                         } else {
                             $uom_data['isactive'] = 0;
                         }
-                        $count = $this->uommodel->insert_uom($uom_data);
+                        $count = $this->UomModel->insert_uom($uom_data);
                     }
                 }
 
@@ -146,11 +146,11 @@ class UomMaster extends CI_Controller {
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add UOM";
-            $data['uom_list'] = $this->uommodel->get_uom($user_id);
-//            $data['uom_type_list'] = $this->uommodel->get_uomtypes($user_id);
-            $data['uom_type_list'] = $this->uommodel->uom_types($user_id);
+            $data['uom_list'] = $this->UomModel->get_uom($user_id);
+//            $data['uom_type_list'] = $this->UomModel->get_uomtypes($user_id);
+            $data['uom_type_list'] = $this->UomModel->uom_types($user_id);
 
-            load_view_template($data, 'master/add_uom');
+            load_view_template($data, 'Master/add_uom');
         }
     }
 
@@ -180,7 +180,7 @@ class UomMaster extends CI_Controller {
                 } else {
                     $data['isactive'] = 0;
                 }
-                $count = $this->uommodel->insert_uom_type($data);
+                $count = $this->UomModel->insert_uom_type($data);
 
                 if (is_numeric($count) && $count > 0) {
                     $this->session->set_flashdata('success_msg', 'UOM Type added successfully');
@@ -201,8 +201,8 @@ class UomMaster extends CI_Controller {
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add UOM Type";
-//            $data['uom_list'] = $this->uommodel->get_uom($user_id);
-            load_view_template($data, 'master/add_uom_type');
+//            $data['uom_list'] = $this->UomModel->get_uom($user_id);
+            load_view_template($data, 'Master/add_uom_type');
         }
     }
 
@@ -227,7 +227,7 @@ class UomMaster extends CI_Controller {
                 } else {
                     $data['isactive'] = 0;
                 }
-                $count = $this->uommodel->uomtype_update($id, $data);
+                $count = $this->UomModel->uomtype_update($id, $data);
 
                 if ((is_numeric($count) && $count > 0)) {
                     $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
@@ -253,12 +253,12 @@ class UomMaster extends CI_Controller {
             //check user Permission
             userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
-//            $check = $this->uommodel->check_uomtype_in_use($id);
+//            $check = $this->UomModel->check_uomtype_in_use($id);
 //            if ($check > 0) {
 //                $this->session->set_flashdata('error_msg', 'UOM Type is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->uommodel->uomtype_update($id, $data);
+            $response = $this->UomModel->uomtype_update($id, $data);
 
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');
@@ -281,13 +281,13 @@ class UomMaster extends CI_Controller {
                 $data['uom_type_id'] = $id;
             }
 
-//           $data['uom_list'] = $this->uommodel->get_uom($user_id);
-            $data['result'] = $this->uommodel->uom_types($user_id, $id);
+//           $data['uom_list'] = $this->UomModel->get_uom($user_id);
+            $data['result'] = $this->UomModel->uom_types($user_id, $id);
 
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Edit UOM Type";
             $this->session->unset_userdata('edit_uom_type');
-            load_view_template($data, 'master/edit_uom_type');
+            load_view_template($data, 'Master/edit_uom_type');
         }
     }
 
@@ -316,12 +316,12 @@ class UomMaster extends CI_Controller {
                     if (is_array($uom_name_array)) {
                         foreach ($uom_name_array as $uom_name) {
                             if ($uom_name && $uom_name != 'null') {
-                                $qmlist = $this->uommodel->get_uom_data($id);
+                                $qmlist = $this->UomModel->get_uom_data($id);
 
                                 foreach ($qmlist as $qm_name) {
                                     if (!in_array($qm_name['name'], $uom_name_array)) {
                                         $data = array('isdeleted' => 1);
-                                        $this->uommodel->update_uom_record($id, $qm_name['name'], $data);
+                                        $this->UomModel->update_uom_record($id, $qm_name['name'], $data);
                                     }
                                 }
                                 if ($this->input->post('status') == 'on') {
@@ -329,7 +329,7 @@ class UomMaster extends CI_Controller {
                                 } else {
                                     $isactive = 0;
                                 }
-                                $alreadyexist = $this->uommodel->check_exist_uom($id, $uom_name);
+                                $alreadyexist = $this->UomModel->check_exist_uom($id, $uom_name);
 //                                echo "<pre>";
 //                                echo print_r($alreadyexist);
 //                                exit();
@@ -339,7 +339,7 @@ class UomMaster extends CI_Controller {
                                         'isactive' => $isactive
                                     );
 
-                                    $count = $this->uommodel->update_uom($alreadyexist[0]['id'], $uom_data);
+                                    $count = $this->UomModel->update_uom($alreadyexist[0]['id'], $uom_data);
                                 } else {
                                     $uom_data = array(
                                         'name' => $uom_name,
@@ -349,7 +349,7 @@ class UomMaster extends CI_Controller {
                                         'isactive' => $isactive
                                     );
 
-                                    $count = $this->uommodel->insert_uom($uom_data);
+                                    $count = $this->UomModel->insert_uom($uom_data);
                                 }
                             }
                         }
@@ -365,7 +365,7 @@ class UomMaster extends CI_Controller {
                         } else {
                             $uom_data['isactive'] = 0;
                         }
-                        $count = $this->uommodel->insert_uom($uom_data);
+                        $count = $this->UomModel->insert_uom($uom_data);
                     }
                 }
 
@@ -395,12 +395,12 @@ class UomMaster extends CI_Controller {
             //check user Permission
             userPermissionCheck($data['permission'], 'delete');
             $id = $this->input->post('id');
-//            $check = $this->uommodel->check_uom_in_use($id);
+//            $check = $this->UomModel->check_uom_in_use($id);
 //            if ($check > 0) {
 //                $this->session->set_flashdata('error_msg', 'UOM is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->uommodel->delete_uom_record($id, $data);
+            $response = $this->UomModel->delete_uom_record($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');
             } else {
@@ -421,12 +421,12 @@ class UomMaster extends CI_Controller {
                 $data['uom_type_id'] = $id;
             }
 
-            $data['uom_list'] = $this->uommodel->uom_types($user_id);
-            $data['result'] = $this->uommodel->get_uom_type($id);
+            $data['uom_list'] = $this->UomModel->uom_types($user_id);
+            $data['result'] = $this->UomModel->get_uom_type($id);
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Edit UOM";
             $this->session->unset_userdata('edit_uom_type');
-            load_view_template($data, 'master/edit_uom');
+            load_view_template($data, 'Master/edit_uom');
         }
     }
 
@@ -437,7 +437,7 @@ class UomMaster extends CI_Controller {
         $type_id = '';
         if ($this->session->userdata('user_id'))
             $user_id = $this->session->userdata('user_id');
-        $data['uom_list'] = $this->uommodel->get_uom($user_id, 'json', $type_id);
+        $data['uom_list'] = $this->UomModel->get_uom($user_id, 'json', $type_id);
     }
 
     public function get_uom_list_data() {
@@ -449,7 +449,7 @@ class UomMaster extends CI_Controller {
         }
 
         if (isset($type_id))
-            $uom_list = $this->uommodel->get_uom_data($type_id);
+            $uom_list = $this->UomModel->get_uom_data($type_id);
 
         if (isset($uom_list)) {
             foreach ($uom_list as $uml) {
@@ -475,10 +475,10 @@ class UomMaster extends CI_Controller {
         if ($this->input->post('uom_id')) {
             $id = explode('_', $this->input->post('uom_id'));
             $data['sr_no'] = $id[1];
-//            $data['result'] = $this->uommodel->get_uom_type($id[0]);
-            $data['result'] = $this->uommodel->get_uomlistrecords($id[0]);
-//            $response = $this->uommodel->get_uomlistrecords('user_id');
-            $view = $this->load->view('master/modal/uom', $data);
+//            $data['result'] = $this->UomModel->get_uom_type($id[0]);
+            $data['result'] = $this->UomModel->get_uomlistrecords($id[0]);
+//            $response = $this->UomModel->get_uomlistrecords('user_id');
+            $view = $this->load->view('Master/modal/uom', $data);
             echo $view;
         }
     }
@@ -488,9 +488,9 @@ class UomMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $id = explode('_', $this->input->post('uom_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->uommodel->uom_types($user_id, $id[0]);
+            $data['result'] = $this->UomModel->uom_types($user_id, $id[0]);
 
-            $view = $this->load->view('master/modal/uom_type', $data);
+            $view = $this->load->view('Master/modal/uom_type', $data);
             echo $view;
         }
     }
@@ -511,7 +511,7 @@ class UomMaster extends CI_Controller {
                         'iconpath' => $this->input->post('icon_path')
                     );
 
-                    $response = $this->uommodel->update_uom_icon($uom_id, $insert_data);
+                    $response = $this->UomModel->update_uom_icon($uom_id, $insert_data);
                     if ($response > 0) {
                         $this->session->unset_userdata('uom_icon_post');
                         $this->session->set_flashdata('success_msg', 'UOM icon path updated successfully');
@@ -525,14 +525,14 @@ class UomMaster extends CI_Controller {
                     $data['uom_id'] = $this->input->post('uom');
                     $data['dataHeader'] = $this->users->get_allData($user_id);
                     $data['dataHeader']['title'] = "Manage UOM Icon";
-                    $data['uom_icon_data'] = $this->uommodel->getUOM();
-                    load_view_template($data, 'master/uom_icon/add_view');
+                    $data['uom_icon_data'] = $this->UomModel->getUOM();
+                    load_view_template($data, 'Master/uom_icon/add_view');
                 }
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Manage UOM Icon";
-                $data['uom_icon_data'] = $this->uommodel->getUOM();
-                load_view_template($data, 'master/uom_icon/add_view');
+                $data['uom_icon_data'] = $this->UomModel->getUOM();
+                load_view_template($data, 'Master/uom_icon/add_view');
             }
         }
     }
@@ -540,7 +540,7 @@ class UomMaster extends CI_Controller {
     public function get_iconPath() {
         if ($this->input->post('uom_id')) {
             $id = $this->input->post('uom_id');
-            $response = $this->uommodel->get_iconPath($id);
+            $response = $this->UomModel->get_iconPath($id);
             if (isset($response)) {
                 echo $response;
             }

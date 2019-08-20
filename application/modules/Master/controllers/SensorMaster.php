@@ -9,7 +9,7 @@ class SensorMaster extends CI_Controller {
         $this->load->database();
         $this->load->library(array('ion_auth', 'form_validation', 'session'));
         $this->load->helper(array('url', 'language', 'form', 'master_helper'));
-        $this->load->model(array('users', 'group_model', 'country', 'sensormodel'));
+        $this->load->model(array('users', 'group_model', 'country', 'SensorModel'));
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
         $this->lang->load('auth');
@@ -27,11 +27,11 @@ class SensorMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Sensor Type List";
-            $data['sensor_type_details'] = $this->sensormodel->get_sensortypeList($user_id);
+            $data['sensor_type_details'] = $this->SensorModel->get_sensortypeList($user_id);
             $this->session->unset_userdata('sensor_post');
             $this->session->unset_userdata('sensore_post');
 
-            load_view_template($data, 'master/SensorTypeList');
+            load_view_template($data, 'Master/SensorTypeList');
         }
     }
 
@@ -65,7 +65,7 @@ class SensorMaster extends CI_Controller {
                     $data['isactive'] = 0;
                 }
 
-                $count = $this->sensormodel->insert_sensor_type($data);
+                $count = $this->SensorModel->insert_sensor_type($data);
                 if (is_numeric($count) && $count > 0) {
                     $this->session->unset_userdata('sensor_post');
                     $this->session->set_flashdata('success_msg', 'Sensor Type added successfully');
@@ -83,12 +83,12 @@ class SensorMaster extends CI_Controller {
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Add Sensor Type";
-                load_view_template($data, 'master/add_sensor_type');
+                load_view_template($data, 'Master/add_sensor_type');
             }
         } else {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Add Sensor Type";
-            load_view_template($data, 'master/add_sensor_type');
+            load_view_template($data, 'Master/add_sensor_type');
         }
     }
 
@@ -113,7 +113,7 @@ class SensorMaster extends CI_Controller {
                 } else {
                     $data['isactive'] = 0;
                 }
-                $response = $this->sensormodel->sensortype_update($id, $data);
+                $response = $this->SensorModel->sensortype_update($id, $data);
 
                 if ($response == "duplicate") {
                     $this->session->set_userdata('sensore_post', $this->input->post());
@@ -131,7 +131,7 @@ class SensorMaster extends CI_Controller {
             } else {
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Sensor Type";
-                load_view_template($data, 'master/edit_sensor_type');
+                load_view_template($data, 'Master/edit_sensor_type');
             }
         }
         if ($this->input->post('post') == 'delete') {
@@ -140,12 +140,12 @@ class SensorMaster extends CI_Controller {
             userPermissionCheck($data['permission'], 'delete');
 
             $id = $this->input->post('id');
-//            $check = $this->sensormodel->check_sensortype_in_use($id);
+//            $check = $this->SensorModel->check_sensortype_in_use($id);
 //            if (count($check) > 0) {
 //                $this->session->set_flashdata('error_msg', 'Sensor type is in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->sensormodel->sensortype_update($id, $data);
+            $response = $this->SensorModel->sensortype_update($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an sensor type');
             } else {
@@ -165,12 +165,12 @@ class SensorMaster extends CI_Controller {
                 $id = $post_data['edit_id'];
             }
             if (isset($id)) {
-                $data['result'] = $this->sensormodel->get_sensor_type($id);
+                $data['result'] = $this->SensorModel->get_sensor_type($id);
                 $data['sensortype_id'] = $id;
 
                 $data['dataHeader'] = $this->users->get_allData($user_id);
                 $data['dataHeader']['title'] = "Edit Sensor Type";
-                load_view_template($data, 'master/edit_sensor_type');
+                load_view_template($data, 'Master/edit_sensor_type');
             } else {
                 echo "Something Went wrong";
             }
@@ -181,9 +181,9 @@ class SensorMaster extends CI_Controller {
         if ($this->input->post('sensor_id')) {
             $id = explode('_', $this->input->post('sensor_id'));
             $data['sr_no'] = $id[1];
-            $data['result'] = $this->sensormodel->get_sensor_type($id[0]);
+            $data['result'] = $this->SensorModel->get_sensor_type($id[0]);
 
-            $view = $this->load->view('master/modal/sensor_type', $data);
+            $view = $this->load->view('Master/modal/sensor_type', $data);
             echo $view;
         }
     }
