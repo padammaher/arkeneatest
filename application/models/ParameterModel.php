@@ -10,25 +10,41 @@ class ParameterModel extends MY_Model {
 //    protected $soft_delete = true;
 //    protected $soft_delete_key = 'isactive';
 
-    function get_parameterlist($user_id, $id = null) {
-        $asset_id=$this->session->userdata('asset_id');
+    function get_parameter_list($user_id, $id = null) {
         $this->db->select('parameter.id,parameter.name,parameter.description,uom_type.name as uomtype_name,parameter.isactive');
         $this->db->from('parameter');
-        $this->db->join('uom_type', 'parameter.uom_type_id=uom_type.id','left');
+        $this->db->join('uom_type', 'parameter.uom_type_id=uom_type.id', 'left');
+        if ($id != null) {
+            $this->db->where('parameter.id', $id);
+        }
+        $this->db->where(array('parameter.isdeleted' => 0));
+        $this->db->where('parameter.isactive', 1);
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        return $result;
+    }
+
+    function get_parameterlist($user_id, $id = null) {
+        $asset_id = $this->session->userdata('asset_id');
+        $this->db->select('parameter.id,parameter.name,parameter.description,uom_type.name as uomtype_name,parameter.isactive');
+        $this->db->from('parameter');
+        $this->db->join('uom_type', 'parameter.uom_type_id=uom_type.id', 'left');
         if ($id != null) {
             $this->db->where('parameter.id', $id);
             // $this->db->where('parameter.id NOT IN (select parameter_id from parameter_range where asset_id="'.$asset_id.'" and isdeleted=0)',NULL , FALSE);
-        }else{
-        $this->db->where('parameter.id NOT IN (select parameter_id from parameter_range where asset_id="'.$asset_id.'" and isdeleted=0 and parameter.id=parameter_range.parameter_id)',NULL , FALSE);
+        } else {
+            $this->db->where('parameter.id NOT IN (select parameter_id from parameter_range where asset_id="' . $asset_id . '" and isdeleted=0 and parameter.id=parameter_range.parameter_id)', NULL, FALSE);
         }
 
         // parameter.id NOT IN (select parameter_id from parameter_range where asset_id=1 and isdeleted=0
- // and parameter.id=parameter_range.parameter_id);
+        // and parameter.id=parameter_range.parameter_id);
         // $this->db->where('asset.id NOT IN (select asset_user.asset_id from asset_user where isdeleted=0 and asset_user.asset_id=asset.id)', NULL, FALSE);
         $this->db->where(array('parameter.isdeleted' => 0));
 //        $this->db->where('parameter.isactive', 1);
         $query = $this->db->get();
-        // echo $this->db->last_query();
+//        echo $this->db->last_query();
+//        exit();
         $result = $query->result_array();
 
         return $result;
@@ -55,12 +71,14 @@ class ParameterModel extends MY_Model {
     }
 
     function parameter_update($id, $data) {
-        $alreadyexit = $this->db->from('parameter')->where('id', $id)->get()->result();
-        if ($alreadyexit) {
+        $alreadyexit = $this->db->from('parameter')->where(array('name' => $data['name'], 'uom_type_id' => $data['uom_type_id']))->get()->result();
+        if (count($alreadyexit) == 0) {
             $this->db->where('id', $id);
             $this->db->update('parameter', $data);
+            return $this->db->affected_rows();
+        } else {
+            return 'duplicate';
         }
-        return $this->db->affected_rows();
     }
 
     function get_uomtypes($user_id) {

@@ -937,7 +937,6 @@ class AssetsManagement extends MY_Controller {
 
         $data['parameter_id'] = $parameter_range_id;
         $data['asset_list'] = $this->Assets->get_asset_rule_list($parameter_range_id);
-
         load_view_template($data, 'asset_rules/rule_action_master_list');
 
 //        $this->template->set_master_template('template.php', (isset($data) ? $data : NULL));
@@ -1113,7 +1112,7 @@ class AssetsManagement extends MY_Controller {
             $data['asset_details'] = $this->Assets->assets_list($user_id, $asset_id);
             $data['parameter_range_info'] = $this->Assets->parameter_range_list($asset_id);
 
-            load_view_template($data, 'assets_parameter/asset_parameter_range_list');
+            load_view_template($data, 'Assets_Parameter/asset_parameter_range_list');
         }
     }
 
@@ -1191,7 +1190,7 @@ class AssetsManagement extends MY_Controller {
                     $data['uom_list'] = $this->Assets->parameter_uom($post['parameter']);
                 }
 
-                load_view_template($data, 'assets_parameter/asset_parameter_add');
+                load_view_template($data, 'Assets_Parameter/asset_parameter_add');
             }
         }
     }
@@ -1289,12 +1288,9 @@ class AssetsManagement extends MY_Controller {
                         $data['uom_list'] = $this->Assets->parameter_uom($data['result'][0]['param_id']);
                     }
                     $data['param_range_id'] = $id;
-//                    echo "<pre>";
-//                    echo print_r($data);
-//                    exit();
                     $data['dataHeader'] = $this->users->get_allData($user_id);
                     $data['dataHeader']['title'] = "Edit Asset Parameter Range";
-                    load_view_template($data, 'assets_parameter/asset_parameter_add');
+                    load_view_template($data, 'Assets_Parameter/asset_parameter_add');
                 } else {
                     echo "Something Went wrong";
                 }
@@ -1364,7 +1360,7 @@ class AssetsManagement extends MY_Controller {
 
             $data['header_desc'] = $this->Assets->showdescription($set_rule_id, $user_id, $asset_id);
 
-            load_view_template($data, 'trigger/trigger_list');
+            load_view_template($data, 'Trigger/trigger_list');
         }
     }
 
@@ -1465,7 +1461,7 @@ class AssetsManagement extends MY_Controller {
                     //check user Permission
                     userPermissionCheck($data['permission'], 'update');
                     $data['dataHeader']['title'] = "Edit Trigger";
-                    load_view_template($data, 'trigger/trigger_add');
+                    load_view_template($data, 'Trigger/trigger_add');
                 } else if ($trigger_form_action == 'update') {
                     $data['permission'] = $this->users->get_permissions('Asset Trigger');
                     //check user Permission
@@ -1477,7 +1473,7 @@ class AssetsManagement extends MY_Controller {
                     if ($isUnique) {
                         $data['dataHeader']['title'] = "Add Trigger";
                         $this->session->set_flashdata('error_msg', 'Alarm trigger alredy existed');
-                        load_view_template($data, 'trigger/trigger_add');
+                        load_view_template($data, 'Trigger/trigger_add');
                     } else {
 
                         $update_data = $this->Assets->update_trigger($trigger_input_data, $trigger_post_id);

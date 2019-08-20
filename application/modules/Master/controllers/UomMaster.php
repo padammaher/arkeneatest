@@ -233,7 +233,7 @@ class UomMaster extends CI_Controller {
                     $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
                     redirect('uom_type_list');
                 } elseif ($count == "duplicate") {
-                    $this->session->set_flashdata('error_msg', 'UOM Type already added');
+                    $this->session->set_flashdata('error_msg', 'UOM Type already exists');
                     $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
                     redirect('updateUomTypeList');
                 } else {

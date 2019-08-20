@@ -41,12 +41,14 @@ class SensorModel extends MY_Model {
     }
 
     function sensortype_update($id, $data) {
-        $alreadyexit = $this->db->from('sensor_type')->where('id', $id)->get()->result();
-        if ($alreadyexit) {
+        $alreadyexit = $this->db->from('sensor_type')->where('name', $data['name'])->get()->result();
+        if (count($alreadyexit) == 0) {
             $this->db->where('id', $id);
             $this->db->update('sensor_type', $data);
+            return $this->db->affected_rows();
+        } else {
+            return 'duplicate';
         }
-        return $this->db->affected_rows();
     }
 
     function check_sensortype_in_use($id) {

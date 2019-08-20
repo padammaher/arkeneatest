@@ -28,6 +28,7 @@ class ParameterMaster extends CI_Controller {
             $data['dataHeader'] = $this->users->get_allData($user_id);
             $data['dataHeader']['title'] = "Parameter List";
             $data['parameter_list'] = $this->ParameterModel->get_parameter_list($user_id);
+
             $this->session->unset_userdata('param_post');
             $this->session->unset_userdata('parame_post');
             load_view_template($data, 'Master/ParameterList');
@@ -123,7 +124,11 @@ class ParameterMaster extends CI_Controller {
 
                 $response = $this->ParameterModel->parameter_update($id, $data);
 
-                if (is_numeric($response) && $response > 0) {
+                if ($response == "duplicate") {
+                    $this->session->set_userdata('parame_post', $this->input->post());
+                    $this->session->set_flashdata('error_msg', 'Parameter already exists');
+                    redirect('updateParameter');
+                } elseif (is_numeric($response) && $response > 0) {
                     $this->session->unset_userdata('parame_post');
                     $this->session->set_flashdata('success_msg', 'Parameter updated successfully');
                     redirect('parameterlist');
@@ -189,7 +194,9 @@ class ParameterMaster extends CI_Controller {
             $user_id = $this->session->userdata('user_id');
             $id = explode('_', $this->input->post('param_id'));
             $data['sr_no'] = $id[1];
+
             $data['result'] = $this->ParameterModel->get_parameter_list($user_id, $id[0]);
+
 
             $view = $this->load->view('Master/modal/parameter_type', $data);
             echo $view;

@@ -165,5 +165,7 @@ $route['addPrivileges'] = "Master/privilegemaster/add_privileges";
 $route['asset_routing'] = "AssetsManagement/asset_routing";
 
 
+$route['cornjob'] = "CornJob/Triggers";
+
 
 

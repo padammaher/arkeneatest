@@ -46,12 +46,14 @@ class AssetModel extends MY_Model {
     }
 
     function assetcategory_update($id, $data) {
-        $alreadyexit = $this->db->from('asset_category')->where('id', $id)->get()->result();
-        if ($alreadyexit) {
+        $alreadyexit = $this->db->from('asset_category')->where('name', $data['name'])->get()->result();
+        if (count($alreadyexit) == 0) {
             $this->db->where('id', $id);
             $this->db->update('asset_category', $data);
+            return $this->db->affected_rows();
+        } else {
+            return 'duplicate';
         }
-        return $this->db->affected_rows();
     }
 
     function get_assettypeList($user_id) {
@@ -85,12 +87,14 @@ class AssetModel extends MY_Model {
     }
 
     function assettype_update($id, $data) {
-        $alreadyexit = $this->db->from('asset_type')->where('id', $id)->get()->result();
-        if ($alreadyexit) {
+        $alreadyexit = $this->db->from('asset_type')->where('name', $data['name'])->get()->result();
+        if (count($alreadyexit) == 0) {
             $this->db->where('id', $id);
             $this->db->update('asset_type', $data);
+            return $this->db->affected_rows();
+        } else {
+            return 'duplicate';
         }
-        return $this->db->affected_rows();
     }
 
     function check_category_in_use($id) {

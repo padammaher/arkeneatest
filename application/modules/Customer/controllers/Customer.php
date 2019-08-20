@@ -373,10 +373,12 @@ class Customer extends MY_Controller {
                     }
                 }
 
-                if ($update_record) {
-                    $this->session->set_flashdata('success_msg', 'This user record update sucessfully');
+                if ($update_record == "duplicate") {
+                    $this->session->set_flashdata('error_msg', 'User already exists');
+                } elseif ($update_record > 0) {
+                    $this->session->set_flashdata('success_msg', 'User record updated sucessfully');
                 } else {
-                    $this->session->set_flashdata('error_msg', 'This user record update failed');
+                    $this->session->set_flashdata('error_msg', 'Failed to update user record');
                 }
                 redirect('Customer/client_user_list', 'refresh');
             }

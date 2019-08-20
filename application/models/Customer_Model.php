@@ -85,13 +85,13 @@ class Customer_Model extends CI_Model {
     }
 
     public function update_client_detail($data, $id) {
-        //print_r($id); exit();
-        $this->db->where('id', $id);
-        $this->db->update('users', $data);
-        if ($this->db->affected_rows() == '1') {
-            return TRUE;
+        $alreadyexist = $this->db->select('id')->where('username', $data['username'])->get('users')->result();
+        if (count($alreadyexist) == 0) {
+            $this->db->where('id', $id);
+            $this->db->update('users', $data);
+            return $this->db->affected_rows();
         } else {
-            return false;
+            return "duplicate";
         }
     }
 
@@ -186,7 +186,8 @@ class Customer_Model extends CI_Model {
 
         return $data;
     }
-     public function get_company_name() {
+
+    public function get_company_name() {
         $this->db->select('company_name');
         $this->db->from('users');
         $this->db->where('group_id', 1);
