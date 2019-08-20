@@ -77,6 +77,8 @@
                                 <i class="fa fa-plus">
                                 </i> Add Rule
                             </a>
+                        <?php } else { ?>
+                            <a class="btn btn-sm btn-primary" disabled title='Only one rule allowed for the parameter'><i class="fa fa-plus"></i> Add Rule</a>
                         <?php } ?>
                     </div>
                 </div>

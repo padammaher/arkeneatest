@@ -34,7 +34,11 @@
                             <a href="<?php echo base_url('Assets_list'); ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Management</a>
                             <a href="<?php echo base_url('asset_parameter_range_list'); ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Asset Parameter Range List</a>
                             <a href="<?php echo base_url('AssetsManagement/asset_rule_list'); ?>" class="btn btn-sm btn-primary"> <i class="fa fa-arrow-left"></i> Rule & Action Master List</a>
-                            <a class="btn btn-sm btn-primary trigger_add"> <i class="fa fa-plus"></i> Add Trigger</a>
+                            <?php if (isset($trigger_list) && count($trigger_list) < 3) { ?>
+                                <a class="btn btn-sm btn-primary trigger_add"> <i class="fa fa-plus"></i> Add Trigger</a>
+                            <?php } else { ?>
+                                <a class="btn btn-sm btn-primary" disabled title="Please increase trigger threshold to add new trigger"> <i class="fa fa-plus"></i> Add Trigger</a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
