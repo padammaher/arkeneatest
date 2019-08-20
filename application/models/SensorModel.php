@@ -42,7 +42,7 @@ class SensorModel extends MY_Model {
 
     function sensortype_update($id, $data) {
         $alreadyexit = $this->db->from('sensor_type')->where('name', $data['name'])->get()->result();
-        if (count($alreadyexit) == 0) {
+        if (count($alreadyexit) == 1 && $alreadyexit[0]->id == $id) {
             $this->db->where('id', $id);
             $this->db->update('sensor_type', $data);
             return $this->db->affected_rows();
