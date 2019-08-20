@@ -365,10 +365,10 @@ class Customer extends MY_Controller {
                     $alreadyexist = $this->ion_auth->add_client_detail($additional_data);
 
                     if ($alreadyexist == 2) {
-                        $this->session->set_flashdata('error_msg', 'This user is already Exist');
+                        $this->session->set_flashdata('error_msg', 'User already exists');
                         redirect('ManageUsers', 'refresh');
                     } else {
-                        $this->session->set_flashdata('success_msg', 'Client added sucessfully');
+                        $this->session->set_flashdata('success_msg', 'Client User added sucessfully');
                         redirect('ManageUsers', 'refresh');
                     }
                 }
