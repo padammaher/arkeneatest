@@ -85,4 +85,4 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
-define('GOOGLE_MAP_API_KEY', 'AIzaSyDbSoQMawAVbWOO52sO-opzsuXgje50YyQ');
+define('GOOGLE_MAP_API_KEY', 'AIzaSyAeubS8KjHiTu2TI7I5X_4IjGZCI0zeKGY');
