@@ -123,7 +123,11 @@ class ParameterMaster extends CI_Controller {
 
                 $response = $this->parametermodel->parameter_update($id, $data);
 
-                if (is_numeric($response) && $response > 0) {
+                if ($response == "duplicate") {
+                    $this->session->set_userdata('parame_post', $this->input->post());
+                    $this->session->set_flashdata('error_msg', 'Parameter already exists');
+                    redirect('updateParameter');
+                } elseif (is_numeric($response) && $response > 0) {
                     $this->session->unset_userdata('parame_post');
                     $this->session->set_flashdata('success_msg', 'Parameter updated successfully');
                     redirect('parameterlist');

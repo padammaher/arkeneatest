@@ -71,12 +71,14 @@ class ParameterModel extends MY_Model {
     }
 
     function parameter_update($id, $data) {
-        $alreadyexit = $this->db->from('parameter')->where('id', $id)->get()->result();
-        if ($alreadyexit) {
+        $alreadyexit = $this->db->from('parameter')->where(array('name' => $data['name'], 'uom_type_id' => $data['uom_type_id']))->get()->result();
+        if (count($alreadyexit) == 0) {
             $this->db->where('id', $id);
             $this->db->update('parameter', $data);
+            return $this->db->affected_rows();
+        } else {
+            return 'duplicate';
         }
-        return $this->db->affected_rows();
     }
 
     function get_uomtypes($user_id) {

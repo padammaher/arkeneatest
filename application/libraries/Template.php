@@ -2,6 +2,7 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
+
 /**
  * CodeIgniter
  *
@@ -42,7 +43,7 @@ class Template {
      *
      * @access    public
      */
-    function Template() {
+    function __construct() {
         // Copy an instance of CI so we can use the entire framework.
         $this->CI = & get_instance();
 
@@ -121,8 +122,7 @@ class Template {
      */
     function initialize($props) {
         // Set master template
-        if (isset($props['template'])
-                && (file_exists(APPPATH . 'views/' . $props['template']) or file_exists(APPPATH . 'views/' . $props['template'] . EXT))) {
+        if (isset($props['template']) && (file_exists(APPPATH . 'views/' . $props['template']) or file_exists(APPPATH . 'views/' . $props['template'] . EXT))) {
             $this->master = $props['template'];
         } else {
             // Master template must exist. Throw error.
@@ -537,7 +537,7 @@ class Template {
         $output = NULL;
 
         // Can't build an empty region. Exit stage left
-        if (!isset($region['content']) or !count($region['content'])) {
+        if (!isset($region['content']) or ! count($region['content'])) {
             return FALSE;
         }
 
@@ -558,7 +558,7 @@ class Template {
             if (isset($region['attributes']) && is_array($region['attributes'])) {
                 foreach ($region['attributes'] as $name => $value) {
                     // We don't validate HTML attributes. Imagine someone using a custom XML template..
-                    $output .=  $name ."=" .$value;
+                    $output .= $name . "=" . $value;
                 }
             }
 

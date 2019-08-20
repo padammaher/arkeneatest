@@ -115,7 +115,11 @@ class SensorMaster extends CI_Controller {
                 }
                 $response = $this->sensormodel->sensortype_update($id, $data);
 
-                if ($response > 0) {
+                if ($response == "duplicate") {
+                    $this->session->set_userdata('sensore_post', $this->input->post());
+                    $this->session->set_flashdata('error_msg', 'Sensor Type already exists');
+                    redirect('updateSensorType');
+                } elseif ($response > 0) {
                     $this->session->unset_userdata('sensore_post');
                     $this->session->set_flashdata('success_msg', 'Sensor type updated successfully');
                     redirect('sensortype');

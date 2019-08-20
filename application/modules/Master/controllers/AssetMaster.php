@@ -135,7 +135,11 @@ class AssetMaster extends CI_Controller {
 
                 $response = $this->assetmodel->assetcategory_update($id, $data);
 
-                if ($response > 0) {
+                if ($response == "duplicate") {
+                    $this->session->set_userdata('assetcate_post', $this->input->post());
+                    $this->session->set_flashdata('error_msg', 'Asset Category already exists');
+                    redirect('updateAssetCategory');
+                } elseif ($response > 0) {
                     $this->session->unset_userdata('assetcate_post');
                     $this->session->set_flashdata('success_msg', 'Asset category updated successfully');
                     redirect('assetcategory');
@@ -277,7 +281,11 @@ class AssetMaster extends CI_Controller {
 
                 $response = $this->assetmodel->assettype_update($id, $data);
 
-                if ($response > 0) {
+                if ($response == "duplicate") {
+                    $this->session->set_userdata('assettypee_post', $this->input->post());
+                    $this->session->set_flashdata('error_msg', 'Asset Type already exists');
+                    redirect('updateassettype');
+                } elseif ($response > 0) {
                     $this->session->unset_userdata('assettypee_post');
                     $this->session->set_flashdata('success_msg', 'Asset type updated successfully');
                     redirect('assettype');
