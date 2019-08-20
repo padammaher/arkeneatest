@@ -370,10 +370,11 @@ class UomMaster extends CI_Controller {
                 }
 
 
-                if ((is_numeric($count) && $count > 0) || (is_numeric($um_count) && $um_count > 0)) {
+//                if ((is_numeric($count) && $count > 0) || (is_numeric($um_count) && $um_count > 0)) {
+                if (is_numeric($count) && $count > 0) {
                     $this->session->set_flashdata('success_msg', 'UOM Type updated successfully');
                     redirect('uomlist');
-                } else if (isset($update_count)) {
+                } elseif (isset($update_count)) {
                     $this->session->set_flashdata('error_msg', 'Failed to update UOM Type Can not add duplicated UOM');
                     $this->session->set_userdata('edit_uom_type', $this->input->post('edit_id'));
                     $data['post'] = $this->input->post();

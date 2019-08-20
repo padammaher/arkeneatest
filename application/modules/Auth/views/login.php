@@ -33,7 +33,12 @@
                             <strong>failed!</strong> <?php echo $this->session->flashdata('error_message'); ?>
                         </div>   
                     <?php } ?> 
-                    <?php if ($message) { ?>
+                    <?php if ($message == "<p>Logged Out Successfully</p>") { ?>
+                        <div class="alert alert-success fade in" id="server_msg" style="display: none;">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Success!</strong> <?php echo $message; ?>
+                        </div>  
+                    <?php } else { ?>
                         <div class="alert alert-danger fade in" id="server_msg" style="display: none;">
                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                             <strong>failed!</strong> <?php echo $message; ?>
