@@ -86,7 +86,7 @@ class Customer_Model extends CI_Model {
 
     public function update_client_detail($data, $id) {
         $alreadyexist = $this->db->select('id')->where('username', $data['username'])->get('users')->result();
-        if (count($alreadyexist) == 0) {
+        if (count($alreadyexist) == 1 && $alreadyexist[0]->id == $id) {
             $this->db->where('id', $id);
             $this->db->update('users', $data);
             return $this->db->affected_rows();

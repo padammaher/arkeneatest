@@ -245,42 +245,18 @@
                             <th>Time Stamp</th>
                             <th>Type</th>
                             <th>Status</th>
-
                         </tr>
                     </thead>
-
-
                     <tbody>
-
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
-                        </tr>
-                        <tr>
-                            <td>56458566685511233555</td>
-                            <td>Quarantined</td>
-                            <td>Active</td>
-
-                        </tr>
-                        <tr>
-                            <td>56458566685511233555</td>
-                            <td>Quarantined</td>
-                            <td>Active</td>
-
-                        </tr>
-                        <tr>
-                            <td>56458566685511233555</td>
-                            <td>Quarantined</td>
-                            <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
@@ -291,141 +267,131 @@
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
-                        </tr>
-
-                        <tr>
-                            <td>56458566685511233555</td>
-                            <td>Quarantined</td>
-                            <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
-                        </tr>
-
-                        <tr>
-                            <td>56458566685511233555</td>
-                            <td>Quarantined</td>
-                            <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
                         </tr>
                         <tr>
                             <td>56458566685511233555</td>
                             <td>Quarantined</td>
                             <td>Active</td>
-
+                        </tr>
+                        <tr>
+                            <td>56458566685511233555</td>
+                            <td>Quarantined</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>56458566685511233555</td>
+                            <td>Quarantined</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>56458566685511233555</td>
+                            <td>Quarantined</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>56458566685511233555</td>
+                            <td>Quarantined</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>56458566685511233555</td>
+                            <td>Quarantined</td>
+                            <td>Active</td>
                         </tr>
                     </tbody>
                 </table>
