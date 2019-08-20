@@ -442,7 +442,7 @@ class Inventory extends MY_Controller {
 //                print_r($data['device_list']);
 //exit;
                 $data['Edit_device_sensors_data'] = $this->Inventory_model->Edit_device_sensors_model($sen_inv_id, $dev_sen_post_add);
-//                print_r($data['Edit_device_sensors_data']);exit;
+
                 if ($form_action == 'edit') {
                     $device_id = $this->input->post('device_id');
                     $user_id = $this->session->userdata('user_id');
