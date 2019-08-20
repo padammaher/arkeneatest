@@ -87,36 +87,15 @@ class ApiModel extends MY_Model {
         }
     }
 
-    public function book_all_data() {
-        return $this->db->select('id,title,author')->from('books')->order_by('id', 'desc')->get()->result();
-    }
+ 
 
-    public function book_detail_data($id) {
-        return $this->db->select('id,title,author')->from('books')->where('id', $id)->order_by('id', 'desc')->get()->row();
-    }
 
-    public function masterList_data() {
-        $data = array();
-        $data['academic_year'] = $this->db->select('id,name')->from('academic_year')->order_by('id', 'desc')->get()->result();
-        $data['category'] = $this->db->select('id,name')->from('category')->order_by('id', 'desc')->get()->result();
-        $data['admission_class'] = $this->db->select('id,name')->from('standard')->order_by('id', 'desc')->get()->result();
-        return $data;
-    }
 
     public function temp_create_data($data) {
         $this->db->insert('temp_data', $data);
         return array('status' => 201, 'message' => 'Data has been inserted.');
     }
 
-    public function book_update_data($id, $data) {
-        $this->db->where('id', $id)->update('books', $data);
-        return array('status' => 200, 'message' => 'Data has been updated.');
-    }
-
-    public function book_delete_data($id) {
-        $this->db->where('id', $id)->delete('books');
-        return array('status' => 200, 'message' => 'Data has been deleted.');
-    }
 
     function base64_to_jpeg($base64_string, $output_file) {
         $ifp = fopen($output_file, 'wb');
@@ -149,37 +128,7 @@ class ApiModel extends MY_Model {
         return strtolower($string);
     }
 
-    public function AddAdmissionData($data) {
-        // var_dump($data);
-        print_r($data);
-        echo "<pre>";
 
-        $data = array(
-            'pnr' => 0,
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'middle_name' => $data['middle_name'],
-            'mother_name' => $data['mother_name'],
-            'mobile' => $data['mobile'],
-            'dob' => $data['dob'],
-            'gender' => $data['isfemale'],
-            'category_id' => $data['category'],
-            'photograph' => $this->base64_to_jpeg($data['photograph'], 'temp.jpg'),
-            'signature_img' => $data['signature_img'],
-            'status' => $data['status'],
-            'office_notes' => null,
-            'user_id' => $data['user_id'],
-            'created_at' => date('y-m-d-h-i-s'),
-        );
-        $this->db->insert('student', $data);
-        if ($this->db->trans_status() === FALSE) {
-            $this->db->trans_rollback();
-            return array('status' => 500, 'message' => 'Internal server error.');
-        } else {
-            $this->db->trans_commit();
-            return $result = array('status' => 200, 'message' => 'Successfully Added.');
-        }
-    }
 
 
 }
