@@ -258,7 +258,7 @@ class UomMaster extends CI_Controller {
 //                $this->session->set_flashdata('error_msg', 'UOM Type is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->UomModel->uomtype_update($id, $data);
+            $response = $this->UomModel->uomtype_delete($id, $data);
 
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an UOM type');

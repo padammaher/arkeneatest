@@ -107,14 +107,20 @@ class UomModel extends MY_Model {
     }
 
     function uomtype_update($id, $data) {
-//        $alreadyexit = $this->db->from('uom_type')->where('name', $data['name'])->get()->result();
-//        if (count($alreadyexit) == 1) {
+        $alreadyexit = $this->db->select('id')->from('uom_type')->where('name', $data['name'])->get()->result();
+        if (count($alreadyexit) == 1 && $alreadyexit[0]->id == $id) {
+            $this->db->where('id', $id);
+            $this->db->update('uom_type', $data);
+            return $this->db->affected_rows();
+        } else {
+            return 'duplicate';
+        }
+    }
+
+    function uomtype_delete($id, $data) {
         $this->db->where('id', $id);
         $this->db->update('uom_type', $data);
         return $this->db->affected_rows();
-//        } else {
-//            return 'duplicate';
-//        }
     }
 
     function get_uom_type($id) {

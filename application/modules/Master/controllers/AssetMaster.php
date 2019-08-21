@@ -166,7 +166,7 @@ class AssetMaster extends CI_Controller {
 //                $this->session->set_flashdata('error_msg', 'Asset category is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->AssetModel->assetcategory_update($id, $data);
+            $response = $this->AssetModel->assetcategory_delete($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Sucessfully deleted an asset category');
             } else {
@@ -310,7 +310,7 @@ class AssetMaster extends CI_Controller {
 //                $this->session->set_flashdata('error_msg', 'Asset type is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->AssetModel->assettype_update($id, $data);
+            $response = $this->AssetModel->assettype_delete($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Successfully deleted an asset type');
             } else {

@@ -81,6 +81,12 @@ class ParameterModel extends MY_Model {
         }
     }
 
+    function parameter_delete($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('parameter', $data);
+        return $this->db->affected_rows();
+    }
+
     function get_uomtypes($user_id) {
         $this->db->distinct();
         $this->db->select('uom_type.id,uom_type.name');

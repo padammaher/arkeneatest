@@ -154,7 +154,7 @@ class ParameterMaster extends CI_Controller {
 //                $this->session->set_flashdata('error_msg', 'Parameter is already in Use');
 //            } else {
             $data = array('isdeleted' => 1);
-            $response = $this->ParameterModel->parameter_update($id, $data);
+            $response = $this->ParameterModel->parameter_delete($id, $data);
             if ($response > 0) {
                 $this->session->set_flashdata('success_msg', 'Sucessfully deleted an parameter');
             } else {

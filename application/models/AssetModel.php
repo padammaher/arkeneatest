@@ -56,6 +56,12 @@ class AssetModel extends MY_Model {
         }
     }
 
+    function assetcategory_delete($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('asset_category', $data);
+        return $this->db->affected_rows();
+    }
+
     function get_assettypeList($user_id) {
         $this->db->select('asset_type.id,asset_type.name,asset_type.description,asset_type.isactive');
         $this->db->from('asset_type');
@@ -95,6 +101,12 @@ class AssetModel extends MY_Model {
         } else {
             return 'duplicate';
         }
+    }
+
+    function assettype_delete($id, $data) {
+        $this->db->where('id', $id);
+        $this->db->update('asset_type', $data);
+        return $this->db->affected_rows();
     }
 
     function check_category_in_use($id) {

@@ -1260,7 +1260,7 @@ class AssetsManagement extends MY_Controller {
                 userPermissionCheck($data['permission'], 'delete');
                 //Delete the parameter range
                 $id = $this->input->post('id');
-                $data = array('isdeleted' => 1);
+                $data = array('isdeleted' => 1, 'isactive' => 0);
                 $response = $this->Assets->asset_parameter_update($data, $id);
                 if ($response > 0) {
                     $this->session->set_flashdata('success_msg', 'Sucessfully deleted parameter range');
