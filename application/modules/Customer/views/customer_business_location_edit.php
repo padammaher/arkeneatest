@@ -117,17 +117,17 @@
                                 <div id="email_error" style="color:red"></div>  
                             </div>
                         </div>
-                         <div class="item form-group">
+                        <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Status <span> *</span></label>
-                             <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
-                                 <input type="checkbox" name="status" id="status" class="flat" <?php echo (isset($business_detail[0]->isactive)&&$business_detail[0]->isactive==1) ? 'checked': ''; ?>> 
-                           </div>
-                          </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12 control-label" style="text-align:left;">
+                                <input type="checkbox" name="status" id="status" class="flat" <?php echo (isset($business_detail[0]->isactive) && $business_detail[0]->isactive == 1) ? 'checked' : ''; ?>> 
+                            </div>
+                        </div>
                         <div class="ln_solid">
                         </div>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" id="customer_businees_location" class="btn btn-primary">Update
+                                <button type="submit" id="customer_businees_location" class="btn btn-primary" disabled>Update
                                 </button>
                                 <a href="<?php echo base_url() ?>ManageBusinessLoacaiton">
                                     <button type="button" class="btn btn-default">Cancel
@@ -181,6 +181,7 @@
                 }
             })
         });
+
     });
 
     // $('#mobile').keyup(function () {
@@ -200,13 +201,15 @@
     //     }
     // });
 
-      $(document).ready(function () {
+    $(document).ready(function () {
         $("#mobile").keypress(function (e) {
             $('span.error-keyup-3').remove();
             var inputVal = $(this).val();
-            if(inputVal.trim()==""){$("#customer_businees_location").prop("disabled", false);}
+            if (inputVal.trim() == "") {
+                $("#customer_businees_location").prop("disabled", false);
+            }
             // if($('input[type="check_contact"]').checked==true)
-             
+
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                 $(this).after('<span class="error error-keyup-3" style="color:red">Special Character Not Allow.</span>');
                 return false;
@@ -216,24 +219,39 @@
             }
             if (inputVal.length > 9) {
                 $("#customer_businees_location").prop("disabled", false);
-            } 
-          
+            }
+
         });
 
 
-    $('#pincode').keypress(function (event) {
-        var keycode = event.which;
-        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-            event.preventDefault();
-        }
+        $('#pincode').keypress(function (event) {
+            var keycode = event.which;
+            if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+                event.preventDefault();
+            }
+        });
+        $('#phone').keypress(function (event) {
+            var keycode = event.which;
+            if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+                event.preventDefault();
+            }
+        });
     });
-    $('#phone').keypress(function (event) {
-        var keycode = event.which;
-        if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
-            event.preventDefault();
-        }
-    });
-    });
+//    $(function () {
+//        var $form = $('form');
+//        var initialState = $form.serialize();
+//
+//        $form.change(function (e) {
+//            if (initialState === $form.serialize()) {
+//                console.log('Form not unchanged'); //disbale button
+////                $("#customer_businees_location").attr('disabled', 'disabled');
+//            } else {
+//                console.log('Form has changed'); //enable button
+////                $("#customer_businees_location").removeAttr('disabled');
+//            }
+//            e.preventDefault();
+//        });
+//    });
 </script>
 
 <style> 

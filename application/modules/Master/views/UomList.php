@@ -97,7 +97,7 @@
                 if (id.length !== 0)
                 {
                     $.ajax({
-                        url: "<?php echo base_url() . 'Master/uommaster/uom_details'; ?>",
+                        url: "<?php echo base_url() . 'Master/UomMaster/uom_details'; ?>",
                         method: "POST",
                         data: {uom_id: id},
                         dataType: "html",

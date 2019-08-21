@@ -95,7 +95,7 @@
                 if (id.length !== 0)
                 {
                     $.ajax({
-                        url: "<?php echo base_url() . 'Master/assetmaster/asset_type_details'; ?>",
+                        url: "<?php echo base_url() . 'Master/AssetMaster/asset_type_details'; ?>",
                         method: "POST",
                         data: {assettype_id: id},
                         dataType: "html",

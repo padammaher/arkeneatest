@@ -94,7 +94,7 @@
                 if (id.length !== 0)
                 {
                     $.ajax({
-                        url: "<?php echo base_url() . 'Master/parametermaster/parameter_details'; ?>",
+                        url: "<?php echo base_url() . 'Master/ParameterMaster/parameter_details'; ?>",
                         method: "POST",
                         data: {param_id: id},
                         dataType: "html",

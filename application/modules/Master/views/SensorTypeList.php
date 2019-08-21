@@ -93,7 +93,7 @@
                 if (id.length !== 0)
                 {
                     $.ajax({
-                        url: "<?php echo base_url() . 'Master/sensormaster/sensor_details'; ?>",
+                        url: "<?php echo base_url() . 'Master/SensorMaster/sensor_details'; ?>",
                         method: "POST",
                         data: {sensor_id: id},
                         dataType: "html",
