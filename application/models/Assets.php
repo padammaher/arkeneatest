@@ -850,7 +850,7 @@ class Assets extends MY_Model {
     }
 
     public function asset_parameter_add($data) {
-        $alreadyexit = $this->db->from('parameter_range')->where(array('parameter_id' => $data['parameter_id'], 'uom_id' => $data['uom_id'], 'isactive' => 1, $data['createdby'] => 1))->get()->result();
+        $alreadyexit = $this->db->from('parameter_range')->where(array('parameter_id' => $data['parameter_id'], 'uom_id' => $data['uom_id'], 'asset_id' => $data['asset_id'], 'isactive' => 1, $data['createdby'] => 1))->get()->result();
         if (!$alreadyexit) {
             $this->db->insert('parameter_range', $data);
             return $this->db->affected_rows();
