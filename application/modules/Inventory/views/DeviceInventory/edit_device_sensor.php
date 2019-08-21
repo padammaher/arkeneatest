@@ -144,14 +144,14 @@ $back_action = $this->input->post('back_action');
 //                                            if ($sensorid_list_data_2['id'] == $temp_sensor_ids[$i] && count($temp_sensor_ids) > $i) {
 //                                                
                                         ?>
-                                                                                                                                <!--<option value="//<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?>  ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
-                                        //<?php
+                                                                                                                                        <!--<option value="//<?php echo $sensorid_list_data_2['id']; ?>" <?php echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data_2['id'] ? 'selected' : ''; ?>  ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
+                                        <?php
 //                                                $i++;
 //                                            } else if (!in_array($sensorid_list_data_2['id'], $temp_sensor_ids)) {
 //                                                
                                         ?> 
-                                        <!--<option value="//<?php echo $sensorid_list_data_2['id']; ?>" ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
-                                        //<?php
+                                            <!--<option value="//<?php echo $sensorid_list_data_2['id']; ?>" ><?php echo $sensorid_list_data_2['sensor_no']; ?></option>-->
+                                        <?php
 //                                            }
 //                                        }
                                     } else {
@@ -162,13 +162,13 @@ $back_action = $this->input->post('back_action');
 //                                            if ($sensorid_list_data['id'] == $temp_sensor_ids[$i] && count($temp_sensor_ids) > $i) {
 //                                                
                                         ?>
-                                                <!--<option value="//<?php // echo $sensorid_list_data['id'];          ?>" <?php // echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data['id'] ? 'selected' : '';          ?>  ><?php // echo $sensorid_list_data['sensor_no'];          ?></option>-->
-                                        //<?php
+                                                    <!--<option value="//<?php // echo $sensorid_list_data['id'];            ?>" <?php // echo set_value('sensorid[]', $temp_sensor_ids[$i]) == $sensorid_list_data['id'] ? 'selected' : '';            ?>  ><?php // echo $sensorid_list_data['sensor_no'];            ?></option>-->
+                                        <?php
 //                                                $i++;
 //                                            } else if (!in_array($sensorid_list_data['id'], $temp_sensor_ids)) {
 //                                                
                                         ?> 
-                                        <!--<option value="//<?php // echo $sensorid_list_data['id'];         ?>" ><?php // echo $sensorid_list_data['sensor_no'];         ?></option>-->
+                                            <!--<option value="//<?php // echo $sensorid_list_data['id'];           ?>" ><?php // echo $sensorid_list_data['sensor_no'];           ?></option>-->
                                         <?php
 //                                            }
 //                                        }
