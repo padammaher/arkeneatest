@@ -1,5 +1,5 @@
 
 <div class="pull-right">
-    Copyright 2018 - ePhytionSee  |  All Rights Reserved
+  <!-- mantion company or name -->
 </div>
 <div class="clearfix"></div>

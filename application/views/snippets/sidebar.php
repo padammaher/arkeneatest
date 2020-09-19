@@ -1,204 +1,77 @@
-<?php
-//if ($this->session->userdata('login_flag')) {
-$login_flag = $this->session->userdata('login_flag');
-$group_id = $this->session->userdata('group_id');
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-//}
-?> 
-<div class="col-md-3 left_col">
-    <div class="left_col scroll-view">
-        <div class="navbar nav_title" style="border: 0;">
-            <a href="<?php echo base_url(); ?>Dashboard" class="site_title <?php
-            if ($login_flag == 0 && $group_id == 1) {
-                echo 'not-allowed';
-            }
-            ?>">
-                   <?php if (isset($dataHeader['group_id']) && $dataHeader['group_id'] != 1) { ?>
-                    <img src="data:image/gif;base64,<?php echo $dataHeader['admin_company_logo'][0]['company_logo']; ?>">
-                <?php } else { ?>
-                    <img src="data:image/gif;base64,<?php echo $dataHeader['company_logo']; ?>"> 
-                <?php } ?>
-                <span><?php echo $dataHeader['company_name']; ?></span></a>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <!-- menu profile quick info -->
-        <div class="profile clearfix">
-            <div class="profile_pic">
-                <?php if (isset($dataHeader['profileimg'])) { ?>
-                    <img src="data:image/gif;base64,<?php echo $dataHeader['profileimg']; ?>" alt="..." class="img-circle profile_img">
-                <?php } ?>
+      <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo base_url('Employeelist');?>">
+            <div class="sidebar-brand-icon rotate-n-15">
+              <i class="fas fa-laugh-wink"></i>
             </div>
-            <div class="profile_info">
-                <span>Welcome,</span>
-                <h2><?php echo $dataHeader['first_name']; ?></h2>
-            </div>
+            <div class="sidebar-brand-text mx-3">My Office </div>
+          </a>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+
+          <!-- Nav Item - Dashboard -->
+          <li class="nav-item">
+            <!-- <a class="nav-link" href="index.html"> -->
+              <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+              <!-- <span>Dashboard</span></a> -->
+               <a class="nav-link" href="<?php echo base_url('Employeelist');?>"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a> 
+          </li>
+
+          <!-- Divider -->
+        
+         
+          <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <!-- <div class="sidebar-heading">
+        Addons
+      </div> -->
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item active">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Employee</span>
+        </a>
+        <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <h6 class="collapse-header">Login Screens:</h6> -->
+             <a class="collapse-item" href="<?php echo base_url('Employeelist');?>"><span>Employee List</span></a> 
+             <?php //if($this->session->userdata('groupid')==1) { ?> 
+            <a class="collapse-item" href="<?php echo base_url('Employeelist/deleted');?>">Deleted Records</a>            
+          <?php //} ?>
+            <a class="collapse-item" href="<?php echo base_url('password/resetPassword');?>">Change Password</a>
+            
+          </div>
         </div>
-        <!-- /menu profile quick info -->
-
-        <br />
-
-        <!-- sidebar menu -->
-        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu <?php
-        if ($login_flag == 0 && $group_id == 1) {
-            echo 'notallow';
-        }
-        ?>">
-
-            <!--            <div class="menu_section">
-                            <h3>Home</h3>
-                            <ul class="nav side-menu">
-                                <li><a href="<?php echo base_url(); ?>Dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
-                            </ul>
-                        </div>-->
-
-
-            <div class="menu_section">
-                <h3>Main Pages
-                </h3>
-                <ul class="nav side-menu">  
-                    <?php
-                    foreach ($dataHeader['menulist'] as $menu_name) {
-                        $main_menu_tab = explode(',', $menu_name['nav_ids']);
-                        if ($menu_name['parent'] == 0) {
-                            if ($menu_name['menuName'] == 'Dashboard') {
-                                ?>
-                                <li>
-                                    <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
-                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
-                                    </a>
-                                </li>
-                            <?php } else if ($menu_name['menuName'] == 'Stats/Report' || $menu_name['menuName'] == 'Configuration') { ?>
-                                <!--                                <li class="notallow <?php
-                                if (isset($login_flag) && $login_flag == 0) {
-                                    echo 'cursor-notallowed';
-                                }
-                                ?>">
-                                                                    <a>
-                                                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?>  
-                                                                    </a>
-                                                                </li>-->
-                            <?php } else if ($menu_name['menuName'] == 'Privilege') {
-                                ?>
-                                <li <?php
-                                if ($this->session->userdata('login_flag') == 0) {
-                                    echo 'class=notallow cursor-notallowed';
-                                }
-                                ?>>
-                                    <a href="<?php echo (isset($menu_name['url'])) ? base_url() . $menu_name['url'] : ''; ?>">
-                                        <i class="<?php echo $menu_name['iconPath']; ?>"></i><?php echo $menu_name['menuName']; ?> 
-                                    </a>
-                                </li>
-                            <?php } else {
-                                ?>
-
-                                <!--<ul class="nav side-menu">-->
-                                <li <?php
-                                if ($this->session->userdata('login_flag') == 0 && $group_id != 1 && $menu_name['menuName'] != 'Forms') {
-                                    echo 'class=notallow cursor-notallowed';
-                                }
-                                ?> >
-                                    <a 
-                                    <?php
-                                    if (isset($menu_name['url'])) {
-                                        echo "href='" . base_url() . $menu_name['url'] . "'";
-                                    }
-                                    ?>>
-                                        <i class="<?php echo $menu_name['iconPath']; ?>">
-                                        </i>
-                                        <?php echo $menu_name['menuName']; ?> 
-                                        <span class="fa fa-chevron-down">
-                                        </span>
-                                    </a>
-                                    <?php
-                                    if ($this->session->userdata('login_flag') == 0 && $this->session->userdata('group_id') == 1) {
-                                        
-                                    } else {
-                                        if ($menu_name['menuName'] != 'Masters' && $this->session->userdata('group_id') != 1) {
-                                            ?>
-                                            <ul class="nav child_menu">
-                                                <?php
-                                                foreach ($dataHeader['menulist'] as $sub_menu) {
-                                                    $nav_ids_value = explode(',', $sub_menu['nav_ids']);
-                                                    if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
-                                                        ?>                              
-                                                        <li>
-                                                            <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
-                                                                <?php echo $sub_menu['menuName']; ?>
-                                                            </a>
-                                                        </li>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </ul> 
-                                        <?php } elseif ($this->session->userdata('group_id') == 1) {
-                                            ?>
-                                            <ul class="nav child_menu">
-                                                <?php
-                                                foreach ($dataHeader['menulist'] as $sub_menu) {
-                                                    $nav_ids_value = explode(',', $sub_menu['nav_ids']);
-                                                    if ($nav_ids_value[1] == $main_menu_tab[1] && $nav_ids_value[2] != '') {
-                                                        ?>                              
-                                                        <li>
-                                                            <a href="<?php echo ($sub_menu['url']) ? base_url() . $sub_menu['url'] : ''; ?>">
-                                                                <?php echo $sub_menu['menuName']; ?>
-                                                            </a>
-                                                        </li>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </ul> 
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </li>
-                                <!--</ul>-->
-                                <?php
-                            }
-                        }
-                    }
-                    ?>
-                </ul>
-            </div>
+      </li>
+ <!-- mcq question link -->
+       <!--  <li class="nav-item active">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>MCQ</span>
+        </a>
+        <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded"> -->
+            <!-- <h6 class="collapse-header">Login Screens:</h6> -->
+             <?php //if($this->session->userdata('groupid')==1) { ?> 
+             <!-- <a class="collapse-item" href="<?php echo base_url('MCQ/Questions');?>"><span>MCQ Question List</span></a>              -->
+          <?php //} else { ?>
+             <!-- <a class="collapse-item" href="<?php echo base_url('MCQ/questionTest');?>"><span>MCQ Question List</span></a>  -->
+          <?php //} ?>
+            
+            
+        <!--   </div>
         </div>
-        <!-- /sidebar menu -->
+      </li> -->
 
-        <!-- /menu footer buttons -->
-        <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-            </a>
-            <a data-toggle="tooltip" data-placement="top" title="Logout">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </a>
-        </div>
-        <!-- /menu footer buttons -->
-    </div>
-</div>
+      <!-- Nav Item - Charts -->
+     
 
-<?php
-$login_flag = $this->session->userdata('login_flag');
-if ($login_flag == 0 && $login_flag != '') {
-    ?>
-    <script type="text/javascript">
-            $(document).ready(function () {
-            $(".notallow a").removeAttr("href");
-            $(".notallow a").css("cursor", "not-allowed");
-            $(".notallow a").addClass('not-allowed');
-            //            $(".navbar a").removeAttr("href");
-            //            $(".navbar a").css("cursor", "not-allowed");
-        //            $(".navbar a").addClass('not-allowed');
-        });
-    </script>
-<?php } ?> 
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
 
+    </ul>
