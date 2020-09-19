@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   | Examples:	my-controller/index	-> my_controller/index
   |		my-controller/my-method	-> my_controller/my_method
  */
-// $route['default_controller'] = 'Dashboard';
+
 $route['default_controller'] = 'Myoffice/Employee/login';
 $route['addEmployee'] = 'Myoffice/Employee/registration';
 $route['Employeelist'] = 'Myoffice/Employee/employees';
